@@ -1,0 +1,5 @@
+.hermes/
+shots/
+audits/
+__pycache__/
+*.pyc

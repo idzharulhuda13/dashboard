@@ -1,0 +1,34 @@
+{
+ "raw_events": 12689,
+ "kept_events": 10516,
+ "dropped_outside_indonesia": 2173,
+ "accounting_ok": true,
+ "dropped_breakdown": {
+  "Philippines": 1232,
+  "Timor Leste": 790,
+  "Papua New Guinea": 93,
+  "Malaysia": 26,
+  "Palau": 18,
+  "South Indian Ocean": 4,
+  "Australia": 3,
+  "Philippine Islands region": 3,
+  "Palau region": 2,
+  "East Timor region": 1,
+  "Brunei": 1
+ },
+ "kept_breakdown": {
+  "Indonesia": 10174,
+  "Banda Sea": 297,
+  "Molucca Sea": 30,
+  "Flores Sea": 4,
+  "Celebes Sea": 3,
+  "Indonesia Earthquake": 2,
+  "Savu Sea": 2,
+  "Java Sea": 2,
+  "2004 Sumatra - Andaman Islands Earthquake": 1,
+  "Arafura Sea": 1
+ },
+ "first_event": "1976-01-04T03:56:55Z",
+ "last_event": "2026-10-11T21:34:53Z",
+ "provinces": 38
+}

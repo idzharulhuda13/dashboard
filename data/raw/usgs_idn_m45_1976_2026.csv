@@ -1,0 +1,14 @@
+Error 400: Bad Request
+
+41256 matching events exceeds search limit of 20000. Modify the search to match fewer events.
+
+Usage details are available from https://earthquake.usgs.gov/fdsnws/event/1
+
+Request:
+/fdsnws/event/1/query?format=csv&amp;starttime=1976-01-01&amp;endtime=2026-10-12&amp;minlatitude=-11.5&amp;maxlatitude=6.5&amp;minlongitude=94.5&amp;maxlongitude=141.5&amp;minmagnitude=4.5
+
+Request Submitted:
+2026-10-12T14:34:13+00:00
+
+Service version:
+2.8.1

@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Test harness proving pipeline_pisa/verify.py can fail.
 
-Runs three verification scenarios in an isolated temporary directory:
+Runs five verification scenarios in an isolated temporary directory:
   a) clean copy exits 0
   b) scalar mutation in annex_means.csv exits non-zero
   c) structural mutation in embedded payload array exits non-zero
+  d) a narrative character changed in the page body outside the payload exits non-zero
+  e) one data-fig fallback literal in the page changed to a different number exits non-zero
 """
 
 import csv
@@ -104,6 +106,46 @@ def test_scenario_c(temp_dir: str):
     print(f"PASS: scenario c: structural payload array mutation exits non-zero (rc={proc.returncode})")
 
 
+def test_scenario_d(temp_dir: str):
+    index_html = os.path.join(temp_dir, "p02", "index.html")
+    with open(index_html, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    target = "Pengukuran literasi sains PISA"
+    if target not in content:
+        raise RuntimeError(f"Target subtitle phrase {target!r} not found in index.html")
+    mutated_content = content.replace(target, "Pengukuran literasi sains UNESCO", 1)
+
+    with open(index_html, "w", encoding="utf-8") as f:
+        f.write(mutated_content)
+
+    proc = run_gate(temp_dir)
+    if proc.returncode == 0:
+        print(f"Scenario D output:\n{proc.stdout}")
+        raise AssertionError("Expected narrative prose mutation in index.html to cause non-zero exit")
+    print(f"PASS: scenario d: narrative character changed in page body exits non-zero (rc={proc.returncode})")
+
+
+def test_scenario_e(temp_dir: str):
+    index_html = os.path.join(temp_dir, "p02", "index.html")
+    with open(index_html, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    target = '<span data-fig="hero_gap">93</span>'
+    if target not in content:
+        raise RuntimeError(f"Target data-fig fallback {target!r} not found in index.html")
+    mutated_content = content.replace(target, '<span data-fig="hero_gap">999</span>', 1)
+
+    with open(index_html, "w", encoding="utf-8") as f:
+        f.write(mutated_content)
+
+    proc = run_gate(temp_dir)
+    if proc.returncode == 0:
+        print(f"Scenario E output:\n{proc.stdout}")
+        raise AssertionError("Expected data-fig fallback literal mutation in index.html to cause non-zero exit")
+    print(f"PASS: scenario e: data-fig fallback literal changed exits non-zero (rc={proc.returncode})")
+
+
 def main():
     temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
     try:
@@ -121,6 +163,22 @@ def main():
 
         # Scenario C (mutate structural payload in HTML)
         test_scenario_c(temp_dir)
+
+        # Reset temp tree for Scenario D
+        shutil.rmtree(temp_dir)
+        temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
+        copy_tree(temp_dir)
+
+        # Scenario D (narrative character changed in page body outside payload)
+        test_scenario_d(temp_dir)
+
+        # Reset temp tree for Scenario E
+        shutil.rmtree(temp_dir)
+        temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
+        copy_tree(temp_dir)
+
+        # Scenario E (data-fig fallback literal in page changed to different number)
+        test_scenario_e(temp_dir)
     finally:
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)

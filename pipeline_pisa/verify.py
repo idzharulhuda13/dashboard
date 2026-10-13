@@ -620,6 +620,163 @@ def check_11_hygiene(index_content: str):
     return True, f"hygiene clean (0 U+2014, 0 external network URLs, {len(band_ids)} band ids, {len(container_ids)} container ids, {len(renderer_funcs)} renderers present)"
 
 
+def check_12_page_skeleton(index_path: str, template_path: str):
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_content = f.read()
+
+    with open(index_path, "r", encoding="utf-8") as f:
+        index_lines = f.readlines()
+
+    if not index_lines:
+        return False, "p02/index.html is empty"
+
+    page_lines = index_lines[1:]
+
+    skeleton_lines = []
+    in_fonts = False
+    fonts_begin_found = False
+    fonts_end_found = False
+
+    for line in page_lines:
+        if "/*FONTS:BEGIN*/" in line:
+            in_fonts = True
+            fonts_begin_found = True
+            continue
+        if "/*FONTS:END*/" in line:
+            in_fonts = False
+            fonts_end_found = True
+            skeleton_lines.append("/*__FONTS__*/\n")
+            continue
+        if in_fonts:
+            continue
+        if line.startswith("  const DATA = ") or line.startswith("const DATA = "):
+            skeleton_lines.append("  const DATA = /*__DATA__*/ {};\n")
+            continue
+        skeleton_lines.append(line)
+
+    if not fonts_begin_found or not fonts_end_found:
+        return False, f"font markers missing (begin: {fonts_begin_found}, end: {fonts_end_found})"
+
+    reconstructed = "".join(skeleton_lines)
+    if reconstructed == template_content:
+        return True, "page skeleton matches p02.template.html byte for byte after collapsing injected regions"
+
+    recon_lines = reconstructed.splitlines(keepends=True)
+    tmpl_lines = template_content.splitlines(keepends=True)
+    max_len = max(len(recon_lines), len(tmpl_lines))
+    for line_no in range(1, max_len + 1):
+        r_line = recon_lines[line_no - 1] if line_no <= len(recon_lines) else "<EOF>\n"
+        t_line = tmpl_lines[line_no - 1] if line_no <= len(tmpl_lines) else "<EOF>\n"
+        if r_line != t_line:
+            return False, f"page skeleton differs from template at line {line_no}:\n  actual:   {r_line.rstrip()!r}\n  expected: {t_line.rstrip()!r}"
+
+    return False, "skeleton length mismatch"
+
+
+def check_13_fallback_numbers(template_path: str, embedded_data: dict, index_content: str):
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_str = f.read()
+
+    fig = embedded_data.get("fig", {})
+    spans = re.findall(r"<span\b[^>]*data-fig=[\'\"]([^\'\"]+)[\'\"][^>]*>(.*?)</span>", template_str, re.DOTALL)
+    if not spans:
+        return False, "no span[data-fig] found in template"
+
+    for key, inner in spans:
+        literal = " ".join(inner.split())
+        val = fig.get(key)
+        if val is None:
+            return False, f"missing fig key in payload: {key!r}"
+        disp = val.get("d") if isinstance(val, dict) and "d" in val else str(val)
+
+        if key == "meta_table_prof_math" and literal in (disp, "I.B1.2a.11"):
+            continue
+        if key == "meta_table_prof_read" and literal in (disp, "I.B1.2a.12"):
+            continue
+
+        if literal != disp:
+            return False, f"data-fig fallback literal mismatch in template for {key!r} (actual: {literal!r}, expected: {disp!r})"
+
+    index_spans = re.findall(r"<span\b[^>]*data-fig=[\'\"]([^\'\"]+)[\'\"][^>]*>(.*?)</span>", index_content, re.DOTALL)
+    for key, inner in index_spans:
+        literal = " ".join(inner.split())
+        val = fig.get(key)
+        if val is None:
+            return False, f"missing fig key in payload: {key!r}"
+        disp = val.get("d") if isinstance(val, dict) and "d" in val else str(val)
+
+        if key == "meta_table_prof_math" and literal in (disp, "I.B1.2a.11"):
+            continue
+        if key == "meta_table_prof_read" and literal in (disp, "I.B1.2a.12"):
+            continue
+
+        if literal != disp:
+            return False, f"data-fig fallback literal mismatch in page for {key!r} (actual: {literal!r}, expected: {disp!r})"
+
+    return True, f"all {len(spans)} span[data-fig] fallback literals equal payload display values"
+
+
+def check_14_meta_provenance(embedded_data: dict, csv_dir: str):
+    import urllib.parse
+
+    meta = embedded_data.get("meta", {})
+
+    trend_csv = os.path.join(csv_dir, "annex_trend_science.csv")
+    with open(trend_csv, "r", encoding="utf-8") as f:
+        trend_rows = list(csv.DictReader(f))
+    cycles = [int(r["cycle"]) for r in trend_rows if r.get("cycle", "").isdigit()]
+    if not cycles:
+        return False, "no cycles found in annex_trend_science.csv"
+    max_cycle = max(cycles)
+    act_cycle = meta.get("cycle")
+    if act_cycle != max_cycle:
+        return False, f"meta.cycle mismatch (actual: {act_cycle}, expected: {max_cycle})"
+
+    GATE_EXPECTED_LICENCE = "CC BY 4.0"
+    act_licence = meta.get("licence")
+    if act_licence != GATE_EXPECTED_LICENCE:
+        return False, f"meta.licence mismatch (actual: {act_licence!r}, expected: {GATE_EXPECTED_LICENCE!r})"
+
+    GATE_EXPECTED_SOURCE_URL = "https://www.oecd.org/en/data/datasets/pisa-2025-database.html"
+    act_url = meta.get("source_url", "")
+    if not act_url:
+        return False, "meta.source_url is empty"
+    parsed = urllib.parse.urlparse(act_url)
+    if parsed.scheme != "https":
+        return False, f"meta.source_url is not https: {act_url!r}"
+    if parsed.netloc != "oecd.org" and not parsed.netloc.endswith(".oecd.org"):
+        return False, f"meta.source_url host is not oecd.org: {parsed.netloc!r}"
+    if act_url != GATE_EXPECTED_SOURCE_URL:
+        return False, f"meta.source_url mismatch (actual: {act_url!r}, expected: {GATE_EXPECTED_SOURCE_URL!r})"
+
+    annex_hasher = hashlib.sha256()
+    annex_files = sorted(glob.glob(os.path.join(csv_dir, "annex_*.csv")))
+    if not annex_files:
+        return False, f"no annex_*.csv files found in {csv_dir}"
+    for p in annex_files:
+        with open(p, "rb") as f:
+            annex_hasher.update(f.read())
+    expected_annex_sha256 = annex_hasher.hexdigest()
+
+    puf_hasher = hashlib.sha256()
+    puf_files = sorted(glob.glob(os.path.join(csv_dir, "puf_*.csv")))
+    if not puf_files:
+        return False, f"no puf_*.csv files found in {csv_dir}"
+    for p in puf_files:
+        with open(p, "rb") as f:
+            puf_hasher.update(f.read())
+    expected_puf_sha256 = puf_hasher.hexdigest()
+
+    act_annex = meta.get("annex_sha256")
+    act_puf = meta.get("puf_sha256")
+    if act_annex != expected_annex_sha256:
+        return False, f"meta.annex_sha256 mismatch (actual: {act_annex}, expected: {expected_annex_sha256})"
+    if act_puf != expected_puf_sha256:
+        return False, f"meta.puf_sha256 mismatch (actual: {act_puf}, expected: {expected_puf_sha256})"
+
+    return True, f"meta provenance valid: cycle {act_cycle} equals largest cycle, licence {act_licence!r}, source_url oecd.org verified, input hashes match files"
+
+
 def main():
     csv_dir = os.path.join(ROOT, "data", "pisa")
     template_path = os.path.join(ROOT, "p02.template.html")
@@ -642,7 +799,7 @@ def main():
     for path, name in required_files:
         if not os.path.exists(path):
             print(f"FAIL Input file missing: {name} (actual: not found at {path}, expected: file present)")
-            print("TOTAL 0/11")
+            print("TOTAL 0/14")
             sys.exit(1)
 
     with open(index_path, "r", encoding="utf-8") as f:
@@ -653,7 +810,7 @@ def main():
     idx = index_content.find(prefix)
     if idx == -1:
         print("FAIL Embedded DATA not found in p02/index.html")
-        print("TOTAL 0/11")
+        print("TOTAL 0/14")
         sys.exit(1)
 
     start_json = idx + len(prefix)
@@ -662,14 +819,14 @@ def main():
         end_json = index_content.find(";", start_json)
     if end_json == -1:
         print("FAIL Embedded DATA end delimiter not found in p02/index.html")
-        print("TOTAL 0/11")
+        print("TOTAL 0/14")
         sys.exit(1)
 
     try:
         embedded_data = json.loads(index_content[start_json:end_json])
     except Exception as e:
         print(f"FAIL Embedded DATA JSON parse failed: {e}")
-        print("TOTAL 0/11")
+        print("TOTAL 0/14")
         sys.exit(1)
 
     rebuilt_payload = rebuild_payload_from_csv(csv_dir, template_path)
@@ -686,6 +843,9 @@ def main():
         ("fig coverage", lambda: check_9_fig_coverage(embedded_data, template_path)),
         ("reconciliation", lambda: check_10_reconciliation(csv_dir)),
         ("hygiene", lambda: check_11_hygiene(index_content)),
+        ("page skeleton", lambda: check_12_page_skeleton(index_path, template_path)),
+        ("fallback numbers", lambda: check_13_fallback_numbers(template_path, embedded_data, index_content)),
+        ("meta provenance", lambda: check_14_meta_provenance(embedded_data, csv_dir)),
     ]
 
     passed = 0

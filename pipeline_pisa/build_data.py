@@ -505,7 +505,7 @@ def main():
         )
         font_rules.append(rule)
 
-    fonts_css_block = "\n".join(font_rules)
+    fonts_css_block = "/*FONTS:BEGIN*/\n" + "\n".join(font_rules) + "\n/*FONTS:END*/"
 
     if "/*__FONTS__*/" not in template_str:
         raise RuntimeError("Placeholder /*__FONTS__*/ not found in p02.template.html")

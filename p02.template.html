@@ -220,6 +220,17 @@ h1.band-headline {
   padding-top: 10px;
 }
 
+.band-caveat {
+  border-left: 2px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.4;
+  margin-top: 8px;
+  padding: 8px;
+}
+
 /* Chart focal container */
 .chart-container {
   background-color: var(--panel);
@@ -391,7 +402,7 @@ span[data-fig] {
     <section id="band-trend" class="band">
       <div class="band-inner">
         <header class="band-header">
-          <h2 class="band-headline"><span class="hl-accent">DUA DEKADE, PERUBAHANNYA <span data-fig="trend_idn_change">-4,8</span> POIN</span> <span class="hl-main">SEMUANYA DI DALAM GALAT BAKU SENDIRI</span></h2>
+          <h2 class="band-headline"><span class="hl-accent">SEMBILAN BELAS TAHUN, PERUBAHANNYA <span data-fig="trend_idn_change">-4,8</span> POIN</span> <span class="hl-main">SEMUANYA DI DALAM GALAT BAKU SENDIRI</span></h2>
           <p class="band-subtitle"><em>Seri capaian sains lintas siklus PISA dua ribu enam hingga dua ribu dua puluh lima dengan estimasi galat baku resmi.</em></p>
         </header>
         <div id="trend-chart" class="chart-container"></div>
@@ -444,6 +455,7 @@ span[data-fig] {
         </header>
         <div id="peers-chart" class="chart-container"></div>
         <p class="band-note">Sumber: Tabel Pemeringkatan Capaian Sains Internasional, Tabel Lampiran <span data-fig="meta_table_peers">I.B1.2a.1</span></p>
+        <p class="band-caveat">Catatan: peringkat dihitung dari estimasi titik rata-rata. Selisih Indonesia dengan negara tetangga terdekat berada di dalam dua kali gabungan galat bakunya, sehingga urutan antar keduanya belum dapat dipastikan dari sampel ini.</p>
       </div>
     </section>
 
@@ -1398,6 +1410,17 @@ span[data-fig] {
       svgHtml += '<title>' + country + ': ' + fmt(val) + ' poin skor' + (isIdn ? ' (Indonesia, peringkat ' + (i + 1) + ')' : '') + '</title>';
       svgHtml += '<text x="' + (barLeft - 14) + '" y="' + textY + '" text-anchor="end" font-size="12px" font-family="var(--font-sans)" font-weight="' + textWeight + '" fill="' + textFill + '">' + country + '</text>';
       svgHtml += '<rect x="' + barLeft + '" y="' + yStr + '" width="' + bwStr + '" height="' + barH + '" rx="2" fill="' + barFill + '"></rect>';
+      const se = typeof item.se === 'number' ? item.se : 0;
+      if (se > 0) {
+        const wLeft = (barLeft + toBarW(val - se)).toFixed(2);
+        const wRight = (barLeft + toBarW(val + se)).toFixed(2);
+        const yMid = (y + barH / 2).toFixed(2);
+        const yTop = (y + barH / 2 - 5).toFixed(2);
+        const yBot = (y + barH / 2 + 5).toFixed(2);
+        svgHtml += '<line x1="' + wLeft + '" y1="' + yMid + '" x2="' + wRight + '" y2="' + yMid + '" stroke="' + barFill + '" stroke-width="2"></line>';
+        svgHtml += '<line x1="' + wLeft + '" y1="' + yTop + '" x2="' + wLeft + '" y2="' + yBot + '" stroke="' + barFill + '" stroke-width="1.5"></line>';
+        svgHtml += '<line x1="' + wRight + '" y1="' + yTop + '" x2="' + wRight + '" y2="' + yBot + '" stroke="' + barFill + '" stroke-width="1.5"></line>';
+      }
       svgHtml += '<text x="' + (barEnd + 8).toFixed(2) + '" y="' + textY + '" text-anchor="start" font-size="12px" font-family="var(--font-mono)" font-weight="' + textWeight + '" fill="' + textFill + '" paint-order="stroke fill" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round">' + fmt(val) + '</text>';
       svgHtml += '</g>';
     }

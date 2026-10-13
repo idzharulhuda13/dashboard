@@ -1,0 +1,2 @@
+time,latitude,longitude,depth,mag,magType,nst,gap,dmin,rms,net,id,updated,place,type,horizontalError,depthError,magError,magNst,status,locationSource,magSource
+2026-10-13T04:00:15.768Z,-9.4473,113.8887,10,5.1,mb,40,59,7.295,0.76,us,us6000u1ye,2026-10-13T04:15:46.040Z,"119 km SSW of Gambiran Satu, Indonesia",earthquake,9.72,1.854,0.106,29,reviewed,us,us

@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Test harness proving pipeline_pisa/verify.py can fail.
 
-Runs five verification scenarios in an isolated temporary directory:
+Runs six verification scenarios in an isolated temporary directory:
   a) clean copy exits 0
   b) scalar mutation in annex_means.csv exits non-zero
   c) structural mutation in embedded payload array exits non-zero
   d) a narrative character changed in the page body outside the payload exits non-zero
   e) one data-fig fallback literal in the page changed to a different number exits non-zero
+  f) injected CSS rule inside the font region exits non-zero
 """
 
 import csv
@@ -146,6 +147,26 @@ def test_scenario_e(temp_dir: str):
     print(f"PASS: scenario e: data-fig fallback literal changed exits non-zero (rc={proc.returncode})")
 
 
+def test_scenario_f(temp_dir: str):
+    index_html = os.path.join(temp_dir, "p02", "index.html")
+    with open(index_html, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    target = "/*FONTS:BEGIN*/\n"
+    if target not in content:
+        raise RuntimeError(f"Marker {target!r} not found in index.html")
+    mutated_content = content.replace(target, target + "body{display:none}\n", 1)
+
+    with open(index_html, "w", encoding="utf-8") as f:
+        f.write(mutated_content)
+
+    proc = run_gate(temp_dir)
+    if proc.returncode == 0:
+        print(f"Scenario F output:\n{proc.stdout}")
+        raise AssertionError("Expected font region CSS injection in index.html to cause non-zero exit")
+    print(f"PASS: scenario f: injected CSS in font region exits non-zero (rc={proc.returncode})")
+
+
 def main():
     temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
     try:
@@ -179,6 +200,14 @@ def main():
 
         # Scenario E (data-fig fallback literal in page changed to different number)
         test_scenario_e(temp_dir)
+
+        # Reset temp tree for Scenario F
+        shutil.rmtree(temp_dir)
+        temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
+        copy_tree(temp_dir)
+
+        # Scenario F (injected CSS rule inside font region)
+        test_scenario_f(temp_dir)
     finally:
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)

@@ -5,6 +5,7 @@ Standard library only. Recomputes all metrics and payload values independently
 from raw CSV sources.
 """
 
+import base64
 import csv
 import glob
 import hashlib
@@ -620,7 +621,7 @@ def check_11_hygiene(index_content: str):
     return True, f"hygiene clean (0 U+2014, 0 external network URLs, {len(band_ids)} band ids, {len(container_ids)} container ids, {len(renderer_funcs)} renderers present)"
 
 
-def check_12_page_skeleton(index_path: str, template_path: str):
+def check_12_page_skeleton(index_path: str, template_path: str, fonts_dir: str = None):
     with open(template_path, "r", encoding="utf-8") as f:
         template_content = f.read()
 
@@ -633,6 +634,7 @@ def check_12_page_skeleton(index_path: str, template_path: str):
     page_lines = index_lines[1:]
 
     skeleton_lines = []
+    font_lines = []
     in_fonts = False
     fonts_begin_found = False
     fonts_end_found = False
@@ -648,6 +650,7 @@ def check_12_page_skeleton(index_path: str, template_path: str):
             skeleton_lines.append("/*__FONTS__*/\n")
             continue
         if in_fonts:
+            font_lines.append(line)
             continue
         if line.startswith("  const DATA = ") or line.startswith("const DATA = "):
             skeleton_lines.append("  const DATA = /*__DATA__*/ {};\n")
@@ -656,6 +659,62 @@ def check_12_page_skeleton(index_path: str, template_path: str):
 
     if not fonts_begin_found or not fonts_end_found:
         return False, f"font markers missing (begin: {fonts_begin_found}, end: {fonts_end_found})"
+
+    if fonts_dir is None:
+        fonts_dir = os.path.join(ROOT, "fonts")
+
+    font_configs = [
+        ("ChakraPetch-400.woff2", "Chakra Petch", "400", "woff2", "font/woff2"),
+        ("ChakraPetch-600.woff2", "Chakra Petch", "600", "woff2", "font/woff2"),
+        ("ChakraPetch-700.woff2", "Chakra Petch", "700", "woff2", "font/woff2"),
+        ("JetBrainsMono-400.woff2", "JetBrains Mono", "400", "woff2", "font/woff2"),
+        ("JetBrainsMono-500.woff2", "JetBrains Mono", "500", "woff2", "font/woff2"),
+    ]
+    font_config_map = {item[0]: item for item in font_configs}
+
+    font_paths = sorted(glob.glob(os.path.join(fonts_dir, "*.woff2")))
+    if not font_paths:
+        return False, f"no woff2 font files found in {fonts_dir}"
+
+    font_rules = []
+    for fpath in font_paths:
+        fname = os.path.basename(fpath)
+        if fname in font_config_map:
+            _, family, weight, fmt, mime = font_config_map[fname]
+        else:
+            m = re.match(r"^([A-Za-z]+)-(\d+)\.(woff2)$", fname)
+            if m:
+                fam = re.sub(r"([a-z])([A-Z])", r"\1 \2", m.group(1))
+                family, weight, fmt, mime = fam, m.group(2), m.group(3), f"font/{m.group(3)}"
+            else:
+                family, weight, fmt, mime = fname, "400", "woff2", "font/woff2"
+
+        with open(fpath, "rb") as ff:
+            b64_data = base64.b64encode(ff.read()).decode("ascii")
+        rule = (
+            f"@font-face {{\n"
+            f"  font-family: '{family}';\n"
+            f"  font-style: normal;\n"
+            f"  font-weight: {weight};\n"
+            f"  font-display: swap;\n"
+            f"  src: url('data:{mime};base64,{b64_data}') format('{fmt}');\n"
+            f"}}"
+        )
+        font_rules.append(rule)
+
+    expected_fonts = "\n".join(font_rules) + "\n"
+    actual_fonts = "".join(font_lines)
+
+    if actual_fonts != expected_fonts:
+        act_flines = actual_fonts.splitlines(keepends=True)
+        exp_flines = expected_fonts.splitlines(keepends=True)
+        max_flen = max(len(act_flines), len(exp_flines))
+        for line_no in range(1, max_flen + 1):
+            a_line = act_flines[line_no - 1] if line_no <= len(act_flines) else "<EOF>\n"
+            e_line = exp_flines[line_no - 1] if line_no <= len(exp_flines) else "<EOF>\n"
+            if a_line != e_line:
+                return False, f"font region differs at line {line_no}:\n  actual:   {a_line.rstrip()!r}\n  expected: {e_line.rstrip()!r}"
+        return False, "font region mismatch"
 
     reconstructed = "".join(skeleton_lines)
     if reconstructed == template_content:
@@ -689,11 +748,6 @@ def check_13_fallback_numbers(template_path: str, embedded_data: dict, index_con
             return False, f"missing fig key in payload: {key!r}"
         disp = val.get("d") if isinstance(val, dict) and "d" in val else str(val)
 
-        if key == "meta_table_prof_math" and literal in (disp, "I.B1.2a.11"):
-            continue
-        if key == "meta_table_prof_read" and literal in (disp, "I.B1.2a.12"):
-            continue
-
         if literal != disp:
             return False, f"data-fig fallback literal mismatch in template for {key!r} (actual: {literal!r}, expected: {disp!r})"
 
@@ -704,11 +758,6 @@ def check_13_fallback_numbers(template_path: str, embedded_data: dict, index_con
         if val is None:
             return False, f"missing fig key in payload: {key!r}"
         disp = val.get("d") if isinstance(val, dict) and "d" in val else str(val)
-
-        if key == "meta_table_prof_math" and literal in (disp, "I.B1.2a.11"):
-            continue
-        if key == "meta_table_prof_read" and literal in (disp, "I.B1.2a.12"):
-            continue
 
         if literal != disp:
             return False, f"data-fig fallback literal mismatch in page for {key!r} (actual: {literal!r}, expected: {disp!r})"
@@ -843,7 +892,7 @@ def main():
         ("fig coverage", lambda: check_9_fig_coverage(embedded_data, template_path)),
         ("reconciliation", lambda: check_10_reconciliation(csv_dir)),
         ("hygiene", lambda: check_11_hygiene(index_content)),
-        ("page skeleton", lambda: check_12_page_skeleton(index_path, template_path)),
+        ("page skeleton", lambda: check_12_page_skeleton(index_path, template_path, fonts_dir)),
         ("fallback numbers", lambda: check_13_fallback_numbers(template_path, embedded_data, index_content)),
         ("meta provenance", lambda: check_14_meta_provenance(embedded_data, csv_dir)),
     ]

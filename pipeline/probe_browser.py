@@ -13,7 +13,7 @@ Checks:
 a. network: offline proof (only file: and data: URLs allowed)
 b. console: zero console errors and page errors
 c. horizontal overflow: scrollWidth <= clientWidth and no rect.right > innerWidth + 1
-d. fonts: document.fonts.check for Archivo, Archivo Black, IBM Plex Mono
+d. fonts: document.fonts.check for Chakra Petch and JetBrains Mono
 e. contrast: WCAG 4.5:1 (normal) / 3:1 (large/bold) against effective background
 f. keyboard: focus indicators (>= 3:1 contrast), reading tab order, 0 SVG epicentre focusable nodes
 g. svg labels: no SVG chart label overlap >= 5px on both axes
@@ -24,7 +24,21 @@ j. epicentre text size: no <text> inside epicentre SVG renders smaller than 12px
 
 import os
 import sys
-from playwright.sync_api import sync_playwright
+
+# The import is guarded on purpose. Playwright is a dependency of this gate, not of the page, so
+# a missing or broken installation is an infrastructure failure and must exit 2. Left unguarded
+# it raises at import time, Python exits 1, and the publisher reports "a defect in the rendered
+# page" for a page that was never rendered. That is exactly what happened the first time the
+# scheduled job ran: the cron environment had no playwright and the message pointed at the page.
+try:
+    from playwright.sync_api import sync_playwright
+except Exception as _import_exc:  # noqa: BLE001 - any import failure is infrastructure
+    print(
+        "INFRA-FAIL: playwright could not be imported, so no check was performed. "
+        f"{sys.executable} cannot import it: {type(_import_exc).__name__}: {_import_exc}",
+        file=sys.stderr,
+    )
+    sys.exit(2)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if not os.path.exists(os.path.join(ROOT, "index.html")) and os.path.exists(os.path.join(os.getcwd(), "index.html")):

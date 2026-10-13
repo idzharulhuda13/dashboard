@@ -1,10 +1,11 @@
 # dashboard
 
-Static data stories published at **https://dashboard.idzharulhuda.com**. One page, one dataset, no runtime
+Static data stories published at **https://dashboard.idzharulhuda.com**. An index at the root
+links to `p01/` and `p02/`, each plate still one self-contained page for one dataset. No runtime
 dependencies: every figure is generated from stored source files at build time and then re-checked by two
-acceptance gates. No network access at runtime, no API keys, no build step for the page itself.
+acceptance gates. No network access at runtime, no API keys, no build step for the pages themselves.
 
-Plate 01 shipped.
+Plate 01 and plate 02 shipped.
 
 ## Plate 01: Setengah Abad Gempa Indonesia
 
@@ -20,21 +21,63 @@ instead is that they are always recomputed, and that the claims made in prose st
 Seven bands: the epicentre field, the province ranking, the depth distribution, the magnitude ladder, the
 decade totals, the latest BMKG snapshot, and the method notes.
 
-`index.html` is self-contained. Markup, CSS, JavaScript and the five embedded fonts live in one ~410 KB
+`p01/index.html` is self-contained. Markup, CSS, JavaScript and the five embedded fonts live in one ~410 KB
 file, and the page makes no request beyond the file itself.
+
+## Plate 02: PISA 2025
+
+Indonesian student performance across science, reading, and mathematics in PISA 2025 compared against the
+OECD average: the headline gap, two decades of trend (2006 to 2025), proficiency distribution and the
+share below Level 2, score dispersion (P10 to P90), socio-economic disparity across ESCS quartiles, and
+comparison against regional ASEAN peers.
+
+Seven bands: the hero score gap and Level 2 benchmark, the two-decade trend, proficiency profiles across
+the three domains, the score spread, socio-economic gradients, ASEAN peer rankings, and the method notes.
+
+The numbers come from two frozen sources: the OECD public-use student file (`CY09_MS_STU_PUF.sav`),
+extracted once by `pipeline_pisa/derive_from_puf.py`, and the official annex workbook (`mrq53f.xlsx`),
+extracted once by `pipeline_pisa/extract_annex.py`. The resulting tables are committed under `data/pisa/`
+as frozen CSVs.
+
+Standard errors are computed from five plausible values and eighty replicate weights using Fay's balanced
+repeated replication. The total variance is B plus U: between-imputation variance B across the five plausible
+values, and sampling variance U across the eighty replicate weights. The formula is:
+
+    SE = sqrt(U + B)
+    where B = var(theta_m, ddof=1) over m=1..5
+    U = 4 * mean_m(var_r(theta_mr, ddof=1)) over r=1..80
+    (B = 0 for statistics without plausible values)
+
+The annex is the authority for every published figure. The microdata reconciliation against the annex is
+reported directly on the page, showing that the student microdata matches the official tables within
+reconciliation tolerances.
+
+The published page `p02/index.html` is regenerated deterministically from `p02.template.html`, the frozen CSVs,
+and embedded fonts. A SHA-256 stamp over its sorted input hashes is embedded as a comment at the top of the
+generated page. Both acceptance gates (`pipeline_pisa/verify.py` and `pipeline_pisa/probe_browser.py`) must
+pass before publishing.
+
+The build for plate 02 needs no third-party package at run time: `build_data.py`, `verify.py`, and
+`test_verify.py` use the standard library only. Only the two extraction scripts need `pyreadstat`, `pandas`,
+and `openpyxl`, and they are run by hand.
 
 ## Layout
 
-    index.html              the published page, generated. Do not edit by hand.
-    story.template.html     the page source, with the data and fonts injected at build time
-    pipeline/append_source.py   fetch new events and refresh the BMKG snapshots
-    pipeline/build_source.py    base + appends to the derived event table
-    pipeline/build_data.py      event table to data.json to index.html
-    pipeline/verify.py          acceptance gate over the numbers
-    pipeline/probe_browser.py   acceptance gate over the rendered page
-    pipeline/publish.sh         harvest, build, gate, push. The daily entry point.
-    data/raw/                   source files. The base harvest is never written to.
-    data/out/                   the derived table, the live snapshot, and the build report
+    index.html              the hub linking to p01/ and p02/
+    p01/index.html          plate 01 published page, generated
+    p01.template.html       plate 01 page source, with data and fonts injected at build time
+    p01/data.json           the data payload for plate 01
+    p02/index.html          plate 02 published page, generated (payload embedded in page)
+    p02.template.html       plate 02 page source, with data and fonts injected at build time
+    pipeline/               harvest, build, gate, push. The daily job for plate 01.
+    pipeline_pisa/          derive_from_puf.py, extract_annex.py, build_data.py, verify.py,
+                            test_verify.py, probe_browser.py
+    data/pisa/              the frozen CSVs extracted from the annex and PUF microdata
+    fonts/                  vendored WOFF2 fonts embedded into the templates
+    data/raw/               plate 01 source files. The base harvest is never written to.
+    data/out/               plate 01 derived table, live snapshot, and build report
+
+Note that p02 has no data.json: its payload is embedded in the page.
 
 ## Keeping it current
 

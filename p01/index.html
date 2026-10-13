@@ -1,4 +1,4 @@
-<!--BUILD sha256:d8d5fe4dd058cd31a8a9c26e3b39ef4d3d22044fe17fce85a76e7cd71ecccb9e-->
+<!--BUILD sha256:5cdb2e26216b8d130f9ead4e35a91b1debca502fe7a625086cd8998210844cd0-->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -35,6 +35,26 @@
   --font-sans: 'Chakra Petch', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: 'Chakra Petch', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Hub back-link: one line of chrome-free navigation on the ground, above the first band. */
+.nav-home {
+  padding: 12px 4vw 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.nav-home a {
+  display: inline-block;
+  padding: 6px 2px;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+.nav-home a:hover,
+.nav-home a:focus-visible {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
 }
 
 @font-face {
@@ -1457,6 +1477,7 @@ button:focus-visible,
 </style>
 </head>
 <body>
+    <nav class="nav-home"><a href="/">Dashboard</a></nav>
   <div id="loader" role="status" aria-live="polite">
     <div class="loader-disc"></div>
     <p>Memuat narasi data seismik Indonesia…</p>

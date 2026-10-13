@@ -125,7 +125,7 @@ def check_1_fig(rows, build_report, data_json):
         if act_d != exp_d:
             return False, f"fig.{key}.d mismatch (actual: {act_d!r}, expected: {exp_d!r})"
 
-    return True, "data.json 'fig' values match recomputed source data"
+    return True, "p01/data.json 'fig' values match recomputed source data"
 
 
 def check_2_arrays(rows, data_json):
@@ -327,36 +327,36 @@ def check_6_index_html_data_and_stamp(index_html_path, template_path, data_json)
 
     m = re.match(r"^<!--BUILD sha256:([0-9a-fA-F]{64})-->$", line1)
     if not m:
-        return False, f"index.html line 1 BUILD stamp invalid format (actual: {line1!r}, expected: '<!--BUILD sha256:<hex>-->')"
+        return False, f"p01/index.html line 1 BUILD stamp invalid format (actual: {line1!r}, expected: '<!--BUILD sha256:<hex>-->')"
     act_hex = m.group(1).lower()
 
     with open(template_path, "rb") as tf:
         exp_hex = hashlib.sha256(tf.read()).hexdigest().lower()
 
     if act_hex != exp_hex:
-        return False, f"index.html BUILD stamp sha256 mismatch (actual: {act_hex}, expected: {exp_hex})"
+        return False, f"p01/index.html BUILD stamp sha256 mismatch (actual: {act_hex}, expected: {exp_hex})"
 
     prefix = "const DATA = "
     idx = full_html.find(prefix)
     if idx == -1:
-        return False, "index.html missing 'const DATA = ' object (actual: not found, expected: present)"
+        return False, "p01/index.html missing 'const DATA = ' object (actual: not found, expected: present)"
     start_json = idx + len(prefix)
     end_json = full_html.find(";\n", start_json)
     if end_json == -1:
         end_json = full_html.find(";", start_json)
     if end_json == -1:
-        return False, "index.html embedded DATA end delimiter not found"
+        return False, "p01/index.html embedded DATA end delimiter not found"
 
     json_str = full_html[start_json:end_json]
     try:
         embedded_obj = json.loads(json_str)
     except Exception as e:
-        return False, f"index.html embedded DATA JSON parse error: {e}"
+        return False, f"p01/index.html embedded DATA JSON parse error: {e}"
 
     if embedded_obj != data_json:
-        return False, "index.html embedded DATA is not value-equal to data.json (actual: mismatch found, expected: equal)"
+        return False, "p01/index.html embedded DATA is not value-equal to p01/data.json (actual: mismatch found, expected: equal)"
 
-    return True, "index.html embedded data is value-equal to data.json and line 1 BUILD stamp matches template sha256"
+    return True, "p01/index.html embedded data is value-equal to p01/data.json and line 1 BUILD stamp matches template sha256"
 
 
 def check_7_template_structure(template_path):
@@ -374,17 +374,17 @@ def check_7_template_structure(template_path):
     ]
     for s in sections:
         if f'id="{s}"' not in content and f"id='{s}'" not in content:
-            return False, f"story.template.html missing section id '{s}' (actual: missing, expected: present)"
+            return False, f"p01.template.html missing section id '{s}' (actual: missing, expected: present)"
 
     stub_count = content.count("STUB")
     if stub_count != 0:
-        return False, f"story.template.html contains STUB marker (actual: {stub_count} occurrences, expected: 0)"
+        return False, f"p01.template.html contains STUB marker (actual: {stub_count} occurrences, expected: 0)"
 
     em_dash_count = content.count("\u2014")
     if em_dash_count != 0:
-        return False, f"story.template.html contains U+2014 em dash (actual: {em_dash_count} occurrences, expected: 0)"
+        return False, f"p01.template.html contains U+2014 em dash (actual: {em_dash_count} occurrences, expected: 0)"
 
-    return True, "story.template.html contains all 7 section ids, 0 STUB, 0 U+2014"
+    return True, "p01.template.html contains all 7 section ids, 0 STUB, 0 U+2014"
 
 
 def check_8_index_html_tokens(index_html_path):
@@ -393,17 +393,17 @@ def check_8_index_html_tokens(index_html_path):
 
     em_dash_count = content.count("\u2014")
     if em_dash_count != 0:
-        return False, f"index.html contains U+2014 em dash (actual: {em_dash_count} occurrences, expected: 0)"
+        return False, f"p01/index.html contains U+2014 em dash (actual: {em_dash_count} occurrences, expected: 0)"
 
     data_count = content.count("__DATA__")
     if data_count != 0:
-        return False, f"index.html contains placeholder __DATA__ (actual: {data_count} occurrences, expected: 0)"
+        return False, f"p01/index.html contains placeholder __DATA__ (actual: {data_count} occurrences, expected: 0)"
 
     fonts_count = content.count("__FONTS__")
     if fonts_count != 0:
-        return False, f"index.html contains placeholder __FONTS__ (actual: {fonts_count} occurrences, expected: 0)"
+        return False, f"p01/index.html contains placeholder __FONTS__ (actual: {fonts_count} occurrences, expected: 0)"
 
-    return True, "index.html source contains 0 U+2014, 0 __DATA__, 0 __FONTS__"
+    return True, "p01/index.html source contains 0 U+2014, 0 __DATA__, 0 __FONTS__"
 
 
 def check_9_no_network_urls(index_html_path):
@@ -413,9 +413,9 @@ def check_9_no_network_urls(index_html_path):
     urls = re.findall(r"https?://[^\s\"\'<>]+", content)
     network_urls = [u for u in urls if u != "http://www.w3.org/2000/svg"]
     if network_urls:
-        return False, f"index.html contains network http URLs (actual: {network_urls}, expected: none)"
+        return False, f"p01/index.html contains network http URLs (actual: {network_urls}, expected: none)"
 
-    return True, "index.html contains no network http URLs"
+    return True, "p01/index.html contains no network http URLs"
 
 
 def check_10_breakdown_and_accounting(rows, build_report, data_json):
@@ -436,7 +436,7 @@ def check_10_breakdown_and_accounting(rows, build_report, data_json):
 
     act_breakdown = data_json.get("method", {}).get("dropped_breakdown")
     if act_breakdown != exp_breakdown:
-        return False, f"data.json method.dropped_breakdown mismatch (actual: {act_breakdown}, expected: {exp_breakdown})"
+        return False, f"p01/data.json method.dropped_breakdown mismatch (actual: {act_breakdown}, expected: {exp_breakdown})"
 
     dropped_sum = sum(item[1] for item in act_breakdown) if isinstance(act_breakdown, list) else None
     fig_dropped_total = data_json.get("fig", {}).get("dropped_total", {}).get("r")
@@ -538,14 +538,14 @@ def check_11_headline_claims(template_path, data_json):
         if not m:
             return (
                 False,
-                f"story.template.html missing section '#{sec_id}' for claim '{name}'",
+                f"p01.template.html missing section '#{sec_id}' for claim '{name}'",
             )
         section_html = m.group(1)
 
         if search_str not in section_html:
             return (
                 False,
-                f"headline string '{search_str}' for claim '{name}' no longer found in #{sec_id} of story.template.html (re-register claim or restore headline)",
+                f"headline string '{search_str}' for claim '{name}' no longer found in #{sec_id} of p01.template.html (re-register claim or restore headline)",
             )
 
         if not entry["predicate"]:
@@ -564,17 +564,17 @@ def main():
     csv_path = os.path.join(ROOT, "data", "out", "gempa_events.csv")
     live_path = os.path.join(ROOT, "data", "out", "bmkg_live.json")
     report_path = os.path.join(ROOT, "data", "out", "build_report.json")
-    data_path = os.path.join(ROOT, "data.json")
-    template_path = os.path.join(ROOT, "story.template.html")
-    index_path = os.path.join(ROOT, "index.html")
+    data_path = os.path.join(ROOT, "p01/data.json")
+    template_path = os.path.join(ROOT, "p01.template.html")
+    index_path = os.path.join(ROOT, "p01/index.html")
 
     for path, name in [
         (csv_path, "gempa_events.csv"),
         (live_path, "bmkg_live.json"),
         (report_path, "build_report.json"),
-        (data_path, "data.json"),
-        (template_path, "story.template.html"),
-        (index_path, "index.html"),
+        (data_path, "p01/data.json"),
+        (template_path, "p01.template.html"),
+        (index_path, "p01/index.html"),
     ]:
         if not os.path.exists(path):
             print(f"FAIL Input file missing: {name} (actual: not found at {path}, expected: file present)")
@@ -594,15 +594,15 @@ def main():
         data_json = json.load(f)
 
     checks = [
-        ("check 1: data.json 'fig' values", lambda: check_1_fig(rows, build_report, data_json)),
+        ("check 1: p01/data.json 'fig' values", lambda: check_1_fig(rows, build_report, data_json)),
         ("check 2: array counts and values", lambda: check_2_arrays(rows, data_json)),
         ("check 3: five largest events", lambda: check_3_top5_events(rows, data_json)),
         ("check 4: field paths", lambda: check_4_field_paths(rows, data_json)),
         ("check 5: live block", lambda: check_5_live_block(bmkg_live, data_json)),
-        ("check 6: index.html data and stamp", lambda: check_6_index_html_data_and_stamp(index_path, template_path, data_json)),
-        ("check 7: story.template.html structure", lambda: check_7_template_structure(template_path)),
-        ("check 8: index.html forbidden tokens", lambda: check_8_index_html_tokens(index_path)),
-        ("check 9: index.html no network URLs", lambda: check_9_no_network_urls(index_path)),
+        ("check 6: p01/index.html data and stamp", lambda: check_6_index_html_data_and_stamp(index_path, template_path, data_json)),
+        ("check 7: p01.template.html structure", lambda: check_7_template_structure(template_path)),
+        ("check 8: p01/index.html forbidden tokens", lambda: check_8_index_html_tokens(index_path)),
+        ("check 9: p01/index.html no network URLs", lambda: check_9_no_network_urls(index_path)),
         ("check 10: region breakdown and accounting", lambda: check_10_breakdown_and_accounting(rows, build_report, data_json)),
         ("check 11: headline prose claims", lambda: check_11_headline_claims(template_path, data_json)),
     ]

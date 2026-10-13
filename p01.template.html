@@ -36,6 +36,26 @@
   --font-mono: 'JetBrains Mono', monospace;
 }
 
+/* Hub back-link: one line of chrome-free navigation on the ground, above the first band. */
+.nav-home {
+  padding: 12px 4vw 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.nav-home a {
+  display: inline-block;
+  padding: 6px 2px;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+.nav-home a:hover,
+.nav-home a:focus-visible {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
 /*__FONTS__*/
 
 *, *::before, *::after {
@@ -1422,6 +1442,7 @@ button:focus-visible,
 </style>
 </head>
 <body>
+    <nav class="nav-home"><a href="/">Dashboard</a></nav>
   <div id="loader" role="status" aria-live="polite">
     <div class="loader-disc"></div>
     <p>Memuat narasi data seismik Indonesia…</p>

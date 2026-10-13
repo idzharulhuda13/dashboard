@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PISA 2025: Jarak Kemahiran Siswa Indonesia dan Ketimpangan yang Menyertainya</title>
+  <style>
+:root {
+  --ground: #F2F4F7;
+  --panel: #FFFFFF;
+  --plane: #FFFFFF;
+  --plane-2: #E9EDF2;
+  --ink: #14181D;
+  --muted: #55606E;
+  --line: #D8DEE6;
+  --accent: #2D4ECF;
+  --accent-ink: #1F3A9E;
+  --ochre: #B8860B;
+  --ochre-ink: #8A6508;
+  --series-idn: var(--accent);
+  --series-oecd: #6E7783;
+  --series-ref: var(--ochre-ink);
+  --level-1: #D7DFEC;
+  --level-2: #B9C6DE;
+  --level-3: #8FA3CC;
+  --level-4: #5F79B8;
+  --level-5: #3A55A2;
+  --level-6: #1F3A9E;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --font-sans: 'Chakra Petch', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Chakra Petch', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+/*__FONTS__*/
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: clip;
+}
+
+body {
+  background-color: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: clip;
+  padding: 0;
+}
+
+/* Hub back-link: one line of chrome-free navigation on the ground, above the first band. */
+.nav-home {
+  padding: 12px 4vw 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.nav-home a {
+  display: inline-block;
+  padding: 6px 2px;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+.nav-home a:hover,
+.nav-home a:focus-visible {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.dashboard-root {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0 auto;
+  max-width: 1440px;
+  width: 100%;
+}
+
+/* Flat sheet architecture: bands have no border, no border-radius */
+.band {
+  border: none;
+  border-radius: 0;
+  position: relative;
+  width: 100%;
+}
+
+.band-inner {
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 100%;
+}
+
+/* Alternate ground by role: large drawings/documentation take plane-2, analytical series take plane */
+#band-hero {
+  background-color: var(--plane-2);
+  padding: 56px 28px;
+}
+
+#band-trend {
+  background-color: var(--plane);
+  padding: 44px 28px;
+}
+
+#band-prof {
+  background-color: var(--plane);
+  padding: 40px 28px;
+}
+
+#band-spread {
+  background-color: var(--plane-2);
+  padding: 44px 28px;
+}
+
+#band-escs {
+  background-color: var(--plane);
+  padding: 40px 28px;
+}
+
+#band-peers {
+  background-color: var(--plane);
+  padding: 36px 28px;
+}
+
+#band-method {
+  background-color: var(--plane-2);
+  padding: 24px 28px;
+}
+
+@media (max-width: 719px) {
+  #band-hero {
+    padding: 36px 16px;
+  }
+  #band-trend {
+    padding: 28px 16px;
+  }
+  #band-prof {
+    padding: 26px 16px;
+  }
+  #band-spread {
+    padding: 28px 16px;
+  }
+  #band-escs {
+    padding: 26px 16px;
+  }
+  #band-peers {
+    padding: 24px 16px;
+  }
+  #band-method {
+    padding: 18px 16px;
+  }
+}
+
+/* Band header typography */
+.band-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.band-headline {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+h1.band-headline {
+  font-size: 76px;
+  line-height: 1.08;
+}
+
+@media (max-width: 719px) {
+  .band-headline {
+    font-size: 26px;
+  }
+  h1.band-headline {
+    font-size: 34px;
+  }
+}
+
+/* Two-tone headline styling */
+.hl-accent {
+  color: var(--accent-ink);
+}
+
+.hl-main {
+  color: var(--ink);
+}
+
+.band-subtitle {
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.45;
+  max-width: 960px;
+}
+
+.band-note {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.4;
+  margin-top: 24px;
+  padding-top: 10px;
+}
+
+/* Chart focal container */
+.chart-container {
+  background-color: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  min-height: 240px;
+  position: relative;
+  width: 100%;
+}
+
+#hero-scale {
+  min-height: 180px;
+}
+
+#trend-chart {
+  min-height: 320px;
+}
+
+#prof-chart {
+  min-height: 280px;
+}
+
+#spread-chart {
+  min-height: 320px;
+}
+
+#escs-chart {
+  min-height: 260px;
+}
+
+#peers-chart {
+  min-height: 340px;
+}
+
+/* Method band documentation panels */
+.method-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 860px) {
+  .method-grid {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+.method-panel {
+  background-color: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 20px;
+}
+
+.method-copy {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.method-copy p + p {
+  margin-top: 12px;
+}
+
+.method-copy strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.method-copy code {
+  background-color: var(--plane-2);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 1px 4px;
+}
+
+/* Motif 3: Cut-score ruler for standard error */
+.method-ruler-slot {
+  background-color: var(--plane-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 16px;
+}
+
+.ruler-header {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.ruler-caption {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ruler-unit {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.ruler-svg-wrap {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.ruler-svg {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  width: 100%;
+}
+
+.ruler-footnote {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Data figure spans */
+span[data-fig] {
+  font-family: var(--font-mono);
+  font-feature-settings: 'tnum' 1;
+}
+
+/* Hidden SVG definition carrier */
+.sr-defs {
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 0;
+}
+  </style>
+</head>
+<body>
+  <nav class="nav-home"><a href="/">Dashboard</a></nav>
+
+  <svg class="sr-defs" width="0" height="0" aria-hidden="true">
+    <defs>
+      <pattern id="hatch-oecd" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="8" stroke="#6E7783" stroke-width="2"></line>
+      </pattern>
+    </defs>
+  </svg>
+
+  <main class="dashboard-root">
+    <!-- Band 1: Hero (science score scale with Level-2 cut score) -->
+    <section id="band-hero" class="band">
+      <div class="band-inner">
+        <header class="band-header">
+          <h1 class="band-headline"><span class="hl-accent">SELISIH <span data-fig="hero_gap">93</span> POIN</span> <span class="hl-main">DI BAWAH RERATA OECD</span></h1>
+          <p class="band-subtitle"><em>Pengukuran literasi sains PISA terhadap populasi usia lima belas tahun menggunakan lima plausible values dan bobot bertingkat.</em></p>
+        </header>
+        <div id="hero-scale" class="chart-container"></div>
+        <p class="band-note">Sumber: Ringkasan Nilai Rata-rata dan Persentil Sains, Tabel Lampiran <span data-fig="meta_table_hero">I.B1.2a.1</span></p>
+      </div>
+    </section>
+
+    <!-- Band 2: Trend (2006-2025 science series) -->
+    <section id="band-trend" class="band">
+      <div class="band-inner">
+        <header class="band-header">
+          <h2 class="band-headline"><span class="hl-accent">DUA DEKADE, PERUBAHANNYA <span data-fig="trend_idn_change">-4,8</span> POIN</span> <span class="hl-main">SEMUANYA DI DALAM GALAT BAKU SENDIRI</span></h2>
+          <p class="band-subtitle"><em>Seri capaian sains lintas siklus PISA dua ribu enam hingga dua ribu dua puluh lima dengan estimasi galat baku resmi.</em></p>
+        </header>
+        <div id="trend-chart" class="chart-container"></div>
+        <p class="band-note">Sumber: Tabel Tren Capaian Sains Lintas Siklus, Tabel Lampiran <span data-fig="meta_table_trend">I.B1.2a.36</span></p>
+      </div>
+    </section>
+
+    <!-- Band 3: Proficiency (proficiency shares per domain) -->
+    <section id="band-prof" class="band">
+      <div class="band-inner">
+        <header class="band-header">
+          <h2 class="band-headline"><span class="hl-accent"><span data-fig="prof_below_l2_math">83,1</span> PERSEN DI BAWAH AMBANG MINIMUM</span> <span class="hl-main">PADA MATEMATIKA</span></h2>
+          <p class="band-subtitle"><em>Proporsi kemahiran siswa pada tiga domain literasi dengan batas ambang kecakapan minimum OECD.</em></p>
+        </header>
+        <div id="prof-chart" class="chart-container"></div>
+        <p class="band-note">Sumber: Distribusi Tingkat Kecakapan Sains, Matematika, dan Membaca, Tabel Lampiran <span data-fig="meta_table_prof_scie">I.B1.2a.10</span>, <span data-fig="meta_table_prof_math">I.B1.2a.11</span>, dan <span data-fig="meta_table_prof_read">I.B1.2a.12</span></p>
+      </div>
+    </section>
+
+    <!-- Band 4: Spread (score distribution Indonesia vs OECD) -->
+    <section id="band-spread" class="band">
+      <div class="band-inner">
+        <header class="band-header">
+          <h2 class="band-headline"><span class="hl-accent">PITA NILAI SETENGAH LEBAR OECD</span> <span class="hl-main">SISWA TERBAIK PUN DI BAWAH MEDIAN MEREKA</span></h2>
+          <p class="band-subtitle"><em>Distribusi persentil sepuluh hingga sembilan puluh membandingkan variasi capaian Indonesia terhadap sebaran OECD.</em></p>
+        </header>
+        <div id="spread-chart" class="chart-container"></div>
+        <p class="band-note">Sumber: Sebaran dan Variasi Skor Sains, Tabel Lampiran <span data-fig="meta_table_spread">I.B1.2a.1</span></p>
+      </div>
+    </section>
+
+    <!-- Band 5: ESCS (score by socio-economic quartile) -->
+    <section id="band-escs" class="band">
+      <div class="band-inner">
+        <header class="band-header">
+          <h2 class="band-headline"><span class="hl-accent">JURANG KUARTIL <span data-fig="escs_gap_idn">47</span> POIN</span> <span class="hl-main">KUARTIL TERKAYA PUN DI BAWAH KUARTIL TERMISKIN OECD</span></h2>
+          <p class="band-subtitle"><em>Estimasi kuartil indeks status ekonomi, sosial, dan budaya terhadap perolehan nilai sains siswa.</em></p>
+        </header>
+        <div id="escs-chart" class="chart-container"></div>
+        <p class="band-note">Sumber: Mikrodata Siswa PUF dan Ambang Kuartil ESCS, Tabel Turunan <span data-fig="meta_table_escs">puf_quartile_cuts</span></p>
+      </div>
+    </section>
+
+    <!-- Band 6: Peers (ranked ladder of neighbours) -->
+    <section id="band-peers" class="band">
+      <div class="band-inner">
+        <header class="band-header">
+          <h2 class="band-headline"><span class="hl-accent">PERINGKAT <span data-fig="peers_rank">ENAM</span> DARI DELAPAN</span> <span class="hl-main">NEGARA ASEAN YANG IKUT PISA 2025</span></h2>
+          <p class="band-subtitle"><em>Perbandingan skor rata-rata dengan negara-negara kawasan tetangga dalam penilaian siklus terbaru.</em></p>
+        </header>
+        <div id="peers-chart" class="chart-container"></div>
+        <p class="band-note">Sumber: Tabel Pemeringkatan Capaian Sains Internasional, Tabel Lampiran <span data-fig="meta_table_peers">I.B1.2a.1</span></p>
+      </div>
+    </section>
+
+    <!-- Band 7: Method (method, sources, licence, claims) -->
+    <section id="band-method" class="band">
+      <div class="band-inner">
+        <header class="band-header">
+          <h2 class="band-headline"><span class="hl-accent">METODE DAN INTEGRITAS</span> <span class="hl-main">BATASAN SERTA KETENTUAN DATA</span></h2>
+          <p class="band-subtitle"><em>Dokumentasi metodologi penarikan sampel, penghitungan galat baku, serta lisensi data terbuka resmi.</em></p>
+        </header>
+
+        <div class="method-grid">
+          <div class="method-panel">
+            <div class="method-copy">
+              <p><strong>Metode Estimasi:</strong> Seluruh estimasi parameter populasi diturunkan menggunakan <span data-fig="meta_pv_count">5</span> plausible values dan <span data-fig="meta_rep_count">80</span> bobot replikasi Balanced Repeated Replication (BRR) dengan koefisien Fay. Varians total menggabungkan varians sampling dan varians imputasi pengujian.</p>
+              <p><strong>Batas Klaim:</strong> Halaman ini menyajikan estimasi statistik deskriptif asesmen berskala besar. Nilai tidak boleh diartikan sebagai peringkat kausal tunggal atau penilaian kinerja individual peserta didik.</p>
+              <p><strong>Lisensi dan Reprodusibilitas:</strong> Data bersumber dari repositori resmi OECD PISA dengan lisensi Creative Commons Attribution <span data-fig="meta_licence_ver">4.0</span> International (CC BY <span data-fig="meta_licence_ver_code">4.0</span>). Halaman diregenerasi secara deterministik tanpa akses jaringan saat runtime.</p>
+            </div>
+          </div>
+
+          <!-- Motif 3: One standard error ruler -->
+          <div class="method-panel">
+            <div class="method-ruler-slot">
+              <div class="ruler-header">
+                <span class="ruler-caption">Penggaris Galat Baku: Ketidakpastian Rata-rata</span>
+                <span class="ruler-unit">satuan: poin skor</span>
+              </div>
+              <div class="ruler-svg-wrap">
+                <svg viewBox="0 0 400 48" class="ruler-svg" role="img" aria-label="Penggaris satu galat baku rata-rata sains Indonesia sebesar dua koma tiga poin skor">
+                  <line x1="20" y1="28" x2="380" y2="28" stroke="#55606E" stroke-width="1.5"></line>
+                  <line x1="20" y1="20" x2="20" y2="28" stroke="#55606E" stroke-width="1.5"></line>
+                  <line x1="80" y1="23" x2="80" y2="28" stroke="#55606E" stroke-width="1"></line>
+                  <line x1="140" y1="20" x2="140" y2="28" stroke="#55606E" stroke-width="1.5"></line>
+                  <line x1="200" y1="20" x2="200" y2="28" stroke="#55606E" stroke-width="1.5"></line>
+                  <line x1="260" y1="20" x2="260" y2="28" stroke="#55606E" stroke-width="1.5"></line>
+                  <line x1="320" y1="23" x2="320" y2="28" stroke="#55606E" stroke-width="1"></line>
+                  <line x1="380" y1="20" x2="380" y2="28" stroke="#55606E" stroke-width="1.5"></line>
+                  <!-- One SE bar representation: exactly 2,3 score points width relative to scale -->
+                  <rect x="160" y="14" width="80" height="14" fill="#B8860B" stroke="#8A6508" stroke-width="1.5"></rect>
+                </svg>
+              </div>
+              <p class="ruler-footnote">Lebar pita berwarna mengilustrasikan rentang satu galat baku resmi rata-rata sains Indonesia sebesar <span data-fig="se_science_val">2,3</span> poin skor.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="band-note">Sumber: Laporan Teknis OECD PISA dan Mikrodata Terbuka Publik (CC BY <span data-fig="meta_licence_note">4.0</span>)</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  const DATA = /*__DATA__*/ {};
+
+  function renderHero() {
+    const container = document.getElementById('hero-scale');
+    if (!container) {
+      throw new Error('Elemen kontainer #hero-scale tidak ditemukan');
+    }
+    container.replaceChildren();
+
+    if (!DATA || !DATA.hero || !DATA.hero.idn || !DATA.hero.oecd) {
+      return;
+    }
+
+    const idnScore = DATA.hero.idn.scie;
+    const idnSe = DATA.hero.idn.se;
+    const oecdScore = DATA.hero.oecd.scie;
+    const oecdSe = DATA.hero.oecd.se;
+    const cutL2 = DATA.hero.cut_l2;
+    const cutUnit = DATA.hero.cut_unit || 'poin skor';
+
+    function fmt(val) {
+      if (typeof val !== 'number') return String(val);
+      return val.toFixed(2).replace('.', ',');
+    }
+
+    const svgW = 1000;
+    const svgH = 210;
+    const padX = 80;
+    const plotW = svgW - padX * 2;
+    const minScore = 250;
+    const maxScore = 650;
+    const span = maxScore - minScore;
+
+    function toX(score) {
+      return padX + ((score - minScore) / span) * plotW;
+    }
+
+    const idnX = toX(idnScore);
+    const oecdX = toX(oecdScore);
+    const cutX = toX(cutL2);
+    const idnWhisker = (2 * idnSe / span) * plotW;
+    const oecdWhisker = (2 * oecdSe / span) * plotW;
+
+    const baselineY = 130;
+    const markerY = 100;
+
+    const ticks = [250, 300, 350, 400, 450, 500, 550, 600, 650];
+    let ticksSvg = '';
+    for (let i = 0; i < ticks.length; i++) {
+      const t = ticks[i];
+      const tx = toX(t).toFixed(2);
+      ticksSvg += '<line x1="' + tx + '" y1="' + baselineY + '" x2="' + tx + '" y2="' + (baselineY + 8) + '" stroke="var(--muted)" stroke-width="1.5"></line>';
+      ticksSvg += '<text x="' + tx + '" y="' + (baselineY + 24) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + t + '</text>';
+    }
+
+    const idnWhiskerLeft = (idnX - idnWhisker).toFixed(2);
+    const idnWhiskerRight = (idnX + idnWhisker).toFixed(2);
+    const oecdWhiskerLeft = (oecdX - oecdWhisker).toFixed(2);
+    const oecdWhiskerRight = (oecdX + oecdWhisker).toFixed(2);
+
+    const svgHtml = '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" role="img" aria-label="Penggaris skala skor literasi sains PISA 2025: Indonesia ' + fmt(idnScore) + ', ambang Level 2 ' + fmt(cutL2) + ', rerata OECD ' + fmt(oecdScore) + '" style="display:block;width:100%;height:auto;">' +
+      '<text x="' + padX + '" y="26" font-size="13px" font-family="var(--font-display)" font-weight="700" fill="var(--ink)" letter-spacing="0.04em">PENGGARIS AMBANG SKOR LITERASI SAINS PISA</text>' +
+      '<text x="' + (svgW - padX) + '" y="26" text-anchor="end" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">satuan: ' + cutUnit + '</text>' +
+      '<line x1="' + cutX.toFixed(2) + '" y1="38" x2="' + cutX.toFixed(2) + '" y2="' + (baselineY + 14) + '" stroke="var(--series-ref)" stroke-width="2" stroke-dasharray="4 3"></line>' +
+      '<text x="' + (cutX + 8).toFixed(2) + '" y="48" text-anchor="start" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--series-ref)">AMBANG LEVEL 2</text>' +
+      '<text x="' + (cutX + 8).toFixed(2) + '" y="64" text-anchor="start" font-size="12px" font-family="var(--font-mono)" font-weight="600" fill="var(--series-ref)">' + fmt(cutL2) + '</text>' +
+      '<text x="' + idnX.toFixed(2) + '" y="56" text-anchor="middle" font-size="13px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia</text>' +
+      '<text x="' + idnX.toFixed(2) + '" y="74" text-anchor="middle" font-size="14px" font-family="var(--font-mono)" font-weight="700" fill="var(--accent-ink)">' + fmt(idnScore) + '</text>' +
+      '<line x1="' + idnX.toFixed(2) + '" y1="80" x2="' + idnX.toFixed(2) + '" y2="' + (markerY - 6) + '" stroke="var(--series-idn)" stroke-width="1.5" stroke-dasharray="2 2"></line>' +
+      '<line x1="' + idnWhiskerLeft + '" y1="' + markerY + '" x2="' + idnWhiskerRight + '" y2="' + markerY + '" stroke="var(--series-idn)" stroke-width="2.5"></line>' +
+      '<line x1="' + idnWhiskerLeft + '" y1="' + (markerY - 6) + '" x2="' + idnWhiskerLeft + '" y2="' + (markerY + 6) + '" stroke="var(--series-idn)" stroke-width="2"></line>' +
+      '<line x1="' + idnWhiskerRight + '" y1="' + (markerY - 6) + '" x2="' + idnWhiskerRight + '" y2="' + (markerY + 6) + '" stroke="var(--series-idn)" stroke-width="2"></line>' +
+      '<circle cx="' + idnX.toFixed(2) + '" cy="' + markerY + '" r="6" fill="var(--series-idn)" stroke="#FFFFFF" stroke-width="2"></circle>' +
+      '<text x="' + oecdX.toFixed(2) + '" y="56" text-anchor="middle" font-size="13px" font-family="var(--font-sans)" font-weight="700" fill="var(--muted)">Rerata OECD</text>' +
+      '<text x="' + oecdX.toFixed(2) + '" y="74" text-anchor="middle" font-size="14px" font-family="var(--font-mono)" font-weight="700" fill="var(--ink)">' + fmt(oecdScore) + '</text>' +
+      '<line x1="' + oecdX.toFixed(2) + '" y1="80" x2="' + oecdX.toFixed(2) + '" y2="' + (markerY - 8) + '" stroke="var(--series-oecd)" stroke-width="1.5" stroke-dasharray="2 2"></line>' +
+      '<line x1="' + oecdWhiskerLeft + '" y1="' + markerY + '" x2="' + oecdWhiskerRight + '" y2="' + markerY + '" stroke="var(--series-oecd)" stroke-width="2.5"></line>' +
+      '<line x1="' + oecdWhiskerLeft + '" y1="' + (markerY - 6) + '" x2="' + oecdWhiskerLeft + '" y2="' + (markerY + 6) + '" stroke="var(--series-oecd)" stroke-width="2"></line>' +
+      '<line x1="' + oecdWhiskerRight + '" y1="' + (markerY - 6) + '" x2="' + oecdWhiskerRight + '" y2="' + (markerY + 6) + '" stroke="var(--series-oecd)" stroke-width="2"></line>' +
+      '<rect x="' + (oecdX - 8).toFixed(2) + '" y="' + (markerY - 8) + '" width="16" height="16" rx="2" fill="#FFFFFF"></rect>' +
+      '<rect x="' + (oecdX - 8).toFixed(2) + '" y="' + (markerY - 8) + '" width="16" height="16" rx="2" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="1.5"></rect>' +
+      '<line x1="' + padX + '" y1="' + baselineY + '" x2="' + (svgW - padX) + '" y2="' + baselineY + '" stroke="var(--muted)" stroke-width="1.5"></line>' +
+      ticksSvg +
+      '<text x="' + padX + '" y="188" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">Rentang bilah galat menandai 2 galat baku resmi. Ambang Level 2 (' + fmt(cutL2) + ') batas kemahiran dasar.</text>' +
+      '</svg>';
+
+    container.innerHTML = svgHtml;
+  }
+
+  function renderTrend() {
+    const container = document.getElementById('trend-chart');
+    if (!container) {
+      throw new Error('Elemen kontainer #trend-chart tidak ditemukan');
+    }
+    container.replaceChildren();
+
+    if (!DATA || !DATA.trend || !Array.isArray(DATA.trend) || DATA.trend.length === 0) {
+      return;
+    }
+
+    function fmt(val, digits) {
+      if (typeof val !== 'number') return String(val);
+      const d = typeof digits === 'number' ? digits : 2;
+      return val.toFixed(d).replace('.', ',');
+    }
+
+    const trend = DATA.trend;
+    const n = trend.length;
+
+    const svgW = 1000;
+    const svgH = 380;
+    const padLeft = 70;
+    const padRight = 180;
+    const padTop = 50;
+    const padBottom = 65;
+    const plotW = svgW - padLeft - padRight;
+    const plotH = svgH - padTop - padBottom;
+
+    const minY = 360;
+    const maxY = 520;
+    const ySpan = maxY - minY;
+
+    function toX(idx) {
+      if (n <= 1) return padLeft + plotW / 2;
+      return padLeft + (idx / (n - 1)) * plotW;
+    }
+
+    function toY(score) {
+      return padTop + ((maxY - score) / ySpan) * plotH;
+    }
+
+    const yTicks = [360, 400, 440, 480, 520];
+    let gridSvg = '';
+    for (let i = 0; i < yTicks.length; i++) {
+      const yVal = yTicks[i];
+      const yPos = toY(yVal).toFixed(2);
+      const isBase = yVal === minY;
+      gridSvg += '<line x1="' + padLeft + '" y1="' + yPos + '" x2="' + (padLeft + plotW) + '" y2="' + yPos + '" stroke="' + (isBase ? 'var(--muted)' : 'var(--line)') + '" stroke-width="' + (isBase ? '1.5' : '1') + '"></line>';
+      gridSvg += '<text x="' + (padLeft - 12) + '" y="' + (parseFloat(yPos) + 4).toFixed(2) + '" text-anchor="end" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + yVal + '</text>';
+    }
+
+    let xTicksSvg = '';
+    for (let i = 0; i < n; i++) {
+      const xPos = toX(i).toFixed(2);
+      const baseY = toY(minY).toFixed(2);
+      xTicksSvg += '<line x1="' + xPos + '" y1="' + baseY + '" x2="' + xPos + '" y2="' + (parseFloat(baseY) + 6).toFixed(2) + '" stroke="var(--muted)" stroke-width="1.5"></line>';
+      xTicksSvg += '<text x="' + xPos + '" y="' + (parseFloat(baseY) + 22).toFixed(2) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + trend[i].cycle + '</text>';
+    }
+
+    let oecdPath = '';
+    let idnPath = '';
+    let oecdWhiskersSvg = '';
+    let idnWhiskersSvg = '';
+    let oecdMarkersSvg = '';
+    let idnMarkersSvg = '';
+
+    for (let i = 0; i < n; i++) {
+      const item = trend[i];
+      const x = toX(i);
+      const xStr = x.toFixed(2);
+
+      const oecdVal = item.oecd23;
+      const oecdSe = item.oecd23_se;
+      const oecdY = toY(oecdVal);
+      const oecdYStr = oecdY.toFixed(2);
+      oecdPath += (i === 0 ? 'M ' : ' L ') + xStr + ' ' + oecdYStr;
+
+      const oecdTop = toY(oecdVal + oecdSe).toFixed(2);
+      const oecdBot = toY(oecdVal - oecdSe).toFixed(2);
+      oecdWhiskersSvg += '<line x1="' + xStr + '" y1="' + oecdTop + '" x2="' + xStr + '" y2="' + oecdBot + '" stroke="var(--series-oecd)" stroke-width="2"></line>';
+      oecdWhiskersSvg += '<line x1="' + (x - 4).toFixed(2) + '" y1="' + oecdTop + '" x2="' + (x + 4).toFixed(2) + '" y2="' + oecdTop + '" stroke="var(--series-oecd)" stroke-width="1.5"></line>';
+      oecdWhiskersSvg += '<line x1="' + (x - 4).toFixed(2) + '" y1="' + oecdBot + '" x2="' + (x + 4).toFixed(2) + '" y2="' + oecdBot + '" stroke="var(--series-oecd)" stroke-width="1.5"></line>';
+
+      oecdMarkersSvg += '<g>';
+      oecdMarkersSvg += '<title>Rerata OECD-23 ' + item.cycle + ': ' + fmt(oecdVal) + ' (galat baku \u00B1' + fmt(oecdSe) + ')</title>';
+      oecdMarkersSvg += '<rect x="' + (x - 6).toFixed(2) + '" y="' + (oecdY - 6).toFixed(2) + '" width="12" height="12" rx="2" fill="#FFFFFF"></rect>';
+      oecdMarkersSvg += '<rect x="' + (x - 6).toFixed(2) + '" y="' + (oecdY - 6).toFixed(2) + '" width="12" height="12" rx="2" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="1.5"></rect>';
+      oecdMarkersSvg += '</g>';
+
+      const idnVal = item.idn;
+      const idnSe = item.idn_se;
+      const idnY = toY(idnVal);
+      const idnYStr = idnY.toFixed(2);
+      idnPath += (i === 0 ? 'M ' : ' L ') + xStr + ' ' + idnYStr;
+
+      const idnTop = toY(idnVal + idnSe).toFixed(2);
+      const idnBot = toY(idnVal - idnSe).toFixed(2);
+      idnWhiskersSvg += '<line x1="' + xStr + '" y1="' + idnTop + '" x2="' + xStr + '" y2="' + idnBot + '" stroke="var(--series-idn)" stroke-width="2"></line>';
+      idnWhiskersSvg += '<line x1="' + (x - 4).toFixed(2) + '" y1="' + idnTop + '" x2="' + (x + 4).toFixed(2) + '" y2="' + idnTop + '" stroke="var(--series-idn)" stroke-width="1.5"></line>';
+      idnWhiskersSvg += '<line x1="' + (x - 4).toFixed(2) + '" y1="' + idnBot + '" x2="' + (x + 4).toFixed(2) + '" y2="' + idnBot + '" stroke="var(--series-idn)" stroke-width="1.5"></line>';
+
+      idnMarkersSvg += '<g>';
+      idnMarkersSvg += '<title>Indonesia ' + item.cycle + ': ' + fmt(idnVal) + ' (galat baku \u00B1' + fmt(idnSe) + ')</title>';
+      idnMarkersSvg += '<circle cx="' + xStr + '" cy="' + idnYStr + '" r="6" fill="var(--series-idn)" stroke="#FFFFFF" stroke-width="2"></circle>';
+      idnMarkersSvg += '</g>';
+    }
+
+    const lastItem = trend[n - 1];
+    const lastX = toX(n - 1);
+    const labelX = (lastX + 16).toFixed(2);
+    const lastOecdY = toY(lastItem.oecd23);
+    const lastIdnY = toY(lastItem.idn);
+
+    const directLabelsSvg =
+      '<g>' +
+      '<text x="' + labelX + '" y="' + (lastOecdY - 4).toFixed(2) + '" font-size="13px" font-family="var(--font-sans)" font-weight="700" fill="var(--ink)">Rerata OECD-23</text>' +
+      '<text x="' + labelX + '" y="' + (lastOecdY + 14).toFixed(2) + '" font-size="14px" font-family="var(--font-mono)" font-weight="700" fill="var(--muted)">' + fmt(lastItem.oecd23) + '</text>' +
+      '<text x="' + labelX + '" y="' + (lastIdnY - 4).toFixed(2) + '" font-size="13px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia</text>' +
+      '<text x="' + labelX + '" y="' + (lastIdnY + 14).toFixed(2) + '" font-size="14px" font-family="var(--font-mono)" font-weight="700" fill="var(--accent-ink)">' + fmt(lastItem.idn) + '</text>' +
+      '</g>';
+
+    const firstItem = trend[0];
+    const captionText = 'Kedua pembanding dievaluasi pada jendela waktu yang sama (' + firstItem.cycle + '-' + lastItem.cycle + ') dengan 23 negara anggota OECD konstan. Bilah galat menandai rentang \u00B11 galat baku resmi.';
+
+    const ariaLabel = 'Grafik tren capaian literasi sains PISA ' + firstItem.cycle + '-' + lastItem.cycle + ': Indonesia dari ' + fmt(firstItem.idn) + ' ke ' + fmt(lastItem.idn) + ', rerata OECD-23 dari ' + fmt(firstItem.oecd23) + ' ke ' + fmt(lastItem.oecd23);
+
+    const svgHtml =
+      '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" role="img" aria-label="' + ariaLabel + '" style="display:block;width:100%;height:auto;">' +
+      '<text x="' + padLeft + '" y="26" font-size="13px" font-family="var(--font-display)" font-weight="700" fill="var(--ink)" letter-spacing="0.04em">SERI TREN SKOR LITERASI SAINS PISA (' + firstItem.cycle + '-' + lastItem.cycle + ')</text>' +
+      '<text x="' + (padLeft + plotW) + '" y="26" text-anchor="end" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">satuan: poin skor</text>' +
+      gridSvg +
+      xTicksSvg +
+      oecdWhiskersSvg +
+      '<path d="' + oecdPath + '" fill="none" stroke="var(--series-oecd)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>' +
+      oecdMarkersSvg +
+      idnWhiskersSvg +
+      '<path d="' + idnPath + '" fill="none" stroke="var(--series-idn)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>' +
+      idnMarkersSvg +
+      directLabelsSvg +
+      '<text x="' + padLeft + '" y="' + (svgH - 18) + '" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + captionText + '</text>' +
+      '</svg>';
+
+    container.innerHTML = svgHtml;
+  }
+
+  function renderProficiency() {
+    const container = document.getElementById('prof-chart');
+    if (!container) {
+      throw new Error('Elemen kontainer #prof-chart tidak ditemukan');
+    }
+    container.replaceChildren();
+
+    if (!DATA || !DATA.prof) {
+      return;
+    }
+
+    function fmt(val, digits) {
+      if (typeof val !== 'number') return String(val);
+      const d = typeof digits === 'number' ? digits : 1;
+      return val.toFixed(d).replace('.', ',');
+    }
+
+    function getBandColor(token) {
+      if (token === 'level_6') return 'var(--level-6)';
+      if (token === 'level_5') return 'var(--level-5)';
+      if (token === 'level_4') return 'var(--level-4)';
+      if (token === 'level_3') return 'var(--level-3)';
+      if (token === 'level_2') return 'var(--level-2)';
+      if (token === 'level_1a') return 'var(--level-1)';
+      if (token === 'level_1b') return '#E2E8F3';
+      if (token === 'level_1c') return '#ECF0F7';
+      if (token === 'level_below_1b') return '#EAF0F8';
+      if (token === 'level_below_1c') return '#F4F7FB';
+      return 'var(--level-1)';
+    }
+
+    function getBandTextColor(token) {
+      if (token === 'level_4' || token === 'level_5' || token === 'level_6') {
+        return '#FFFFFF';
+      }
+      return 'var(--ink)';
+    }
+
+    function getBandLabel(token) {
+      if (token === 'level_below_1b') return '< 1b';
+      if (token === 'level_below_1c') return '< 1c';
+      if (token === 'level_1c') return '1c';
+      if (token === 'level_1b') return '1b';
+      if (token === 'level_1a') return '1a';
+      if (token === 'level_2') return 'Level 2';
+      if (token === 'level_3') return 'Level 3';
+      if (token === 'level_4') return 'Level 4';
+      if (token === 'level_5') return 'Level 5';
+      if (token === 'level_6') return 'Level 6';
+      return token;
+    }
+
+    const domains = [
+      { key: 'science', label: 'Sains' },
+      { key: 'reading', label: 'Membaca' },
+      { key: 'mathematics', label: 'Matematika' }
+    ];
+
+    const svgW = 1000;
+    const svgH = 470;
+    const padLeft = 140;
+    const padRight = 50;
+    const plotW = svgW - padLeft - padRight;
+    const barH = 20;
+
+    let svgHtml = '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" role="img" aria-label="Grafik proporsi tingkat kemahiran literasi PISA 2025: Sains, Membaca, dan Matematika membandingkan Indonesia dan rerata OECD" style="display:block;width:100%;height:auto;">';
+
+    svgHtml += '<text x="' + padLeft + '" y="26" font-size="13px" font-family="var(--font-display)" font-weight="700" fill="var(--ink)" letter-spacing="0.04em">PROPORSI TINGKAT KEMAHIRAN TIGA DOMAIN ASESMEN PISA</text>';
+    svgHtml += '<text x="' + (padLeft + plotW) + '" y="26" text-anchor="end" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">satuan: persen (%)</text>';
+
+    const legendBands = [
+      'level_below_1c', 'level_1c', 'level_1b', 'level_1a',
+      'level_2', 'level_3', 'level_4', 'level_5', 'level_6'
+    ];
+    const nLegend = legendBands.length;
+    const legendItemW = plotW / nLegend;
+    for (let i = 0; i < nLegend; i++) {
+      const tok = legendBands[i];
+      const itemX = padLeft + i * legendItemW;
+      const col = getBandColor(tok);
+      const lbl = getBandLabel(tok);
+      svgHtml += '<rect x="' + itemX.toFixed(2) + '" y="42" width="12" height="12" rx="2" fill="' + col + '" stroke="var(--line)" stroke-width="1"></rect>';
+      svgHtml += '<text x="' + (itemX + 16).toFixed(2) + '" y="52" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + lbl + '</text>';
+    }
+
+    svgHtml += '<rect x="' + padLeft + '" y="66" width="12" height="12" rx="2" fill="var(--accent)" stroke="#FFFFFF" stroke-width="1"></rect>';
+    svgHtml += '<text x="' + (padLeft + 16) + '" y="76" font-size="11px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia (warna solid)</text>';
+    svgHtml += '<rect x="' + (padLeft + 180) + '" y="66" width="12" height="12" rx="2" fill="#FFFFFF"></rect>';
+    svgHtml += '<rect x="' + (padLeft + 180) + '" y="66" width="12" height="12" rx="2" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="1"></rect>';
+    svgHtml += '<text x="' + (padLeft + 196) + '" y="76" font-size="11px" font-family="var(--font-sans)" font-weight="600" fill="var(--muted)">Rerata OECD (pola arsir)</text>';
+
+    let currentY = 104;
+
+    for (let d = 0; d < domains.length; d++) {
+      const dom = domains[d];
+      const dData = DATA.prof[dom.key];
+      if (!dData) continue;
+
+      const bands = dData.bands || [];
+      const idnShares = dData.idn || [];
+      const oecdShares = dData.oecd || [];
+
+      let l2Idx = bands.indexOf('level_2');
+      if (l2Idx === -1) l2Idx = 3;
+
+      let idnBelowL2 = 0;
+      for (let b = 0; b < l2Idx; b++) {
+        idnBelowL2 += (idnShares[b] || 0);
+      }
+
+      let oecdBelowL2 = 0;
+      for (let b = 0; b < l2Idx; b++) {
+        oecdBelowL2 += (oecdShares[b] || 0);
+      }
+
+      const idnTotal = idnShares.reduce(function (a, b) { return a + b; }, 0) || 100;
+      const oecdTotal = oecdShares.reduce(function (a, b) { return a + b; }, 0) || 100;
+
+      const idnBelowW = (idnBelowL2 / idnTotal) * plotW;
+
+      svgHtml += '<text x="' + padLeft + '" y="' + currentY + '" font-size="13px" font-family="var(--font-display)" font-weight="700" fill="var(--ink)" letter-spacing="0.04em">' + dom.label.toUpperCase() + '</text>';
+
+      const bracketY = currentY + 14;
+      const yIdn = bracketY + 8;
+      const bracketXEnd = padLeft + idnBelowW;
+      const bracketMidX = padLeft + idnBelowW / 2;
+
+      svgHtml += '<path d="M ' + padLeft.toFixed(2) + ' ' + (yIdn - 2) + ' L ' + padLeft.toFixed(2) + ' ' + bracketY + ' L ' + bracketXEnd.toFixed(2) + ' ' + bracketY + ' L ' + bracketXEnd.toFixed(2) + ' ' + (yIdn - 2) + '" fill="none" stroke="var(--accent-ink)" stroke-width="1.5"></path>';
+      svgHtml += '<text x="' + bracketMidX.toFixed(2) + '" y="' + (bracketY - 4) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="700" fill="var(--accent-ink)">' + fmt(idnBelowL2, 1) + '% di bawah Level 2</text>';
+
+      svgHtml += '<text x="' + (padLeft - 12) + '" y="' + (yIdn + 15) + '" text-anchor="end" font-size="12px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia</text>';
+
+      let cumX = padLeft;
+      for (let b = 0; b < bands.length; b++) {
+        const share = idnShares[b] || 0;
+        if (share <= 0) continue;
+        const w = (share / idnTotal) * plotW;
+        const segX = cumX;
+        cumX += w;
+
+        const tok = bands[b];
+        const color = getBandColor(tok);
+        const textColor = getBandTextColor(tok);
+        const bLabel = getBandLabel(tok);
+
+        svgHtml += '<g>';
+        svgHtml += '<title>Indonesia ' + dom.label + ' ' + bLabel + ': ' + fmt(share, 2) + '%</title>';
+        svgHtml += '<rect x="' + segX.toFixed(2) + '" y="' + yIdn + '" width="' + w.toFixed(2) + '" height="' + barH + '" fill="' + color + '" stroke="#FFFFFF" stroke-width="1"></rect>';
+        if (w >= 38) {
+          svgHtml += '<text x="' + (segX + w / 2).toFixed(2) + '" y="' + (yIdn + 14) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="600" fill="' + textColor + '">' + fmt(share, 1) + '%</text>';
+        } else if (w >= 22) {
+          svgHtml += '<text x="' + (segX + w / 2).toFixed(2) + '" y="' + (yIdn + 14) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="600" fill="' + textColor + '">' + fmt(share, 1) + '</text>';
+        }
+        svgHtml += '</g>';
+      }
+
+      const yOecd = yIdn + barH + 4;
+      svgHtml += '<text x="' + (padLeft - 12) + '" y="' + (yOecd + 15) + '" text-anchor="end" font-size="12px" font-family="var(--font-sans)" font-weight="600" fill="var(--muted)">Rerata OECD</text>';
+
+      cumX = padLeft;
+      for (let b = 0; b < bands.length; b++) {
+        const share = oecdShares[b] || 0;
+        if (share <= 0) continue;
+        const w = (share / oecdTotal) * plotW;
+        const segX = cumX;
+        cumX += w;
+
+        const tok = bands[b];
+        const color = getBandColor(tok);
+        const textColor = getBandTextColor(tok);
+        const bLabel = getBandLabel(tok);
+
+        svgHtml += '<g>';
+        svgHtml += '<title>Rerata OECD ' + dom.label + ' ' + bLabel + ': ' + fmt(share, 2) + '%</title>';
+        svgHtml += '<rect x="' + segX.toFixed(2) + '" y="' + yOecd + '" width="' + w.toFixed(2) + '" height="' + barH + '" fill="' + color + '" stroke="#FFFFFF" stroke-width="1"></rect>';
+        svgHtml += '<rect x="' + segX.toFixed(2) + '" y="' + yOecd + '" width="' + w.toFixed(2) + '" height="' + barH + '" fill="url(#hatch-oecd)" stroke="#FFFFFF" stroke-width="1"></rect>';
+        if (w >= 38) {
+          svgHtml += '<text x="' + (segX + w / 2).toFixed(2) + '" y="' + (yOecd + 14) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="600" fill="' + textColor + '">' + fmt(share, 1) + '%</text>';
+        } else if (w >= 22) {
+          svgHtml += '<text x="' + (segX + w / 2).toFixed(2) + '" y="' + (yOecd + 14) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="600" fill="' + textColor + '">' + fmt(share, 1) + '</text>';
+        }
+        svgHtml += '</g>';
+      }
+
+      currentY = yOecd + barH + 34;
+    }
+
+    const axisY = currentY - 8;
+    svgHtml += '<line x1="' + padLeft + '" y1="' + axisY + '" x2="' + (padLeft + plotW) + '" y2="' + axisY + '" stroke="var(--muted)" stroke-width="1.5"></line>';
+    const ticks = [0, 20, 40, 60, 80, 100];
+    for (let t = 0; t < ticks.length; t++) {
+      const val = ticks[t];
+      const tx = padLeft + (val / 100) * plotW;
+      svgHtml += '<line x1="' + tx.toFixed(2) + '" y1="' + axisY + '" x2="' + tx.toFixed(2) + '" y2="' + (axisY + 6) + '" stroke="var(--muted)" stroke-width="1.5"></line>';
+      svgHtml += '<text x="' + tx.toFixed(2) + '" y="' + (axisY + 20) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + val + '%</text>';
+    }
+
+    const noteY = axisY + 42;
+    svgHtml += '<text x="' + padLeft + '" y="' + noteY + '" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">Tingkat 2 merupakan batas kecakapan minimum OECD. Kurung menandai proporsi peserta didik di bawah Tingkat 2.</text>';
+
+    svgHtml += '</svg>';
+
+    container.innerHTML = svgHtml;
+  }
+
+  function renderSpread() {
+    const container = document.getElementById('spread-chart');
+    if (!container) {
+      throw new Error('Elemen kontainer #spread-chart tidak ditemukan');
+    }
+    container.replaceChildren();
+
+    if (!DATA || !DATA.spread || !DATA.spread.idn || !DATA.spread.oecd) {
+      return;
+    }
+
+    const idn = DATA.spread.idn;
+    const oecd = DATA.spread.oecd;
+
+    function fmt(val, digits) {
+      if (typeof val !== 'number') return String(val);
+      const d = typeof digits === 'number' ? digits : 2;
+      return val.toFixed(d).replace('.', ',');
+    }
+
+    const svgW = 1000;
+    const svgH = 340;
+    const padLeft = 140;
+    const padRight = 50;
+    const plotW = svgW - padLeft - padRight;
+    const minScore = 250;
+    const maxScore = 650;
+    const span = maxScore - minScore;
+
+    function toX(score) {
+      return padLeft + ((score - minScore) / span) * plotW;
+    }
+
+    const gridTop = 64;
+    const axisY = 268;
+
+    const ticks = [250, 300, 350, 400, 450, 500, 550, 600, 650];
+    let ticksSvg = '';
+    for (let i = 0; i < ticks.length; i++) {
+      const t = ticks[i];
+      const tx = toX(t).toFixed(2);
+      ticksSvg += '<line x1="' + tx + '" y1="' + gridTop + '" x2="' + tx + '" y2="' + axisY + '" stroke="var(--line)" stroke-width="1"></line>';
+      ticksSvg += '<line x1="' + tx + '" y1="' + axisY + '" x2="' + tx + '" y2="' + (axisY + 6) + '" stroke="var(--muted)" stroke-width="1.5"></line>';
+      ticksSvg += '<text x="' + tx + '" y="' + (axisY + 20) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + t + '</text>';
+    }
+
+    const oecdMedX = toX(oecd.p50);
+    const oecdMedXStr = oecdMedX.toFixed(2);
+    const refSvg =
+      '<line x1="' + oecdMedXStr + '" y1="' + gridTop + '" x2="' + oecdMedXStr + '" y2="' + axisY + '" stroke="var(--series-ref)" stroke-width="1.5" stroke-dasharray="4 3"></line>' +
+      '<text x="' + (oecdMedX + 6).toFixed(2) + '" y="60" text-anchor="start" font-size="11px" font-family="var(--font-mono)" font-weight="700" fill="var(--series-ref)">MEDIAN OECD ' + fmt(oecd.p50) + '</text>';
+
+    const yIdn = 115;
+    const boxH = 26;
+    const idnX10 = toX(idn.p10);
+    const idnX25 = toX(idn.p25);
+    const idnX50 = toX(idn.p50);
+    const idnX75 = toX(idn.p75);
+    const idnX90 = toX(idn.p90);
+
+    const idnWhiskers =
+      '<line x1="' + idnX10.toFixed(2) + '" y1="' + yIdn + '" x2="' + idnX25.toFixed(2) + '" y2="' + yIdn + '" stroke="var(--series-idn)" stroke-width="2.5"></line>' +
+      '<line x1="' + idnX75.toFixed(2) + '" y1="' + yIdn + '" x2="' + idnX90.toFixed(2) + '" y2="' + yIdn + '" stroke="var(--series-idn)" stroke-width="2.5"></line>' +
+      '<line x1="' + idnX10.toFixed(2) + '" y1="' + (yIdn - 10) + '" x2="' + idnX10.toFixed(2) + '" y2="' + (yIdn + 10) + '" stroke="var(--series-idn)" stroke-width="2"></line>' +
+      '<line x1="' + idnX90.toFixed(2) + '" y1="' + (yIdn - 10) + '" x2="' + idnX90.toFixed(2) + '" y2="' + (yIdn + 10) + '" stroke="var(--series-idn)" stroke-width="2"></line>';
+
+    const idnBox =
+      '<rect x="' + idnX25.toFixed(2) + '" y="' + (yIdn - 13) + '" width="' + (idnX75 - idnX25).toFixed(2) + '" height="' + boxH + '" rx="2" fill="var(--level-1)" stroke="var(--series-idn)" stroke-width="2"></rect>' +
+      '<line x1="' + idnX50.toFixed(2) + '" y1="' + (yIdn - 13) + '" x2="' + idnX50.toFixed(2) + '" y2="' + (yIdn + 13) + '" stroke="var(--series-idn)" stroke-width="3"></line>';
+
+    let idnMarkersSvg = '';
+    const idnMarkers = [
+      { tag: 'P10', val: idn.p10, x: idnX10, anchor: 'middle', textX: idnX10 },
+      { tag: 'P25', val: idn.p25, x: idnX25, anchor: 'middle', textX: idnX25 },
+      { tag: 'P50', val: idn.p50, x: idnX50, anchor: 'middle', textX: idnX50 },
+      { tag: 'P75', val: idn.p75, x: idnX75, anchor: 'middle', textX: idnX75 },
+      { tag: 'P90', val: idn.p90, x: idnX90, anchor: 'end', textX: idnX90 - 4 }
+    ];
+
+    for (let i = 0; i < idnMarkers.length; i++) {
+      const m = idnMarkers[i];
+      const r = m.tag === 'P50' ? 6 : 4.5;
+      const sw = m.tag === 'P50' ? 2 : 1.5;
+      idnMarkersSvg += '<g>';
+      idnMarkersSvg += '<title>Indonesia ' + m.tag + ': ' + fmt(m.val) + '</title>';
+      idnMarkersSvg += '<circle cx="' + m.x.toFixed(2) + '" cy="' + yIdn + '" r="' + r + '" fill="var(--series-idn)" stroke="#FFFFFF" stroke-width="' + sw + '"></circle>';
+      idnMarkersSvg += '<text x="' + m.textX.toFixed(2) + '" y="' + (yIdn - 27) + '" text-anchor="' + m.anchor + '" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + m.tag + '</text>';
+      idnMarkersSvg += '<text x="' + m.textX.toFixed(2) + '" y="' + (yIdn - 15) + '" text-anchor="' + m.anchor + '" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--accent-ink)">' + fmt(m.val) + '</text>';
+      idnMarkersSvg += '</g>';
+    }
+
+    const yOecd = 198;
+    const oecdX10 = toX(oecd.p10);
+    const oecdX25 = toX(oecd.p25);
+    const oecdX50 = toX(oecd.p50);
+    const oecdX75 = toX(oecd.p75);
+    const oecdX90 = toX(oecd.p90);
+
+    const oecdWhiskers =
+      '<line x1="' + oecdX10.toFixed(2) + '" y1="' + yOecd + '" x2="' + oecdX25.toFixed(2) + '" y2="' + yOecd + '" stroke="var(--series-oecd)" stroke-width="2.5"></line>' +
+      '<line x1="' + oecdX75.toFixed(2) + '" y1="' + yOecd + '" x2="' + oecdX90.toFixed(2) + '" y2="' + yOecd + '" stroke="var(--series-oecd)" stroke-width="2.5"></line>' +
+      '<line x1="' + oecdX10.toFixed(2) + '" y1="' + (yOecd - 10) + '" x2="' + oecdX10.toFixed(2) + '" y2="' + (yOecd + 10) + '" stroke="var(--series-oecd)" stroke-width="2"></line>' +
+      '<line x1="' + oecdX90.toFixed(2) + '" y1="' + (yOecd - 10) + '" x2="' + oecdX90.toFixed(2) + '" y2="' + (yOecd + 10) + '" stroke="var(--series-oecd)" stroke-width="2"></line>';
+
+    const oecdBox =
+      '<rect x="' + oecdX25.toFixed(2) + '" y="' + (yOecd - 13) + '" width="' + (oecdX75 - oecdX25).toFixed(2) + '" height="' + boxH + '" rx="2" fill="#FFFFFF"></rect>' +
+      '<rect x="' + oecdX25.toFixed(2) + '" y="' + (yOecd - 13) + '" width="' + (oecdX75 - oecdX25).toFixed(2) + '" height="' + boxH + '" rx="2" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="2"></rect>' +
+      '<line x1="' + oecdX50.toFixed(2) + '" y1="' + (yOecd - 13) + '" x2="' + oecdX50.toFixed(2) + '" y2="' + (yOecd + 13) + '" stroke="var(--series-oecd)" stroke-width="3"></line>';
+
+    let oecdMarkersSvg = '';
+    const oecdMarkers = [
+      { tag: 'P10', val: oecd.p10, x: oecdX10 },
+      { tag: 'P25', val: oecd.p25, x: oecdX25 },
+      { tag: 'P50', val: oecd.p50, x: oecdX50 },
+      { tag: 'P75', val: oecd.p75, x: oecdX75 },
+      { tag: 'P90', val: oecd.p90, x: oecdX90 }
+    ];
+
+    for (let i = 0; i < oecdMarkers.length; i++) {
+      const m = oecdMarkers[i];
+      const size = m.tag === 'P50' ? 12 : 9;
+      const rx = m.tag === 'P50' ? 2 : 1.5;
+      const sw = m.tag === 'P50' ? 2 : 1.5;
+      const half = size / 2;
+      oecdMarkersSvg += '<g>';
+      oecdMarkersSvg += '<title>Rerata OECD ' + m.tag + ': ' + fmt(m.val) + '</title>';
+      oecdMarkersSvg += '<rect x="' + (m.x - half).toFixed(2) + '" y="' + (yOecd - half).toFixed(2) + '" width="' + size + '" height="' + size + '" rx="' + rx + '" fill="#FFFFFF"></rect>';
+      oecdMarkersSvg += '<rect x="' + (m.x - half).toFixed(2) + '" y="' + (yOecd - half).toFixed(2) + '" width="' + size + '" height="' + size + '" rx="' + rx + '" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="' + sw + '"></rect>';
+      oecdMarkersSvg += '<text x="' + m.x.toFixed(2) + '" y="' + (yOecd + 26) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--ink)">' + fmt(m.val) + '</text>';
+      oecdMarkersSvg += '<text x="' + m.x.toFixed(2) + '" y="' + (yOecd + 39) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + m.tag + '</text>';
+      oecdMarkersSvg += '</g>';
+    }
+
+    const ariaLabel = 'Grafik sebaran persentil skor literasi sains PISA: Indonesia P10 ' + fmt(idn.p10) + ', median ' + fmt(idn.p50) + ', P90 ' + fmt(idn.p90) + '; Rerata OECD P10 ' + fmt(oecd.p10) + ', median ' + fmt(oecd.p50) + ', P90 ' + fmt(oecd.p90);
+
+    const svgHtml =
+      '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" role="img" aria-label="' + ariaLabel + '" style="display:block;width:100%;height:auto;">' +
+      '<text x="' + padLeft + '" y="26" font-size="13px" font-family="var(--font-display)" font-weight="700" fill="var(--ink)" letter-spacing="0.04em">SEBARAN PERSENTIL SKOR LITERASI SAINS PISA (P10 - P90)</text>' +
+      '<text x="' + (padLeft + plotW) + '" y="26" text-anchor="end" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">satuan: poin skor</text>' +
+      '<circle cx="' + (padLeft + 6) + '" cy="44" r="5" fill="var(--series-idn)"></circle>' +
+      '<text x="' + (padLeft + 18) + '" y="48" font-size="12px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia (warna solid)</text>' +
+      '<rect x="' + (padLeft + 190) + '" y="38" width="12" height="12" rx="2" fill="#FFFFFF"></rect>' +
+      '<rect x="' + (padLeft + 190) + '" y="38" width="12" height="12" rx="2" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="1"></rect>' +
+      '<text x="' + (padLeft + 208) + '" y="48" font-size="12px" font-family="var(--font-sans)" font-weight="600" fill="var(--muted)">Rerata OECD (pola arsir)</text>' +
+      ticksSvg +
+      refSvg +
+      '<text x="' + (padLeft - 16) + '" y="' + (yIdn - 2) + '" text-anchor="end" font-size="13px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia</text>' +
+      '<text x="' + (padLeft - 16) + '" y="' + (yIdn + 14) + '" text-anchor="end" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">SD: ' + fmt(idn.sd) + '</text>' +
+      idnWhiskers +
+      idnBox +
+      idnMarkersSvg +
+      '<text x="' + (padLeft - 16) + '" y="' + (yOecd - 2) + '" text-anchor="end" font-size="13px" font-family="var(--font-sans)" font-weight="700" fill="var(--muted)">Rerata OECD</text>' +
+      '<text x="' + (padLeft - 16) + '" y="' + (yOecd + 14) + '" text-anchor="end" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">SD: ' + fmt(oecd.sd) + '</text>' +
+      oecdWhiskers +
+      oecdBox +
+      oecdMarkersSvg +
+      '<line x1="' + padLeft + '" y1="' + axisY + '" x2="' + (padLeft + plotW) + '" y2="' + axisY + '" stroke="var(--muted)" stroke-width="1.5"></line>' +
+      '<text x="' + padLeft + '" y="318" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">Siswa persentil 90 Indonesia (' + fmt(idn.p90) + ') berada di bawah median OECD (' + fmt(oecd.p50) + '). Kotak menandai rentang antarkuartil P25-P75, kumis menandai P10 dan P90.</text>' +
+      '</svg>';
+
+    container.innerHTML = svgHtml;
+  }
+
+  function renderEscs() {
+    const container = document.getElementById('escs-chart');
+    if (!container) {
+      throw new Error('Elemen kontainer #escs-chart tidak ditemukan');
+    }
+    container.replaceChildren();
+
+    if (!DATA || !DATA.escs || !DATA.escs.idn || !DATA.escs.oecd) {
+      return;
+    }
+
+    const idn = DATA.escs.idn;
+    const oecd = DATA.escs.oecd;
+    const idnMeans = idn.means || [];
+    const oecdMeans = oecd.means || [];
+    const idnCuts = idn.cuts || [];
+    const oecdCuts = oecd.cuts || [];
+
+    function fmt(val, digits) {
+      if (typeof val !== 'number') return String(val);
+      const d = typeof digits === 'number' ? digits : 1;
+      return val.toFixed(d).replace('.', ',');
+    }
+
+    const svgW = 1000;
+    const svgH = 520;
+    const padLeft = 80;
+    const padRight = 60;
+    const plotW = svgW - padLeft - padRight;
+
+    const maxScore = 600;
+    const barAreaTop = 85;
+    const barAreaBottom = 265;
+    const barAreaHeight = barAreaBottom - barAreaTop;
+
+    function toScoreY(score) {
+      return barAreaBottom - (score / maxScore) * barAreaHeight;
+    }
+
+    const scoreTicks = [0, 100, 200, 300, 400, 500, 600];
+    let scoreGridSvg = '';
+    for (let i = 0; i < scoreTicks.length; i++) {
+      const st = scoreTicks[i];
+      const sy = toScoreY(st).toFixed(2);
+      scoreGridSvg += '<line x1="' + padLeft + '" y1="' + sy + '" x2="' + (padLeft + plotW) + '" y2="' + sy + '" stroke="' + (st === 0 ? 'var(--muted)' : 'var(--line)') + '" stroke-width="' + (st === 0 ? '1.5' : '1') + '"></line>';
+      scoreGridSvg += '<text x="' + (padLeft - 12) + '" y="' + (parseFloat(sy) + 4).toFixed(2) + '" text-anchor="end" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + st + '</text>';
+    }
+
+    let oecdQ1RefSvg = '';
+    if (oecdMeans.length > 0 && typeof oecdMeans[0] === 'number') {
+      const q1Val = oecdMeans[0];
+      const q1Y = toScoreY(q1Val).toFixed(2);
+      oecdQ1RefSvg += '<line x1="' + padLeft + '" y1="' + q1Y + '" x2="' + (padLeft + plotW) + '" y2="' + q1Y + '" stroke="var(--series-ref)" stroke-width="1.5" stroke-dasharray="4 3"></line>';
+      oecdQ1RefSvg += '<text x="' + (padLeft + plotW - 6) + '" y="' + (parseFloat(q1Y) - 6).toFixed(2) + '" text-anchor="end" font-size="11px" font-family="var(--font-mono)" font-weight="700" fill="var(--series-ref)">RERATA KUARTIL 1 OECD (' + fmt(q1Val) + ')</text>';
+    }
+
+    const panelW = 380;
+    const idnPanelLeft = 130;
+    const oecdPanelLeft = 560;
+    const dividerX = (idnPanelLeft + panelW + 25);
+
+    const dividerSvg = '<line x1="' + dividerX + '" y1="65" x2="' + dividerX + '" y2="295" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 3"></line>';
+
+    const idnGapText = typeof idn.gap === 'number' ? 'Selisih K4 - K1: ' + fmt(idn.gap) + ' poin' : '';
+    const oecdGapText = typeof oecd.gap === 'number' ? 'Selisih K4 - K1: ' + fmt(oecd.gap) + ' poin' : '';
+
+    const headersSvg =
+      '<g>' +
+      '<text x="' + (idnPanelLeft + panelW / 2) + '" y="68" text-anchor="middle" font-size="13px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia</text>' +
+      '<text x="' + (idnPanelLeft + panelW / 2) + '" y="82" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + idnGapText + '</text>' +
+      '<text x="' + (oecdPanelLeft + panelW / 2) + '" y="68" text-anchor="middle" font-size="13px" font-family="var(--font-sans)" font-weight="700" fill="var(--ink)">Rerata OECD</text>' +
+      '<text x="' + (oecdPanelLeft + panelW / 2) + '" y="82" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + oecdGapText + '</text>' +
+      '</g>';
+
+    const barW = 54;
+    const barGap = 34;
+    const quartileNames = ['K1', 'K2', 'K3', 'K4'];
+    const quartileDescs = ['Termiskin', '', '', 'Terkaya'];
+
+    let idnBarsSvg = '';
+    for (let i = 0; i < 4; i++) {
+      const val = idnMeans[i];
+      if (typeof val !== 'number') continue;
+      const bx = idnPanelLeft + 16 + i * (barW + barGap);
+      const by = toScoreY(val);
+      const bh = barAreaBottom - by;
+      const bxMid = bx + barW / 2;
+
+      idnBarsSvg += '<g>';
+      idnBarsSvg += '<title>Indonesia ' + quartileNames[i] + ' (' + (quartileDescs[i] || 'Kuartil ' + (i + 1)) + '): ' + fmt(val) + ' poin</title>';
+      idnBarsSvg += '<rect x="' + bx.toFixed(2) + '" y="' + by.toFixed(2) + '" width="' + barW + '" height="' + bh.toFixed(2) + '" rx="3" fill="var(--series-idn)"></rect>';
+      idnBarsSvg += '<text x="' + bxMid.toFixed(2) + '" y="' + (by - 6).toFixed(2) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--accent-ink)">' + fmt(val) + '</text>';
+      idnBarsSvg += '<text x="' + bxMid.toFixed(2) + '" y="' + (barAreaBottom + 16) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--ink)">' + quartileNames[i] + '</text>';
+      if (quartileDescs[i]) {
+        idnBarsSvg += '<text x="' + bxMid.toFixed(2) + '" y="' + (barAreaBottom + 28) + '" text-anchor="middle" font-size="10px" font-family="var(--font-sans)" fill="var(--muted)">' + quartileDescs[i] + '</text>';
+      }
+      idnBarsSvg += '</g>';
+    }
+
+    let oecdBarsSvg = '';
+    for (let i = 0; i < 4; i++) {
+      const val = oecdMeans[i];
+      if (typeof val !== 'number') continue;
+      const bx = oecdPanelLeft + 16 + i * (barW + barGap);
+      const by = toScoreY(val);
+      const bh = barAreaBottom - by;
+      const bxMid = bx + barW / 2;
+
+      oecdBarsSvg += '<g>';
+      oecdBarsSvg += '<title>Rerata OECD ' + quartileNames[i] + ' (' + (quartileDescs[i] || 'Kuartil ' + (i + 1)) + '): ' + fmt(val) + ' poin</title>';
+      oecdBarsSvg += '<rect x="' + bx.toFixed(2) + '" y="' + by.toFixed(2) + '" width="' + barW + '" height="' + bh.toFixed(2) + '" rx="3" fill="#FFFFFF"></rect>';
+      oecdBarsSvg += '<rect x="' + bx.toFixed(2) + '" y="' + by.toFixed(2) + '" width="' + barW + '" height="' + bh.toFixed(2) + '" rx="3" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="1.5"></rect>';
+      oecdBarsSvg += '<text x="' + bxMid.toFixed(2) + '" y="' + (by - 6).toFixed(2) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--ink)">' + fmt(val) + '</text>';
+      oecdBarsSvg += '<text x="' + bxMid.toFixed(2) + '" y="' + (barAreaBottom + 16) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--ink)">' + quartileNames[i] + '</text>';
+      if (quartileDescs[i]) {
+        oecdBarsSvg += '<text x="' + bxMid.toFixed(2) + '" y="' + (barAreaBottom + 28) + '" text-anchor="middle" font-size="10px" font-family="var(--font-sans)" fill="var(--muted)">' + quartileDescs[i] + '</text>';
+      }
+      oecdBarsSvg += '</g>';
+    }
+
+    const rulerLeft = 160;
+    const rulerRight = padLeft + plotW;
+    const rulerW = rulerRight - rulerLeft;
+    const minEscs = -2.6;
+    const maxEscs = 1.0;
+    const escsSpan = maxEscs - minEscs;
+
+    function toEscsX(v) {
+      return rulerLeft + ((v - minEscs) / escsSpan) * rulerW;
+    }
+
+    const row1Y = 368;
+    const row2Y = 418;
+    const escsAxisY = 460;
+
+    let idnCutsSvg = '';
+    const idnCutLabels = ['K1 | K2', 'K2 | K3', 'K3 | K4'];
+    for (let i = 0; i < idnCuts.length; i++) {
+      const cv = idnCuts[i];
+      if (typeof cv !== 'number') continue;
+      const cx = toEscsX(cv);
+      const cxStr = cx.toFixed(2);
+      idnCutsSvg += '<g>';
+      idnCutsSvg += '<title>Ambang Kuartil Indonesia ' + (idnCutLabels[i] || '') + ': ' + fmt(cv, 2) + '</title>';
+      idnCutsSvg += '<line x1="' + cxStr + '" y1="' + (row1Y - 6) + '" x2="' + cxStr + '" y2="' + (row1Y + 6) + '" stroke="var(--series-idn)" stroke-width="2"></line>';
+      idnCutsSvg += '<circle cx="' + cxStr + '" cy="' + row1Y + '" r="5" fill="var(--series-idn)" stroke="#FFFFFF" stroke-width="1.5"></circle>';
+      idnCutsSvg += '<text x="' + cxStr + '" y="' + (row1Y - 18) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + (idnCutLabels[i] || '') + '</text>';
+      idnCutsSvg += '<text x="' + cxStr + '" y="' + (row1Y - 7) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="700" fill="var(--accent-ink)">' + fmt(cv, 2) + '</text>';
+      idnCutsSvg += '</g>';
+    }
+
+    let oecdCutsSvg = '';
+    const oecdCutLabels = ['K1 | K2', 'K2 | K3', 'K3 | K4'];
+    for (let i = 0; i < oecdCuts.length; i++) {
+      const cv = oecdCuts[i];
+      if (typeof cv !== 'number') continue;
+      const cx = toEscsX(cv);
+      const cxStr = cx.toFixed(2);
+      oecdCutsSvg += '<g>';
+      oecdCutsSvg += '<title>Ambang Kuartil OECD ' + (oecdCutLabels[i] || '') + ': ' + fmt(cv, 2) + '</title>';
+      oecdCutsSvg += '<line x1="' + cxStr + '" y1="' + (row2Y - 6) + '" x2="' + cxStr + '" y2="' + (row2Y + 6) + '" stroke="var(--series-oecd)" stroke-width="2"></line>';
+      oecdCutsSvg += '<rect x="' + (cx - 5).toFixed(2) + '" y="' + (row2Y - 5) + '" width="10" height="10" rx="1.5" fill="#FFFFFF"></rect>';
+      oecdCutsSvg += '<rect x="' + (cx - 5).toFixed(2) + '" y="' + (row2Y - 5) + '" width="10" height="10" rx="1.5" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="1.5"></rect>';
+      oecdCutsSvg += '<text x="' + cxStr + '" y="' + (row2Y + 18) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="700" fill="var(--ink)">' + fmt(cv, 2) + '</text>';
+      oecdCutsSvg += '<text x="' + cxStr + '" y="' + (row2Y + 30) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + (oecdCutLabels[i] || '') + '</text>';
+      oecdCutsSvg += '</g>';
+    }
+
+    const escsTicks = [-2.5, -2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0];
+    let escsTicksSvg = '';
+    for (let i = 0; i < escsTicks.length; i++) {
+      const et = escsTicks[i];
+      const ex = toEscsX(et).toFixed(2);
+      escsTicksSvg += '<line x1="' + ex + '" y1="' + escsAxisY + '" x2="' + ex + '" y2="' + (escsAxisY + 6) + '" stroke="var(--muted)" stroke-width="1.5"></line>';
+      const signStr = et > 0 ? '+' : '';
+      escsTicksSvg += '<text x="' + ex + '" y="' + (escsAxisY + 18) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + signStr + fmt(et, 1) + '</text>';
+    }
+
+    const ariaLabel = 'Grafik kuartil sosio-ekonomi ESCS: capaian literasi sains empat kuartil Indonesia dan rerata OECD beserta penggaris ambang kuartil indeks ESCS.';
+
+    const svgHtml =
+      '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" role="img" aria-label="' + ariaLabel + '" style="display:block;width:100%;height:auto;">' +
+      '<text x="' + padLeft + '" y="26" font-size="13px" font-family="var(--font-display)" font-weight="700" fill="var(--ink)" letter-spacing="0.04em">CAPAIAN SAINS MENURUT KUARTIL SOSIO-EKONOMI (ESCS)</text>' +
+      '<text x="' + (padLeft + plotW) + '" y="26" text-anchor="end" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">satuan: poin skor</text>' +
+      '<circle cx="' + (padLeft + 6) + '" cy="44" r="5" fill="var(--series-idn)"></circle>' +
+      '<text x="' + (padLeft + 18) + '" y="48" font-size="12px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia (warna solid)</text>' +
+      '<rect x="' + (padLeft + 190) + '" y="38" width="12" height="12" rx="2" fill="#FFFFFF"></rect>' +
+      '<rect x="' + (padLeft + 190) + '" y="38" width="12" height="12" rx="2" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="1"></rect>' +
+      '<text x="' + (padLeft + 208) + '" y="48" font-size="12px" font-family="var(--font-sans)" font-weight="600" fill="var(--muted)">Rerata OECD (pola arsir)</text>' +
+      scoreGridSvg +
+      oecdQ1RefSvg +
+      dividerSvg +
+      headersSvg +
+      idnBarsSvg +
+      oecdBarsSvg +
+      '<text x="' + padLeft + '" y="332" font-size="13px" font-family="var(--font-display)" font-weight="700" fill="var(--ink)" letter-spacing="0.04em">PENGGARIS AMBANG KUARTIL STATUS SOSIO-EKONOMI (MOTIF 2)</text>' +
+      '<text x="' + (padLeft + plotW) + '" y="332" text-anchor="end" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">satuan: indeks ESCS</text>' +
+      '<text x="' + (rulerLeft - 16) + '" y="' + (row1Y + 4) + '" text-anchor="end" font-size="12px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia</text>' +
+      '<line x1="' + rulerLeft + '" y1="' + row1Y + '" x2="' + rulerRight + '" y2="' + row1Y + '" stroke="var(--line)" stroke-width="2"></line>' +
+      idnCutsSvg +
+      '<text x="' + (rulerLeft - 16) + '" y="' + (row2Y + 4) + '" text-anchor="end" font-size="12px" font-family="var(--font-sans)" font-weight="700" fill="var(--muted)">Rerata OECD</text>' +
+      '<line x1="' + rulerLeft + '" y1="' + row2Y + '" x2="' + rulerRight + '" y2="' + row2Y + '" stroke="var(--line)" stroke-width="2"></line>' +
+      oecdCutsSvg +
+      '<line x1="' + rulerLeft + '" y1="' + escsAxisY + '" x2="' + rulerRight + '" y2="' + escsAxisY + '" stroke="var(--muted)" stroke-width="1.5"></line>' +
+      escsTicksSvg +
+      '<text x="' + padLeft + '" y="505" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">Ambang kuartil indeks ESCS dihitung terpisah untuk tiap populasi; skala kedua sistem tidak dapat dibandingkan secara nominal.</text>' +
+      '</svg>';
+
+    container.innerHTML = svgHtml;
+  }
+
+  function renderPeers() {
+    const container = document.getElementById('peers-chart');
+    if (!container) {
+      throw new Error('Elemen kontainer #peers-chart tidak ditemukan');
+    }
+    container.replaceChildren();
+
+    if (!DATA || !DATA.peers || !Array.isArray(DATA.peers) || DATA.peers.length === 0) {
+      return;
+    }
+
+    function fmt(val, digits) {
+      if (typeof val !== 'number') return String(val);
+      const d = typeof digits === 'number' ? digits : 2;
+      return val.toFixed(d).replace('.', ',');
+    }
+
+    const peers = DATA.peers.slice().sort(function (a, b) {
+      return b.value - a.value;
+    });
+
+    const oecdVal = (DATA && DATA.hero && DATA.hero.oecd && typeof DATA.hero.oecd.scie === 'number')
+      ? DATA.hero.oecd.scie
+      : 481.90834;
+
+    const svgW = 1000;
+    const svgH = 380;
+    const padLeft = 60;
+    const barLeft = 200;
+    const plotW = 650;
+    const maxScore = 600;
+
+    function toBarW(score) {
+      return (score / maxScore) * plotW;
+    }
+
+    const refX = barLeft + toBarW(oecdVal);
+    const refXStr = refX.toFixed(2);
+    const startY = 68;
+    const barH = 22;
+    const barGap = 12;
+    const pitch = barH + barGap;
+    const n = peers.length;
+    const lastBarBottom = startY + (n - 1) * pitch + barH;
+    const refYBottom = lastBarBottom + 10;
+
+    let idnRank = 0;
+    let idnScore = 0;
+    for (let i = 0; i < n; i++) {
+      if (peers[i].idn || peers[i].country === 'Indonesia') {
+        idnRank = i + 1;
+        idnScore = peers[i].value;
+        break;
+      }
+    }
+
+    const ariaLabel = 'Grafik peringkat capaian literasi sains delapan negara ASEAN PISA 2025: Indonesia peringkat ' + (idnRank || 6) + ' dengan skor ' + fmt(idnScore) + ' poin, rerata OECD ' + fmt(oecdVal) + ' poin';
+
+    let svgHtml = '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" role="img" aria-label="' + ariaLabel + '" style="display:block;width:100%;height:auto;">';
+
+    svgHtml += '<text x="' + padLeft + '" y="26" font-size="13px" font-family="var(--font-display)" font-weight="700" fill="var(--ink)" letter-spacing="0.04em">PERINGKAT CAPAIAN SAINS NEGARA TETANGGA ASEAN</text>';
+    svgHtml += '<text x="' + (svgW - padLeft) + '" y="26" text-anchor="end" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">satuan: poin skor</text>';
+
+    svgHtml += '<line x1="' + refXStr + '" y1="52" x2="' + refXStr + '" y2="' + refYBottom.toFixed(2) + '" stroke="var(--series-ref)" stroke-width="1.5" stroke-dasharray="4 3"></line>';
+    svgHtml += '<text x="' + refXStr + '" y="46" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="700" fill="var(--series-ref)">RERATA OECD ' + fmt(oecdVal) + '</text>';
+
+    for (let i = 0; i < n; i++) {
+      const item = peers[i];
+      const country = item.country || '';
+      const val = item.value;
+      if (typeof val !== 'number') continue;
+
+      const isIdn = Boolean(item.idn || country === 'Indonesia');
+      const y = startY + i * pitch;
+      const yStr = y.toFixed(2);
+      const bw = toBarW(val);
+      const bwStr = bw.toFixed(2);
+      const barEnd = barLeft + bw;
+      const textY = (y + 16).toFixed(2);
+
+      const barFill = isIdn ? 'var(--series-idn)' : 'var(--series-oecd)';
+      const textFill = isIdn ? 'var(--accent-ink)' : 'var(--ink)';
+      const textWeight = isIdn ? '700' : '600';
+
+      svgHtml += '<g>';
+      svgHtml += '<title>' + country + ': ' + fmt(val) + ' poin skor' + (isIdn ? ' (Indonesia, peringkat ' + (i + 1) + ')' : '') + '</title>';
+      svgHtml += '<text x="' + (barLeft - 14) + '" y="' + textY + '" text-anchor="end" font-size="12px" font-family="var(--font-sans)" font-weight="' + textWeight + '" fill="' + textFill + '">' + country + '</text>';
+      svgHtml += '<rect x="' + barLeft + '" y="' + yStr + '" width="' + bwStr + '" height="' + barH + '" rx="2" fill="' + barFill + '"></rect>';
+      svgHtml += '<text x="' + (barEnd + 8).toFixed(2) + '" y="' + textY + '" text-anchor="start" font-size="12px" font-family="var(--font-mono)" font-weight="' + textWeight + '" fill="' + textFill + '" paint-order="stroke fill" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round">' + fmt(val) + '</text>';
+      svgHtml += '</g>';
+    }
+
+    svgHtml += '<text x="' + padLeft + '" y="362" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">Garis putus-putus menandai rata-rata OECD (' + fmt(oecdVal) + '). Batang biru menandai capaian sains Indonesia.</text>';
+    svgHtml += '</svg>';
+
+    container.innerHTML = svgHtml;
+  }
+
+  function fillDataFigs() {
+    const elements = document.querySelectorAll('span[data-fig]');
+    elements.forEach(function (el) {
+      const key = el.getAttribute('data-fig');
+      if (!key) return;
+      if (DATA && DATA.fig && DATA.fig[key] !== undefined) {
+        const entry = DATA.fig[key];
+        el.textContent = (entry && typeof entry === 'object' && entry.d !== undefined) ? entry.d : entry;
+      } else if (DATA && DATA[key] !== undefined) {
+        const entry = DATA[key];
+        el.textContent = (entry && typeof entry === 'object' && entry.d !== undefined) ? entry.d : entry;
+      }
+    });
+  }
+
+  function runAllRenderers() {
+    renderHero();
+    renderTrend();
+    renderProficiency();
+    renderSpread();
+    renderEscs();
+    renderPeers();
+    fillDataFigs();
+  }
+
+  document.addEventListener('DOMContentLoaded', runAllRenderers);
+  </script>
+</body>
+</html>

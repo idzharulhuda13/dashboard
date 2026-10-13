@@ -1,0 +1,707 @@
+#!/usr/bin/env python3
+"""Numeric acceptance gate for PISA plate 02.
+
+Standard library only. Recomputes all metrics and payload values independently
+from raw CSV sources.
+"""
+
+import csv
+import glob
+import hashlib
+import json
+import math
+import os
+import re
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def fmt_int(n: int) -> str:
+    return f"{n:,}".replace(",", ".")
+
+
+def fmt_float(v: float, dp: int = 1) -> str:
+    s = f"{float(v):.{dp}f}"
+    if s in ("-0.0", "-0"):
+        s = "0.0" if dp > 0 else "0"
+    return s.replace(".", ",")
+
+
+def rebuild_payload_from_csv(csv_dir: str, template_path: str) -> dict:
+    with open(os.path.join(csv_dir, "annex_means.csv"), "r", encoding="utf-8") as f:
+        annex_means = list(csv.DictReader(f))
+
+    with open(os.path.join(csv_dir, "annex_trend_science.csv"), "r", encoding="utf-8") as f:
+        annex_trend = list(csv.DictReader(f))
+
+    with open(os.path.join(csv_dir, "annex_proficiency.csv"), "r", encoding="utf-8") as f:
+        annex_prof = list(csv.DictReader(f))
+
+    with open(os.path.join(csv_dir, "puf_quartile_cuts.csv"), "r", encoding="utf-8") as f:
+        puf_cuts = list(csv.DictReader(f))
+
+    with open(os.path.join(csv_dir, "puf_estimates.csv"), "r", encoding="utf-8") as f:
+        puf_est = list(csv.DictReader(f))
+
+    puf_counts = {}
+    with open(os.path.join(csv_dir, "puf_counts.csv"), "r", encoding="utf-8") as f:
+        for r in csv.reader(f):
+            if r and len(r) == 2:
+                puf_counts[r[0]] = r[1]
+
+    # Hashes for annex and puf files
+    annex_hasher = hashlib.sha256()
+    for p in sorted(glob.glob(os.path.join(csv_dir, "annex_*.csv"))):
+        with open(p, "rb") as f:
+            annex_hasher.update(f.read())
+    annex_sha256 = annex_hasher.hexdigest()
+
+    puf_hasher = hashlib.sha256()
+    for p in sorted(glob.glob(os.path.join(csv_dir, "puf_*.csv"))):
+        with open(p, "rb") as f:
+            puf_hasher.update(f.read())
+    puf_sha256 = puf_hasher.hexdigest()
+
+    meta = {
+        "cycle": 2025,
+        "retrieved": "2026-10-13",
+        "source_url": "https://www.oecd.org/en/data/datasets/pisa-2025-database.html",
+        "annex_sha256": annex_sha256,
+        "puf_sha256": puf_sha256,
+        "licence": "CC BY 4.0",
+    }
+
+    # Hero
+    idn_scie_mean = None
+    idn_scie_se = None
+    oecd_scie_mean = None
+    oecd_scie_se = None
+    table_hero = None
+    for r in annex_means:
+        if r["domain"] == "science" and r["stat"] == "mean":
+            if r["subject"] == "Indonesia":
+                idn_scie_mean = float(r["value"])
+                idn_scie_se = float(r["se"])
+                table_hero = r["table"].replace("Table ", "")
+            elif r["subject"] == "OECD average":
+                oecd_scie_mean = float(r["value"])
+                oecd_scie_se = float(r["se"])
+
+    hero = {
+        "idn": {"scie": idn_scie_mean, "se": idn_scie_se},
+        "oecd": {"scie": oecd_scie_mean, "se": oecd_scie_se},
+        "cut_l2": 409.54,
+        "cut_unit": "poin skor",
+    }
+
+    # Trend
+    trend_cycles = [2006, 2009, 2012, 2015, 2018, 2022, 2025]
+    trend_map = {c: {} for c in trend_cycles}
+    table_trend = None
+    for r in annex_trend:
+        if r["domain"] == "science" and r["stat"] == "mean":
+            try:
+                c = int(r["cycle"])
+            except ValueError:
+                continue
+            if c in trend_map:
+                if r["subject"] == "Indonesia":
+                    trend_map[c]["idn"] = float(r["value"])
+                    trend_map[c]["idn_se"] = float(r["se"])
+                    if table_trend is None:
+                        table_trend = r["table"].replace("Table ", "")
+                elif r["subject"] == "OECD average-23":
+                    trend_map[c]["oecd23"] = float(r["value"])
+                    trend_map[c]["oecd23_se"] = float(r["se"])
+
+    trend = []
+    for c in sorted(trend_cycles):
+        d = trend_map[c]
+        trend.append({
+            "cycle": c,
+            "idn": d["idn"],
+            "idn_se": d["idn_se"],
+            "oecd23": d["oecd23"],
+            "oecd23_se": d["oecd23_se"],
+        })
+
+    # Proficiency
+    prof_cut_scores = {
+        "science": [260.54, 334.94, 409.54, 484.14, 559.74, 633.33, 708.16],
+        "reading": [189.33, 262.04, 334.75, 407.47, 480.18, 552.89, 625.61, 698.32],
+        "mathematics": [233.17, 295.47, 357.77, 420.07, 482.38, 544.68, 606.99, 669.30],
+    }
+    prof = {}
+    table_prof = {}
+    for domain in ["science", "reading", "mathematics"]:
+        domain_rows = [r for r in annex_prof if r["domain"] == domain]
+        bands_idn = []
+        shares_idn = []
+        shares_oecd_map = {}
+        for r in domain_rows:
+            if r["subject"] == "Indonesia":
+                bands_idn.append(r["stat"])
+                shares_idn.append(float(r["value"]))
+                table_prof[domain] = r["table"].replace("Table ", "")
+            elif r["subject"] == "OECD average":
+                shares_oecd_map[r["stat"]] = float(r["value"])
+        shares_oecd = [shares_oecd_map[b] for b in bands_idn]
+        prof[domain] = {
+            "bands": bands_idn,
+            "cut_scores": prof_cut_scores[domain],
+            "idn": shares_idn,
+            "oecd": shares_oecd,
+        }
+
+    # Spread
+    spread_stats = ["sd", "p10", "p25", "p50", "p75", "p90"]
+    spread_idn = {}
+    spread_oecd = {}
+    for r in annex_means:
+        if r["domain"] == "science" and r["stat"] in spread_stats:
+            if r["subject"] == "Indonesia":
+                spread_idn[r["stat"]] = float(r["value"])
+            elif r["subject"] == "OECD average":
+                spread_oecd[r["stat"]] = float(r["value"])
+
+    spread = {
+        "idn": {st: spread_idn[st] for st in spread_stats},
+        "oecd": {st: spread_oecd[st] for st in spread_stats},
+    }
+
+    # ESCS
+    idn_cuts = sorted([float(r["escs_cut"]) for r in puf_cuts if r["pop"] == "idn"])
+    oecd_cuts = sorted([float(r["escs_cut"]) for r in puf_cuts if r["pop"] == "oecd"])
+
+    puf_by_pop_stat = {}
+    for r in puf_est:
+        puf_by_pop_stat.setdefault((r["pop"], r["stat"]), {})[(int(r["pv"]), int(r["rep"]))] = float(r["value"])
+
+    def puf_mean_rep0(pop, stat):
+        d = puf_by_pop_stat.get((pop, stat), {})
+        if (0, 0) in d:
+            return d[(0, 0)]
+        vals = [d[(pv, 0)] for pv in range(1, 6) if (pv, 0) in d]
+        return sum(vals) / len(vals)
+
+    def puf_se_calc(pop, stat):
+        d = puf_by_pop_stat.get((pop, stat), {})
+        thetas = [d[(pv, 0)] for pv in range(1, 6) if (pv, 0) in d]
+        if len(thetas) < 2:
+            return None
+        th_mean = sum(thetas) / len(thetas)
+        b_val = sum((th - th_mean) ** 2 for th in thetas) / (len(thetas) - 1)
+        var_r_list = []
+        for pv in range(1, 6):
+            reps = [d[(pv, r)] for r in range(1, 81)]
+            rep_mean = sum(reps) / len(reps)
+            var_r_list.append(sum((x - rep_mean) ** 2 for x in reps) / (len(reps) - 1))
+        u_val = 4.0 * (sum(var_r_list) / len(var_r_list))
+        return math.sqrt(u_val + b_val)
+
+    idn_q_means = [puf_mean_rep0("idn", f"scie_q{q}_mean") for q in range(1, 5)]
+    oecd_q_means = [puf_mean_rep0("oecd", f"scie_q{q}_mean") for q in range(1, 5)]
+    idn_gap = puf_mean_rep0("idn", "scie_q4_minus_q1")
+    oecd_gap = puf_mean_rep0("oecd", "scie_q4_minus_q1")
+    idn_gap_se = puf_se_calc("idn", "scie_q4_minus_q1")
+    idn_escs_mean = puf_mean_rep0("idn", "escs_mean")
+    oecd_escs_mean = puf_mean_rep0("oecd", "escs_mean")
+    idn_missing_pct = (float(puf_counts["missing_escs_idn"]) / float(puf_counts["students_idn"])) * 100.0
+    oecd_missing_pct = (float(puf_counts["missing_escs_oecd"]) / float(puf_counts["students_oecd"])) * 100.0
+
+    escs = {
+        "idn": {
+            "cuts": idn_cuts,
+            "means": idn_q_means,
+            "gap": idn_gap,
+            "gap_se": idn_gap_se,
+            "mean": idn_escs_mean,
+            "missing_pct": idn_missing_pct,
+        },
+        "oecd": {
+            "cuts": oecd_cuts,
+            "means": oecd_q_means,
+            "gap": oecd_gap,
+            "gap_se": None,
+            "mean": oecd_escs_mean,
+            "missing_pct": oecd_missing_pct,
+        },
+    }
+
+    # Peers
+    asean_countries = [
+        "Singapore", "Viet Nam", "Brunei Darussalam", "Thailand",
+        "Malaysia", "Indonesia", "Cambodia", "Philippines"
+    ]
+    peers_map = {}
+    for r in annex_means:
+        if r["domain"] == "science" and r["stat"] == "mean" and r["subject"] in asean_countries:
+            peers_map[r["subject"]] = {
+                "country": r["subject"],
+                "idn": (r["subject"] == "Indonesia"),
+                "value": float(r["value"]),
+                "se": float(r["se"]),
+            }
+    peers = [peers_map[c] for c in asean_countries]
+    peers.sort(key=lambda x: x["value"], reverse=True)
+
+    # Fig
+    diff_hero = oecd_scie_mean - idn_scie_mean
+    trend_idn_change_val = trend[-1]["idn"] - trend[0]["idn"]
+    trend_idn_change_se_val = math.sqrt(trend[-1]["idn_se"] ** 2 + trend[0]["idn_se"] ** 2)
+    trend_oecd_change_val = trend[-1]["oecd23"] - trend[0]["oecd23"]
+    trend_oecd_change_se_val = math.sqrt(trend[-1]["oecd23_se"] ** 2 + trend[0]["oecd23_se"] ** 2)
+    l2_math_idx = prof["mathematics"]["bands"].index("level_2")
+    prof_below_l2_math_val = sum(prof["mathematics"]["idn"][:l2_math_idx])
+
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_str = f.read()
+    data_fig_matches = re.findall(r"data-fig=[\x27\x22]([^\x27\x22]+)[\x27\x22]", template_str)
+
+    words_id = {1: "SATU", 2: "DUA", 3: "TIGA", 4: "EMPAT", 5: "LIMA", 6: "ENAM", 7: "TUJUH", 8: "DELAPAN"}
+    idn_rank = [i for i, p in enumerate(peers, 1) if p["country"] == "Indonesia"][0]
+
+    fig_resolvers = {
+        "hero_gap": {"d": fmt_int(round(diff_hero)), "r": diff_hero},
+        "meta_table_hero": table_hero,
+        "trend_idn_change": {"d": fmt_float(trend_idn_change_val, 1), "r": trend_idn_change_val},
+        "trend_idn_change_se": {"d": fmt_float(trend_idn_change_se_val, 1), "r": trend_idn_change_se_val},
+        "trend_oecd_change": {"d": fmt_float(trend_oecd_change_val, 1), "r": trend_oecd_change_val},
+        "trend_oecd_change_se": {"d": fmt_float(trend_oecd_change_se_val, 1), "r": trend_oecd_change_se_val},
+        "meta_table_trend": table_trend,
+        "prof_below_l2_math": {"d": fmt_float(prof_below_l2_math_val, 1), "r": prof_below_l2_math_val},
+        "meta_table_prof_scie": table_prof["science"],
+        "meta_table_prof_math": table_prof["mathematics"],
+        "meta_table_prof_read": table_prof["reading"],
+        "meta_table_spread": table_hero,
+        "spread_idn_sd": {"d": fmt_float(spread["idn"]["sd"], 1), "r": spread["idn"]["sd"]},
+        "spread_oecd_sd": {"d": fmt_float(spread["oecd"]["sd"], 1), "r": spread["oecd"]["sd"]},
+        "escs_gap_idn": {"d": fmt_int(round(escs["idn"]["gap"])), "r": escs["idn"]["gap"]},
+        "escs_gap_oecd": {"d": fmt_int(round(escs["oecd"]["gap"])), "r": escs["oecd"]["gap"]},
+        "meta_table_escs": "puf_quartile_cuts",
+        "peers_rank": words_id.get(idn_rank, str(idn_rank)),
+        "meta_table_peers": table_hero,
+        "meta_pv_count": str(puf_counts.get("meta_pv_count", 5)),
+        "meta_rep_count": str(puf_counts.get("meta_rep_count", 80)),
+        "meta_licence_ver": "4.0",
+        "meta_licence_ver_code": "4.0",
+        "se_science_val": {"d": fmt_float(idn_scie_se, 1), "r": idn_scie_se},
+        "meta_licence_note": "4.0",
+    }
+    fig = {k: fig_resolvers[k] for k in set(data_fig_matches)}
+
+    return {
+        "meta": meta,
+        "hero": hero,
+        "trend": trend,
+        "prof": prof,
+        "spread": spread,
+        "escs": escs,
+        "peers": peers,
+        "fig": fig,
+    }
+
+
+def check_1_stamp(index_html_path: str, template_path: str, csv_dir: str, fonts_dir: str):
+    with open(index_html_path, "r", encoding="utf-8") as f:
+        line1 = f.readline().rstrip("\r\n")
+
+    m = re.match(r"^<!--BUILD sha256:([0-9a-fA-F]{64})-->$", line1)
+    if not m:
+        return False, f"p02/index.html line 1 invalid stamp format: {line1!r}"
+
+    act_hex = m.group(1).lower()
+
+    csv_paths = sorted(glob.glob(os.path.join(csv_dir, "*.csv")))
+    font_paths = sorted(glob.glob(os.path.join(fonts_dir, "*.woff2")))
+    input_paths = csv_paths + [template_path] + font_paths
+
+    stamp_hasher = hashlib.sha256()
+    for p in input_paths:
+        rel_path = os.path.relpath(p, ROOT)
+        with open(p, "rb") as bf:
+            data = bf.read()
+        stamp_hasher.update(rel_path.encode("utf-8"))
+        stamp_hasher.update(b"\x00")
+        stamp_hasher.update(data)
+
+    exp_hex = stamp_hasher.hexdigest().lower()
+    if act_hex != exp_hex:
+        return False, f"stamp sha256 mismatch (actual: {act_hex}, expected: {exp_hex})"
+
+    return True, f"stamp matches fresh sha256 over {len(input_paths)} inputs ({act_hex[:12]}...)"
+
+
+def check_2_placeholders(index_content: str):
+    c_data = index_content.count("__DATA__")
+    c_fonts = index_content.count("__FONTS__")
+    if c_data != 0 or c_fonts != 0:
+        return False, f"unresolved placeholders found (__DATA__: {c_data}, __FONTS__: {c_fonts})"
+    return True, "0 occurrences of __DATA__ and __FONTS__ in p02/index.html"
+
+
+def check_3_payload_equality(embedded_data: dict, rebuilt_payload: dict):
+    top_keys = ["meta", "hero", "trend", "prof", "spread", "escs", "peers", "fig"]
+    for k in top_keys:
+        if k not in embedded_data:
+            return False, f"embedded DATA missing key {k!r}"
+        if embedded_data[k] != rebuilt_payload[k]:
+            return False, f"embedded DATA.{k} value mismatch with CSV recomputed payload"
+
+    embedded_fig_keys = set(embedded_data.get("fig", {}).keys())
+    rebuilt_fig_keys = set(rebuilt_payload.get("fig", {}).keys())
+    if embedded_fig_keys != rebuilt_fig_keys:
+        return False, f"DATA.fig keys mismatch (diff: {embedded_fig_keys ^ rebuilt_fig_keys})"
+
+    return True, f"embedded const DATA is value-equal to rebuilt payload across all {len(top_keys)} keys ({len(embedded_fig_keys)} fig entries)"
+
+
+def check_4_proficiency(embedded_data: dict, csv_dir: str):
+    prof = embedded_data.get("prof", {})
+    with open(os.path.join(csv_dir, "annex_lowtop.csv"), "r", encoding="utf-8") as f:
+        lowtop_rows = list(csv.DictReader(f))
+
+    for domain in ["science", "reading", "mathematics"]:
+        if domain not in prof:
+            return False, f"missing domain {domain} in prof"
+        d_obj = prof[domain]
+        bands = d_obj.get("bands", [])
+        if "level_2" not in bands:
+            return False, f"token 'level_2' not found in bands for domain {domain}"
+
+        for pop in ["idn", "oecd"]:
+            shares = d_obj.get(pop, [])
+            total_share = sum(shares)
+            if abs(total_share - 100.0) > 0.05:
+                return False, f"{domain} {pop} shares sum to {total_share:.4f}, expected 100.0 within 0.05"
+
+    # Compare below-L2 for Indonesia in science and mathematics
+    reported_below_l2 = {}
+    for r in lowtop_rows:
+        if r["subject"] == "Indonesia" and r["cycle"] == "2025" and r["stat"] == "below_l2":
+            reported_below_l2[r["domain"]] = float(r["value"])
+
+    for domain in ["science", "mathematics"]:
+        bands = prof[domain]["bands"]
+        l2_idx = bands.index("level_2")
+        sum_below_l2 = sum(prof[domain]["idn"][:l2_idx])
+        annex_val = reported_below_l2.get(domain)
+        if annex_val is None:
+            return False, f"annex_lowtop.csv missing 2025 below_l2 row for Indonesia {domain}"
+        if abs(sum_below_l2 - annex_val) > 0.05:
+            return False, f"{domain} below-Level-2 sum ({sum_below_l2:.4f}) differs from annex ({annex_val:.4f}) by > 0.05"
+
+    scie_sum = sum(prof["science"]["idn"][:prof["science"]["bands"].index("level_2")])
+    math_sum = sum(prof["mathematics"]["idn"][:prof["mathematics"]["bands"].index("level_2")])
+    return True, f"proficiency shares sum to 100.0 (±0.05), Level 2 located by token, below-L2 matches annex (scie: {scie_sum:.2f}% vs {reported_below_l2['science']:.2f}%, math: {math_sum:.2f}% vs {reported_below_l2['mathematics']:.2f}%)"
+
+
+def check_5_percentiles(embedded_data: dict):
+    spread = embedded_data.get("spread", {})
+    spans = {}
+    for pop in ["idn", "oecd"]:
+        if pop not in spread:
+            return False, f"missing {pop} in spread"
+        d = spread[pop]
+        p10, p25, p50, p75, p90 = d["p10"], d["p25"], d["p50"], d["p75"], d["p90"]
+        if not (p10 < p25 < p50 < p75 < p90):
+            return False, f"{pop} percentiles not strictly ascending: p10={p10}, p25={p25}, p50={p50}, p75={p75}, p90={p90}"
+        spans[pop] = p90 - p10
+
+    return True, f"percentiles monotonic: IDN span {spans['idn']:.2f} (P10 {spread['idn']['p10']:.2f} to P90 {spread['idn']['p90']:.2f}), OECD span {spans['oecd']:.2f} (P10 {spread['oecd']['p10']:.2f} to P90 {spread['oecd']['p90']:.2f})"
+
+
+def check_6_hero(embedded_data: dict, csv_dir: str):
+    with open(os.path.join(csv_dir, "annex_means.csv"), "r", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+
+    idn_scie_mean = None
+    oecd_scie_mean = None
+    for r in rows:
+        if r["domain"] == "science" and r["stat"] == "mean":
+            if r["subject"] == "Indonesia":
+                idn_scie_mean = float(r["value"])
+            elif r["subject"] == "OECD average":
+                oecd_scie_mean = float(r["value"])
+
+    if idn_scie_mean is None or oecd_scie_mean is None:
+        return False, "failed to read science means from annex_means.csv"
+
+    recomputed_gap = oecd_scie_mean - idn_scie_mean
+    embedded_gap = embedded_data["hero"]["oecd"]["scie"] - embedded_data["hero"]["idn"]["scie"]
+
+    if abs(recomputed_gap - embedded_gap) > 0.01:
+        return False, f"hero gap mismatch (embedded: {embedded_gap:.4f}, recomputed: {recomputed_gap:.4f})"
+
+    return True, f"hero gap {embedded_gap:.2f} matches OECD ({oecd_scie_mean:.2f}) minus Indonesia ({idn_scie_mean:.2f}) within 0.01 (diff {abs(recomputed_gap - embedded_gap):.5f})"
+
+
+def check_7_trend(embedded_data: dict, csv_dir: str, index_content: str):
+    trend = embedded_data.get("trend", [])
+    if len(trend) != 7:
+        return False, f"trend cycles count mismatch (actual: {len(trend)}, expected: 7)"
+
+    cycles = [t["cycle"] for t in trend]
+    if cycles != sorted(cycles) or len(set(cycles)) != 7:
+        return False, f"trend cycles not strictly ascending: {cycles}"
+
+    with open(os.path.join(csv_dir, "annex_trend_science.csv"), "r", encoding="utf-8") as f:
+        trend_rows = list(csv.DictReader(f))
+
+    trend_map = {}
+    for r in trend_rows:
+        if r["domain"] == "science" and r["stat"] == "mean":
+            try:
+                c = int(r["cycle"])
+            except ValueError:
+                continue
+            if r["subject"] == "Indonesia":
+                trend_map.setdefault(c, {})["idn"] = (float(r["value"]), float(r["se"]))
+            elif r["subject"] == "OECD average-23":
+                trend_map.setdefault(c, {})["oecd23"] = (float(r["value"]), float(r["se"]))
+
+    idn_06, idn_se_06 = trend_map[2006]["idn"]
+    idn_25, idn_se_25 = trend_map[2025]["idn"]
+    idn_change = idn_25 - idn_06
+    idn_se_change = math.sqrt(idn_se_06 ** 2 + idn_se_25 ** 2)
+
+    oecd_06, oecd_se_06 = trend_map[2006]["oecd23"]
+    oecd_25, oecd_se_25 = trend_map[2025]["oecd23"]
+    oecd_change = oecd_25 - oecd_06
+    oecd_se_change = math.sqrt(oecd_se_06 ** 2 + oecd_se_25 ** 2)
+
+    # Claim: Indonesian change is inside twice its own standard error
+    claim_holds = abs(idn_change) <= 2 * idn_se_change
+    if not claim_holds:
+        return False, f"prose claim invalid: Indonesian change {idn_change:.2f} exceeds 2*SE ({2 * idn_se_change:.2f})"
+
+    return True, f"7 trend cycles ascending (2006-2025); IDN change {idn_change:+.2f} within 2*SE ({2 * idn_se_change:.2f}); OECD change {oecd_change:+.2f} (SE {oecd_se_change:.2f})"
+
+
+def check_8_peers(embedded_data: dict):
+    peers = embedded_data.get("peers", [])
+    expected_asean = [
+        "Singapore", "Viet Nam", "Brunei Darussalam", "Thailand",
+        "Malaysia", "Indonesia", "Cambodia", "Philippines"
+    ]
+
+    actual_countries = [p["country"] for p in peers]
+    if actual_countries != expected_asean:
+        return False, f"peers countries mismatch (actual: {actual_countries}, expected: {expected_asean})"
+
+    for i in range(len(peers) - 1):
+        if peers[i]["value"] <= peers[i + 1]["value"]:
+            return False, f"peers not strictly descending: {peers[i]['country']} ({peers[i]['value']}) <= {peers[i+1]['country']} ({peers[i+1]['value']})"
+
+    idn_entry = next((p for p in peers if p["country"] == "Indonesia"), None)
+    if not idn_entry or not idn_entry.get("idn"):
+        return False, "Indonesia peer entry missing or idn flag is not True"
+
+    idn_rank = [i for i, p in enumerate(peers, 1) if p["country"] == "Indonesia"][0]
+    if idn_rank != 6:
+        return False, f"Indonesia rank in peers is {idn_rank}, expected 6"
+
+    return True, f"8 ASEAN peers strictly descending (Singapore {peers[0]['value']:.2f} to Philippines {peers[-1]['value']:.2f}), Indonesia rank 6 ({idn_entry['value']:.2f})"
+
+
+def check_9_fig_coverage(embedded_data: dict, template_path: str):
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_str = f.read()
+
+    data_fig_matches = re.findall(r"data-fig=[\x27\x22]([^\x27\x22]+)[\x27\x22]", template_str)
+    scanned_count = len(data_fig_matches)
+    unique_keys = set(data_fig_matches)
+
+    fig = embedded_data.get("fig", {})
+    for key in unique_keys:
+        if key not in fig:
+            return False, f"missing fig key in payload: {key!r}"
+        val = fig[key]
+        if val is None or val == "":
+            return False, f"empty fig value for key: {key!r}"
+        if isinstance(val, dict):
+            if val.get("d") in (None, "") or val.get("r") is None:
+                return False, f"empty display/raw entry in fig key: {key!r}"
+
+    return True, f"all {scanned_count} data-fig attribute references present and non-empty in payload ({len(unique_keys)} unique keys scanned from template)"
+
+
+def check_10_reconciliation(csv_dir: str):
+    with open(os.path.join(csv_dir, "puf_estimates.csv"), "r", encoding="utf-8") as f:
+        puf_rows = list(csv.DictReader(f))
+
+    with open(os.path.join(csv_dir, "annex_means.csv"), "r", encoding="utf-8") as f:
+        annex_rows = list(csv.DictReader(f))
+
+    idn_scie_rows = [r for r in puf_rows if r["pop"] == "idn" and r["stat"] == "scie_mean"]
+    pvs_rep0 = [float(r["value"]) for r in idn_scie_rows if int(r["rep"]) == 0]
+    if len(pvs_rep0) != 5:
+        return False, f"expected 5 PVs at rep 0 for idn scie_mean, found {len(pvs_rep0)}"
+
+    puf_mean = sum(pvs_rep0) / len(pvs_rep0)
+
+    annex_mean = None
+    for r in annex_rows:
+        if r["subject"] == "Indonesia" and r["domain"] == "science" and r["stat"] == "mean":
+            annex_mean = float(r["value"])
+            break
+
+    if annex_mean is None:
+        return False, "annex_means.csv missing Indonesia science mean"
+
+    mean_diff = abs(puf_mean - annex_mean)
+    if mean_diff > 0.5:
+        return False, f"PUF science mean ({puf_mean:.4f}) differs from annex mean ({annex_mean:.4f}) by {mean_diff:.4f} > 0.5 points"
+
+    # PISA SE formula: B = var over PVs, U = 4 * mean over PVs of var over replicates, SE = sqrt(U+B)
+    thetas = pvs_rep0
+    th_mean = sum(thetas) / len(thetas)
+    b_val = sum((th - th_mean) ** 2 for th in thetas) / (len(thetas) - 1)
+
+    var_r_list = []
+    for pv in range(1, 6):
+        reps = [float(r["value"]) for r in idn_scie_rows if int(r["pv"]) == pv and int(r["rep"]) > 0]
+        if len(reps) != 80:
+            return False, f"expected 80 replicates for PV {pv}, found {len(reps)}"
+        rep_mean = sum(reps) / len(reps)
+        var_r = sum((x - rep_mean) ** 2 for x in reps) / (len(reps) - 1)
+        var_r_list.append(var_r)
+
+    u_val = 4.0 * (sum(var_r_list) / len(var_r_list))
+    puf_se = math.sqrt(u_val + b_val)
+
+    target_se = 2.31865
+    se_diff = abs(puf_se - target_se)
+    if se_diff > 0.005:
+        return False, f"PUF SE ({puf_se:.5f}) differs from target {target_se} by {se_diff:.5f} > 0.005"
+
+    return True, f"PUF mean {puf_mean:.2f} differs from annex {annex_mean:.2f} by {mean_diff:.3f} <= 0.5 pts; PUF SE {puf_se:.5f} within {se_diff:.5f} <= 0.005 of {target_se}"
+
+
+def check_11_hygiene(index_content: str):
+    em_dashes = index_content.count("\u2014")
+    if em_dashes != 0:
+        return False, f"p02/index.html contains U+2014 em dash ({em_dashes} occurrences)"
+
+    urls = re.findall(r"https?://[^\s\"'<>]+", index_content)
+    allowed_urls = {
+        "http://www.w3.org/2000/svg",
+        "https://www.oecd.org/en/data/datasets/pisa-2025-database.html",
+    }
+    disallowed_urls = [u for u in urls if u not in allowed_urls]
+    if disallowed_urls:
+        return False, f"p02/index.html contains external network URLs: {disallowed_urls}"
+
+    band_ids = [
+        "band-hero", "band-trend", "band-prof", "band-spread",
+        "band-escs", "band-peers", "band-method"
+    ]
+    for b in band_ids:
+        if f'id="{b}"' not in index_content and f"id='{b}'" not in index_content:
+            return False, f"missing band section id: {b!r}"
+
+    container_ids = [
+        "hero-scale", "trend-chart", "prof-chart",
+        "spread-chart", "escs-chart", "peers-chart"
+    ]
+    for c in container_ids:
+        if f'id="{c}"' not in index_content and f"id='{c}'" not in index_content:
+            return False, f"missing chart container id: {c!r}"
+
+    renderer_funcs = [
+        "renderHero", "renderTrend", "renderProficiency",
+        "renderSpread", "renderEscs", "renderPeers"
+    ]
+    for r in renderer_funcs:
+        if not re.search(rf"\bfunction\s+{r}\b", index_content) and f"{r}(" not in index_content:
+            return False, f"missing renderer function: {r}"
+
+    return True, f"hygiene clean (0 U+2014, 0 external network URLs, {len(band_ids)} band ids, {len(container_ids)} container ids, {len(renderer_funcs)} renderers present)"
+
+
+def main():
+    csv_dir = os.path.join(ROOT, "data", "pisa")
+    template_path = os.path.join(ROOT, "p02.template.html")
+    fonts_dir = os.path.join(ROOT, "fonts")
+    index_path = os.path.join(ROOT, "p02", "index.html")
+
+    required_files = [
+        (os.path.join(csv_dir, "annex_means.csv"), "annex_means.csv"),
+        (os.path.join(csv_dir, "annex_trend_science.csv"), "annex_trend_science.csv"),
+        (os.path.join(csv_dir, "annex_proficiency.csv"), "annex_proficiency.csv"),
+        (os.path.join(csv_dir, "annex_lowtop.csv"), "annex_lowtop.csv"),
+        (os.path.join(csv_dir, "annex_variation_science.csv"), "annex_variation_science.csv"),
+        (os.path.join(csv_dir, "puf_quartile_cuts.csv"), "puf_quartile_cuts.csv"),
+        (os.path.join(csv_dir, "puf_estimates.csv"), "puf_estimates.csv"),
+        (os.path.join(csv_dir, "puf_counts.csv"), "puf_counts.csv"),
+        (template_path, "p02.template.html"),
+        (index_path, "p02/index.html"),
+    ]
+
+    for path, name in required_files:
+        if not os.path.exists(path):
+            print(f"FAIL Input file missing: {name} (actual: not found at {path}, expected: file present)")
+            print("TOTAL 0/11")
+            sys.exit(1)
+
+    with open(index_path, "r", encoding="utf-8") as f:
+        line1 = f.readline().rstrip("\r\n")
+        index_content = line1 + "\n" + f.read()
+
+    prefix = "const DATA = "
+    idx = index_content.find(prefix)
+    if idx == -1:
+        print("FAIL Embedded DATA not found in p02/index.html")
+        print("TOTAL 0/11")
+        sys.exit(1)
+
+    start_json = idx + len(prefix)
+    end_json = index_content.find(";\n", start_json)
+    if end_json == -1:
+        end_json = index_content.find(";", start_json)
+    if end_json == -1:
+        print("FAIL Embedded DATA end delimiter not found in p02/index.html")
+        print("TOTAL 0/11")
+        sys.exit(1)
+
+    try:
+        embedded_data = json.loads(index_content[start_json:end_json])
+    except Exception as e:
+        print(f"FAIL Embedded DATA JSON parse failed: {e}")
+        print("TOTAL 0/11")
+        sys.exit(1)
+
+    rebuilt_payload = rebuild_payload_from_csv(csv_dir, template_path)
+
+    checks = [
+        ("stamp", lambda: check_1_stamp(index_path, template_path, csv_dir, fonts_dir)),
+        ("placeholders", lambda: check_2_placeholders(index_content)),
+        ("payload equality", lambda: check_3_payload_equality(embedded_data, rebuilt_payload)),
+        ("proficiency", lambda: check_4_proficiency(embedded_data, csv_dir)),
+        ("percentiles", lambda: check_5_percentiles(embedded_data)),
+        ("hero", lambda: check_6_hero(embedded_data, csv_dir)),
+        ("trend", lambda: check_7_trend(embedded_data, csv_dir, index_content)),
+        ("peers", lambda: check_8_peers(embedded_data)),
+        ("fig coverage", lambda: check_9_fig_coverage(embedded_data, template_path)),
+        ("reconciliation", lambda: check_10_reconciliation(csv_dir)),
+        ("hygiene", lambda: check_11_hygiene(index_content)),
+    ]
+
+    passed = 0
+    total = len(checks)
+
+    for i, (label, func) in enumerate(checks, 1):
+        ok, msg = func()
+        if ok:
+            passed += 1
+            print(f"PASS {i}/{total}: {msg}")
+        else:
+            print(f"FAIL {i}/{total}: {msg}")
+
+    print(f"TOTAL {passed}/{total}")
+    sys.exit(0 if passed == total else 1)
+
+
+if __name__ == "__main__":
+    main()

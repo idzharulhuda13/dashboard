@@ -24,35 +24,54 @@ cd "$(dirname "$0")/.." || exit 1
 ROOT="$(pwd)"
 LOG="${LOG:-$ROOT/data/out/publish.log}"
 
+# Which interpreter to use. A scheduled job does not inherit an interactive shell's PATH, so
+# `python3` there can resolve to an interpreter without the gate's dependencies. Callers may
+# pass PYTHON; otherwise pick the first candidate that can actually import what the gates need,
+# and say so rather than failing later with a misleading message.
+PY="${PYTHON:-}"
+if [ -z "$PY" ]; then
+  for cand in "$(command -v python3 2>/dev/null)" /usr/bin/python3 /usr/local/bin/python3; do
+    [ -n "$cand" ] && [ -x "$cand" ] || continue
+    if "$cand" -c "import playwright" >/dev/null 2>&1; then PY="$cand"; break; fi
+  done
+fi
+# No interpreter has the browser gate's dependency. That is a machine problem, and it is better
+# to say so than to let the probe report a defect in a page it never rendered.
+if [ -z "$PY" ]; then
+  echo "ABORT: no python3 found that can import playwright, so the page cannot be measured" \
+    | tee -a "$LOG" >&2
+  exit 2
+fi
+
 log() { printf '%s %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*" | tee -a "$LOG"; }
 die() { log "ABORT: $*"; exit "${2:-1}"; }
 
 mkdir -p "$(dirname "$LOG")"
-log "=== publish start ==="
+log "=== publish start (interpreter: $PY) ==="
 
 # --- 1. harvest -------------------------------------------------------------------------
-if ! python3 pipeline/append_source.py >>"$LOG" 2>&1; then
+if ! "$PY" pipeline/append_source.py >>"$LOG" 2>&1; then
   die "append_source failed; nothing was published" 1
 fi
-NEW=$(python3 -c "import json;print(json.load(open('data/out/append_report.json'))['new_events'])" 2>/dev/null || echo "?")
+NEW=$("$PY" -c "import json;print(json.load(open('data/out/append_report.json'))['new_events'])" 2>/dev/null || echo "?")
 log "harvest: ${NEW} new event(s)"
 
 # --- 2. derive --------------------------------------------------------------------------
-python3 pipeline/build_source.py >>"$LOG" 2>&1 || die "build_source failed" 1
-python3 pipeline/build_data.py   >>"$LOG" 2>&1 || die "build_data failed its invariants" 1
+"$PY" pipeline/build_source.py >>"$LOG" 2>&1 || die "build_source failed" 1
+"$PY" pipeline/build_data.py   >>"$LOG" 2>&1 || die "build_data failed its invariants" 1
 log "build: ok"
 
 # --- 3. gates ---------------------------------------------------------------------------
-python3 pipeline/verify.py >>"$LOG" 2>&1
+"$PY" pipeline/verify.py >>"$LOG" 2>&1
 V=$?
 if [ "$V" -ne 0 ]; then
   log "verify output:"
-  python3 pipeline/verify.py 2>&1 | grep -E "FAIL|TOTAL" | tee -a "$LOG"
+  "$PY" pipeline/verify.py 2>&1 | grep -E "FAIL|TOTAL" | tee -a "$LOG"
   die "verify failed (exit $V); nothing was published" 1
 fi
 log "verify: pass"
 
-python3 pipeline/probe_browser.py >>"$LOG" 2>&1
+"$PY" pipeline/probe_browser.py >>"$LOG" 2>&1
 P=$?
 case "$P" in
   0) log "probe: pass ($(tail -1 "$LOG"))" ;;
@@ -74,8 +93,8 @@ if git diff --cached --quiet; then
   exit 0
 fi
 
-TOTAL=$(python3 -c "import json;print(json.load(open('data.json'))['fig']['total']['d'])" 2>/dev/null || echo "?")
-LAST=$(python3 -c "import json;print(json.load(open('data/out/build_report.json'))['last_event'])" 2>/dev/null || echo "?")
+TOTAL=$("$PY" -c "import json;print(json.load(open('data.json'))['fig']['total']['d'])" 2>/dev/null || echo "?")
+LAST=$("$PY" -c "import json;print(json.load(open('data/out/build_report.json'))['last_event'])" 2>/dev/null || echo "?")
 git -c user.name=idzharulhuda13 -c user.email=idzharulhuda@gmail.com \
     commit -q -m "Append gempa baru: total ${TOTAL}, terakhir ${LAST}" || die "commit failed" 2
 

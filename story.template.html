@@ -6,25 +6,34 @@
   <title>Setengah Abad Gempa Indonesia 1976-2026</title>
   <style>
 :root {
-  --ground: #080D1E;
-  --plane: #111834;
-  --plane-2: #1A2242;
-  --ink: #F3F6FF;
-  --muted: #A6B1CE;
-  --line: #26304F;
-  --control: #7B88AD;
-  --accent: #56D9E8;
-  --fit: #5FD39A;
-  --warn: #F0C36B;
-  --misfit: #FF8080;
-  --cat-1: #6FE3EF;
-  --cat-2: #8FB8F5;
-  --cat-3: #A99BF2;
-  --cat-4: #C6A0EE;
-  --cat-5: #7FE0D0;
-  --font-sans: 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: 'Archivo Black', 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --ground: #F7F1E6;
+  --panel: #FFFBF3;
+  --plane: #FFFBF3;
+  --plane-2: #F7F1E6;
+  --deep: #A83F14;
+  --deep-2: #8F3410;
+  --ink: #1A1410;
+  --muted: #6B5B4A;
+  --line: #DCCFB8;
+  --on-deep: #FFFFFF;
+  --on-deep-muted: #F3D9C8;
+  --control: #6B5B4A;
+  --accent: #CC8800;
+  --accent-ink: #8A5A00;
+  --secondary: #C55221;
+  --depth-shallow: #B85D3B;
+  --depth-mid: #70341B;
+  --depth-deep: #38160B;
+  --mag-1: #EEAB46;
+  --mag-2: #F4C15A;
+  --mag-3: #F9D774;
+  --mag-4: #FEEAA0;
+  --mag-5: #FFFFFF;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --font-sans: 'Chakra Petch', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Chakra Petch', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 /*__FONTS__*/
@@ -39,7 +48,7 @@ html {
   background-color: var(--ground);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.5;
   overflow-x: clip;
 }
@@ -50,13 +59,13 @@ body {
   font-family: var(--font-sans);
   min-height: 100vh;
   overflow-x: clip;
-  padding: 24px;
+  padding: 0;
 }
 
 .dashboard-root {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 0;
   margin: 0 auto;
   max-width: 1440px;
   width: 100%;
@@ -64,31 +73,91 @@ body {
 
 .band {
   background-color: var(--plane);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 28px;
+  border: none;
+  border-radius: 0;
   width: 100%;
 }
 
+/* Band ground alternating rhythm: hero and magnitude deep, others cream */
+.band-hero,
+.band-mag {
+  background-color: var(--deep);
+  color: var(--on-deep);
+}
+
+/* Rhythm 3: vertical padding varied by band role */
+#band-hero {
+  padding: 56px 28px;
+}
+
+#band-province {
+  border-bottom: 1px solid var(--line);
+  padding: 40px 28px;
+}
+
+#band-depth {
+  padding: 36px 28px;
+}
+
+#band-mag {
+  padding: 44px 28px;
+}
+
+#band-decade {
+  border-bottom: 1px solid var(--line);
+  padding: 28px 28px;
+}
+
+#band-live {
+  border-bottom: 1px solid var(--line);
+  padding: 24px 28px;
+}
+
+#band-footer {
+  padding: 20px 28px;
+}
+
+@media (max-width: 719px) {
+  #band-hero {
+    padding: 36px 16px;
+  }
+  #band-province {
+    padding: 28px 16px;
+  }
+  #band-depth {
+    padding: 24px 16px;
+  }
+  #band-mag {
+    padding: 32px 16px;
+  }
+  #band-decade {
+    padding: 20px 16px;
+  }
+  #band-live {
+    padding: 18px 16px;
+  }
+  #band-footer {
+    padding: 16px 16px;
+  }
+}
 
 .band-headline {
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 30px;
-  font-weight: 900;
+  font-size: 44px;
+  font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.15;
-  text-transform: uppercase;
 }
 
 h1.band-headline {
-  font-size: 56px;
+  font-size: 76px;
   line-height: 1.08;
 }
 
 @media (max-width: 719px) {
   .band-headline {
-    font-size: 24px;
+    font-size: 26px;
   }
   h1.band-headline {
     font-size: 34px;
@@ -97,19 +166,35 @@ h1.band-headline {
 
 .band-subtitle {
   color: var(--muted);
-  font-size: 14px;
-  font-style: italic;
+  font-size: 16px;
+  font-style: normal;
   margin-top: 8px;
+}
+
+.band-hero .band-headline,
+.band-mag .band-headline {
+  color: var(--on-deep);
+}
+
+.band-hero .band-subtitle,
+.band-mag .band-subtitle {
+  color: var(--on-deep-muted);
 }
 
 .scale-slot {
   background-color: var(--plane-2);
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: var(--r-sm);
   margin: 16px 0;
   min-height: 48px;
   padding: 12px 16px;
   width: 100%;
+}
+
+.band-hero .scale-slot,
+.band-mag .scale-slot {
+  background-color: var(--deep-2);
+  border-color: var(--deep-2);
 }
 
 .scale-rule-header {
@@ -121,17 +206,25 @@ h1.band-headline {
 
 .scale-rule-caption {
   color: var(--ink);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1.4;
+}
+
+.band-hero .scale-rule-caption,
+.band-mag .scale-rule-caption {
+  color: var(--on-deep);
 }
 
 .scale-rule-unit {
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 12px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+}
+
+.band-hero .scale-rule-unit,
+.band-mag .scale-rule-unit {
+  color: var(--on-deep-muted);
 }
 
 .scale-rule-steps {
@@ -142,37 +235,67 @@ h1.band-headline {
 }
 
 .scale-step {
-  border-top: 3px solid var(--line);
+  border-top: 2px solid var(--line);
   display: flex;
   flex-direction: column;
   gap: 2px;
   padding-top: 6px;
 }
 
-.scale-step-m5 { border-top-color: var(--cat-1); }
-.scale-step-m6 { border-top-color: var(--cat-2); }
-.scale-step-m7 { border-top-color: var(--cat-3); }
-.scale-step-m8 { border-top-color: var(--cat-4); }
-.scale-step-m9 { border-top-color: var(--cat-5); }
+.scale-step-m5 { border-top-color: var(--mag-1); }
+.scale-step-m6 { border-top-color: var(--mag-2); }
+.scale-step-m7 { border-top-color: var(--mag-3); }
+.scale-step-m8 { border-top-color: var(--mag-4); }
+.scale-step-m9 { border-top-color: var(--mag-5); }
 
 .scale-step-band {
+  color: var(--on-deep);
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 600;
 }
 
-.scale-step-m5 .scale-step-band { color: var(--cat-1); }
-.scale-step-m6 .scale-step-band { color: var(--cat-2); }
-.scale-step-m7 .scale-step-band { color: var(--cat-3); }
-.scale-step-m8 .scale-step-band { color: var(--cat-4); }
-.scale-step-m9 .scale-step-band { color: var(--cat-5); }
-
 .scale-step-count {
   color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 14px;
   font-variant-numeric: tabular-nums;
   font-weight: 700;
+}
+
+.band-hero .scale-step-count,
+.band-mag .scale-step-count {
+  color: var(--on-deep);
+}
+
+.scale-ladder-desc {
+  border-top: 2px solid var(--accent);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 8px;
+}
+
+.scale-ladder-note {
+  color: var(--on-deep);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.scale-hero-desc {
+  border-top: 1px solid var(--deep-2);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 8px;
+}
+
+.scale-hero-note {
+  color: var(--on-deep);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 .chart-slot {
@@ -181,11 +304,10 @@ h1.band-headline {
 }
 
 .chart-field-slot {
-  background-color: var(--plane-2);
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  background-color: var(--deep-2);
+  border: 1px solid var(--deep-2);
+  border-radius: var(--r-sm);
   margin-top: 20px;
-  overflow: hidden;
   position: relative;
   width: 100%;
 }
@@ -198,10 +320,64 @@ h1.band-headline {
 }
 
 .field-axis-label {
-  fill: var(--muted);
+  fill: var(--on-deep-muted);
   font-family: var(--font-mono);
-  font-size: 0.55px;
+  font-size: 2.2px;
+  paint-order: stroke fill;
+  stroke: var(--deep);
+  stroke-linejoin: round;
+  stroke-width: 0.15em;
   user-select: none;
+}
+
+.field-annotation {
+  fill: var(--on-deep);
+  font-family: var(--font-mono);
+  font-size: 2.2px;
+  paint-order: stroke fill;
+  stroke: var(--deep);
+  stroke-linejoin: round;
+  stroke-width: 0.15em;
+  user-select: none;
+}
+
+@media (max-width: 719px) {
+  .field-axis-x-alt,
+  .field-axis-y-alt,
+  .field-annotation-long {
+    display: none;
+  }
+}
+
+@media (min-width: 540px) {
+  .field-axis-label,
+  .field-annotation {
+    font-size: 1.4px;
+  }
+}
+
+@media (min-width: 720px) {
+  .field-annotation-short {
+    display: none;
+  }
+  .field-axis-label,
+  .field-annotation {
+    font-size: 1.0px;
+  }
+}
+
+@media (min-width: 960px) {
+  .field-axis-label,
+  .field-annotation {
+    font-size: 0.72px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .field-axis-label,
+  .field-annotation {
+    font-size: 0.55px;
+  }
 }
 
 .hero-header-grid {
@@ -217,47 +393,102 @@ h1.band-headline {
   }
 }
 
+@media (max-width: 899px) {
+  #band-hero {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero-header-grid {
+    display: contents;
+  }
+  .hero-title-group {
+    order: 1;
+  }
+  .hero-stats {
+    order: 2;
+  }
+  #chart-field {
+    order: 3;
+    width: 100%;
+  }
+  #scale-hero {
+    order: 4;
+  }
+  #scale-field-key {
+    order: 5;
+  }
+}
+
 .hero-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.hero-stats-sub {
   display: grid;
   gap: 16px;
-  grid-template-columns: repeat(2, 1fr);
-  margin-top: 20px;
+  grid-template-columns: 1fr;
+  width: 100%;
 }
 
 @media (min-width: 720px) {
-  .hero-stats {
-    grid-template-columns: repeat(4, 1fr);
+  .hero-stats-sub {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 .stat-cell {
-  background-color: var(--plane-2);
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   padding: 14px 16px;
 }
 
+.stat-cell-dominant {
+  padding: 20px 24px;
+  width: 100%;
+}
+
 .stat-label {
-  color: var(--muted);
+  color: var(--on-deep-muted);
   font-family: var(--font-mono);
   font-size: 12px;
-  text-transform: uppercase;
 }
 
 .stat-value {
-  color: var(--ink);
+  color: var(--on-deep);
   font-family: var(--font-mono);
-  font-size: 28px;
+  font-size: 24px;
   font-variant-numeric: tabular-nums;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
   margin: 4px 0;
 }
 
+.stat-value-dominant {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.05;
+  margin: 6px 0;
+}
+
+@media (max-width: 719px) {
+  .stat-value-dominant {
+    font-size: 40px;
+  }
+}
+
 .stat-meta {
-  color: var(--muted);
+  color: var(--on-deep-muted);
+  font-size: 13px;
+}
+
+.stat-cell-sub .stat-meta {
   font-size: 12px;
 }
 
@@ -275,25 +506,25 @@ h1.band-headline {
 }
 
 .aside-panel {
-  background-color: var(--plane-2);
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
   height: 100%;
-  padding: 20px;
+  padding: 0;
 }
 
 .panel-title {
   color: var(--ink);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
 }
 
 .panel-copy {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
@@ -309,11 +540,10 @@ h1.band-headline {
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 12px;
-  text-transform: uppercase;
 }
 
 .aside-metric-val {
-  color: var(--accent);
+  color: var(--accent-ink);
   font-family: var(--font-mono);
   font-size: 20px;
   font-weight: 700;
@@ -341,28 +571,31 @@ h1.band-headline {
   align-items: center;
   display: grid;
   gap: 12px;
-  grid-template-columns: 140px 1fr 48px;
+  grid-template-columns: 140px minmax(0, 1fr);
   width: 100%;
 }
 
 .province-name {
   color: var(--ink);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.3;
   word-break: break-word;
 }
 
 .province-bar-track {
-  background-color: var(--plane-2);
-  border-radius: 2px;
+  align-items: center;
   display: flex;
-  height: 16px;
+  gap: 8px;
+  height: 18px;
   width: 100%;
 }
 
 .province-bar-fill {
   border-radius: 2px;
-  height: 100%;
+  flex-shrink: 0;
+  height: 16px;
+  max-width: calc(100% - 56px);
+  min-width: 12px;
 }
 
 .province-bar-control {
@@ -375,11 +608,12 @@ h1.band-headline {
 
 .province-val {
   color: var(--ink);
+  flex-shrink: 0;
   font-family: var(--font-mono);
   font-size: 13px;
   font-variant-numeric: tabular-nums;
   font-weight: 500;
-  text-align: right;
+  line-height: 1;
   white-space: nowrap;
 }
 
@@ -393,7 +627,7 @@ h1.band-headline {
 @media (max-width: 719px) {
   .province-row {
     gap: 8px;
-    grid-template-columns: 110px 1fr 42px;
+    grid-template-columns: 110px minmax(0, 1fr);
   }
   .province-name {
     font-size: 12px;
@@ -427,12 +661,12 @@ h1.band-headline {
 }
 
 .depth-summary-card {
-  background-color: var(--plane-2);
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 0;
 }
 
 .depth-cat-badge {
@@ -440,7 +674,6 @@ h1.band-headline {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 600;
-  text-transform: uppercase;
 }
 
 .depth-pct {
@@ -472,13 +705,21 @@ h1.band-headline {
 }
 
 .top-events-panel {
-  background-color: var(--plane-2);
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 20px;
+  padding: 0;
+}
+
+.band-mag .panel-title {
+  color: var(--on-deep);
+}
+
+.band-mag .panel-copy {
+  color: var(--on-deep-muted);
 }
 
 .depth-chart-wrap {
@@ -490,7 +731,7 @@ h1.band-headline {
 
 .depth-bar-track {
   background-color: var(--plane-2);
-  border-radius: 4px;
+  border-radius: var(--r-sm);
   display: flex;
   height: 24px;
   overflow: hidden;
@@ -502,15 +743,15 @@ h1.band-headline {
 }
 
 .depth-seg-dangkal {
-  background-color: var(--fit);
+  background-color: var(--depth-shallow);
 }
 
 .depth-seg-menengah {
-  background-color: var(--warn);
+  background-color: var(--depth-mid);
 }
 
 .depth-seg-dalam {
-  background-color: var(--misfit);
+  background-color: var(--depth-deep);
 }
 
 .depth-legend-list {
@@ -543,7 +784,7 @@ h1.band-headline {
 
 .depth-legend-name {
   color: var(--ink);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   text-transform: capitalize;
 }
@@ -594,8 +835,6 @@ h1.band-headline {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
 }
 
 .depth-deep-prov-list {
@@ -665,14 +904,14 @@ h1.band-headline {
 }
 
 .mag-label {
-  color: var(--ink);
+  color: var(--on-deep);
   font-family: var(--font-mono);
   font-size: 13px;
   font-weight: 600;
 }
 
 .mag-bar-track {
-  background-color: var(--plane-2);
+  background-color: var(--deep-2);
   border-radius: 2px;
   display: flex;
   height: 18px;
@@ -685,27 +924,27 @@ h1.band-headline {
 }
 
 .mag-bar-m5 {
-  background-color: var(--cat-1);
+  background-color: var(--mag-1);
 }
 
 .mag-bar-m6 {
-  background-color: var(--cat-2);
+  background-color: var(--mag-2);
 }
 
 .mag-bar-m7 {
-  background-color: var(--cat-3);
+  background-color: var(--mag-3);
 }
 
 .mag-bar-m8 {
-  background-color: var(--cat-4);
+  background-color: var(--mag-4);
 }
 
 .mag-bar-m9 {
-  background-color: var(--cat-5);
+  background-color: var(--mag-5);
 }
 
 .mag-val {
-  color: var(--ink);
+  color: var(--on-deep);
   font-family: var(--font-mono);
   font-size: 13px;
   font-variant-numeric: tabular-nums;
@@ -715,7 +954,7 @@ h1.band-headline {
 }
 
 .mag-chart-note {
-  color: var(--muted);
+  color: var(--on-deep-muted);
   font-size: 12px;
   line-height: 1.5;
   margin-top: 4px;
@@ -734,7 +973,7 @@ h1.band-headline {
 
 .top5-table {
   border-collapse: collapse;
-  color: var(--ink);
+  color: var(--on-deep);
   font-size: 12px;
   margin-top: 8px;
   width: 100%;
@@ -752,14 +991,14 @@ h1.band-headline {
 
 .top5-table th,
 .top5-table td {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--deep);
   padding: 8px 6px;
   vertical-align: top;
 }
 
 .top5-table th {
-  background-color: var(--plane-2);
-  color: var(--muted);
+  background-color: var(--deep);
+  color: var(--on-deep-muted);
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 600;
@@ -768,13 +1007,18 @@ h1.band-headline {
 }
 
 .top5-table td {
-  color: var(--ink);
+  color: var(--on-deep);
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
+.top5-table td:first-child,
+.top5-date {
+  white-space: nowrap;
+}
+
 .top5-table .top5-place {
-  color: var(--muted);
+  color: var(--on-deep-muted);
   font-family: var(--font-sans);
   font-size: 12px;
   line-height: 1.35;
@@ -795,19 +1039,19 @@ h1.band-headline {
 }
 
 .decade-caveat-box {
-  background-color: var(--plane-2);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 18px 20px;
+  background-color: transparent;
+  border: none;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  padding: 16px 0 0 0;
 }
 
 .caveat-title {
-  color: var(--warn);
+  color: var(--accent-ink);
   font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.05em;
+  font-size: 16px;
+  font-weight: 700;
   margin-bottom: 6px;
-  text-transform: uppercase;
 }
 
 .caveat-text {
@@ -889,16 +1133,16 @@ h1.band-headline {
 }
 
 .decade-bar-cat2 {
-  background-color: var(--cat-2);
+  background-color: #6B5B4A;
 }
 
 .decade-bar-accent {
-  background-color: var(--accent);
+  background-color: #3D3228;
 }
 
 .decade-bar-partial {
   background-color: transparent;
-  border: 2px dashed var(--cat-2);
+  border: 2px dashed #6B5B4A;
 }
 
 .decade-val-total {
@@ -922,7 +1166,7 @@ h1.band-headline {
 }
 
 .decade-partial-caption {
-  color: var(--warn);
+  color: var(--accent-ink);
   font-family: var(--font-mono);
   font-size: 12px;
   line-height: 1.4;
@@ -975,19 +1219,51 @@ h1.band-headline {
 
 .live-column-title {
   color: var(--ink);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
 }
 
 .table-slot {
   background-color: var(--plane-2);
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: var(--r-sm);
   max-width: 100%;
   min-width: 0;
   overflow-x: auto;
   overscroll-behavior-x: contain;
+  position: relative;
   width: 100%;
+}
+
+.table-slot.has-scroll-right {
+  box-shadow: inset -12px 0 8px -8px rgba(26, 20, 16, 0.35);
+}
+
+.table-slot.has-scroll-left {
+  box-shadow: inset 12px 0 8px -8px rgba(26, 20, 16, 0.35);
+}
+
+.table-slot.has-scroll-right.has-scroll-left {
+  box-shadow: inset -12px 0 8px -8px rgba(26, 20, 16, 0.35), inset 12px 0 8px -8px rgba(26, 20, 16, 0.35);
+}
+
+@media (max-width: 719px) {
+  .table-slot:not(.scroll-checked) {
+    box-shadow: inset -12px 0 8px -8px rgba(26, 20, 16, 0.35);
+  }
+}
+
+.table-instruction {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+@media (min-width: 1280px) {
+  .table-instruction {
+    display: none;
+  }
 }
 
 .data-table {
@@ -1052,21 +1328,21 @@ h1.band-headline {
 }
 
 .footer-card {
-  background-color: var(--plane-2);
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  background-color: transparent;
+  border: none;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
   display: flex;
   flex-direction: column;
-  padding: 18px 20px;
+  padding: 16px 0 0 0;
 }
 
 .footer-card-title {
-  color: var(--accent);
+  color: var(--accent-ink);
   font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.05em;
+  font-size: 16px;
+  font-weight: 700;
   margin-bottom: 8px;
-  text-transform: uppercase;
 }
 
 .ft-content {
@@ -1084,7 +1360,7 @@ h1.band-headline {
   align-items: center;
   background-color: var(--plane-2);
   border: 1px solid var(--accent);
-  border-radius: 6px;
+  border-radius: var(--r-sm);
   color: var(--ink);
   display: flex;
   font-family: var(--font-mono);
@@ -1111,9 +1387,9 @@ h1.band-headline {
 
 #err-box {
   background-color: var(--plane-2);
-  border: 1px solid var(--misfit);
-  border-radius: 6px;
-  color: var(--misfit);
+  border: 1px solid var(--deep);
+  border-radius: var(--r-sm);
+  color: var(--deep);
   font-family: var(--font-mono);
   font-size: 13px;
   margin: 0 auto;
@@ -1143,7 +1419,7 @@ button:focus-visible,
     opacity: 1 !important;
   }
 }
-  </style>
+</style>
 </head>
 <body>
   <div id="loader" role="status" aria-live="polite">
@@ -1159,33 +1435,35 @@ button:focus-visible,
     <!-- BAND 1: HERO -->
     <section id="band-hero" class="band band-hero">
       <div class="hero-header-grid">
-        <div>
+        <div class="hero-title-group">
           <h1 class="band-headline">SETENGAH ABAD, <span class="data-fig" data-fig="total"></span> GEMPA M5+</h1>
-          <p class="band-subtitle"><em>Katalog gempa bumi wilayah Indonesia magnitudo lima ke atas periode rekaman setengah abad.</em></p>
+          <p class="band-subtitle">Katalog gempa bumi wilayah Indonesia magnitudo lima ke atas periode rekaman setengah abad.</p>
         </div>
         <div id="scale-hero" class="scale-slot"></div>
       </div>
 
       <div class="hero-stats">
-        <div class="stat-cell">
+        <div class="stat-cell stat-cell-dominant">
           <span class="stat-label">Total Peristiwa</span>
-          <span class="stat-value"><span class="data-fig" data-fig="total"></span></span>
-          <span class="stat-meta">kejadian tektonik M5+</span>
+          <span class="stat-value stat-value-dominant"><span class="data-fig" data-fig="total"></span></span>
+          <span class="stat-meta">kejadian tektonik M5+ terverifikasi dalam katalog</span>
         </div>
-        <div class="stat-cell">
-          <span class="stat-label">Laju Tahunan</span>
-          <span class="stat-value"><span class="data-fig" data-fig="rate_year"></span></span>
-          <span class="stat-meta">kejadian per tahun</span>
-        </div>
-        <div class="stat-cell">
-          <span class="stat-label">Laju Mingguan</span>
-          <span class="stat-value"><span class="data-fig" data-fig="rate_week"></span></span>
-          <span class="stat-meta">kejadian per minggu</span>
-        </div>
-        <div class="stat-cell">
-          <span class="stat-label">Median Kedalaman</span>
-          <span class="stat-value"><span class="data-fig" data-fig="depth_median"></span></span>
-          <span class="stat-meta">kilometer kedalaman</span>
+        <div class="hero-stats-sub">
+          <div class="stat-cell stat-cell-sub">
+            <span class="stat-label">Laju Tahunan</span>
+            <span class="stat-value"><span class="data-fig" data-fig="rate_year"></span></span>
+            <span class="stat-meta">kejadian per tahun</span>
+          </div>
+          <div class="stat-cell stat-cell-sub">
+            <span class="stat-label">Laju Mingguan</span>
+            <span class="stat-value"><span class="data-fig" data-fig="rate_week"></span></span>
+            <span class="stat-meta">kejadian per minggu</span>
+          </div>
+          <div class="stat-cell stat-cell-sub">
+            <span class="stat-label">Median Kedalaman</span>
+            <span class="stat-value"><span class="data-fig" data-fig="depth_median"></span></span>
+            <span class="stat-meta">kilometer kedalaman</span>
+          </div>
         </div>
       </div>
 
@@ -1202,7 +1480,7 @@ button:focus-visible,
     <!-- BAND 2: PROVINCE -->
     <section id="band-province" class="band band-province">
       <h2 class="band-headline">YANG PALING SERING DIGUNCANG BUKAN JAWA</h2>
-      <p class="band-subtitle"><em>Agregasi kedekatan jarak spasial episentrum ke titik centroid provinsi rujukan Bapanas.</em></p>
+      <p class="band-subtitle">Agregasi kedekatan jarak spasial episentrum ke titik centroid provinsi rujukan Bapanas.</p>
 
       <div class="province-grid">
         <div class="province-main">
@@ -1225,7 +1503,7 @@ button:focus-visible,
     <!-- BAND 3: DEPTH -->
     <section id="band-depth" class="band band-depth">
       <h2 class="band-headline">TIGA PER EMPAT GEMPA ITU DANGKAL</h2>
-      <p class="band-subtitle"><em>Klasifikasi kedalaman seismologi: dangkal kurang dari 70 km, menengah 70 sampai kurang dari 300 km, dalam 300 km atau lebih.</em></p>
+      <p class="band-subtitle">Klasifikasi kedalaman seismologi: dangkal kurang dari 70 km, menengah 70 sampai kurang dari 300 km, dalam 300 km atau lebih.</p>
 
       <div class="depth-layout">
         <div class="depth-bar-wrap">
@@ -1235,12 +1513,12 @@ button:focus-visible,
           <div class="depth-summary-card">
             <span class="depth-cat-badge">Dangkal (kurang dari 70 km)</span>
             <span class="depth-pct"><span class="data-fig" data-fig="pct_dangkal"></span>%</span>
-            <span class="depth-note">Kelompok terbesar dalam katalog, mencakup kejadian pada kedalaman kurang dari 70 km.</span>
+            <span class="depth-note">Berpusat dekat permukaan kerak bumi; rambatan energinya paling intens dirasakan di daratan pemukiman dan berpotensi memicu gelombang tsunami bila terjadi di dasar laut.</span>
           </div>
           <div class="depth-summary-card">
             <span class="depth-cat-badge">Menengah (70 sampai kurang dari 300 km)</span>
             <span class="depth-pct"><span class="data-fig" data-fig="pct_menengah"></span>%</span>
-            <span class="depth-note">Kelompok tengah, mencakup kejadian pada kedalaman 70 km sampai kurang dari 300 km.</span>
+            <span class="depth-note">Berpusat pada lempeng subduksi yang menunjam ke mantel; getarannya menjangkau wilayah permukaan yang sangat luas, namun energinya telah teredam oleh ketebalan batuan.</span>
           </div>
           <div class="depth-summary-card">
             <span class="depth-cat-badge">Dalam (300 km atau lebih)</span>
@@ -1254,7 +1532,7 @@ button:focus-visible,
     <!-- BAND 4: MAGNITUDE -->
     <section id="band-mag" class="band band-mag">
       <h2 class="band-headline">PIRAMIDA CURAM: M5 MENDOMINASI, M9 CUMA SATU</h2>
-      <p class="band-subtitle"><em>Sebaran jumlah kejadian per kelas magnitudo dan lima peristiwa terbesar dalam katalog yang sama.</em></p>
+      <p class="band-subtitle">Sebaran jumlah kejadian per kelas magnitudo dan lima peristiwa terbesar dalam katalog yang sama.</p>
 
       <div id="scale-ladder" class="scale-slot"></div>
 
@@ -1274,7 +1552,7 @@ button:focus-visible,
     <!-- BAND 5: DECADE -->
     <section id="band-decade" class="band band-decade">
       <h2 class="band-headline">ANGKA PER DEKADE BELUM BISA DIBANDINGKAN LANGSUNG</h2>
-      <p class="band-subtitle"><em>Distribusi peristiwa yang tercatat per dekade dalam katalog, tanpa data jaringan pemantauan untuk perbandingan langsung.</em></p>
+      <p class="band-subtitle">Distribusi peristiwa yang tercatat per dekade dalam katalog, tanpa data jaringan pemantauan untuk perbandingan langsung.</p>
 
       <div class="decade-layout">
         <div id="chart-decade" class="chart-slot"></div>
@@ -1288,11 +1566,12 @@ button:focus-visible,
     <!-- BAND 6: LIVE -->
     <section id="band-live" class="band band-live">
       <h2 class="band-headline">GEMPA TERAKHIR DALAM CUPLIKAN INI</h2>
-      <p class="band-subtitle"><em>Cuplikan statis dari umpan BMKG pada saat halaman ini dibangun, bukan siaran langsung. Waktu gempa terbaru ada di baris pertama tabel di bawah.</em></p>
+      <p class="band-subtitle">Cuplikan statis dari umpan BMKG pada saat halaman ini dibangun, bukan siaran langsung. Waktu gempa terbaru ada di baris pertama tabel di bawah.</p>
 
       <div class="live-grid">
         <div class="live-column">
           <h3 class="live-column-title">Gempa Bumi Terkini (M5.0+)</h3>
+          <p class="table-instruction">Tabel dapat digeser ke samping untuk melihat seluruh kolom.</p>
           <div id="table-live-latest" class="table-slot">
             <table class="data-table">
               <caption>Cuplikan gempa bumi BMKG saat halaman dibangun</caption>
@@ -1315,6 +1594,7 @@ button:focus-visible,
 
         <div class="live-column">
           <h3 class="live-column-title">Gempa Bumi Dirasakan</h3>
+          <p class="table-instruction">Tabel dapat digeser ke samping untuk melihat seluruh kolom.</p>
           <div id="table-live-felt" class="table-slot">
             <table class="data-table">
               <caption>Cuplikan gempa bumi dirasakan BMKG saat halaman dibangun</caption>
@@ -1340,7 +1620,7 @@ button:focus-visible,
     <!-- BAND 7: FOOTER -->
     <section id="band-footer" class="band band-footer">
       <h2 class="band-headline">CATATAN METODE DAN SUMBER DATA</h2>
-      <p class="band-subtitle"><em>Spesifikasi teknis pipeline pembersihan data, eliminasi luar batas wilayah, dan verifikasi.</em></p>
+      <p class="band-subtitle">Spesifikasi teknis pipeline pembersihan data, eliminasi luar batas wilayah, dan verifikasi.</p>
 
       <div class="footer-grid">
         <div class="footer-card">
@@ -1373,6 +1653,30 @@ function renderScaleRule(slotSelector, captionText) {
   const slot = document.querySelector(slotSelector);
   if (!slot) return;
   if (!DATA || !Array.isArray(DATA.mag_bands)) return;
+
+  if (slotSelector === '#scale-hero') {
+    slot.innerHTML =
+      `<div class="scale-rule-header">` +
+        `<div class="scale-rule-caption">${captionText}</div>` +
+        `<div class="scale-rule-unit">Rentang 94,5°BT sampai 141,5°BT dan 6,5°LU sampai 11,5°LS</div>` +
+      `</div>` +
+      `<div class="scale-hero-desc">` +
+        `<div class="scale-hero-note">Setiap goresan horizontal menandai satu episentrum gempa bumi M5+ pada resolusi koordinat 0,1 derajat.</div>` +
+      `</div>`;
+    return;
+  }
+
+  if (slotSelector === '#scale-ladder') {
+    slot.innerHTML =
+      `<div class="scale-rule-header">` +
+        `<div class="scale-rule-caption">${captionText}</div>` +
+        `<div class="scale-rule-unit">kunci skala logaritmik (M5 ke M9)</div>` +
+      `</div>` +
+      `<div class="scale-ladder-desc">` +
+        `<div class="scale-ladder-note">Setiap kenaikan 1 tingkat magnitudo merepresentasikan lonjakan energi sekitar 32 kali lipat. Batang di bawah menggunakan skala logaritmik untuk menampilkan piramida populasi dari M5 hingga M9.</div>` +
+      `</div>`;
+    return;
+  }
 
   const stepsHtml = DATA.mag_bands.map((item) => {
     const bandClass = `scale-step-${(item.band || '').toLowerCase()}`;
@@ -1411,11 +1715,11 @@ function renderField() {
 
   // Stroke-width and opacity scale: M5 (0.12 / 0.30) fine texture, M6 (0.22 / 0.60), M7 (0.40 / 0.85), M8 (0.60 / 0.95), M9 (0.80 / 1.00) prominent marks.
   const bandsConfig = [
-    { band: 'M5', stroke: 'var(--cat-1)', strokeWidth: '0.12', opacity: '0.30' },
-    { band: 'M6', stroke: 'var(--cat-2)', strokeWidth: '0.22', opacity: '0.60' },
-    { band: 'M7', stroke: 'var(--cat-3)', strokeWidth: '0.40', opacity: '0.85' },
-    { band: 'M8', stroke: 'var(--cat-4)', strokeWidth: '0.60', opacity: '0.95' },
-    { band: 'M9', stroke: 'var(--cat-5)', strokeWidth: '0.80', opacity: '1.00' }
+    { band: 'M5', stroke: 'var(--mag-1)', strokeWidth: '0.12', opacity: '0.30' },
+    { band: 'M6', stroke: 'var(--mag-2)', strokeWidth: '0.22', opacity: '0.60' },
+    { band: 'M7', stroke: 'var(--mag-3)', strokeWidth: '0.40', opacity: '0.85' },
+    { band: 'M8', stroke: 'var(--mag-4)', strokeWidth: '0.60', opacity: '0.95' },
+    { band: 'M9', stroke: 'var(--mag-5)', strokeWidth: '0.80', opacity: '1.00' }
   ];
 
   bandsConfig.forEach((cfg) => {
@@ -1433,45 +1737,86 @@ function renderField() {
   });
 
   const lonLabels = [
-    { x: 100, text: '100°BT' },
-    { x: 110, text: '110°BT' },
-    { x: 120, text: '120°BT' },
-    { x: 130, text: '130°BT' },
-    { x: 140, text: '140°BT' }
+    { x: 100, text: '100°BT', alt: true },
+    { x: 110, text: '110°BT', alt: false },
+    { x: 120, text: '120°BT', alt: true },
+    { x: 130, text: '130°BT', alt: false },
+    { x: 140, text: '140°BT', alt: true }
   ];
 
   lonLabels.forEach((item) => {
     const textEl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    textEl.setAttribute('class', 'field-axis-label');
+    textEl.setAttribute('class', `field-axis-label field-axis-x${item.alt ? ' field-axis-x-alt' : ''}`);
     textEl.setAttribute('x', String(item.x));
     textEl.setAttribute('y', '11');
     textEl.setAttribute('text-anchor', 'middle');
     textEl.setAttribute('font-size', '0.55');
-    textEl.setAttribute('fill', 'var(--muted)');
+    textEl.setAttribute('fill', 'var(--on-deep-muted)');
     textEl.setAttribute('font-family', 'var(--font-mono)');
     textEl.textContent = item.text;
     svg.appendChild(textEl);
   });
 
   const latLabels = [
-    { y: 0, text: '0°' },
-    { y: 5, text: '5°LS' },
-    { y: 10, text: '10°LS' }
+    { y: 0, text: '0°', alt: false },
+    { y: 5, text: '5°LS', alt: true },
+    { y: 10, text: '10°LS', alt: false }
   ];
 
   latLabels.forEach((item) => {
     const textEl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    textEl.setAttribute('class', 'field-axis-label');
+    textEl.setAttribute('class', `field-axis-label field-axis-y${item.alt ? ' field-axis-y-alt' : ''}`);
     textEl.setAttribute('x', '95.2');
     textEl.setAttribute('y', String(item.y));
     textEl.setAttribute('dominant-baseline', 'middle');
     textEl.setAttribute('text-anchor', 'start');
     textEl.setAttribute('font-size', '0.55');
-    textEl.setAttribute('fill', 'var(--muted)');
+    textEl.setAttribute('fill', 'var(--on-deep-muted)');
     textEl.setAttribute('font-family', 'var(--font-mono)');
     textEl.textContent = item.text;
     svg.appendChild(textEl);
   });
+
+  if (Array.isArray(DATA.top5) && DATA.top5.length > 0) {
+    const topEvent = DATA.top5[0];
+    const labelLong = `${topEvent.place} (M${topEvent.mag_d})`;
+    const labelShort = `${topEvent.place.split(' ')[1]} (M${topEvent.mag_d})`;
+
+    const leader = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    leader.setAttribute('points', '97.0,-3.3 99.2,-4.7 100.2,-4.7');
+    leader.setAttribute('fill', 'none');
+    leader.setAttribute('stroke', 'var(--on-deep-muted)');
+    leader.setAttribute('stroke-width', '0.08');
+    leader.setAttribute('stroke-linecap', 'round');
+    leader.setAttribute('stroke-linejoin', 'round');
+    leader.setAttribute('opacity', '0.8');
+    leader.setAttribute('focusable', 'false');
+    svg.appendChild(leader);
+
+    const annotLong = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    annotLong.setAttribute('class', 'field-annotation field-annotation-long');
+    annotLong.setAttribute('x', '100.5');
+    annotLong.setAttribute('y', '-4.5');
+    annotLong.setAttribute('dominant-baseline', 'middle');
+    annotLong.setAttribute('font-size', '0.55');
+    annotLong.setAttribute('fill', 'var(--on-deep)');
+    annotLong.setAttribute('font-family', 'var(--font-mono)');
+    annotLong.setAttribute('focusable', 'false');
+    annotLong.textContent = labelLong;
+    svg.appendChild(annotLong);
+
+    const annotShort = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    annotShort.setAttribute('class', 'field-annotation field-annotation-short');
+    annotShort.setAttribute('x', '100.5');
+    annotShort.setAttribute('y', '-4.5');
+    annotShort.setAttribute('dominant-baseline', 'middle');
+    annotShort.setAttribute('font-size', '0.55');
+    annotShort.setAttribute('fill', 'var(--on-deep)');
+    annotShort.setAttribute('font-family', 'var(--font-mono)');
+    annotShort.setAttribute('focusable', 'false');
+    annotShort.textContent = labelShort;
+    svg.appendChild(annotShort);
+  }
 }
 function renderProvince() {
   const container = document.getElementById('chart-province');
@@ -1510,10 +1855,10 @@ function renderProvince() {
     const valEl = document.createElement('div');
     valEl.className = 'province-val';
     valEl.textContent = item.n_d;
+    trackEl.appendChild(valEl);
 
     row.appendChild(nameEl);
     row.appendChild(trackEl);
-    row.appendChild(valEl);
     list.appendChild(row);
   });
 
@@ -1592,7 +1937,7 @@ function renderDepth() {
   noteEl.className = 'depth-chart-note';
   const rawSumParts = DATA.depth_bands.map((b) => b.n_d).join(' + ');
   const pctSumParts = DATA.depth_bands.map((b) => b.pct_d + '%').join(' + ');
-  noteEl.textContent = 'Catatan: Batang proporsional digambar dari hitungan mentah (' + rawSumParts + '), sedangkan angka persentase (' + pctSumParts + ') dibulatkan ke satu desimal.';
+  noteEl.textContent = 'Catatan: Batang proporsional digambar dari hitungan mentah (' + rawSumParts + '). Tiga persentase (' + pctSumParts + ') dialokasikan menggunakan metode sisa terbesar agar tepat berjumlah 100,0%, sehingga kelas yang sangat kecil dapat tercetak satu persepuluh di bawah hasil pembagian langsungnya.';
   wrap.appendChild(noteEl);
 
   if (Array.isArray(DATA.deep_prov) && DATA.deep_prov.length > 0) {
@@ -1712,6 +2057,7 @@ function renderMag() {
       const tr = document.createElement('tr');
 
       const tdDate = document.createElement('td');
+      tdDate.className = 'top5-date';
       tdDate.textContent = item.date_wib;
 
       const tdMag = document.createElement('td');
@@ -1944,8 +2290,8 @@ function renderFooter() {
         '<dt><strong>BMKG</strong></dt>' +
         '<dd>Cuplikan umpan data gempa terkini dan dirasakan: <code class="data-fig">' + bmkgFile + '</code></dd>' +
         '<br>' +
-        '<dt><strong>Referensi Provinsi Bapanas</strong></dt>' +
-        '<dd>Koordinat acuan wilayah provinsi: <code class="data-fig">' + bapanasFile + '</code></dd>' +
+        '<dt><strong>Referensi Titik Provinsi (Bapanas)</strong></dt>' +
+        '<dd>Daftar 38 titik sentroid provinsi dari API Badan Pangan Nasional (<code class="data-fig">' + bapanasFile + '</code>) diunduh 12 Oktober 2026 sebagai koordinat acuan penentuan wilayah terdekat.</dd>' +
       '</dl>';
   }
 
@@ -2006,6 +2352,25 @@ function injectFigs() {
   });
 }
 
+function updateScrollAffordance(el) {
+  if (!el) return;
+  el.classList.add('scroll-checked');
+  const hasMoreRight = el.scrollWidth - el.clientWidth - el.scrollLeft > 2;
+  const hasMoreLeft = el.scrollLeft > 2;
+  el.classList.toggle('has-scroll-right', hasMoreRight);
+  el.classList.toggle('has-scroll-left', hasMoreLeft);
+}
+
+function initScrollAffordance(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  updateScrollAffordance(el);
+  if (!el.__scrollBound) {
+    el.addEventListener('scroll', () => updateScrollAffordance(el), { passive: true });
+    el.__scrollBound = true;
+  }
+}
+
 function runAllRenderers() {
   const containers = [
     'chart-field',
@@ -2030,7 +2395,7 @@ function runAllRenderers() {
   });
 
   renderHero();
-  renderScaleRule('#scale-hero', 'rentang magnitudo M5 hingga M9');
+  renderScaleRule('#scale-hero', 'Proyeksi Ekirektangular (Plate Carrée)');
   renderField();
   renderScaleRule('#scale-field-key', 'jumlah peristiwa per kelas magnitudo');
   renderProvince();
@@ -2039,6 +2404,8 @@ function runAllRenderers() {
   renderScaleRule('#scale-ladder', 'distribusi tangga magnitudo M5 sampai M9');
   renderDecade();
   renderLive();
+  initScrollAffordance('table-live-latest');
+  initScrollAffordance('table-live-felt');
   renderFooter();
 }
 
@@ -2089,6 +2456,8 @@ window.addEventListener('resize', () => {
     try {
       runAllRenderers();
       injectFigs();
+      updateScrollAffordance(document.getElementById('table-live-latest'));
+      updateScrollAffordance(document.getElementById('table-live-felt'));
     } catch (err) {
       // Retain state on resize
     }

@@ -344,15 +344,16 @@ def main():
         ],
         "input_sha": input_sha,
         "province_note": (
-            "Penetapan provinsi menggunakan pendekatan jarak terdekat (haversine) "
-            "ke sentroid 38 provinsi Bapanas, bukan batas administratif resmi."
+            "Daftar dan sentroid 38 provinsi bersumber dari berkas referensi Badan Pangan Nasional (Bapanas) "
+            "yang diunduh pada 12 Oktober 2026. Digunakan semata untuk agregasi jarak terdekat (haversine) "
+            "episentrum gempa, bukan sebagai acuan batas administratif resmi wilayah."
         ),
         "scope_note": (
             f"Data mencakup {fmt_int(total_events)} gempa bumi M5+ di Indonesia (1976-2026, {distinct_years} tahun kalender). "
             f"rate_year = round({total_events} / {distinct_years}) = {rate_year}/tahun; "
             f"rate_month = round({total_events} / {total_months}) = {rate_month}/bulan (rentang 1976-01 hingga 2026-10 inklusif); "
             f"rate_week = {total_events} / ((last_event - first_event) dalam hari / 7) = {fmt_float(rate_week_val, 1)}/minggu. "
-            "Persentase kedalaman dihitung dari hitungan mentah (1 desimal)."
+            "Persentase kedalaman dialokasikan menggunakan metode sisa terbesar agar tepat berjumlah 100,0%."
         )
     }
 
@@ -384,10 +385,11 @@ def main():
     # - IBMPlexMono-400.woff2    -> family "IBM Plex Mono", weight 400, format woff2
     # - IBMPlexMono-500.woff2    -> family "IBM Plex Mono", weight 500, format woff2
     font_configs = [
-        ("Archivo-400.woff2", "Archivo", "400", "woff2", "font/woff2"),
-        ("ArchivoBlack.ttf", "Archivo Black", "400", "truetype", "font/truetype"),
-        ("IBMPlexMono-400.woff2", "IBM Plex Mono", "400", "woff2", "font/woff2"),
-        ("IBMPlexMono-500.woff2", "IBM Plex Mono", "500", "woff2", "font/woff2"),
+        ("ChakraPetch-400.woff2", "Chakra Petch", "400", "woff2", "font/woff2"),
+        ("ChakraPetch-600.woff2", "Chakra Petch", "600", "woff2", "font/woff2"),
+        ("ChakraPetch-700.woff2", "Chakra Petch", "700", "woff2", "font/woff2"),
+        ("JetBrainsMono-400.woff2", "JetBrains Mono", "400", "woff2", "font/woff2"),
+        ("JetBrainsMono-500.woff2", "JetBrains Mono", "500", "woff2", "font/woff2"),
     ]
 
     font_rules = []

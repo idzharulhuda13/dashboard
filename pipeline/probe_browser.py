@@ -19,6 +19,7 @@ f. keyboard: focus indicators (>= 3:1 contrast), reading tab order, 0 SVG epicen
 g. svg labels: no SVG chart label overlap >= 5px on both axes
 h. copy: 0 occurrences of U+2014 in rendered body
 i. screenshots: full-page screenshots to shots/gempa-<w>.png
+j. epicentre text size: no <text> inside epicentre SVG renders smaller than 12px effective
 """
 
 import os
@@ -193,9 +194,8 @@ def run_checks_for_viewport(browser, width: int, height: int):
     page.evaluate("document.fonts.ready")
     fonts_res = page.evaluate("""() => {
         return {
-            'Archivo': document.fonts.check('16px "Archivo"'),
-            'Archivo Black': document.fonts.check('16px "Archivo Black"'),
-            'IBM Plex Mono': document.fonts.check('16px "IBM Plex Mono"')
+            'Chakra Petch': document.fonts.check('16px "Chakra Petch"'),
+            'JetBrains Mono': document.fonts.check('16px "JetBrains Mono"')
         };
     }""")
     failing_fonts = [f for f, ok in fonts_res.items() if not ok]
@@ -210,7 +210,7 @@ def run_checks_for_viewport(browser, width: int, height: int):
         results.append({
             "check": "fonts",
             "pass": True,
-            "message": "document.fonts.check verified for Archivo, Archivo Black, IBM Plex Mono",
+            "message": "document.fonts.check verified for Chakra Petch, JetBrains Mono",
             "details": [],
         })
 
@@ -555,6 +555,76 @@ def run_checks_for_viewport(browser, width: int, height: int):
             "message": f"failed to save screenshot to shots/{shot_filename}",
             "details": [],
         })
+
+    # j. epicentre text size
+    epicentre_text_res = page.evaluate("""() => {
+        const svg = document.querySelector('#chart-field svg, .field-svg');
+        if (!svg) {
+            return { error: 'epicentre SVG not found', items: [] };
+        }
+        const svgW = svg.getBoundingClientRect().width;
+        const vbW = svg.viewBox.baseVal.width || 47;
+        const scale = svgW / vbW;
+
+        const texts = Array.from(svg.querySelectorAll('text'));
+        const items = texts.map(t => {
+            const style = window.getComputedStyle(t);
+            const computedFontSize = parseFloat(style.fontSize) || 0;
+            const effectiveSize = computedFontSize * scale;
+            return {
+                text: t.textContent.trim(),
+                userSize: computedFontSize,
+                effectiveSize: effectiveSize,
+                display: style.display,
+                visibility: style.visibility
+            };
+        });
+
+        return {
+            svgWidth: svgW,
+            viewBoxWidth: vbW,
+            scale: scale,
+            items: items
+        };
+    }""")
+
+    if epicentre_text_res.get("error"):
+        results.append({
+            "check": "epicentre text size",
+            "pass": False,
+            "message": epicentre_text_res["error"],
+            "details": [],
+        })
+    else:
+        text_items = epicentre_text_res["items"]
+        if not text_items:
+            results.append({
+                "check": "epicentre text size",
+                "pass": False,
+                "message": "no text elements found in epicentre SVG",
+                "details": [],
+            })
+        else:
+            min_eff = min(it["effectiveSize"] for it in text_items)
+            failing = [it for it in text_items if it["effectiveSize"] < 12.0]
+            if failing:
+                detail_lines = [
+                    f"'{it['text']}' user-unit={it['userSize']:.2f}px effective={it['effectiveSize']:.1f}px (< 12px)"
+                    for it in failing
+                ]
+                results.append({
+                    "check": "epicentre text size",
+                    "pass": False,
+                    "message": f"{len(failing)} text element(s) in epicentre SVG render smaller than 12px effective (smallest: {min_eff:.1f}px)",
+                    "details": detail_lines,
+                })
+            else:
+                results.append({
+                    "check": "epicentre text size",
+                    "pass": True,
+                    "message": f"all {len(text_items)} epicentre SVG text elements render at >= 12px effective (smallest: {min_eff:.1f}px)",
+                    "details": [],
+                })
 
     context.close()
     return results

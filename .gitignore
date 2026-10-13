@@ -3,3 +3,8 @@ shots/
 audits/
 __pycache__/
 *.pyc
+
+# Runtime logs and reports: regenerated on every run, so committing them would add a commit
+# per run and bury the actual data changes.
+data/out/append_report.json
+data/out/publish.log

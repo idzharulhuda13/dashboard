@@ -58,7 +58,38 @@ HISTORIC_EVENT_REGIONS = {
 
 DEPTH_BANDS = [(0.0, 70.0, "dangkal"), (70.0, 300.0, "menengah"), (300.0, 1000.0, "dalam")]
 
+# The frozen harvest first, then everything appended since. Order matters only for the
+# on-duplicate-wins rule below: the base is authoritative, because it is the file every
+# published number was originally computed from.
+SOURCE_CSVS = ["usgs_idn_m5plus_1976_2026.csv", "usgs_append.csv"]
+
 WIB = timezone(timedelta(hours=7))
+
+
+def load_source_rows():
+    """Every source row, frozen base plus appends, deduplicated by USGS event id.
+
+    The dataset is append-only: the tail moves, the past does not. New events land in
+    usgs_append.csv so the original harvest stays byte-stable and the provenance cap in the
+    page footer keeps meaning something. If the same id somehow appears in both files the
+    base wins, so a bad append can never rewrite history.
+    """
+    out, seen, per_file = [], set(), {}
+    for name in SOURCE_CSVS:
+        path = os.path.join(RAW, name)
+        if not os.path.exists(path):
+            per_file[name] = 0
+            continue
+        n = 0
+        with open(path, newline="", encoding="utf-8") as fh:
+            for row in csv.DictReader(fh):
+                if row["id"] in seen:
+                    continue
+                seen.add(row["id"])
+                out.append(row)
+                n += 1
+        per_file[name] = n
+    return out, per_file
 
 
 def haversine(lat1, lon1, lat2, lon2):
@@ -97,50 +128,49 @@ def nearest_province(provinces, lat, lon):
 
 
 def build_events(provinces):
-    path = os.path.join(RAW, "usgs_idn_m5plus_1976_2026.csv")
+    source_rows, per_file = load_source_rows()
     rows, last_fields, dropped = [], Counter(), Counter()
-    with open(path, newline="", encoding="utf-8") as fh:
-        for row in csv.DictReader(fh):
-            place = (row.get("place") or "").strip()
-            region = place.split(",")[-1].strip()
-            last_fields[region] += 1
-            in_region = region in KEEP_REGIONS
-            in_historic = region in HISTORIC_EVENT_REGIONS
-            if not (in_region or in_historic):
-                dropped[region] += 1
-                continue
-            lat, lon = float(row["latitude"]), float(row["longitude"])
-            depth = float(row["depth"]) if row["depth"] not in ("", None) else None
-            mag = float(row["mag"]) if row["mag"] not in ("", None) else None
-            if depth is None or mag is None:
-                continue
-            ts = datetime.strptime(row["time"], "%Y-%m-%dT%H:%M:%S.%fZ").replace(tzinfo=timezone.utc)
-            prov, dist = nearest_province(provinces, lat, lon)
-            # Band the depth from the ROUNDED value that gets written to the CSV, so the label a
-            # reader sees always agrees with the number beside it. Banding the raw float instead
-            # left 10 events stored as 70.0 km and labelled "dangkal" (<70 km).
-            depth_km = round(depth, 1)
-            rows.append(
-                {
-                    "id": row["id"],
-                    "time_utc": ts.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                    "time_wib": ts.astimezone(WIB).strftime("%Y-%m-%d %H:%M"),
-                    "date_wib": ts.astimezone(WIB).strftime("%Y-%m-%d"),
-                    "year": ts.astimezone(WIB).year,
-                    "lat": round(lat, 3),
-                    "lon": round(lon, 3),
-                    "depth_km": depth_km,
-                    "depth_band": depth_band(depth_km),
-                    "mag": round(mag, 1),
-                    "mag_band": "M%d" % int(mag),
-                    "place": place,
-                    "region": region,
-                    "province": prov,
-                    "province_km": round(dist, 1),
-                }
-            )
+    for row in source_rows:
+        place = (row.get("place") or "").strip()
+        region = place.split(",")[-1].strip()
+        last_fields[region] += 1
+        in_region = region in KEEP_REGIONS
+        in_historic = region in HISTORIC_EVENT_REGIONS
+        if not (in_region or in_historic):
+            dropped[region] += 1
+            continue
+        lat, lon = float(row["latitude"]), float(row["longitude"])
+        depth = float(row["depth"]) if row["depth"] not in ("", None) else None
+        mag = float(row["mag"]) if row["mag"] not in ("", None) else None
+        if depth is None or mag is None:
+            continue
+        ts = datetime.strptime(row["time"], "%Y-%m-%dT%H:%M:%S.%fZ").replace(tzinfo=timezone.utc)
+        prov, dist = nearest_province(provinces, lat, lon)
+        # Band the depth from the ROUNDED value that gets written to the CSV, so the label a
+        # reader sees always agrees with the number beside it. Banding the raw float instead
+        # left 10 events stored as 70.0 km and labelled "dangkal" (<70 km).
+        depth_km = round(depth, 1)
+        rows.append(
+            {
+                "id": row["id"],
+                "time_utc": ts.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "time_wib": ts.astimezone(WIB).strftime("%Y-%m-%d %H:%M"),
+                "date_wib": ts.astimezone(WIB).strftime("%Y-%m-%d"),
+                "year": ts.astimezone(WIB).year,
+                "lat": round(lat, 3),
+                "lon": round(lon, 3),
+                "depth_km": depth_km,
+                "depth_band": depth_band(depth_km),
+                "mag": round(mag, 1),
+                "mag_band": "M%d" % int(mag),
+                "place": place,
+                "region": region,
+                "province": prov,
+                "province_km": round(dist, 1),
+            }
+        )
     rows.sort(key=lambda r: r["time_utc"])
-    return rows, last_fields, dropped
+    return rows, last_fields, dropped, per_file
 
 
 def build_live():
@@ -173,7 +203,7 @@ def build_live():
 def main():
     os.makedirs(OUT, exist_ok=True)
     provinces = load_provinces()
-    rows, last_fields, dropped = build_events(provinces)
+    rows, last_fields, dropped, per_file = build_events(provinces)
     live = build_live()
 
     csv_path = os.path.join(OUT, "gempa_events.csv")
@@ -198,6 +228,7 @@ def main():
         "kept_events": kept_events,
         "dropped_outside_indonesia": dropped_outside_indonesia,
         "accounting_ok": accounting_ok,
+        "rows_by_file": per_file,
         "dropped_breakdown": dropped_breakdown,
         "kept_breakdown": kept_breakdown,
         "first_event": rows[0]["time_utc"],

@@ -86,74 +86,89 @@ def main():
         reader = csv.DictReader(f)
         rows = list(reader)
 
-    # ASSERTIONS
-    # Assertion 1: len(rows) == 10516
-    if len(rows) != 10516:
-        raise RuntimeError(f"Assertion failed: expected 10516 rows, got {len(rows)}")
-
-    # Assertion 2: magnitude band counts == {"M5":9774,"M6":662,"M7":75,"M8":4,"M9":1}
+    # INVARIANTS
+    #
+    # This block used to freeze six exact counts (10516 rows, the magnitude bands, the depth
+    # bands, the decade buckets, the dropped count, the top-5 magnitudes). That was right while
+    # the dataset was a one-off snapshot, and it is wrong now: the dataset is append-only, so
+    # appending a real earthquake is SUPPOSED to change those numbers, and a frozen count would
+    # fail on the first legitimate append while telling us nothing about corruption.
+    #
+    # What replaces it: properties that must hold whatever the row count is. Corruption changes
+    # relationship between the parts; growth changes only their size. verify.py is the second
+    # layer, recomputing every published figure from the CSV independently.
     mag_counter = Counter(r["mag_band"] for r in rows)
-    expected_mag_counts = {"M5": 9774, "M6": 662, "M7": 75, "M8": 4, "M9": 1}
-    actual_mag_counts = {k: mag_counter.get(k, 0) for k in ["M5", "M6", "M7", "M8", "M9"]}
-    if actual_mag_counts != expected_mag_counts:
-        raise RuntimeError(
-            f"Assertion failed: magnitude band counts mismatch: expected {expected_mag_counts}, got {actual_mag_counts}"
-        )
+    expected_bands = ["M5", "M6", "M7", "M8", "M9"]
+    actual_mag_counts = {k: mag_counter.get(k, 0) for k in expected_bands}
 
-    # Assertion 3: depth band counts == {"dangkal":7852,"menengah":2384,"dalam":280}
     depth_counter = Counter(r["depth_band"] for r in rows)
-    expected_depth_counts = {"dangkal": 7852, "menengah": 2384, "dalam": 280}
     actual_depth_counts = {k: depth_counter.get(k, 0) for k in ["dangkal", "menengah", "dalam"]}
-    if actual_depth_counts != expected_depth_counts:
-        raise RuntimeError(
-            f"Assertion failed: depth band counts mismatch: expected {expected_depth_counts}, got {actual_depth_counts}"
-        )
 
-    # Assertion 4: decade counts for the six decades 1970s..2020s == [924,1989,2064,2538,1833,1168]
     decade_buckets = [1970, 1980, 1990, 2000, 2010, 2020]
     actual_decade_counts = [
         sum(1 for r in rows if dec <= int(r["year"]) < dec + 10) for dec in decade_buckets
     ]
-    expected_decade_counts = [924, 1989, 2064, 2538, 1833, 1168]
-    if actual_decade_counts != expected_decade_counts:
-        raise RuntimeError(
-            f"Assertion failed: decade counts mismatch: expected {expected_decade_counts}, got {actual_decade_counts}"
-        )
 
-    # Assertion 5: build_report["dropped_outside_indonesia"] == 2173
-    dropped_val = build_report.get("dropped_outside_indonesia")
-    if dropped_val != 2173:
-        raise RuntimeError(
-            f"Assertion failed: build_report['dropped_outside_indonesia'] expected 2173, got {dropped_val}"
-        )
+    problems = []
+    if not rows:
+        problems.append("no rows at all")
+    else:
+        times = [r["time_utc"] for r in rows]
+        if times != sorted(times):
+            problems.append("rows are not sorted by time_utc")
+        ids = [r["id"] for r in rows]
+        if len(set(ids)) != len(ids):
+            problems.append(f"{len(ids) - len(set(ids))} duplicate event ids")
+        unknown_mag = set(mag_counter) - set(expected_bands)
+        if unknown_mag:
+            problems.append(f"unknown magnitude band labels: {sorted(unknown_mag)}")
+        unknown_depth = set(depth_counter) - set(actual_depth_counts)
+        if unknown_depth:
+            problems.append(f"unknown depth band labels: {sorted(unknown_depth)}")
 
-    # Assertion 6: the five largest events have magnitudes [9.1,8.6,8.4,8.3,8.1]
-    sorted_by_mag = sorted(rows, key=lambda r: (float(r["mag"]), r["time_utc"]), reverse=True)
-    top5_rows = sorted_by_mag[:5]
-    top5_mags = [float(r["mag"]) for r in top5_rows]
-    expected_top5_mags = [9.1, 8.6, 8.4, 8.3, 8.1]
-    if top5_mags != expected_top5_mags:
-        raise RuntimeError(
-            f"Assertion failed: top 5 magnitudes mismatch: expected {expected_top5_mags}, got {top5_mags}"
-        )
+    total_now = len(rows)
+    for label, counts in (("magnitude", actual_mag_counts), ("depth", actual_depth_counts)):
+        if sum(counts.values()) != total_now:
+            problems.append(f"{label} bands sum to {sum(counts.values())}, not {total_now}")
+    if sum(actual_decade_counts) != total_now:
+        problems.append(f"decades sum to {sum(actual_decade_counts)}, not {total_now}")
+
+    if not build_report.get("accounting_ok"):
+        problems.append("build report says kept + dropped != raw, so rows were lost or invented")
+
+    # A partition that only ever grows should not lose the tail: the newest event must be the
+    # one the report claims, so a truncated append shows up here rather than in the chart.
+    if rows and build_report.get("last_event", "")[:19] != rows[-1]["time_utc"][:19]:
+        problems.append("build report last_event disagrees with the newest row")
+
+    if problems:
+        raise RuntimeError("Source data failed its invariants: " + "; ".join(problems))
 
     # CALCULATIONS
     total_events = len(rows)
+
+    # How many events the scope filter threw out. No longer frozen at 2173: every append can
+    # add to it, so it is read from the report and published as it stands.
+    dropped_val = build_report.get("dropped_outside_indonesia")
 
     # Distinct calendar years touched
     years_set = set(int(r["year"]) for r in rows)
     distinct_years = len(years_set)  # 51 (1976..2026)
     rate_year = round(total_events / distinct_years)  # 208
 
-    # Months between 1976-01 and 2026-10 inclusive = 50 * 12 + 10 = 610
-    total_months = (2026 - 1976) * 12 + (10 - 1) + 1  # 610
-    rate_month = round(total_events / total_months)  # 17
-
-    # Rate per week
     first_iso = build_report["first_event"].replace("Z", "+00:00")
     last_iso = build_report["last_event"].replace("Z", "+00:00")
     t_first = datetime.fromisoformat(first_iso)
     t_last = datetime.fromisoformat(last_iso)
+
+    # Months touched by the catalogue, counted from the data rather than typed. This used to be
+    # the literal (2026 - 1976) * 12 + (10 - 1) + 1 = 610, which was correct for exactly one
+    # month: the first append in a new month would have kept dividing by a stale denominator and
+    # quietly published a slightly wrong rate per month.
+    total_months = (t_last.year - t_first.year) * 12 + (t_last.month - t_first.month) + 1
+    rate_month = round(total_events / total_months)
+
+    # Rate per week
     span_days = (t_last - t_first).total_seconds() / 86400.0
     span_weeks = span_days / 7.0
     rate_week_val = total_events / span_weeks  # 4.0055...
@@ -246,6 +261,9 @@ def main():
     ]
 
     # Top 5 largest events
+    # Ties are broken by the later event, so the ordering is stable and the table does not
+    # reshuffle between builds when two events share a magnitude.
+    top5_rows = sorted(rows, key=lambda r: (float(r["mag"]), r["time_utc"]), reverse=True)[:5]
     top5_list = []
     for r in top5_rows:
         m = float(r["mag"])

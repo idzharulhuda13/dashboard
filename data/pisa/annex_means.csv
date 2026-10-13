@@ -1,0 +1,1940 @@
+table,subject,domain,stat,cycle,value,se
+Table I.B1.2a.1,OECD average,science,mean,latest,481.90834000000007,0.43835
+Table I.B1.2a.1,OECD average,science,sd,latest,98.63806000000001,0.23523000000000002
+Table I.B1.2a.1,OECD average,science,p10,latest,351.17913000000004,0.6189600000000001
+Table I.B1.2a.1,OECD average,science,p25,latest,411.46415,0.57791
+Table I.B1.2a.1,OECD average,science,p50,latest,483.50275000000005,0.5218
+Table I.B1.2a.1,OECD average,science,p75,latest,552.44041,0.51266
+Table I.B1.2a.1,OECD average,science,p90,latest,609.56209,0.5888000000000001
+Table I.B1.2a.1,OECD total,science,mean,latest,484.46056000000004,1.5829300000000002
+Table I.B1.2a.1,OECD total,science,sd,latest,107.07435000000001,1.04285
+Table I.B1.2a.1,OECD total,science,p10,latest,345.37516000000005,1.4578300000000002
+Table I.B1.2a.1,OECD total,science,p25,latest,405.93922000000003,1.5307700000000002
+Table I.B1.2a.1,OECD total,science,p50,latest,482.79074,1.62348
+Table I.B1.2a.1,OECD total,science,p75,latest,560.70369,1.94127
+Table I.B1.2a.1,OECD total,science,p90,latest,625.3562800000001,2.7144500000000003
+Table I.B1.2a.1,Albania*,science,mean,latest,434.62710000000004,2.7101200000000003
+Table I.B1.2a.1,Albania*,science,sd,latest,78.94861,1.1003800000000001
+Table I.B1.2a.1,Albania*,science,p10,latest,332.44179,3.4966100000000004
+Table I.B1.2a.1,Albania*,science,p25,latest,379.12459,3.2128300000000003
+Table I.B1.2a.1,Albania*,science,p50,latest,433.58953,3.3223800000000003
+Table I.B1.2a.1,Albania*,science,p75,latest,488.49987000000004,3.1241200000000005
+Table I.B1.2a.1,Albania*,science,p90,latest,538.08772,3.6615800000000003
+Table I.B1.2a.1,Argentina,science,mean,latest,392.93391,2.9888000000000003
+Table I.B1.2a.1,Argentina,science,sd,latest,91.70280000000001,1.62731
+Table I.B1.2a.1,Argentina,science,p10,latest,280.15347,3.2584100000000005
+Table I.B1.2a.1,Argentina,science,p25,latest,327.06477,3.0816000000000003
+Table I.B1.2a.1,Argentina,science,p50,latest,386.79733000000004,3.3673900000000003
+Table I.B1.2a.1,Argentina,science,p75,latest,454.13962000000004,4.005540000000001
+Table I.B1.2a.1,Argentina,science,p90,latest,515.5488300000001,4.662800000000001
+Table I.B1.2a.1,Armenia,science,mean,latest,368.63314,1.7763300000000002
+Table I.B1.2a.1,Armenia,science,sd,latest,75.16743000000001,0.9353300000000001
+Table I.B1.2a.1,Armenia,science,p10,latest,275.41538,2.6247900000000004
+Table I.B1.2a.1,Armenia,science,p25,latest,316.78644,1.93016
+Table I.B1.2a.1,Armenia,science,p50,latest,365.40428,1.9758700000000002
+Table I.B1.2a.1,Armenia,science,p75,latest,417.66521000000006,2.26874
+Table I.B1.2a.1,Armenia,science,p90,latest,466.40198000000004,2.9222300000000003
+Table I.B1.2a.1,Australia,science,mean,latest,509.10633,1.88528
+Table I.B1.2a.1,Australia,science,sd,latest,104.74703000000001,0.8094300000000001
+Table I.B1.2a.1,Australia,science,p10,latest,367.90755,2.67918
+Table I.B1.2a.1,Australia,science,p25,latest,435.30076,2.2479600000000004
+Table I.B1.2a.1,Australia,science,p50,latest,513.2999900000001,2.04809
+Table I.B1.2a.1,Australia,science,p75,latest,584.30766,2.0430900000000003
+Table I.B1.2a.1,Australia,science,p90,latest,643.02002,2.45751
+Table I.B1.2a.1,Austria,science,mean,latest,496.91267000000005,2.7242400000000004
+Table I.B1.2a.1,Austria,science,sd,latest,101.49115,1.36124
+Table I.B1.2a.1,Austria,science,p10,latest,359.57297000000005,4.060700000000001
+Table I.B1.2a.1,Austria,science,p25,latest,423.49502,3.8951200000000004
+Table I.B1.2a.1,Austria,science,p50,latest,500.22021000000007,3.3352100000000005
+Table I.B1.2a.1,Austria,science,p75,latest,570.9662500000001,2.8915400000000004
+Table I.B1.2a.1,Austria,science,p90,latest,627.6985500000001,2.9928700000000004
+Table I.B1.2a.1,Azerbaijan,science,mean,latest,408.56354000000005,3.2037700000000005
+Table I.B1.2a.1,Azerbaijan,science,sd,latest,90.52832000000001,1.69778
+Table I.B1.2a.1,Azerbaijan,science,p10,latest,294.68563,3.2915300000000003
+Table I.B1.2a.1,Azerbaijan,science,p25,latest,343.2542,3.2011100000000003
+Table I.B1.2a.1,Azerbaijan,science,p50,latest,404.07563000000005,3.6091300000000004
+Table I.B1.2a.1,Azerbaijan,science,p75,latest,470.72266,4.352390000000001
+Table I.B1.2a.1,Azerbaijan,science,p90,latest,530.75819,5.10071
+Table I.B1.2a.1,Belgium,science,mean,latest,489.70971000000003,2.8550500000000003
+Table I.B1.2a.1,Belgium,science,sd,latest,101.81921000000001,1.7235
+Table I.B1.2a.1,Belgium,science,p10,latest,348.95813000000004,4.99624
+Table I.B1.2a.1,Belgium,science,p25,latest,415.56574000000006,4.60414
+Table I.B1.2a.1,Belgium,science,p50,latest,496.47803000000005,3.30853
+Table I.B1.2a.1,Belgium,science,p75,latest,565.2550500000001,2.7005100000000004
+Table I.B1.2a.1,Belgium,science,p90,latest,618.69455,2.95712
+Table I.B1.2a.1,Brazil,science,mean,latest,408.54046000000005,1.93317
+Table I.B1.2a.1,Brazil,science,sd,latest,93.68815000000001,1.21055
+Table I.B1.2a.1,Brazil,science,p10,latest,291.00327000000004,1.8145700000000002
+Table I.B1.2a.1,Brazil,science,p25,latest,340.68177000000003,1.8913000000000002
+Table I.B1.2a.1,Brazil,science,p50,latest,403.46154,2.1803000000000003
+Table I.B1.2a.1,Brazil,science,p75,latest,472.46357000000006,2.5838
+Table I.B1.2a.1,Brazil,science,p90,latest,535.4604,3.40613
+Table I.B1.2a.1,Brunei Darussalam,science,mean,latest,439.45387000000005,0.8198900000000001
+Table I.B1.2a.1,Brunei Darussalam,science,sd,latest,92.61426,0.6976500000000001
+Table I.B1.2a.1,Brunei Darussalam,science,p10,latest,319.07671000000005,1.8559200000000002
+Table I.B1.2a.1,Brunei Darussalam,science,p25,latest,372.12487000000004,1.4089500000000001
+Table I.B1.2a.1,Brunei Darussalam,science,p50,latest,436.70184000000006,1.37274
+Table I.B1.2a.1,Brunei Darussalam,science,p75,latest,504.63345000000004,1.7064700000000002
+Table I.B1.2a.1,Brunei Darussalam,science,p90,latest,563.6829,2.23688
+Table I.B1.2a.1,B-S-J-Z (China),science,mean,latest,597.0437900000001,2.15606
+Table I.B1.2a.1,B-S-J-Z (China),science,sd,latest,87.81097000000001,1.4862300000000002
+Table I.B1.2a.1,B-S-J-Z (China),science,p10,latest,481.93465000000003,3.69097
+Table I.B1.2a.1,B-S-J-Z (China),science,p25,latest,542.0064900000001,2.78094
+Table I.B1.2a.1,B-S-J-Z (China),science,p50,latest,602.5079000000001,2.37006
+Table I.B1.2a.1,B-S-J-Z (China),science,p75,latest,658.0021700000001,2.52952
+Table I.B1.2a.1,B-S-J-Z (China),science,p90,latest,704.97607,2.76555
+Table I.B1.2a.1,Bulgaria,science,mean,latest,420.79373000000004,4.053330000000001
+Table I.B1.2a.1,Bulgaria,science,sd,latest,106.2921,2.42783
+Table I.B1.2a.1,Bulgaria,science,p10,latest,284.34882000000005,4.16692
+Table I.B1.2a.1,Bulgaria,science,p25,latest,341.17185,4.58715
+Table I.B1.2a.1,Bulgaria,science,p50,latest,416.8951,4.915520000000001
+Table I.B1.2a.1,Bulgaria,science,p75,latest,496.18366000000003,4.84145
+Table I.B1.2a.1,Bulgaria,science,p90,latest,562.8285800000001,6.266170000000001
+Table I.B1.2a.1,Cambodia,science,mean,latest,381.93511,1.6906200000000002
+Table I.B1.2a.1,Cambodia,science,sd,latest,63.096340000000005,1.12273
+Table I.B1.2a.1,Cambodia,science,p10,latest,302.15470000000005,2.0815300000000003
+Table I.B1.2a.1,Cambodia,science,p25,latest,338.66221,2.069
+Table I.B1.2a.1,Cambodia,science,p50,latest,380.80177000000003,1.9027
+Table I.B1.2a.1,Cambodia,science,p75,latest,424.10176,2.1833
+Table I.B1.2a.1,Cambodia,science,p90,latest,464.21611,3.16224
+Table I.B1.2a.1,Canada*,science,mean,latest,510.05482000000006,1.78909
+Table I.B1.2a.1,Canada*,science,sd,latest,98.63443000000001,0.96994
+Table I.B1.2a.1,Canada*,science,p10,latest,378.64748000000003,2.66846
+Table I.B1.2a.1,Canada*,science,p25,latest,442.09912,2.11083
+Table I.B1.2a.1,Canada*,science,p50,latest,512.4631400000001,1.9922100000000003
+Table I.B1.2a.1,Canada*,science,p75,latest,580.0248700000001,2.0581
+Table I.B1.2a.1,Canada*,science,p90,latest,636.2585600000001,2.35183
+Table I.B1.2a.1,Chile,science,mean,latest,442.36060000000003,2.49519
+Table I.B1.2a.1,Chile,science,sd,latest,87.51332000000001,1.24522
+Table I.B1.2a.1,Chile,science,p10,latest,329.94996000000003,3.33149
+Table I.B1.2a.1,Chile,science,p25,latest,379.70435000000003,3.2747100000000002
+Table I.B1.2a.1,Chile,science,p50,latest,441.03304,2.8905000000000003
+Table I.B1.2a.1,Chile,science,p75,latest,503.3765,3.03093
+Table I.B1.2a.1,Chile,science,p90,latest,558.24255,3.04035
+Table I.B1.2a.1,Colombia,science,mean,latest,413.73094000000003,3.29367
+Table I.B1.2a.1,Colombia,science,sd,latest,89.65032000000001,1.63732
+Table I.B1.2a.1,Colombia,science,p10,latest,301.17111,3.22318
+Table I.B1.2a.1,Colombia,science,p25,latest,348.91137000000003,3.24766
+Table I.B1.2a.1,Colombia,science,p50,latest,409.39961000000005,3.8953
+Table I.B1.2a.1,Colombia,science,p75,latest,474.23053000000004,4.30388
+Table I.B1.2a.1,Colombia,science,p90,latest,534.30676,5.32312
+Table I.B1.2a.1,Costa Rica,science,mean,latest,423.96958,2.5696600000000003
+Table I.B1.2a.1,Costa Rica,science,sd,latest,78.13312,1.2831000000000001
+Table I.B1.2a.1,Costa Rica,science,p10,latest,324.97343,3.05302
+Table I.B1.2a.1,Costa Rica,science,p25,latest,368.41504000000003,2.4289300000000003
+Table I.B1.2a.1,Costa Rica,science,p50,latest,420.95568000000003,2.8154000000000003
+Table I.B1.2a.1,Costa Rica,science,p75,latest,477.02590000000004,3.3724100000000004
+Table I.B1.2a.1,Costa Rica,science,p90,latest,528.34847,4.11538
+Table I.B1.2a.1,Croatia,science,mean,latest,476.30089000000004,1.7672100000000002
+Table I.B1.2a.1,Croatia,science,sd,latest,94.67304000000001,1.0847600000000002
+Table I.B1.2a.1,Croatia,science,p10,latest,350.70058,2.4750900000000002
+Table I.B1.2a.1,Croatia,science,p25,latest,408.64842000000004,2.6830900000000004
+Table I.B1.2a.1,Croatia,science,p50,latest,476.54316000000006,2.2209700000000003
+Table I.B1.2a.1,Croatia,science,p75,latest,543.27801,2.3939600000000003
+Table I.B1.2a.1,Croatia,science,p90,latest,600.20718,3.05899
+Table I.B1.2a.1,Cyprus,science,mean,latest,411.18474000000003,1.4657900000000001
+Table I.B1.2a.1,Cyprus,science,sd,latest,108.87106000000001,1.13152
+Table I.B1.2a.1,Cyprus,science,p10,latest,275.81448,2.26362
+Table I.B1.2a.1,Cyprus,science,p25,latest,329.92348000000004,2.1468000000000003
+Table I.B1.2a.1,Cyprus,science,p50,latest,403.77695000000006,2.6651900000000004
+Table I.B1.2a.1,Cyprus,science,p75,latest,485.95305,2.34239
+Table I.B1.2a.1,Cyprus,science,p90,latest,557.1636400000001,2.7468800000000004
+Table I.B1.2a.1,Czechia,science,mean,latest,490.27834,2.58609
+Table I.B1.2a.1,Czechia,science,sd,latest,96.62857000000001,1.6237300000000001
+Table I.B1.2a.1,Czechia,science,p10,latest,362.46158,3.95021
+Table I.B1.2a.1,Czechia,science,p25,latest,421.8489,3.2693900000000005
+Table I.B1.2a.1,Czechia,science,p50,latest,490.67727,3.1645900000000005
+Table I.B1.2a.1,Czechia,science,p75,latest,558.6547800000001,3.39847
+Table I.B1.2a.1,Czechia,science,p90,latest,616.2456800000001,4.040760000000001
+Table I.B1.2a.1,Denmark,science,mean,latest,477.54101,2.3902900000000002
+Table I.B1.2a.1,Denmark,science,sd,latest,95.65865000000001,1.29718
+Table I.B1.2a.1,Denmark,science,p10,latest,351.14163,3.33116
+Table I.B1.2a.1,Denmark,science,p25,latest,409.74551,3.2923700000000005
+Table I.B1.2a.1,Denmark,science,p50,latest,479.51142000000004,3.1593600000000004
+Table I.B1.2a.1,Denmark,science,p75,latest,545.9655200000001,2.8888200000000004
+Table I.B1.2a.1,Denmark,science,p90,latest,599.64684,3.11018
+Table I.B1.2a.1,Dominican Republic,science,mean,latest,360.8466,2.32246
+Table I.B1.2a.1,Dominican Republic,science,sd,latest,76.24716000000001,1.092
+Table I.B1.2a.1,Dominican Republic,science,p10,latest,267.07726,2.2522300000000004
+Table I.B1.2a.1,Dominican Republic,science,p25,latest,305.02456,2.20298
+Table I.B1.2a.1,Dominican Republic,science,p50,latest,354.39212000000003,2.6525600000000003
+Table I.B1.2a.1,Dominican Republic,science,p75,latest,412.05085,3.3664500000000004
+Table I.B1.2a.1,Dominican Republic,science,p90,latest,465.40153000000004,3.7762900000000004
+Table I.B1.2a.1,Dushanbe (Tajikistan),science,mean,latest,333.76479,1.4187400000000001
+Table I.B1.2a.1,Dushanbe (Tajikistan),science,sd,latest,64.22704,1.26991
+Table I.B1.2a.1,Dushanbe (Tajikistan),science,p10,latest,257.82036,1.6264
+Table I.B1.2a.1,Dushanbe (Tajikistan),science,p25,latest,289.40759,1.5327700000000002
+Table I.B1.2a.1,Dushanbe (Tajikistan),science,p50,latest,327.48626,1.50791
+Table I.B1.2a.1,Dushanbe (Tajikistan),science,p75,latest,370.57322000000005,2.14433
+Table I.B1.2a.1,Dushanbe (Tajikistan),science,p90,latest,418.38462000000004,3.5765700000000002
+Table I.B1.2a.1,Ecuador,science,mean,latest,393.42125000000004,2.1619
+Table I.B1.2a.1,Ecuador,science,sd,latest,75.84714000000001,1.3226300000000002
+Table I.B1.2a.1,Ecuador,science,p10,latest,298.96364,2.4978700000000003
+Table I.B1.2a.1,Ecuador,science,p25,latest,339.07744,2.15103
+Table I.B1.2a.1,Ecuador,science,p50,latest,389.76755,2.47202
+Table I.B1.2a.1,Ecuador,science,p75,latest,443.77561000000003,3.11805
+Table I.B1.2a.1,Ecuador,science,p90,latest,494.83179,3.59744
+Table I.B1.2a.1,El Salvador,science,mean,latest,384.6732,2.17614
+Table I.B1.2a.1,El Salvador,science,sd,latest,76.79119,1.3305300000000002
+Table I.B1.2a.1,El Salvador,science,p10,latest,290.69759000000005,2.53168
+Table I.B1.2a.1,El Salvador,science,p25,latest,330.04627000000005,2.22669
+Table I.B1.2a.1,El Salvador,science,p50,latest,378.56034000000005,2.36782
+Table I.B1.2a.1,El Salvador,science,p75,latest,434.10245000000003,2.9749000000000003
+Table I.B1.2a.1,El Salvador,science,p90,latest,488.72282,4.25385
+Table I.B1.2a.1,Estonia,science,mean,latest,527.11708,2.33436
+Table I.B1.2a.1,Estonia,science,sd,latest,88.43502000000001,1.06855
+Table I.B1.2a.1,Estonia,science,p10,latest,409.84217,3.2493800000000004
+Table I.B1.2a.1,Estonia,science,p25,latest,466.40422000000007,3.2265800000000002
+Table I.B1.2a.1,Estonia,science,p50,latest,529.74217,2.58415
+Table I.B1.2a.1,Estonia,science,p75,latest,588.8675800000001,2.5927300000000004
+Table I.B1.2a.1,Estonia,science,p90,latest,639.52543,3.17546
+Table I.B1.2a.1,Finland,science,mean,latest,504.37245,2.26064
+Table I.B1.2a.1,Finland,science,sd,latest,104.93994,1.08871
+Table I.B1.2a.1,Finland,science,p10,latest,363.27895,3.92634
+Table I.B1.2a.1,Finland,science,p25,latest,431.08666000000005,3.5379500000000004
+Table I.B1.2a.1,Finland,science,p50,latest,508.29222000000004,2.51534
+Table I.B1.2a.1,Finland,science,p75,latest,579.6065900000001,2.3690100000000003
+Table I.B1.2a.1,Finland,science,p90,latest,638.1144800000001,2.4459600000000004
+Table I.B1.2a.1,France,science,mean,latest,483.42120000000006,3.2059400000000005
+Table I.B1.2a.1,France,science,sd,latest,103.73188,1.4340600000000001
+Table I.B1.2a.1,France,science,p10,latest,342.43771000000004,3.87964
+Table I.B1.2a.1,France,science,p25,latest,406.56024,4.53981
+Table I.B1.2a.1,France,science,p50,latest,489.58167000000003,4.06242
+Table I.B1.2a.1,France,science,p75,latest,559.72409,3.47914
+Table I.B1.2a.1,France,science,p90,latest,614.8975800000001,3.54659
+Table I.B1.2a.1,Georgia,science,mean,latest,422.11866000000003,2.6520300000000003
+Table I.B1.2a.1,Georgia,science,sd,latest,85.49799,1.81719
+Table I.B1.2a.1,Georgia,science,p10,latest,313.24321000000003,3.41251
+Table I.B1.2a.1,Georgia,science,p25,latest,362.77115000000003,2.9948
+Table I.B1.2a.1,Georgia,science,p50,latest,420.4725,2.8864400000000003
+Table I.B1.2a.1,Georgia,science,p75,latest,479.53104,3.0619600000000005
+Table I.B1.2a.1,Georgia,science,p90,latest,533.50102,4.10897
+Table I.B1.2a.1,Germany,science,mean,latest,485.52144000000004,3.5211200000000002
+Table I.B1.2a.1,Germany,science,sd,latest,109.25992000000001,1.46802
+Table I.B1.2a.1,Germany,science,p10,latest,341.55083,4.120900000000001
+Table I.B1.2a.1,Germany,science,p25,latest,403.11073000000005,4.3634900000000005
+Table I.B1.2a.1,Germany,science,p50,latest,485.02474000000007,4.44798
+Table I.B1.2a.1,Germany,science,p75,latest,566.0532400000001,4.064920000000001
+Table I.B1.2a.1,Germany,science,p90,latest,630.06331,3.7324500000000005
+Table I.B1.2a.1,Greece,science,mean,latest,434.28491,2.9383800000000004
+Table I.B1.2a.1,Greece,science,sd,latest,92.38980000000001,1.3770600000000002
+Table I.B1.2a.1,Greece,science,p10,latest,315.72018,3.66217
+Table I.B1.2a.1,Greece,science,p25,latest,367.77485,3.7732200000000002
+Table I.B1.2a.1,Greece,science,p50,latest,432.01973000000004,3.4737600000000004
+Table I.B1.2a.1,Greece,science,p75,latest,498.83325,3.6895900000000004
+Table I.B1.2a.1,Greece,science,p90,latest,557.23296,3.68223
+Table I.B1.2a.1,Guatemala,science,mean,latest,351.23403,2.5258900000000004
+Table I.B1.2a.1,Guatemala,science,sd,latest,73.42645,1.5494100000000002
+Table I.B1.2a.1,Guatemala,science,p10,latest,261.13443,2.3194600000000003
+Table I.B1.2a.1,Guatemala,science,p25,latest,299.57919000000004,2.36598
+Table I.B1.2a.1,Guatemala,science,p50,latest,345.47965000000005,2.7236000000000002
+Table I.B1.2a.1,Guatemala,science,p75,latest,398.06932,3.3032700000000004
+Table I.B1.2a.1,Guatemala,science,p90,latest,449.77346000000006,4.10499
+Table I.B1.2a.1,Hong Kong (China),science,mean,latest,495.62666,3.0470200000000003
+Table I.B1.2a.1,Hong Kong (China),science,sd,latest,102.91343,1.5782
+Table I.B1.2a.1,Hong Kong (China),science,p10,latest,360.50213,3.71512
+Table I.B1.2a.1,Hong Kong (China),science,p25,latest,424.15657000000004,3.8890200000000004
+Table I.B1.2a.1,Hong Kong (China),science,p50,latest,497.85027,3.4130800000000003
+Table I.B1.2a.1,Hong Kong (China),science,p75,latest,567.3386,3.28867
+Table I.B1.2a.1,Hong Kong (China),science,p90,latest,628.05078,4.261500000000001
+Table I.B1.2a.1,Hungary,science,mean,latest,479.91184000000004,2.4439800000000003
+Table I.B1.2a.1,Hungary,science,sd,latest,95.12886,1.81827
+Table I.B1.2a.1,Hungary,science,p10,latest,352.38633000000004,4.19496
+Table I.B1.2a.1,Hungary,science,p25,latest,412.74762000000004,3.4448000000000003
+Table I.B1.2a.1,Hungary,science,p50,latest,482.60618000000005,2.7511900000000002
+Table I.B1.2a.1,Hungary,science,p75,latest,548.3214,2.90639
+Table I.B1.2a.1,Hungary,science,p90,latest,601.6584200000001,3.4945500000000003
+Table I.B1.2a.1,Iceland,science,mean,latest,441.38044,1.64969
+Table I.B1.2a.1,Iceland,science,sd,latest,98.01032000000001,1.2093900000000002
+Table I.B1.2a.1,Iceland,science,p10,latest,314.32948000000005,3.00319
+Table I.B1.2a.1,Iceland,science,p25,latest,371.22911000000005,2.82282
+Table I.B1.2a.1,Iceland,science,p50,latest,439.23844,2.3699700000000004
+Table I.B1.2a.1,Iceland,science,p75,latest,509.31856000000005,2.46023
+Table I.B1.2a.1,Iceland,science,p90,latest,570.78503,3.24847
+Table I.B1.2a.1,Indonesia,science,mean,latest,388.67379000000005,2.3186500000000003
+Table I.B1.2a.1,Indonesia,science,sd,latest,67.05083,1.2713
+Table I.B1.2a.1,Indonesia,science,p10,latest,304.67004000000003,2.60605
+Table I.B1.2a.1,Indonesia,science,p25,latest,341.32347000000004,2.4496200000000004
+Table I.B1.2a.1,Indonesia,science,p50,latest,385.94486,2.5876400000000004
+Table I.B1.2a.1,Indonesia,science,p75,latest,433.30411000000004,2.79701
+Table I.B1.2a.1,Indonesia,science,p90,latest,477.62010000000004,3.74291
+Table I.B1.2a.1,Ireland,science,mean,latest,499.59669,2.1706800000000004
+Table I.B1.2a.1,Ireland,science,sd,latest,93.09208000000001,1.0097900000000002
+Table I.B1.2a.1,Ireland,science,p10,latest,376.45975000000004,3.1183500000000004
+Table I.B1.2a.1,Ireland,science,p25,latest,434.40271,3.06245
+Table I.B1.2a.1,Ireland,science,p50,latest,501.87676000000005,2.78878
+Table I.B1.2a.1,Ireland,science,p75,latest,565.59702,2.35632
+Table I.B1.2a.1,Ireland,science,p90,latest,619.2460000000001,2.5784700000000003
+Table I.B1.2a.1,Israel,science,mean,latest,442.00883000000005,3.3512800000000005
+Table I.B1.2a.1,Israel,science,sd,latest,111.34369000000001,1.48323
+Table I.B1.2a.1,Israel,science,p10,latest,298.1286,3.9424200000000003
+Table I.B1.2a.1,Israel,science,p25,latest,360.74129000000005,4.294630000000001
+Table I.B1.2a.1,Israel,science,p50,latest,440.59119000000004,4.17305
+Table I.B1.2a.1,Israel,science,p75,latest,521.2918900000001,3.86119
+Table I.B1.2a.1,Israel,science,p90,latest,587.75309,3.99419
+Table I.B1.2a.1,Italy,science,mean,latest,482.98206000000005,2.4788200000000002
+Table I.B1.2a.1,Italy,science,sd,latest,91.72143000000001,1.2992100000000002
+Table I.B1.2a.1,Italy,science,p10,latest,360.45125,3.85652
+Table I.B1.2a.1,Italy,science,p25,latest,418.44409,3.0399100000000003
+Table I.B1.2a.1,Italy,science,p50,latest,485.45597000000004,3.0739500000000004
+Table I.B1.2a.1,Italy,science,p75,latest,548.92953,2.9056400000000004
+Table I.B1.2a.1,Italy,science,p90,latest,600.78178,2.8801900000000002
+Table I.B1.2a.1,Japan,science,mean,latest,537.5862400000001,3.8059200000000004
+Table I.B1.2a.1,Japan,science,sd,latest,99.70823000000001,2.20146
+Table I.B1.2a.1,Japan,science,p10,latest,400.97468000000003,6.3083100000000005
+Table I.B1.2a.1,Japan,science,p25,latest,470.73628,5.344790000000001
+Table I.B1.2a.1,Japan,science,p50,latest,544.2501000000001,3.9244600000000003
+Table I.B1.2a.1,Japan,science,p75,latest,608.4534100000001,3.8763400000000003
+Table I.B1.2a.1,Japan,science,p90,latest,661.3790300000001,4.084960000000001
+Table I.B1.2a.1,Jordan,science,mean,latest,406.93542,2.4789000000000003
+Table I.B1.2a.1,Jordan,science,sd,latest,79.26512000000001,1.1932500000000001
+Table I.B1.2a.1,Jordan,science,p10,latest,305.00372000000004,3.30539
+Table I.B1.2a.1,Jordan,science,p25,latest,351.13754,3.1590100000000003
+Table I.B1.2a.1,Jordan,science,p50,latest,405.58904,2.9380900000000003
+Table I.B1.2a.1,Jordan,science,p75,latest,460.97521000000006,2.9051400000000003
+Table I.B1.2a.1,Jordan,science,p90,latest,510.39289,3.4961400000000005
+Table I.B1.2a.1,Kazakhstan,science,mean,latest,419.54755000000006,1.59427
+Table I.B1.2a.1,Kazakhstan,science,sd,latest,77.63990000000001,0.7382900000000001
+Table I.B1.2a.1,Kazakhstan,science,p10,latest,324.13954,1.5805300000000002
+Table I.B1.2a.1,Kazakhstan,science,p25,latest,364.35907000000003,1.5677200000000002
+Table I.B1.2a.1,Kazakhstan,science,p50,latest,413.61874000000006,1.83485
+Table I.B1.2a.1,Kazakhstan,science,p75,latest,469.62788000000006,2.2101200000000003
+Table I.B1.2a.1,Kazakhstan,science,p90,latest,525.06158,2.52292
+Table I.B1.2a.1,Kenya,science,mean,latest,334.94936,2.92172
+Table I.B1.2a.1,Kenya,science,sd,latest,76.60858,2.40762
+Table I.B1.2a.1,Kenya,science,p10,latest,243.24851,2.5641100000000003
+Table I.B1.2a.1,Kenya,science,p25,latest,280.7241,2.6351500000000003
+Table I.B1.2a.1,Kenya,science,p50,latest,328.13737000000003,3.0748900000000003
+Table I.B1.2a.1,Kenya,science,p75,latest,380.78223,4.23946
+Table I.B1.2a.1,Kenya,science,p90,latest,437.62314000000003,6.4158800000000005
+Table I.B1.2a.1,Korea,science,mean,latest,526.10531,3.3696400000000004
+Table I.B1.2a.1,Korea,science,sd,latest,104.04034000000001,1.6866100000000002
+Table I.B1.2a.1,Korea,science,p10,latest,384.06162,5.4489
+Table I.B1.2a.1,Korea,science,p25,latest,458.53935,4.545640000000001
+Table I.B1.2a.1,Korea,science,p50,latest,534.1895800000001,3.6501900000000003
+Table I.B1.2a.1,Korea,science,p75,latest,599.24959,3.6113500000000003
+Table I.B1.2a.1,Korea,science,p90,latest,653.7533900000001,4.10513
+Table I.B1.2a.1,Kosovo,science,mean,latest,357.01476,1.2990400000000002
+Table I.B1.2a.1,Kosovo,science,sd,latest,68.66866,0.78066
+Table I.B1.2a.1,Kosovo,science,p10,latest,272.53263000000004,1.7764900000000001
+Table I.B1.2a.1,Kosovo,science,p25,latest,308.25959,1.6111000000000002
+Table I.B1.2a.1,Kosovo,science,p50,latest,352.71634,1.75042
+Table I.B1.2a.1,Kosovo,science,p75,latest,400.81050000000005,1.8125200000000001
+Table I.B1.2a.1,Kosovo,science,p90,latest,447.67105000000004,2.32235
+Table I.B1.2a.1,Kurdistan Region (Iraq),science,mean,latest,352.19140000000004,1.7890400000000002
+Table I.B1.2a.1,Kurdistan Region (Iraq),science,sd,latest,64.70232,1.0996400000000002
+Table I.B1.2a.1,Kurdistan Region (Iraq),science,p10,latest,269.96201,2.56373
+Table I.B1.2a.1,Kurdistan Region (Iraq),science,p25,latest,307.32936,2.33381
+Table I.B1.2a.1,Kurdistan Region (Iraq),science,p50,latest,350.70790000000005,2.0687100000000003
+Table I.B1.2a.1,Kurdistan Region (Iraq),science,p75,latest,395.09380000000004,2.23639
+Table I.B1.2a.1,Kurdistan Region (Iraq),science,p90,latest,437.17378,2.79179
+Table I.B1.2a.1,Kyrgyzstan,science,mean,latest,362.52939000000003,2.1803500000000002
+Table I.B1.2a.1,Kyrgyzstan,science,sd,latest,68.19452000000001,1.21076
+Table I.B1.2a.1,Kyrgyzstan,science,p10,latest,280.06293000000005,2.06454
+Table I.B1.2a.1,Kyrgyzstan,science,p25,latest,314.08194000000003,1.8381900000000002
+Table I.B1.2a.1,Kyrgyzstan,science,p50,latest,356.34366000000006,2.32865
+Table I.B1.2a.1,Kyrgyzstan,science,p75,latest,405.54869,3.0607800000000003
+Table I.B1.2a.1,Kyrgyzstan,science,p90,latest,455.66182000000003,4.02393
+Table I.B1.2a.1,Latvia,science,mean,latest,468.36741000000006,2.05396
+Table I.B1.2a.1,Latvia,science,sd,latest,95.15128000000001,1.0535100000000002
+Table I.B1.2a.1,Latvia,science,p10,latest,341.39564,3.4176300000000004
+Table I.B1.2a.1,Latvia,science,p25,latest,400.89489000000003,3.00157
+Table I.B1.2a.1,Latvia,science,p50,latest,470.19135000000006,2.8110500000000003
+Table I.B1.2a.1,Latvia,science,p75,latest,536.8612300000001,2.20697
+Table I.B1.2a.1,Latvia,science,p90,latest,591.93318,2.80446
+Table I.B1.2a.1,Lebanon,science,mean,latest,372.00568000000004,3.4527600000000005
+Table I.B1.2a.1,Lebanon,science,sd,latest,99.07280000000002,1.9649500000000002
+Table I.B1.2a.1,Lebanon,science,p10,latest,250.50773,3.7865400000000005
+Table I.B1.2a.1,Lebanon,science,p25,latest,299.46880000000004,3.5321400000000005
+Table I.B1.2a.1,Lebanon,science,p50,latest,363.79446,4.1099000000000006
+Table I.B1.2a.1,Lebanon,science,p75,latest,438.78045000000003,4.54912
+Table I.B1.2a.1,Lebanon,science,p90,latest,507.48639000000003,5.634550000000001
+Table I.B1.2a.1,Lithuania,science,mean,latest,487.73903,1.7807600000000001
+Table I.B1.2a.1,Lithuania,science,sd,latest,88.78599000000001,1.2231100000000001
+Table I.B1.2a.1,Lithuania,science,p10,latest,370.55612,2.99758
+Table I.B1.2a.1,Lithuania,science,p25,latest,425.7952,2.1686
+Table I.B1.2a.1,Lithuania,science,p50,latest,488.49005000000005,2.09532
+Table I.B1.2a.1,Lithuania,science,p75,latest,550.61023,2.3409
+Table I.B1.2a.1,Lithuania,science,p90,latest,601.82694,3.0655400000000004
+Table I.B1.2a.1,Luxembourg,science,mean,latest,473.77035000000006,1.05451
+Table I.B1.2a.1,Luxembourg,science,sd,latest,113.33079000000001,0.98201
+Table I.B1.2a.1,Luxembourg,science,p10,latest,325.57750000000004,2.4344300000000003
+Table I.B1.2a.1,Luxembourg,science,p25,latest,386.59449,1.8787800000000001
+Table I.B1.2a.1,Luxembourg,science,p50,latest,472.45601000000005,1.7828600000000001
+Table I.B1.2a.1,Luxembourg,science,p75,latest,557.75545,1.9185600000000003
+Table I.B1.2a.1,Luxembourg,science,p90,latest,624.54848,2.2498
+Table I.B1.2a.1,Macao (China),science,mean,latest,540.8138600000001,1.1273600000000001
+Table I.B1.2a.1,Macao (China),science,sd,latest,87.62309,0.78712
+Table I.B1.2a.1,Macao (China),science,p10,latest,423.08880000000005,2.46707
+Table I.B1.2a.1,Macao (China),science,p25,latest,484.61441,2.02822
+Table I.B1.2a.1,Macao (China),science,p50,latest,545.7594300000001,1.7647800000000002
+Table I.B1.2a.1,Macao (China),science,p75,latest,603.12495,1.7481900000000001
+Table I.B1.2a.1,Macao (China),science,p90,latest,649.7963000000001,2.2113400000000003
+Table I.B1.2a.1,Malaysia,science,mean,latest,419.20273000000003,2.15916
+Table I.B1.2a.1,Malaysia,science,sd,latest,79.89255,1.1155700000000002
+Table I.B1.2a.1,Malaysia,science,p10,latest,316.91987,2.42078
+Table I.B1.2a.1,Malaysia,science,p25,latest,362.73621,2.3552500000000003
+Table I.B1.2a.1,Malaysia,science,p50,latest,417.08088000000004,2.63673
+Table I.B1.2a.1,Malaysia,science,p75,latest,472.51152,3.0005400000000004
+Table I.B1.2a.1,Malaysia,science,p90,latest,524.6516700000001,2.9706200000000003
+Table I.B1.2a.1,Malta,science,mean,latest,452.52701,1.54688
+Table I.B1.2a.1,Malta,science,sd,latest,108.23613,1.2271400000000001
+Table I.B1.2a.1,Malta,science,p10,latest,312.98197000000005,2.8654400000000004
+Table I.B1.2a.1,Malta,science,p25,latest,372.64632,2.4241200000000003
+Table I.B1.2a.1,Malta,science,p50,latest,449.20143,2.49357
+Table I.B1.2a.1,Malta,science,p75,latest,530.06793,2.8164700000000003
+Table I.B1.2a.1,Malta,science,p90,latest,597.0013100000001,3.8945700000000003
+Table I.B1.2a.1,Mauritius,science,mean,latest,438.16395000000006,4.19413
+Table I.B1.2a.1,Mauritius,science,sd,latest,101.68246,2.2507900000000003
+Table I.B1.2a.1,Mauritius,science,p10,latest,303.47133,4.0102
+Table I.B1.2a.1,Mauritius,science,p25,latest,363.41379,4.51145
+Table I.B1.2a.1,Mauritius,science,p50,latest,438.26161,4.5924000000000005
+Table I.B1.2a.1,Mauritius,science,p75,latest,510.61685000000006,5.27336
+Table I.B1.2a.1,Mauritius,science,p90,latest,572.34981,7.663060000000001
+Table I.B1.2a.1,Mexico,science,mean,latest,413.56537000000003,2.00143
+Table I.B1.2a.1,Mexico,science,sd,latest,74.62003,1.3284900000000002
+Table I.B1.2a.1,Mexico,science,p10,latest,319.76252000000005,2.2159400000000002
+Table I.B1.2a.1,Mexico,science,p25,latest,360.6945,2.0583
+Table I.B1.2a.1,Mexico,science,p50,latest,410.30394,2.15537
+Table I.B1.2a.1,Mexico,science,p75,latest,463.26048000000003,2.78228
+Table I.B1.2a.1,Mexico,science,p90,latest,512.62111,3.7777200000000004
+Table I.B1.2a.1,Moldova,science,mean,latest,421.94704,2.8449400000000002
+Table I.B1.2a.1,Moldova,science,sd,latest,87.47092,1.2110400000000001
+Table I.B1.2a.1,Moldova,science,p10,latest,311.40659000000005,2.96939
+Table I.B1.2a.1,Moldova,science,p25,latest,358.75767,3.06672
+Table I.B1.2a.1,Moldova,science,p50,latest,418.69918,3.4201500000000005
+Table I.B1.2a.1,Moldova,science,p75,latest,482.35592,3.4420400000000004
+Table I.B1.2a.1,Moldova,science,p90,latest,537.49994,3.5728400000000002
+Table I.B1.2a.1,Mongolia,science,mean,latest,424.03375000000005,2.12886
+Table I.B1.2a.1,Mongolia,science,sd,latest,81.32882000000001,1.0974400000000002
+Table I.B1.2a.1,Mongolia,science,p10,latest,318.96439000000004,2.9372000000000003
+Table I.B1.2a.1,Mongolia,science,p25,latest,367.16177000000005,2.54023
+Table I.B1.2a.1,Mongolia,science,p50,latest,424.51068000000004,2.6464700000000003
+Table I.B1.2a.1,Mongolia,science,p75,latest,480.80404000000004,2.7191400000000003
+Table I.B1.2a.1,Mongolia,science,p90,latest,529.0178400000001,2.71321
+Table I.B1.2a.1,Montenegro,science,mean,latest,435.18445,1.31231
+Table I.B1.2a.1,Montenegro,science,sd,latest,87.80309000000001,0.8864400000000001
+Table I.B1.2a.1,Montenegro,science,p10,latest,322.22242,2.79298
+Table I.B1.2a.1,Montenegro,science,p25,latest,371.75691,2.21545
+Table I.B1.2a.1,Montenegro,science,p50,latest,433.86597000000006,1.73011
+Table I.B1.2a.1,Montenegro,science,p75,latest,496.17711,1.8680500000000002
+Table I.B1.2a.1,Montenegro,science,p90,latest,550.12571,2.61864
+Table I.B1.2a.1,Morocco,science,mean,latest,357.97978,3.3258400000000004
+Table I.B1.2a.1,Morocco,science,sd,latest,74.95549000000001,1.8787800000000001
+Table I.B1.2a.1,Morocco,science,p10,latest,267.95831000000004,2.67754
+Table I.B1.2a.1,Morocco,science,p25,latest,305.05226000000005,2.56996
+Table I.B1.2a.1,Morocco,science,p50,latest,350.84325,3.3966000000000003
+Table I.B1.2a.1,Morocco,science,p75,latest,403.93536000000006,4.55792
+Table I.B1.2a.1,Morocco,science,p90,latest,458.79877000000005,6.0812800000000005
+Table I.B1.2a.1,Netherlands*,science,mean,latest,485.45141000000007,2.82147
+Table I.B1.2a.1,Netherlands*,science,sd,latest,109.24038000000002,1.5579200000000002
+Table I.B1.2a.1,Netherlands*,science,p10,latest,338.14918,3.8450200000000003
+Table I.B1.2a.1,Netherlands*,science,p25,latest,401.88249,4.683470000000001
+Table I.B1.2a.1,Netherlands*,science,p50,latest,489.58429000000007,3.9756100000000005
+Table I.B1.2a.1,Netherlands*,science,p75,latest,568.30474,3.19126
+Table I.B1.2a.1,Netherlands*,science,p90,latest,626.2827500000001,3.23402
+Table I.B1.2a.1,New Zealand*,science,mean,latest,509.39792000000006,2.31097
+Table I.B1.2a.1,New Zealand*,science,sd,latest,107.82238000000001,1.13517
+Table I.B1.2a.1,New Zealand*,science,p10,latest,366.40920000000006,3.8305100000000003
+Table I.B1.2a.1,New Zealand*,science,p25,latest,432.08886,3.46851
+Table I.B1.2a.1,New Zealand*,science,p50,latest,510.72527,3.0557000000000003
+Table I.B1.2a.1,New Zealand*,science,p75,latest,587.30582,2.80221
+Table I.B1.2a.1,New Zealand*,science,p90,latest,650.32347,2.7390100000000004
+Table I.B1.2a.1,North Macedonia,science,mean,latest,378.49815,1.03898
+Table I.B1.2a.1,North Macedonia,science,sd,latest,88.85924000000001,0.82071
+Table I.B1.2a.1,North Macedonia,science,p10,latest,266.06004,1.8339
+Table I.B1.2a.1,North Macedonia,science,p25,latest,314.69305,1.57546
+Table I.B1.2a.1,North Macedonia,science,p50,latest,374.40527000000003,1.70276
+Table I.B1.2a.1,North Macedonia,science,p75,latest,439.31710000000004,1.8183300000000002
+Table I.B1.2a.1,North Macedonia,science,p90,latest,495.98581,2.04617
+Table I.B1.2a.1,Norway*,science,mean,latest,470.21226,2.0224900000000003
+Table I.B1.2a.1,Norway*,science,sd,latest,102.16785,1.02879
+Table I.B1.2a.1,Norway*,science,p10,latest,335.10777,2.8577100000000004
+Table I.B1.2a.1,Norway*,science,p25,latest,396.09511000000003,2.7803600000000004
+Table I.B1.2a.1,Norway*,science,p50,latest,471.23161000000005,2.35555
+Table I.B1.2a.1,Norway*,science,p75,latest,543.05939,2.7003100000000004
+Table I.B1.2a.1,Norway*,science,p90,latest,603.71767,3.18576
+Table I.B1.2a.1,Palestinian Authority,science,mean,latest,358.73953,1.94727
+Table I.B1.2a.1,Palestinian Authority,science,sd,latest,70.56568,0.9578000000000001
+Table I.B1.2a.1,Palestinian Authority,science,p10,latest,270.16642,2.2549300000000003
+Table I.B1.2a.1,Palestinian Authority,science,p25,latest,308.66235,2.1487100000000003
+Table I.B1.2a.1,Palestinian Authority,science,p50,latest,355.74747,2.1775200000000003
+Table I.B1.2a.1,Palestinian Authority,science,p75,latest,406.17164,2.6669300000000002
+Table I.B1.2a.1,Palestinian Authority,science,p90,latest,452.71867000000003,2.9456300000000004
+Table I.B1.2a.1,Paraguay,science,mean,latest,355.24408000000005,1.9713100000000001
+Table I.B1.2a.1,Paraguay,science,sd,latest,80.10115,1.2392500000000002
+Table I.B1.2a.1,Paraguay,science,p10,latest,256.06843000000003,2.22424
+Table I.B1.2a.1,Paraguay,science,p25,latest,297.70336000000003,2.3668400000000003
+Table I.B1.2a.1,Paraguay,science,p50,latest,349.76231,2.25924
+Table I.B1.2a.1,Paraguay,science,p75,latest,407.80814000000004,2.6842200000000003
+Table I.B1.2a.1,Paraguay,science,p90,latest,463.68434,3.6637100000000005
+Table I.B1.2a.1,Peru,science,mean,latest,405.60048000000006,2.52937
+Table I.B1.2a.1,Peru,science,sd,latest,80.305,1.2687000000000002
+Table I.B1.2a.1,Peru,science,p10,latest,303.09340000000003,3.1626900000000004
+Table I.B1.2a.1,Peru,science,p25,latest,349.13582,2.9911800000000004
+Table I.B1.2a.1,Peru,science,p50,latest,404.44025000000005,3.01018
+Table I.B1.2a.1,Peru,science,p75,latest,460.39185000000003,2.7371100000000004
+Table I.B1.2a.1,Peru,science,p90,latest,510.68546000000003,3.3438900000000005
+Table I.B1.2a.1,Philippines,science,mean,latest,373.31850000000003,2.28703
+Table I.B1.2a.1,Philippines,science,sd,latest,85.84795000000001,1.34328
+Table I.B1.2a.1,Philippines,science,p10,latest,270.11012,2.18012
+Table I.B1.2a.1,Philippines,science,p25,latest,309.12297,2.09585
+Table I.B1.2a.1,Philippines,science,p50,latest,363.63725000000005,2.54233
+Table I.B1.2a.1,Philippines,science,p75,latest,429.50919000000005,3.1713600000000004
+Table I.B1.2a.1,Philippines,science,p90,latest,492.38564,4.34443
+Table I.B1.2a.1,Poland,science,mean,latest,495.06703000000005,2.7425
+Table I.B1.2a.1,Poland,science,sd,latest,96.60468,1.8210300000000001
+Table I.B1.2a.1,Poland,science,p10,latest,365.64183,4.9075500000000005
+Table I.B1.2a.1,Poland,science,p25,latest,427.44028000000003,3.80221
+Table I.B1.2a.1,Poland,science,p50,latest,498.07637000000005,3.26839
+Table I.B1.2a.1,Poland,science,p75,latest,564.1801,3.14929
+Table I.B1.2a.1,Poland,science,p90,latest,618.97967,3.30886
+Table I.B1.2a.1,Portugal,science,mean,latest,481.71602,3.5177300000000002
+Table I.B1.2a.1,Portugal,science,sd,latest,97.05632000000001,1.30705
+Table I.B1.2a.1,Portugal,science,p10,latest,353.33991000000003,4.275180000000001
+Table I.B1.2a.1,Portugal,science,p25,latest,411.61928000000006,4.60179
+Table I.B1.2a.1,Portugal,science,p50,latest,482.72878000000003,4.2622
+Table I.B1.2a.1,Portugal,science,p75,latest,552.0964200000001,3.6386700000000003
+Table I.B1.2a.1,Portugal,science,p90,latest,607.5004200000001,3.6043600000000002
+Table I.B1.2a.1,Qatar,science,mean,latest,434.39970000000005,1.34026
+Table I.B1.2a.1,Qatar,science,sd,latest,100.29663000000001,1.1223
+Table I.B1.2a.1,Qatar,science,p10,latest,306.85236000000003,2.4139500000000003
+Table I.B1.2a.1,Qatar,science,p25,latest,358.76306000000005,2.1588800000000004
+Table I.B1.2a.1,Qatar,science,p50,latest,429.43888000000004,2.23573
+Table I.B1.2a.1,Qatar,science,p75,latest,505.2361,2.68107
+Table I.B1.2a.1,Qatar,science,p90,latest,570.69951,3.2390600000000003
+Table I.B1.2a.1,Romania,science,mean,latest,424.70915,4.15019
+Table I.B1.2a.1,Romania,science,sd,latest,100.629,2.0847900000000004
+Table I.B1.2a.1,Romania,science,p10,latest,296.24494000000004,3.8774200000000003
+Table I.B1.2a.1,Romania,science,p25,latest,349.97169,3.9776800000000003
+Table I.B1.2a.1,Romania,science,p50,latest,421.32603000000006,4.806
+Table I.B1.2a.1,Romania,science,p75,latest,496.83096000000006,5.554410000000001
+Table I.B1.2a.1,Romania,science,p90,latest,559.04286,6.3422600000000005
+Table I.B1.2a.1,Rwanda,science,mean,latest,317.28649,3.4961
+Table I.B1.2a.1,Rwanda,science,sd,latest,76.79013,2.83854
+Table I.B1.2a.1,Rwanda,science,p10,latest,234.14877,1.9328900000000002
+Table I.B1.2a.1,Rwanda,science,p25,latest,264.1372,1.8713600000000001
+Table I.B1.2a.1,Rwanda,science,p50,latest,302.48225,2.76622
+Table I.B1.2a.1,Rwanda,science,p75,latest,355.08672,5.776840000000001
+Table I.B1.2a.1,Rwanda,science,p90,latest,428.29760000000005,9.65576
+Table I.B1.2a.1,Saudi Arabia,science,mean,latest,413.43007000000006,2.6454600000000004
+Table I.B1.2a.1,Saudi Arabia,science,sd,latest,81.07763000000001,1.46706
+Table I.B1.2a.1,Saudi Arabia,science,p10,latest,310.43714,2.7262000000000004
+Table I.B1.2a.1,Saudi Arabia,science,p25,latest,356.36818000000005,2.6811700000000003
+Table I.B1.2a.1,Saudi Arabia,science,p50,latest,411.16152000000005,2.99642
+Table I.B1.2a.1,Saudi Arabia,science,p75,latest,467.95367000000005,3.26298
+Table I.B1.2a.1,Saudi Arabia,science,p90,latest,519.58029,4.34022
+Table I.B1.2a.1,Serbia,science,mean,latest,428.99464000000006,2.92876
+Table I.B1.2a.1,Serbia,science,sd,latest,90.59565,1.35257
+Table I.B1.2a.1,Serbia,science,p10,latest,312.79134000000005,3.414
+Table I.B1.2a.1,Serbia,science,p25,latest,362.40250000000003,3.3751700000000002
+Table I.B1.2a.1,Serbia,science,p50,latest,426.75445,3.6311000000000004
+Table I.B1.2a.1,Serbia,science,p75,latest,492.65216000000004,3.6043800000000004
+Table I.B1.2a.1,Serbia,science,p90,latest,548.92228,3.8006500000000005
+Table I.B1.2a.1,Singapore,science,mean,latest,559.8505600000001,1.7129
+Table I.B1.2a.1,Singapore,science,sd,latest,105.27781,1.0806900000000002
+Table I.B1.2a.1,Singapore,science,p10,latest,410.59858,3.7868200000000005
+Table I.B1.2a.1,Singapore,science,p25,latest,491.16927000000004,2.9606500000000002
+Table I.B1.2a.1,Singapore,science,p50,latest,571.43631,2.05912
+Table I.B1.2a.1,Singapore,science,p75,latest,636.2187200000001,1.76581
+Table I.B1.2a.1,Singapore,science,p90,latest,686.6289700000001,2.2122900000000003
+Table I.B1.2a.1,Slovak Republic,science,mean,latest,474.87211,2.5045800000000003
+Table I.B1.2a.1,Slovak Republic,science,sd,latest,100.58197000000001,1.76435
+Table I.B1.2a.1,Slovak Republic,science,p10,latest,340.41472000000005,4.7457400000000005
+Table I.B1.2a.1,Slovak Republic,science,p25,latest,404.03387000000004,3.7608400000000004
+Table I.B1.2a.1,Slovak Republic,science,p50,latest,478.58757,2.90924
+Table I.B1.2a.1,Slovak Republic,science,p75,latest,547.0666600000001,2.9399200000000003
+Table I.B1.2a.1,Slovak Republic,science,p90,latest,603.0626400000001,3.37488
+Table I.B1.2a.1,Slovenia,science,mean,latest,483.72204000000005,1.2773500000000002
+Table I.B1.2a.1,Slovenia,science,sd,latest,100.11283,1.08633
+Table I.B1.2a.1,Slovenia,science,p10,latest,351.98046000000005,2.6605100000000004
+Table I.B1.2a.1,Slovenia,science,p25,latest,412.01673000000005,2.29183
+Table I.B1.2a.1,Slovenia,science,p50,latest,484.85665000000006,1.8033400000000002
+Table I.B1.2a.1,Slovenia,science,p75,latest,555.68119,2.1348700000000003
+Table I.B1.2a.1,Slovenia,science,p90,latest,613.88305,2.6974600000000004
+Table I.B1.2a.1,Spain,science,mean,latest,477.12730000000005,1.9043100000000002
+Table I.B1.2a.1,Spain,science,sd,latest,93.27608000000001,0.9224600000000001
+Table I.B1.2a.1,Spain,science,p10,latest,352.46653000000003,3.01799
+Table I.B1.2a.1,Spain,science,p25,latest,411.53403000000003,2.6869300000000003
+Table I.B1.2a.1,Spain,science,p50,latest,479.68861000000004,1.9348400000000001
+Table I.B1.2a.1,Spain,science,p75,latest,543.55361,1.7866700000000002
+Table I.B1.2a.1,Spain,science,p90,latest,596.5671600000001,1.9166600000000003
+Table I.B1.2a.1,Sweden,science,mean,latest,485.11066000000005,2.9938700000000003
+Table I.B1.2a.1,Sweden,science,sd,latest,107.81442000000001,1.2803300000000002
+Table I.B1.2a.1,Sweden,science,p10,latest,341.93846,3.5287800000000002
+Table I.B1.2a.1,Sweden,science,p25,latest,407.19248000000005,3.67769
+Table I.B1.2a.1,Sweden,science,p50,latest,486.69801000000007,3.65031
+Table I.B1.2a.1,Sweden,science,p75,latest,563.13619,3.80079
+Table I.B1.2a.1,Sweden,science,p90,latest,625.86544,3.84641
+Table I.B1.2a.1,Switzerland,science,mean,latest,501.23764000000006,2.59131
+Table I.B1.2a.1,Switzerland,science,sd,latest,103.18818,1.4800300000000002
+Table I.B1.2a.1,Switzerland,science,p10,latest,361.74454000000003,3.6755400000000003
+Table I.B1.2a.1,Switzerland,science,p25,latest,425.64020000000005,3.7524200000000003
+Table I.B1.2a.1,Switzerland,science,p50,latest,504.45603000000006,3.51086
+Table I.B1.2a.1,Switzerland,science,p75,latest,576.9959,3.42777
+Table I.B1.2a.1,Switzerland,science,p90,latest,634.2166500000001,3.7592900000000005
+Table I.B1.2a.1,Chinese Taipei,science,mean,latest,539.7016900000001,3.00803
+Table I.B1.2a.1,Chinese Taipei,science,sd,latest,107.46699000000001,1.53994
+Table I.B1.2a.1,Chinese Taipei,science,p10,latest,390.68874000000005,4.47344
+Table I.B1.2a.1,Chinese Taipei,science,p25,latest,467.66932,4.14349
+Table I.B1.2a.1,Chinese Taipei,science,p50,latest,548.22121,3.4548400000000004
+Table I.B1.2a.1,Chinese Taipei,science,p75,latest,618.16773,3.28404
+Table I.B1.2a.1,Chinese Taipei,science,p90,latest,672.03983,3.7760100000000003
+Table I.B1.2a.1,Thailand,science,mean,latest,432.24049,3.1885800000000004
+Table I.B1.2a.1,Thailand,science,sd,latest,81.21342000000001,1.41575
+Table I.B1.2a.1,Thailand,science,p10,latest,330.17647000000005,3.06475
+Table I.B1.2a.1,Thailand,science,p25,latest,374.80249000000003,3.01535
+Table I.B1.2a.1,Thailand,science,p50,latest,428.42276000000004,3.5014800000000004
+Table I.B1.2a.1,Thailand,science,p75,latest,487.04249000000004,4.346570000000001
+Table I.B1.2a.1,Thailand,science,p90,latest,540.6734200000001,4.63196
+Table I.B1.2a.1,Türkiye,science,mean,latest,494.26907000000006,2.3050200000000003
+Table I.B1.2a.1,Türkiye,science,sd,latest,94.48270000000001,1.4065
+Table I.B1.2a.1,Türkiye,science,p10,latest,370.72240000000005,3.7447700000000004
+Table I.B1.2a.1,Türkiye,science,p25,latest,427.81947,3.25206
+Table I.B1.2a.1,Türkiye,science,p50,latest,494.27962,2.6916900000000004
+Table I.B1.2a.1,Türkiye,science,p75,latest,560.03664,2.71633
+Table I.B1.2a.1,Türkiye,science,p90,latest,618.58139,2.72465
+Table I.B1.2a.1,Ukrainian regions (17 of 27),science,mean,latest,448.08230000000003,2.49101
+Table I.B1.2a.1,Ukrainian regions (17 of 27),science,sd,latest,91.02413000000001,1.17828
+Table I.B1.2a.1,Ukrainian regions (17 of 27),science,p10,latest,329.71340000000004,3.1508300000000005
+Table I.B1.2a.1,Ukrainian regions (17 of 27),science,p25,latest,382.45559000000003,3.15756
+Table I.B1.2a.1,Ukrainian regions (17 of 27),science,p50,latest,447.51655000000005,3.2466000000000004
+Table I.B1.2a.1,Ukrainian regions (17 of 27),science,p75,latest,512.0587400000001,2.9661700000000004
+Table I.B1.2a.1,Ukrainian regions (17 of 27),science,p90,latest,566.60675,3.0188400000000004
+Table I.B1.2a.1,United Arab Emirates,science,mean,latest,458.06699000000003,1.9743800000000002
+Table I.B1.2a.1,United Arab Emirates,science,sd,latest,109.93992000000001,0.54778
+Table I.B1.2a.1,United Arab Emirates,science,p10,latest,313.96466000000004,1.48533
+Table I.B1.2a.1,United Arab Emirates,science,p25,latest,374.81279,2.31944
+Table I.B1.2a.1,United Arab Emirates,science,p50,latest,457.60850000000005,3.10252
+Table I.B1.2a.1,United Arab Emirates,science,p75,latest,538.88768,2.5016900000000004
+Table I.B1.2a.1,United Arab Emirates,science,p90,latest,602.81599,2.12469
+Table I.B1.2a.1,United Kingdom,science,mean,latest,511.35575000000006,2.10211
+Table I.B1.2a.1,United Kingdom,science,sd,latest,103.63938,1.1600400000000002
+Table I.B1.2a.1,United Kingdom,science,p10,latest,373.79959,2.87148
+Table I.B1.2a.1,United Kingdom,science,p25,latest,437.88664000000006,2.55417
+Table I.B1.2a.1,United Kingdom,science,p50,latest,512.10132,2.4747100000000004
+Table I.B1.2a.1,United Kingdom,science,p75,latest,585.43979,2.93853
+Table I.B1.2a.1,United Kingdom,science,p90,latest,646.48107,3.3189400000000004
+Table I.B1.2a.1,United States*,science,mean,latest,501.58324000000005,5.816520000000001
+Table I.B1.2a.1,United States*,science,sd,latest,114.29363000000001,3.1705400000000004
+Table I.B1.2a.1,United States*,science,p10,latest,351.39512,5.81911
+Table I.B1.2a.1,United States*,science,p25,latest,419.54603000000003,5.88405
+Table I.B1.2a.1,United States*,science,p50,latest,501.74187000000006,6.27916
+Table I.B1.2a.1,United States*,science,p75,latest,583.33839,6.446930000000001
+Table I.B1.2a.1,United States*,science,p90,latest,649.3159300000001,9.441370000000001
+Table I.B1.2a.1,Uruguay,science,mean,latest,444.54929000000004,1.8163200000000002
+Table I.B1.2a.1,Uruguay,science,sd,latest,87.70104,0.9697100000000001
+Table I.B1.2a.1,Uruguay,science,p10,latest,330.68066000000005,2.58033
+Table I.B1.2a.1,Uruguay,science,p25,latest,381.67496000000006,2.2150600000000003
+Table I.B1.2a.1,Uruguay,science,p50,latest,443.30358,2.3483
+Table I.B1.2a.1,Uruguay,science,p75,latest,505.4329,2.40985
+Table I.B1.2a.1,Uruguay,science,p90,latest,560.2374100000001,2.6725000000000003
+Table I.B1.2a.1,Uzbekistan,science,mean,latest,437.59697000000006,2.72601
+Table I.B1.2a.1,Uzbekistan,science,sd,latest,69.72965,1.84766
+Table I.B1.2a.1,Uzbekistan,science,p10,latest,350.24940000000004,2.5715600000000003
+Table I.B1.2a.1,Uzbekistan,science,p25,latest,389.91459000000003,2.4606600000000003
+Table I.B1.2a.1,Uzbekistan,science,p50,latest,435.47509,2.5862600000000002
+Table I.B1.2a.1,Uzbekistan,science,p75,latest,483.05372000000006,3.4615500000000003
+Table I.B1.2a.1,Uzbekistan,science,p90,latest,527.8148500000001,4.98306
+Table I.B1.2a.1,Viet Nam,science,mean,latest,457.42088,3.92831
+Table I.B1.2a.1,Viet Nam,science,sd,latest,80.43012,1.9257000000000002
+Table I.B1.2a.1,Viet Nam,science,p10,latest,354.48286,5.011990000000001
+Table I.B1.2a.1,Viet Nam,science,p25,latest,400.24988,4.71359
+Table I.B1.2a.1,Viet Nam,science,p50,latest,455.48135,4.3750100000000005
+Table I.B1.2a.1,Viet Nam,science,p75,latest,512.7661,4.6082
+Table I.B1.2a.1,Viet Nam,science,p90,latest,563.2409,4.962750000000001
+Table I.B1.2a.1,Zambia,science,mean,latest,336.95473000000004,10.99202
+Table I.B1.2a.1,Zambia,science,sd,latest,106.72863000000001,5.6564700000000006
+Table I.B1.2a.1,Zambia,science,p10,latest,213.82800000000003,5.106400000000001
+Table I.B1.2a.1,Zambia,science,p25,latest,255.78409000000002,6.47557
+Table I.B1.2a.1,Zambia,science,p50,latest,316.79266,11.934310000000002
+Table I.B1.2a.1,Zambia,science,p75,latest,409.43218,20.954980000000003
+Table I.B1.2a.1,Zambia,science,p90,latest,497.36111000000005,18.525190000000002
+Table I.B1.2a.2,OECD average,reading,mean,latest,460.94416,0.44637000000000004
+Table I.B1.2a.2,OECD average,reading,sd,latest,101.21567,0.24266000000000001
+Table I.B1.2a.2,OECD average,reading,p10,latest,325.99095000000005,0.6823100000000001
+Table I.B1.2a.2,OECD average,reading,p25,latest,390.58821,0.59043
+Table I.B1.2a.2,OECD average,reading,p50,latest,463.78187,0.53154
+Table I.B1.2a.2,OECD average,reading,p75,latest,533.3539400000001,0.5171
+Table I.B1.2a.2,OECD average,reading,p90,latest,590.48891,0.5729500000000001
+Table I.B1.2a.2,OECD total,reading,mean,latest,467.20902000000007,1.62528
+Table I.B1.2a.2,OECD total,reading,sd,latest,108.93745000000001,1.0673700000000002
+Table I.B1.2a.2,OECD total,reading,p10,latest,325.29594000000003,1.54231
+Table I.B1.2a.2,OECD total,reading,p25,latest,389.98596000000003,1.5736500000000002
+Table I.B1.2a.2,OECD total,reading,p50,latest,466.79541000000006,1.6221100000000002
+Table I.B1.2a.2,OECD total,reading,p75,latest,543.6704500000001,1.9568100000000002
+Table I.B1.2a.2,OECD total,reading,p90,latest,608.0355400000001,2.5984900000000004
+Table I.B1.2a.2,Albania*,reading,mean,latest,407.64096,2.56977
+Table I.B1.2a.2,Albania*,reading,sd,latest,74.41206000000001,1.1061400000000001
+Table I.B1.2a.2,Albania*,reading,p10,latest,311.97372,3.38865
+Table I.B1.2a.2,Albania*,reading,p25,latest,356.36849,3.02524
+Table I.B1.2a.2,Albania*,reading,p50,latest,406.67871,2.9964700000000004
+Table I.B1.2a.2,Albania*,reading,p75,latest,457.75547000000006,3.0661300000000002
+Table I.B1.2a.2,Albania*,reading,p90,latest,505.32570000000004,3.3656500000000005
+Table I.B1.2a.2,Argentina,reading,mean,latest,388.70426000000003,2.69153
+Table I.B1.2a.2,Argentina,reading,sd,latest,90.84927,1.43364
+Table I.B1.2a.2,Argentina,reading,p10,latest,274.46784,2.99135
+Table I.B1.2a.2,Argentina,reading,p25,latest,324.10283000000004,2.8644900000000004
+Table I.B1.2a.2,Argentina,reading,p50,latest,384.85400000000004,2.89792
+Table I.B1.2a.2,Argentina,reading,p75,latest,449.59450000000004,3.5125100000000002
+Table I.B1.2a.2,Argentina,reading,p90,latest,508.84282,4.3290500000000005
+Table I.B1.2a.2,Armenia,reading,mean,latest,348.28569000000005,1.50259
+Table I.B1.2a.2,Armenia,reading,sd,latest,67.83422,0.73399
+Table I.B1.2a.2,Armenia,reading,p10,latest,262.11310000000003,2.0178000000000003
+Table I.B1.2a.2,Armenia,reading,p25,latest,301.31941,1.64464
+Table I.B1.2a.2,Armenia,reading,p50,latest,346.72956000000005,1.7559700000000003
+Table I.B1.2a.2,Armenia,reading,p75,latest,393.15069000000005,1.9511300000000003
+Table I.B1.2a.2,Armenia,reading,p90,latest,435.71865,2.3757400000000004
+Table I.B1.2a.2,Australia,reading,mean,latest,490.86328000000003,1.8518400000000002
+Table I.B1.2a.2,Australia,reading,sd,latest,110.99943,0.8591000000000001
+Table I.B1.2a.2,Australia,reading,p10,latest,340.42279,2.87659
+Table I.B1.2a.2,Australia,reading,p25,latest,413.77967,2.4767
+Table I.B1.2a.2,Australia,reading,p50,latest,496.22408,2.24967
+Table I.B1.2a.2,Australia,reading,p75,latest,570.90301,2.25592
+Table I.B1.2a.2,Australia,reading,p90,latest,631.7283100000001,2.31273
+Table I.B1.2a.2,Austria,reading,mean,latest,467.21167,2.55479
+Table I.B1.2a.2,Austria,reading,sd,latest,99.61888,1.22398
+Table I.B1.2a.2,Austria,reading,p10,latest,333.22339000000005,3.9701000000000004
+Table I.B1.2a.2,Austria,reading,p25,latest,396.77544000000006,3.5022800000000003
+Table I.B1.2a.2,Austria,reading,p50,latest,470.57408000000004,3.24154
+Table I.B1.2a.2,Austria,reading,p75,latest,539.7470400000001,2.9259700000000004
+Table I.B1.2a.2,Austria,reading,p90,latest,595.1635100000001,2.6325800000000004
+Table I.B1.2a.2,Azerbaijan,reading,mean,latest,373.57061000000004,2.83651
+Table I.B1.2a.2,Azerbaijan,reading,sd,latest,83.55648000000001,1.4010500000000001
+Table I.B1.2a.2,Azerbaijan,reading,p10,latest,265.25581,2.77653
+Table I.B1.2a.2,Azerbaijan,reading,p25,latest,312.95182,3.11213
+Table I.B1.2a.2,Azerbaijan,reading,p50,latest,372.22217,3.1423400000000004
+Table I.B1.2a.2,Azerbaijan,reading,p75,latest,432.05413000000004,3.5286800000000005
+Table I.B1.2a.2,Azerbaijan,reading,p90,latest,484.13233,4.21753
+Table I.B1.2a.2,Belgium,reading,mean,latest,466.32805,3.03581
+Table I.B1.2a.2,Belgium,reading,sd,latest,105.83875,1.9025800000000002
+Table I.B1.2a.2,Belgium,reading,p10,latest,320.68271000000004,5.690950000000001
+Table I.B1.2a.2,Belgium,reading,p25,latest,392.81556,4.62767
+Table I.B1.2a.2,Belgium,reading,p50,latest,473.32410000000004,3.5342000000000002
+Table I.B1.2a.2,Belgium,reading,p75,latest,543.9909600000001,2.6665500000000004
+Table I.B1.2a.2,Belgium,reading,p90,latest,598.9359300000001,2.86336
+Table I.B1.2a.2,Brazil,reading,mean,latest,408.00829000000004,2.0144900000000003
+Table I.B1.2a.2,Brazil,reading,sd,latest,96.7355,1.11634
+Table I.B1.2a.2,Brazil,reading,p10,latest,284.07496000000003,2.20162
+Table I.B1.2a.2,Brazil,reading,p25,latest,337.98895000000005,2.09288
+Table I.B1.2a.2,Brazil,reading,p50,latest,404.26683,2.2293700000000003
+Table I.B1.2a.2,Brazil,reading,p75,latest,474.85257,2.74949
+Table I.B1.2a.2,Brazil,reading,p90,latest,537.79922,3.3044400000000005
+Table I.B1.2a.2,Brunei Darussalam,reading,mean,latest,425.68088000000006,0.9199600000000001
+Table I.B1.2a.2,Brunei Darussalam,reading,sd,latest,95.27163,0.7629100000000001
+Table I.B1.2a.2,Brunei Darussalam,reading,p10,latest,301.21805,2.2236800000000003
+Table I.B1.2a.2,Brunei Darussalam,reading,p25,latest,358.89508,1.8181200000000002
+Table I.B1.2a.2,Brunei Darussalam,reading,p50,latest,424.97795,1.6504
+Table I.B1.2a.2,Brunei Darussalam,reading,p75,latest,492.00224000000003,1.96642
+Table I.B1.2a.2,Brunei Darussalam,reading,p90,latest,549.99368,2.17335
+Table I.B1.2a.2,B-S-J-Z (China),reading,mean,latest,526.5182500000001,1.9851
+Table I.B1.2a.2,B-S-J-Z (China),reading,sd,latest,80.48187,1.3081200000000002
+Table I.B1.2a.2,B-S-J-Z (China),reading,p10,latest,423.16022000000004,3.3885
+Table I.B1.2a.2,B-S-J-Z (China),reading,p25,latest,474.73158000000006,2.5028300000000003
+Table I.B1.2a.2,B-S-J-Z (China),reading,p50,latest,529.2864400000001,2.2038800000000003
+Table I.B1.2a.2,B-S-J-Z (China),reading,p75,latest,582.2751300000001,2.3487
+Table I.B1.2a.2,B-S-J-Z (China),reading,p90,latest,626.87239,2.7333000000000003
+Table I.B1.2a.2,Bulgaria,reading,mean,latest,386.64479000000006,3.9460900000000003
+Table I.B1.2a.2,Bulgaria,reading,sd,latest,104.47448000000001,2.2289000000000003
+Table I.B1.2a.2,Bulgaria,reading,p10,latest,253.30188,4.33662
+Table I.B1.2a.2,Bulgaria,reading,p25,latest,308.76485,4.45251
+Table I.B1.2a.2,Bulgaria,reading,p50,latest,382.91239,4.8760200000000005
+Table I.B1.2a.2,Bulgaria,reading,p75,latest,459.88126000000005,4.79596
+Table I.B1.2a.2,Bulgaria,reading,p90,latest,525.4728200000001,5.7956900000000005
+Table I.B1.2a.2,Cambodia,reading,mean,latest,347.22631,1.50048
+Table I.B1.2a.2,Cambodia,reading,sd,latest,57.04753,0.8766100000000001
+Table I.B1.2a.2,Cambodia,reading,p10,latest,267.7157,2.80873
+Table I.B1.2a.2,Cambodia,reading,p25,latest,312.83857,2.07357
+Table I.B1.2a.2,Cambodia,reading,p50,latest,350.2078,1.36792
+Table I.B1.2a.2,Cambodia,reading,p75,latest,384.15025,1.8551900000000001
+Table I.B1.2a.2,Cambodia,reading,p90,latest,417.42679000000004,2.55927
+Table I.B1.2a.2,Canada*,reading,mean,latest,489.82555,1.7807600000000001
+Table I.B1.2a.2,Canada*,reading,sd,latest,104.80873000000001,0.9860000000000001
+Table I.B1.2a.2,Canada*,reading,p10,latest,349.65966000000003,2.7929000000000004
+Table I.B1.2a.2,Canada*,reading,p25,latest,419.17033000000004,2.3214900000000003
+Table I.B1.2a.2,Canada*,reading,p50,latest,494.21532,1.9909700000000001
+Table I.B1.2a.2,Canada*,reading,p75,latest,564.53249,1.9744300000000001
+Table I.B1.2a.2,Canada*,reading,p90,latest,622.48922,2.30357
+Table I.B1.2a.2,Chile,reading,mean,latest,435.65582000000006,2.75951
+Table I.B1.2a.2,Chile,reading,sd,latest,93.51497,1.4813200000000002
+Table I.B1.2a.2,Chile,reading,p10,latest,312.74287000000004,4.32507
+Table I.B1.2a.2,Chile,reading,p25,latest,370.73033000000004,3.4899500000000003
+Table I.B1.2a.2,Chile,reading,p50,latest,437.0554,3.1642300000000003
+Table I.B1.2a.2,Chile,reading,p75,latest,500.86516000000006,2.9749700000000003
+Table I.B1.2a.2,Chile,reading,p90,latest,556.4285000000001,3.1493200000000003
+Table I.B1.2a.2,Colombia,reading,mean,latest,399.26735,3.3084100000000003
+Table I.B1.2a.2,Colombia,reading,sd,latest,90.63431000000001,1.54462
+Table I.B1.2a.2,Colombia,reading,p10,latest,282.99397000000005,3.6119000000000003
+Table I.B1.2a.2,Colombia,reading,p25,latest,334.79241,3.6219
+Table I.B1.2a.2,Colombia,reading,p50,latest,396.84868000000006,3.6233000000000004
+Table I.B1.2a.2,Colombia,reading,p75,latest,461.80128,4.45802
+Table I.B1.2a.2,Colombia,reading,p90,latest,519.52268,4.76696
+Table I.B1.2a.2,Costa Rica,reading,mean,latest,416.0353,2.75558
+Table I.B1.2a.2,Costa Rica,reading,sd,latest,84.51695000000001,1.4014300000000002
+Table I.B1.2a.2,Costa Rica,reading,p10,latest,307.59759,3.1299400000000004
+Table I.B1.2a.2,Costa Rica,reading,p25,latest,356.77082,2.80831
+Table I.B1.2a.2,Costa Rica,reading,p50,latest,414.35953,2.8242700000000003
+Table I.B1.2a.2,Costa Rica,reading,p75,latest,473.66368000000006,3.6791300000000002
+Table I.B1.2a.2,Costa Rica,reading,p90,latest,527.2149900000001,4.4602200000000005
+Table I.B1.2a.2,Croatia,reading,mean,latest,453.38734000000005,1.7813
+Table I.B1.2a.2,Croatia,reading,sd,latest,96.08268000000001,1.0078200000000002
+Table I.B1.2a.2,Croatia,reading,p10,latest,322.29537000000005,3.2137700000000002
+Table I.B1.2a.2,Croatia,reading,p25,latest,385.67276000000004,2.69402
+Table I.B1.2a.2,Croatia,reading,p50,latest,457.99276000000003,2.42687
+Table I.B1.2a.2,Croatia,reading,p75,latest,523.3374600000001,2.44993
+Table I.B1.2a.2,Croatia,reading,p90,latest,576.15882,2.2585
+Table I.B1.2a.2,Cyprus,reading,mean,latest,379.42867,1.2793700000000001
+Table I.B1.2a.2,Cyprus,reading,sd,latest,105.52228000000001,1.2356900000000002
+Table I.B1.2a.2,Cyprus,reading,p10,latest,247.57238,2.76074
+Table I.B1.2a.2,Cyprus,reading,p25,latest,301.50035,2.17986
+Table I.B1.2a.2,Cyprus,reading,p50,latest,373.25099000000006,1.9361700000000002
+Table I.B1.2a.2,Cyprus,reading,p75,latest,450.56333000000006,2.10178
+Table I.B1.2a.2,Cyprus,reading,p90,latest,522.59337,2.3789800000000003
+Table I.B1.2a.2,Czechia,reading,mean,latest,468.35668000000004,2.67601
+Table I.B1.2a.2,Czechia,reading,sd,latest,97.72548,1.6288600000000002
+Table I.B1.2a.2,Czechia,reading,p10,latest,339.00101,4.06181
+Table I.B1.2a.2,Czechia,reading,p25,latest,401.42206000000004,3.3116000000000003
+Table I.B1.2a.2,Czechia,reading,p50,latest,469.97183,3.1278300000000003
+Table I.B1.2a.2,Czechia,reading,p75,latest,537.48351,3.3363300000000002
+Table I.B1.2a.2,Czechia,reading,p90,latest,594.17424,3.4399200000000003
+Table I.B1.2a.2,Denmark,reading,mean,latest,460.00949,2.3729600000000004
+Table I.B1.2a.2,Denmark,reading,sd,latest,96.17658,1.3460400000000001
+Table I.B1.2a.2,Denmark,reading,p10,latest,334.27417,3.7965600000000004
+Table I.B1.2a.2,Denmark,reading,p25,latest,395.08764,2.9219100000000005
+Table I.B1.2a.2,Denmark,reading,p50,latest,461.93124000000006,2.9579600000000004
+Table I.B1.2a.2,Denmark,reading,p75,latest,527.3719500000001,3.1166400000000003
+Table I.B1.2a.2,Denmark,reading,p90,latest,582.5711,4.01849
+Table I.B1.2a.2,Dominican Republic,reading,mean,latest,345.54215000000005,2.51011
+Table I.B1.2a.2,Dominican Republic,reading,sd,latest,82.2967,1.34163
+Table I.B1.2a.2,Dominican Republic,reading,p10,latest,243.76562,2.5571900000000003
+Table I.B1.2a.2,Dominican Republic,reading,p25,latest,285.5711,2.5112500000000004
+Table I.B1.2a.2,Dominican Republic,reading,p50,latest,339.48951000000005,2.9566800000000004
+Table I.B1.2a.2,Dominican Republic,reading,p75,latest,400.50424000000004,3.7958100000000004
+Table I.B1.2a.2,Dominican Republic,reading,p90,latest,457.78646000000003,3.7519400000000003
+Table I.B1.2a.2,Dushanbe (Tajikistan),reading,mean,latest,368.08382,1.16148
+Table I.B1.2a.2,Dushanbe (Tajikistan),reading,sd,latest,48.97467,0.9070300000000001
+Table I.B1.2a.2,Dushanbe (Tajikistan),reading,p10,latest,312.41399,1.31081
+Table I.B1.2a.2,Dushanbe (Tajikistan),reading,p25,latest,334.98568,1.04271
+Table I.B1.2a.2,Dushanbe (Tajikistan),reading,p50,latest,362.03256000000005,1.2855400000000001
+Table I.B1.2a.2,Dushanbe (Tajikistan),reading,p75,latest,395.16165,1.6624800000000002
+Table I.B1.2a.2,Dushanbe (Tajikistan),reading,p90,latest,433.28981000000005,2.7044
+Table I.B1.2a.2,Ecuador,reading,mean,latest,384.99799,2.2962800000000003
+Table I.B1.2a.2,Ecuador,reading,sd,latest,81.29992,1.35722
+Table I.B1.2a.2,Ecuador,reading,p10,latest,281.77772000000004,2.6233600000000004
+Table I.B1.2a.2,Ecuador,reading,p25,latest,327.10377000000005,2.44259
+Table I.B1.2a.2,Ecuador,reading,p50,latest,381.81804000000005,2.70567
+Table I.B1.2a.2,Ecuador,reading,p75,latest,440.46748,2.8236700000000003
+Table I.B1.2a.2,Ecuador,reading,p90,latest,493.01112000000006,3.5160600000000004
+Table I.B1.2a.2,El Salvador,reading,mean,latest,366.43167000000005,2.28304
+Table I.B1.2a.2,El Salvador,reading,sd,latest,80.17240000000001,1.34664
+Table I.B1.2a.2,El Salvador,reading,p10,latest,266.70491000000004,2.3307300000000004
+Table I.B1.2a.2,El Salvador,reading,p25,latest,308.91135,2.40748
+Table I.B1.2a.2,El Salvador,reading,p50,latest,361.09784,2.5096700000000003
+Table I.B1.2a.2,El Salvador,reading,p75,latest,419.57300000000004,3.07568
+Table I.B1.2a.2,El Salvador,reading,p90,latest,474.87502000000006,4.16458
+Table I.B1.2a.2,Estonia,reading,mean,latest,499.24425,2.5338800000000004
+Table I.B1.2a.2,Estonia,reading,sd,latest,94.76231000000001,1.11327
+Table I.B1.2a.2,Estonia,reading,p10,latest,372.98419,3.8710000000000004
+Table I.B1.2a.2,Estonia,reading,p25,latest,435.47681000000006,3.2281000000000004
+Table I.B1.2a.2,Estonia,reading,p50,latest,502.99802000000005,2.8648300000000004
+Table I.B1.2a.2,Estonia,reading,p75,latest,565.9512500000001,2.8611600000000004
+Table I.B1.2a.2,Estonia,reading,p90,latest,618.5806500000001,3.0781300000000003
+Table I.B1.2a.2,Finland,reading,mean,latest,474.29731000000004,2.12025
+Table I.B1.2a.2,Finland,reading,sd,latest,102.21915000000001,1.10538
+Table I.B1.2a.2,Finland,reading,p10,latest,337.07482000000005,3.27891
+Table I.B1.2a.2,Finland,reading,p25,latest,404.63494000000003,3.14067
+Table I.B1.2a.2,Finland,reading,p50,latest,479.28173000000004,2.51905
+Table I.B1.2a.2,Finland,reading,p75,latest,548.1986300000001,2.4424300000000003
+Table I.B1.2a.2,Finland,reading,p90,latest,603.22959,2.3971
+Table I.B1.2a.2,France,reading,mean,latest,456.33453000000003,3.2442300000000004
+Table I.B1.2a.2,France,reading,sd,latest,104.95751000000001,1.3979700000000002
+Table I.B1.2a.2,France,reading,p10,latest,314.86128,3.9548300000000003
+Table I.B1.2a.2,France,reading,p25,latest,380.50281,4.555630000000001
+Table I.B1.2a.2,France,reading,p50,latest,460.87879000000004,4.22322
+Table I.B1.2a.2,France,reading,p75,latest,533.2161600000001,3.6285600000000002
+Table I.B1.2a.2,France,reading,p90,latest,590.2459600000001,3.7538300000000002
+Table I.B1.2a.2,Georgia,reading,mean,latest,384.17862,2.48478
+Table I.B1.2a.2,Georgia,reading,sd,latest,84.40411,1.5097200000000002
+Table I.B1.2a.2,Georgia,reading,p10,latest,276.09565000000003,3.58334
+Table I.B1.2a.2,Georgia,reading,p25,latest,325.31049,2.6667
+Table I.B1.2a.2,Georgia,reading,p50,latest,383.33449,2.65788
+Table I.B1.2a.2,Georgia,reading,p75,latest,441.46757,3.1280400000000004
+Table I.B1.2a.2,Georgia,reading,p90,latest,493.73300000000006,3.5364500000000003
+Table I.B1.2a.2,Germany,reading,mean,latest,465.28206000000006,3.5622100000000003
+Table I.B1.2a.2,Germany,reading,sd,latest,109.73202,1.35071
+Table I.B1.2a.2,Germany,reading,p10,latest,320.20916000000005,4.623220000000001
+Table I.B1.2a.2,Germany,reading,p25,latest,385.1009,4.056150000000001
+Table I.B1.2a.2,Germany,reading,p50,latest,465.56663000000003,4.3795
+Table I.B1.2a.2,Germany,reading,p75,latest,545.7361900000001,4.20408
+Table I.B1.2a.2,Germany,reading,p90,latest,608.7389900000001,3.86587
+Table I.B1.2a.2,Greece,reading,mean,latest,422.66261000000003,3.1906600000000003
+Table I.B1.2a.2,Greece,reading,sd,latest,94.60442,1.6950900000000002
+Table I.B1.2a.2,Greece,reading,p10,latest,298.03719,4.69022
+Table I.B1.2a.2,Greece,reading,p25,latest,356.50206000000003,3.8493100000000005
+Table I.B1.2a.2,Greece,reading,p50,latest,423.05426000000006,3.5957600000000003
+Table I.B1.2a.2,Greece,reading,p75,latest,489.23582000000005,3.7328200000000002
+Table I.B1.2a.2,Greece,reading,p90,latest,546.7647300000001,3.6628300000000005
+Table I.B1.2a.2,Guatemala,reading,mean,latest,337.08081000000004,2.4980800000000003
+Table I.B1.2a.2,Guatemala,reading,sd,latest,72.32998,1.52583
+Table I.B1.2a.2,Guatemala,reading,p10,latest,246.78661000000002,2.61913
+Table I.B1.2a.2,Guatemala,reading,p25,latest,285.70364,2.38463
+Table I.B1.2a.2,Guatemala,reading,p50,latest,333.02498,2.61479
+Table I.B1.2a.2,Guatemala,reading,p75,latest,384.58896000000004,3.24914
+Table I.B1.2a.2,Guatemala,reading,p90,latest,433.40151000000003,4.31639
+Table I.B1.2a.2,Hong Kong (China),reading,mean,latest,480.12066000000004,3.1986800000000004
+Table I.B1.2a.2,Hong Kong (China),reading,sd,latest,96.01712,1.44771
+Table I.B1.2a.2,Hong Kong (China),reading,p10,latest,353.29708000000005,4.680420000000001
+Table I.B1.2a.2,Hong Kong (China),reading,p25,latest,417.41832000000005,4.07917
+Table I.B1.2a.2,Hong Kong (China),reading,p50,latest,484.09254000000004,3.3811400000000003
+Table I.B1.2a.2,Hong Kong (China),reading,p75,latest,546.1419400000001,3.35658
+Table I.B1.2a.2,Hong Kong (China),reading,p90,latest,600.28831,4.11596
+Table I.B1.2a.2,Hungary,reading,mean,latest,452.30629000000005,2.33754
+Table I.B1.2a.2,Hungary,reading,sd,latest,96.11911,1.6951100000000001
+Table I.B1.2a.2,Hungary,reading,p10,latest,323.87476000000004,4.180960000000001
+Table I.B1.2a.2,Hungary,reading,p25,latest,385.61223,3.52781
+Table I.B1.2a.2,Hungary,reading,p50,latest,454.98396,2.7000100000000002
+Table I.B1.2a.2,Hungary,reading,p75,latest,520.71168,2.4807300000000003
+Table I.B1.2a.2,Hungary,reading,p90,latest,575.72222,3.5005900000000003
+Table I.B1.2a.2,Iceland,reading,mean,latest,422.28514,1.6164100000000001
+Table I.B1.2a.2,Iceland,reading,sd,latest,103.17734000000002,1.1531500000000001
+Table I.B1.2a.2,Iceland,reading,p10,latest,285.49473,3.03643
+Table I.B1.2a.2,Iceland,reading,p25,latest,349.84223000000003,2.68398
+Table I.B1.2a.2,Iceland,reading,p50,latest,422.37275000000005,2.5160600000000004
+Table I.B1.2a.2,Iceland,reading,p75,latest,495.20540000000005,2.7176600000000004
+Table I.B1.2a.2,Iceland,reading,p90,latest,557.3734300000001,3.2115600000000004
+Table I.B1.2a.2,Indonesia,reading,mean,latest,365.20527000000004,2.45276
+Table I.B1.2a.2,Indonesia,reading,sd,latest,69.43061,1.31186
+Table I.B1.2a.2,Indonesia,reading,p10,latest,276.68565,2.91508
+Table I.B1.2a.2,Indonesia,reading,p25,latest,316.32003000000003,2.6955400000000003
+Table I.B1.2a.2,Indonesia,reading,p50,latest,363.51938,2.6148300000000004
+Table I.B1.2a.2,Indonesia,reading,p75,latest,412.21445000000006,2.97601
+Table I.B1.2a.2,Indonesia,reading,p90,latest,456.73268,3.8416400000000004
+Table I.B1.2a.2,Ireland,reading,mean,latest,500.44715,2.03452
+Table I.B1.2a.2,Ireland,reading,sd,latest,93.57087000000001,1.2076500000000001
+Table I.B1.2a.2,Ireland,reading,p10,latest,375.97622,3.57236
+Table I.B1.2a.2,Ireland,reading,p25,latest,438.07957000000005,2.5653900000000003
+Table I.B1.2a.2,Ireland,reading,p50,latest,504.54499000000004,2.69741
+Table I.B1.2a.2,Ireland,reading,p75,latest,566.495,2.21532
+Table I.B1.2a.2,Ireland,reading,p90,latest,617.89836,2.4592
+Table I.B1.2a.2,Israel,reading,mean,latest,435.83778,3.5238500000000004
+Table I.B1.2a.2,Israel,reading,sd,latest,115.88987000000002,1.7599600000000002
+Table I.B1.2a.2,Israel,reading,p10,latest,282.13773000000003,5.05025
+Table I.B1.2a.2,Israel,reading,p25,latest,352.14854,4.69866
+Table I.B1.2a.2,Israel,reading,p50,latest,437.13186,4.48031
+Table I.B1.2a.2,Israel,reading,p75,latest,520.4532300000001,3.7687700000000004
+Table I.B1.2a.2,Israel,reading,p90,latest,585.8074700000001,3.7095700000000003
+Table I.B1.2a.2,Italy,reading,mean,latest,474.28961000000004,2.5982800000000004
+Table I.B1.2a.2,Italy,reading,sd,latest,94.74140000000001,1.4359000000000002
+Table I.B1.2a.2,Italy,reading,p10,latest,345.52014,4.75779
+Table I.B1.2a.2,Italy,reading,p25,latest,409.52752000000004,3.4889500000000004
+Table I.B1.2a.2,Italy,reading,p50,latest,479.07500000000005,3.1808300000000003
+Table I.B1.2a.2,Italy,reading,p75,latest,543.08424,3.15016
+Table I.B1.2a.2,Italy,reading,p90,latest,593.40008,2.7800800000000003
+Table I.B1.2a.2,Japan,reading,mean,latest,502.71450000000004,3.7778300000000002
+Table I.B1.2a.2,Japan,reading,sd,latest,104.67295000000001,2.35109
+Table I.B1.2a.2,Japan,reading,p10,latest,359.53878000000003,7.14845
+Table I.B1.2a.2,Japan,reading,p25,latest,434.41834000000006,5.469390000000001
+Table I.B1.2a.2,Japan,reading,p50,latest,510.88246000000004,3.9022400000000004
+Table I.B1.2a.2,Japan,reading,p75,latest,576.62999,3.4528200000000004
+Table I.B1.2a.2,Japan,reading,p90,latest,631.3578200000001,4.2127300000000005
+Table I.B1.2a.2,Jordan,reading,mean,latest,362.59825,2.08839
+Table I.B1.2a.2,Jordan,reading,sd,latest,69.46983,0.9745100000000001
+Table I.B1.2a.2,Jordan,reading,p10,latest,272.49626,2.9070500000000004
+Table I.B1.2a.2,Jordan,reading,p25,latest,314.39143,2.63723
+Table I.B1.2a.2,Jordan,reading,p50,latest,361.69135000000006,2.3650800000000003
+Table I.B1.2a.2,Jordan,reading,p75,latest,409.86005000000006,2.34038
+Table I.B1.2a.2,Jordan,reading,p90,latest,452.81013,2.63606
+Table I.B1.2a.2,Kazakhstan,reading,mean,latest,384.79808,1.51879
+Table I.B1.2a.2,Kazakhstan,reading,sd,latest,76.84233,0.69098
+Table I.B1.2a.2,Kazakhstan,reading,p10,latest,290.18224000000004,1.5902800000000001
+Table I.B1.2a.2,Kazakhstan,reading,p25,latest,330.12608,1.5013400000000001
+Table I.B1.2a.2,Kazakhstan,reading,p50,latest,379.34152,1.8756300000000001
+Table I.B1.2a.2,Kazakhstan,reading,p75,latest,434.41710000000006,2.0652500000000003
+Table I.B1.2a.2,Kazakhstan,reading,p90,latest,489.16920000000005,2.3076800000000004
+Table I.B1.2a.2,Kenya,reading,mean,latest,320.21398000000005,2.65314
+Table I.B1.2a.2,Kenya,reading,sd,latest,69.32373000000001,1.9959600000000002
+Table I.B1.2a.2,Kenya,reading,p10,latest,236.22568,2.4224200000000002
+Table I.B1.2a.2,Kenya,reading,p25,latest,270.71430000000004,2.2962900000000004
+Table I.B1.2a.2,Kenya,reading,p50,latest,314.55368000000004,2.7954700000000003
+Table I.B1.2a.2,Kenya,reading,p75,latest,362.94998000000004,3.6246400000000003
+Table I.B1.2a.2,Kenya,reading,p90,latest,412.57601000000005,5.519780000000001
+Table I.B1.2a.2,Korea,reading,mean,latest,500.56065000000007,3.44578
+Table I.B1.2a.2,Korea,reading,sd,latest,103.50088000000001,1.6332200000000001
+Table I.B1.2a.2,Korea,reading,p10,latest,359.75421000000006,6.660220000000001
+Table I.B1.2a.2,Korea,reading,p25,latest,436.58770000000004,4.618
+Table I.B1.2a.2,Korea,reading,p50,latest,508.73512000000005,3.59112
+Table I.B1.2a.2,Korea,reading,p75,latest,573.22199,3.33042
+Table I.B1.2a.2,Korea,reading,p90,latest,627.01538,3.42253
+Table I.B1.2a.2,Kosovo,reading,mean,latest,340.46438,1.2916200000000002
+Table I.B1.2a.2,Kosovo,reading,sd,latest,66.13571,0.7416
+Table I.B1.2a.2,Kosovo,reading,p10,latest,258.53827,2.10494
+Table I.B1.2a.2,Kosovo,reading,p25,latest,293.61717000000004,1.35383
+Table I.B1.2a.2,Kosovo,reading,p50,latest,336.86890000000005,1.5662200000000002
+Table I.B1.2a.2,Kosovo,reading,p75,latest,383.87124000000006,1.9553300000000002
+Table I.B1.2a.2,Kosovo,reading,p90,latest,428.50142000000005,2.0998
+Table I.B1.2a.2,Kurdistan Region (Iraq),reading,mean,latest,311.53031000000004,2.0251200000000003
+Table I.B1.2a.2,Kurdistan Region (Iraq),reading,sd,latest,66.20982000000001,1.21239
+Table I.B1.2a.2,Kurdistan Region (Iraq),reading,p10,latest,225.75119,2.86104
+Table I.B1.2a.2,Kurdistan Region (Iraq),reading,p25,latest,263.38248000000004,2.6548800000000004
+Table I.B1.2a.2,Kurdistan Region (Iraq),reading,p50,latest,314.53217,2.25749
+Table I.B1.2a.2,Kurdistan Region (Iraq),reading,p75,latest,356.40474,1.9338300000000002
+Table I.B1.2a.2,Kurdistan Region (Iraq),reading,p90,latest,394.43624000000005,2.7665300000000004
+Table I.B1.2a.2,Kyrgyzstan,reading,mean,latest,344.3976,2.39211
+Table I.B1.2a.2,Kyrgyzstan,reading,sd,latest,73.65375,1.1675300000000002
+Table I.B1.2a.2,Kyrgyzstan,reading,p10,latest,253.59959000000003,2.2092300000000002
+Table I.B1.2a.2,Kyrgyzstan,reading,p25,latest,290.93693,2.4046100000000004
+Table I.B1.2a.2,Kyrgyzstan,reading,p50,latest,338.40379,2.70122
+Table I.B1.2a.2,Kyrgyzstan,reading,p75,latest,392.63426000000004,3.4116800000000005
+Table I.B1.2a.2,Kyrgyzstan,reading,p90,latest,445.32364,4.05436
+Table I.B1.2a.2,Latvia,reading,mean,latest,429.67871,2.0281700000000003
+Table I.B1.2a.2,Latvia,reading,sd,latest,100.19259000000001,1.08013
+Table I.B1.2a.2,Latvia,reading,p10,latest,296.81639,3.48985
+Table I.B1.2a.2,Latvia,reading,p25,latest,358.86983000000004,3.07559
+Table I.B1.2a.2,Latvia,reading,p50,latest,430.91440000000006,2.63755
+Table I.B1.2a.2,Latvia,reading,p75,latest,501.68854000000005,2.33853
+Table I.B1.2a.2,Latvia,reading,p90,latest,559.85135,2.84945
+Table I.B1.2a.2,Lebanon,reading,mean,latest,330.90273,3.3391
+Table I.B1.2a.2,Lebanon,reading,sd,latest,97.00286000000001,2.1489000000000003
+Table I.B1.2a.2,Lebanon,reading,p10,latest,214.41729,3.1451900000000004
+Table I.B1.2a.2,Lebanon,reading,p25,latest,259.92661000000004,3.3402600000000002
+Table I.B1.2a.2,Lebanon,reading,p50,latest,320.54091000000005,3.9366200000000005
+Table I.B1.2a.2,Lebanon,reading,p75,latest,394.49449000000004,4.66802
+Table I.B1.2a.2,Lebanon,reading,p90,latest,463.71896000000004,5.60364
+Table I.B1.2a.2,Lithuania,reading,mean,latest,464.05377000000004,1.91423
+Table I.B1.2a.2,Lithuania,reading,sd,latest,94.55649000000001,1.3130600000000001
+Table I.B1.2a.2,Lithuania,reading,p10,latest,337.74695,3.53745
+Table I.B1.2a.2,Lithuania,reading,p25,latest,398.75103,2.52143
+Table I.B1.2a.2,Lithuania,reading,p50,latest,467.05766000000006,2.2167600000000003
+Table I.B1.2a.2,Lithuania,reading,p75,latest,531.26795,2.3696900000000003
+Table I.B1.2a.2,Lithuania,reading,p90,latest,584.14272,2.92111
+Table I.B1.2a.2,Luxembourg,reading,mean,latest,443.23219000000006,1.0539
+Table I.B1.2a.2,Luxembourg,reading,sd,latest,108.15618,0.8842300000000001
+Table I.B1.2a.2,Luxembourg,reading,p10,latest,299.85186000000004,2.4945000000000004
+Table I.B1.2a.2,Luxembourg,reading,p25,latest,363.89253,1.9411800000000001
+Table I.B1.2a.2,Luxembourg,reading,p50,latest,443.05161000000004,1.64768
+Table I.B1.2a.2,Luxembourg,reading,p75,latest,522.89584,1.7386300000000001
+Table I.B1.2a.2,Luxembourg,reading,p90,latest,585.67924,2.2045000000000003
+Table I.B1.2a.2,Macao (China),reading,mean,latest,501.05358000000007,1.15548
+Table I.B1.2a.2,Macao (China),reading,sd,latest,89.39139,0.8626
+Table I.B1.2a.2,Macao (China),reading,p10,latest,381.34037,2.51759
+Table I.B1.2a.2,Macao (China),reading,p25,latest,443.30503000000004,1.78502
+Table I.B1.2a.2,Macao (China),reading,p50,latest,506.26645,1.5911000000000002
+Table I.B1.2a.2,Macao (China),reading,p75,latest,564.2571,1.66582
+Table I.B1.2a.2,Macao (China),reading,p90,latest,612.5736700000001,1.9863600000000001
+Table I.B1.2a.2,Malaysia,reading,mean,latest,392.77186,2.1576400000000002
+Table I.B1.2a.2,Malaysia,reading,sd,latest,81.12365000000001,1.11667
+Table I.B1.2a.2,Malaysia,reading,p10,latest,285.1992,3.1581300000000003
+Table I.B1.2a.2,Malaysia,reading,p25,latest,337.84340000000003,2.6315600000000003
+Table I.B1.2a.2,Malaysia,reading,p50,latest,394.64299000000005,2.63585
+Table I.B1.2a.2,Malaysia,reading,p75,latest,449.28789000000006,2.52625
+Table I.B1.2a.2,Malaysia,reading,p90,latest,495.59990000000005,2.4751600000000002
+Table I.B1.2a.2,Malta,reading,mean,latest,414.62566000000004,1.60789
+Table I.B1.2a.2,Malta,reading,sd,latest,108.62629000000001,1.2610700000000001
+Table I.B1.2a.2,Malta,reading,p10,latest,271.36463000000003,3.6244300000000003
+Table I.B1.2a.2,Malta,reading,p25,latest,337.19765,2.6607100000000004
+Table I.B1.2a.2,Malta,reading,p50,latest,413.66517000000005,2.60624
+Table I.B1.2a.2,Malta,reading,p75,latest,492.41501000000005,3.0151800000000004
+Table I.B1.2a.2,Malta,reading,p90,latest,557.87441,3.4997700000000003
+Table I.B1.2a.2,Mauritius,reading,mean,latest,405.33343,3.5020400000000005
+Table I.B1.2a.2,Mauritius,reading,sd,latest,86.7031,1.8466600000000002
+Table I.B1.2a.2,Mauritius,reading,p10,latest,293.97759,3.5760300000000003
+Table I.B1.2a.2,Mauritius,reading,p25,latest,343.44238,3.54009
+Table I.B1.2a.2,Mauritius,reading,p50,latest,402.68311000000006,3.6066300000000004
+Table I.B1.2a.2,Mauritius,reading,p75,latest,466.87148,4.41364
+Table I.B1.2a.2,Mauritius,reading,p90,latest,519.6037600000001,6.03709
+Table I.B1.2a.2,Mexico,reading,mean,latest,407.93756,2.15977
+Table I.B1.2a.2,Mexico,reading,sd,latest,79.21404000000001,1.3206200000000001
+Table I.B1.2a.2,Mexico,reading,p10,latest,306.34239,2.3198800000000004
+Table I.B1.2a.2,Mexico,reading,p25,latest,351.47443000000004,2.5912
+Table I.B1.2a.2,Mexico,reading,p50,latest,407.0273,2.3406800000000003
+Table I.B1.2a.2,Mexico,reading,p75,latest,461.85211000000004,2.6710800000000003
+Table I.B1.2a.2,Mexico,reading,p90,latest,511.14853000000005,3.71653
+Table I.B1.2a.2,Moldova,reading,mean,latest,403.70106000000004,2.89801
+Table I.B1.2a.2,Moldova,reading,sd,latest,84.81709000000001,1.20591
+Table I.B1.2a.2,Moldova,reading,p10,latest,293.38358000000005,2.91712
+Table I.B1.2a.2,Moldova,reading,p25,latest,342.05854000000005,3.2919300000000002
+Table I.B1.2a.2,Moldova,reading,p50,latest,403.24339000000003,3.40377
+Table I.B1.2a.2,Moldova,reading,p75,latest,463.29647000000006,3.31414
+Table I.B1.2a.2,Moldova,reading,p90,latest,515.36748,4.101640000000001
+Table I.B1.2a.2,Mongolia,reading,mean,latest,374.25273000000004,1.74944
+Table I.B1.2a.2,Mongolia,reading,sd,latest,71.25896,0.94896
+Table I.B1.2a.2,Mongolia,reading,p10,latest,280.39259000000004,2.7986400000000002
+Table I.B1.2a.2,Mongolia,reading,p25,latest,326.0948,2.3376400000000004
+Table I.B1.2a.2,Mongolia,reading,p50,latest,376.44168,2.0256100000000004
+Table I.B1.2a.2,Mongolia,reading,p75,latest,424.39601000000005,2.0845000000000002
+Table I.B1.2a.2,Mongolia,reading,p90,latest,465.14240000000007,2.48151
+Table I.B1.2a.2,Montenegro,reading,mean,latest,418.37127000000004,1.21567
+Table I.B1.2a.2,Montenegro,reading,sd,latest,86.66511000000001,1.02962
+Table I.B1.2a.2,Montenegro,reading,p10,latest,305.28515000000004,2.6918100000000003
+Table I.B1.2a.2,Montenegro,reading,p25,latest,358.51434,2.1619900000000003
+Table I.B1.2a.2,Montenegro,reading,p50,latest,417.79893000000004,1.5264600000000002
+Table I.B1.2a.2,Montenegro,reading,p75,latest,478.83225000000004,1.9075000000000002
+Table I.B1.2a.2,Montenegro,reading,p90,latest,531.52912,2.48693
+Table I.B1.2a.2,Morocco,reading,mean,latest,321.12710000000004,3.48335
+Table I.B1.2a.2,Morocco,reading,sd,latest,74.18587000000001,1.8681
+Table I.B1.2a.2,Morocco,reading,p10,latest,230.89151,2.8980300000000003
+Table I.B1.2a.2,Morocco,reading,p25,latest,268.59453,2.92558
+Table I.B1.2a.2,Morocco,reading,p50,latest,315.38770000000005,3.5642400000000003
+Table I.B1.2a.2,Morocco,reading,p75,latest,370.00902,4.93344
+Table I.B1.2a.2,Morocco,reading,p90,latest,420.25266000000005,5.778040000000001
+Table I.B1.2a.2,Netherlands*,reading,mean,latest,441.34494,2.89487
+Table I.B1.2a.2,Netherlands*,reading,sd,latest,112.01702,1.63098
+Table I.B1.2a.2,Netherlands*,reading,p10,latest,289.7893,4.585710000000001
+Table I.B1.2a.2,Netherlands*,reading,p25,latest,358.7216,4.56479
+Table I.B1.2a.2,Netherlands*,reading,p50,latest,446.10076000000004,4.07613
+Table I.B1.2a.2,Netherlands*,reading,p75,latest,524.7712600000001,3.18039
+Table I.B1.2a.2,Netherlands*,reading,p90,latest,584.89967,3.1616100000000005
+Table I.B1.2a.2,New Zealand*,reading,mean,latest,497.04447000000005,2.4203900000000003
+Table I.B1.2a.2,New Zealand*,reading,sd,latest,114.43433,1.50238
+Table I.B1.2a.2,New Zealand*,reading,p10,latest,343.86535000000003,4.3640300000000005
+Table I.B1.2a.2,New Zealand*,reading,p25,latest,416.69207000000006,3.6010100000000005
+Table I.B1.2a.2,New Zealand*,reading,p50,latest,500.11198,2.9519800000000003
+Table I.B1.2a.2,New Zealand*,reading,p75,latest,578.8916300000001,3.4652900000000004
+Table I.B1.2a.2,New Zealand*,reading,p90,latest,644.7438000000001,3.42424
+Table I.B1.2a.2,North Macedonia,reading,mean,latest,357.44372000000004,0.9933400000000001
+Table I.B1.2a.2,North Macedonia,reading,sd,latest,78.20758000000001,0.7984000000000001
+Table I.B1.2a.2,North Macedonia,reading,p10,latest,257.04372,1.7479900000000002
+Table I.B1.2a.2,North Macedonia,reading,p25,latest,300.77441000000005,1.45601
+Table I.B1.2a.2,North Macedonia,reading,p50,latest,355.18034,1.66443
+Table I.B1.2a.2,North Macedonia,reading,p75,latest,411.13452,1.62881
+Table I.B1.2a.2,North Macedonia,reading,p90,latest,461.28912,1.9664400000000002
+Table I.B1.2a.2,Norway*,reading,mean,latest,452.8013,2.0868700000000002
+Table I.B1.2a.2,Norway*,reading,sd,latest,108.41302,1.0727300000000002
+Table I.B1.2a.2,Norway*,reading,p10,latest,306.27644000000004,3.2549300000000003
+Table I.B1.2a.2,Norway*,reading,p25,latest,376.15387000000004,2.7773000000000003
+Table I.B1.2a.2,Norway*,reading,p50,latest,455.71168000000006,2.5262900000000004
+Table I.B1.2a.2,Norway*,reading,p75,latest,530.97504,2.71511
+Table I.B1.2a.2,Norway*,reading,p90,latest,591.1494600000001,2.76413
+Table I.B1.2a.2,Palestinian Authority,reading,mean,latest,349.87623,1.8664600000000002
+Table I.B1.2a.2,Palestinian Authority,reading,sd,latest,74.85984,0.9465500000000001
+Table I.B1.2a.2,Palestinian Authority,reading,p10,latest,252.93057000000002,2.3459800000000004
+Table I.B1.2a.2,Palestinian Authority,reading,p25,latest,296.77904,2.37788
+Table I.B1.2a.2,Palestinian Authority,reading,p50,latest,348.9719,2.21972
+Table I.B1.2a.2,Palestinian Authority,reading,p75,latest,400.97950000000003,2.2966800000000003
+Table I.B1.2a.2,Palestinian Authority,reading,p90,latest,447.94493000000006,2.67485
+Table I.B1.2a.2,Paraguay,reading,mean,latest,352.21577,2.02789
+Table I.B1.2a.2,Paraguay,reading,sd,latest,78.25627,1.25011
+Table I.B1.2a.2,Paraguay,reading,p10,latest,253.90361000000001,2.50387
+Table I.B1.2a.2,Paraguay,reading,p25,latest,295.80748,2.02616
+Table I.B1.2a.2,Paraguay,reading,p50,latest,347.7869,2.4612200000000004
+Table I.B1.2a.2,Paraguay,reading,p75,latest,404.22281000000004,2.84945
+Table I.B1.2a.2,Paraguay,reading,p90,latest,457.32929,3.5119000000000002
+Table I.B1.2a.2,Peru,reading,mean,latest,390.13724,2.9088800000000004
+Table I.B1.2a.2,Peru,reading,sd,latest,86.51837,1.32702
+Table I.B1.2a.2,Peru,reading,p10,latest,278.13198,3.33705
+Table I.B1.2a.2,Peru,reading,p25,latest,329.47966,3.3152000000000004
+Table I.B1.2a.2,Peru,reading,p50,latest,388.52667,3.418
+Table I.B1.2a.2,Peru,reading,p75,latest,450.64388,3.40057
+Table I.B1.2a.2,Peru,reading,p90,latest,504.06072000000006,3.9174
+Table I.B1.2a.2,Philippines,reading,mean,latest,366.91855000000004,2.371
+Table I.B1.2a.2,Philippines,reading,sd,latest,82.57008,1.28618
+Table I.B1.2a.2,Philippines,reading,p10,latest,265.46943000000005,2.50895
+Table I.B1.2a.2,Philippines,reading,p25,latest,303.94804000000005,2.47472
+Table I.B1.2a.2,Philippines,reading,p50,latest,360.04514,2.7563500000000003
+Table I.B1.2a.2,Philippines,reading,p75,latest,422.89660000000003,3.16055
+Table I.B1.2a.2,Philippines,reading,p90,latest,480.19390000000004,3.7776600000000005
+Table I.B1.2a.2,Poland,reading,mean,latest,481.53744000000006,2.8471400000000004
+Table I.B1.2a.2,Poland,reading,sd,latest,102.39102000000001,1.9453000000000003
+Table I.B1.2a.2,Poland,reading,p10,latest,343.42392,5.2302800000000005
+Table I.B1.2a.2,Poland,reading,p25,latest,411.73032,4.251250000000001
+Table I.B1.2a.2,Poland,reading,p50,latest,486.09937,3.37374
+Table I.B1.2a.2,Poland,reading,p75,latest,555.77497,3.0154
+Table I.B1.2a.2,Poland,reading,p90,latest,610.5803900000001,3.2479600000000004
+Table I.B1.2a.2,Portugal,reading,mean,latest,462.02744,3.2280900000000003
+Table I.B1.2a.2,Portugal,reading,sd,latest,95.2758,1.2447100000000002
+Table I.B1.2a.2,Portugal,reading,p10,latest,335.14195,4.58561
+Table I.B1.2a.2,Portugal,reading,p25,latest,396.61908000000005,4.21051
+Table I.B1.2a.2,Portugal,reading,p50,latest,465.97400000000005,3.6943300000000003
+Table I.B1.2a.2,Portugal,reading,p75,latest,530.2760900000001,3.4368300000000005
+Table I.B1.2a.2,Portugal,reading,p90,latest,583.70239,3.00062
+Table I.B1.2a.2,Qatar,reading,mean,latest,418.02844000000005,1.35345
+Table I.B1.2a.2,Qatar,reading,sd,latest,104.99362,1.0910900000000001
+Table I.B1.2a.2,Qatar,reading,p10,latest,282.77085,2.7842900000000004
+Table I.B1.2a.2,Qatar,reading,p25,latest,340.65945000000005,2.00211
+Table I.B1.2a.2,Qatar,reading,p50,latest,414.68526,2.38119
+Table I.B1.2a.2,Qatar,reading,p75,latest,492.85511,2.61783
+Table I.B1.2a.2,Qatar,reading,p90,latest,559.85757,2.9207
+Table I.B1.2a.2,Romania,reading,mean,latest,412.94947,3.97826
+Table I.B1.2a.2,Romania,reading,sd,latest,99.48641,1.8810200000000001
+Table I.B1.2a.2,Romania,reading,p10,latest,281.95729,3.7555600000000005
+Table I.B1.2a.2,Romania,reading,p25,latest,339.20062,4.1892700000000005
+Table I.B1.2a.2,Romania,reading,p50,latest,413.63185000000004,4.76142
+Table I.B1.2a.2,Romania,reading,p75,latest,485.28342000000004,5.4225200000000005
+Table I.B1.2a.2,Romania,reading,p90,latest,543.7132300000001,5.45706
+Table I.B1.2a.2,Rwanda,reading,mean,latest,300.94391,2.0149500000000002
+Table I.B1.2a.2,Rwanda,reading,sd,latest,47.714650000000006,1.88959
+Table I.B1.2a.2,Rwanda,reading,p10,latest,248.55619000000002,1.3222900000000002
+Table I.B1.2a.2,Rwanda,reading,p25,latest,271.20610000000005,1.2018900000000001
+Table I.B1.2a.2,Rwanda,reading,p50,latest,294.44827000000004,1.4227100000000001
+Table I.B1.2a.2,Rwanda,reading,p75,latest,322.16566,2.78689
+Table I.B1.2a.2,Rwanda,reading,p90,latest,361.33657000000005,5.85601
+Table I.B1.2a.2,Saudi Arabia,reading,mean,latest,387.28413,2.3810200000000004
+Table I.B1.2a.2,Saudi Arabia,reading,sd,latest,77.36598000000001,1.17262
+Table I.B1.2a.2,Saudi Arabia,reading,p10,latest,287.08376000000004,2.7597600000000004
+Table I.B1.2a.2,Saudi Arabia,reading,p25,latest,333.47344000000004,2.61776
+Table I.B1.2a.2,Saudi Arabia,reading,p50,latest,386.92739000000006,2.7385300000000004
+Table I.B1.2a.2,Saudi Arabia,reading,p75,latest,440.52123000000006,2.8433
+Table I.B1.2a.2,Saudi Arabia,reading,p90,latest,487.17858000000007,3.64821
+Table I.B1.2a.2,Serbia,reading,mean,latest,414.59850000000006,3.3726800000000003
+Table I.B1.2a.2,Serbia,reading,sd,latest,96.88375,1.4617300000000002
+Table I.B1.2a.2,Serbia,reading,p10,latest,288.53795,3.6605800000000004
+Table I.B1.2a.2,Serbia,reading,p25,latest,344.42816000000005,4.04005
+Table I.B1.2a.2,Serbia,reading,p50,latest,413.74159000000003,4.21879
+Table I.B1.2a.2,Serbia,reading,p75,latest,482.61044000000004,3.94221
+Table I.B1.2a.2,Serbia,reading,p90,latest,542.5804800000001,4.36331
+Table I.B1.2a.2,Singapore,reading,mean,latest,534.90002,1.9405400000000002
+Table I.B1.2a.2,Singapore,reading,sd,latest,114.05063000000001,1.3806900000000002
+Table I.B1.2a.2,Singapore,reading,p10,latest,376.84606,4.86662
+Table I.B1.2a.2,Singapore,reading,p25,latest,462.45824000000005,3.2296000000000005
+Table I.B1.2a.2,Singapore,reading,p50,latest,545.49189,2.0833600000000003
+Table I.B1.2a.2,Singapore,reading,p75,latest,615.7893600000001,1.9363500000000002
+Table I.B1.2a.2,Singapore,reading,p90,latest,673.2252900000001,2.38492
+Table I.B1.2a.2,Slovak Republic,reading,mean,latest,447.96713000000005,2.56108
+Table I.B1.2a.2,Slovak Republic,reading,sd,latest,100.03131,1.72506
+Table I.B1.2a.2,Slovak Republic,reading,p10,latest,314.41348000000005,4.47015
+Table I.B1.2a.2,Slovak Republic,reading,p25,latest,377.47484000000003,3.83591
+Table I.B1.2a.2,Slovak Republic,reading,p50,latest,451.22323000000006,3.34295
+Table I.B1.2a.2,Slovak Republic,reading,p75,latest,520.21533,3.0870300000000004
+Table I.B1.2a.2,Slovak Republic,reading,p90,latest,576.43525,3.4419100000000005
+Table I.B1.2a.2,Slovenia,reading,mean,latest,444.74764000000005,1.29403
+Table I.B1.2a.2,Slovenia,reading,sd,latest,103.91501000000001,1.0090700000000001
+Table I.B1.2a.2,Slovenia,reading,p10,latest,306.98079,2.8822200000000002
+Table I.B1.2a.2,Slovenia,reading,p25,latest,373.58783000000005,2.20671
+Table I.B1.2a.2,Slovenia,reading,p50,latest,447.53873000000004,2.17321
+Table I.B1.2a.2,Slovenia,reading,p75,latest,518.57839,2.4322600000000003
+Table I.B1.2a.2,Slovenia,reading,p90,latest,578.52551,2.5694000000000004
+Table I.B1.2a.2,Spain,reading,mean,latest,451.35575000000006,1.9380300000000001
+Table I.B1.2a.2,Spain,reading,sd,latest,94.23752,1.06136
+Table I.B1.2a.2,Spain,reading,p10,latest,323.55092,3.6489400000000005
+Table I.B1.2a.2,Spain,reading,p25,latest,387.24463000000003,2.8323600000000004
+Table I.B1.2a.2,Spain,reading,p50,latest,456.10847,1.9819700000000002
+Table I.B1.2a.2,Spain,reading,p75,latest,518.9778,1.68002
+Table I.B1.2a.2,Spain,reading,p90,latest,569.6061000000001,1.74116
+Table I.B1.2a.2,Sweden,reading,mean,latest,466.43629000000004,3.1495200000000003
+Table I.B1.2a.2,Sweden,reading,sd,latest,114.78409,1.34955
+Table I.B1.2a.2,Sweden,reading,p10,latest,311.39349000000004,3.9624200000000003
+Table I.B1.2a.2,Sweden,reading,p25,latest,385.33576000000005,4.2144200000000005
+Table I.B1.2a.2,Sweden,reading,p50,latest,469.01739000000003,3.61412
+Table I.B1.2a.2,Sweden,reading,p75,latest,548.89917,3.5400700000000005
+Table I.B1.2a.2,Sweden,reading,p90,latest,615.5729600000001,4.2656600000000005
+Table I.B1.2a.2,Switzerland,reading,mean,latest,470.0529,2.9209300000000002
+Table I.B1.2a.2,Switzerland,reading,sd,latest,105.92444,1.52089
+Table I.B1.2a.2,Switzerland,reading,p10,latest,327.05744000000004,4.2499
+Table I.B1.2a.2,Switzerland,reading,p25,latest,394.51390000000004,3.8848900000000004
+Table I.B1.2a.2,Switzerland,reading,p50,latest,473.38499,3.8741300000000005
+Table I.B1.2a.2,Switzerland,reading,p75,latest,549.1217700000001,3.3311300000000004
+Table I.B1.2a.2,Switzerland,reading,p90,latest,605.7816,4.08086
+Table I.B1.2a.2,Chinese Taipei,reading,mean,latest,507.78799000000004,2.94505
+Table I.B1.2a.2,Chinese Taipei,reading,sd,latest,108.75912000000001,1.57065
+Table I.B1.2a.2,Chinese Taipei,reading,p10,latest,360.01723000000004,5.20981
+Table I.B1.2a.2,Chinese Taipei,reading,p25,latest,437.77205000000004,4.03267
+Table I.B1.2a.2,Chinese Taipei,reading,p50,latest,516.97828,3.2797600000000005
+Table I.B1.2a.2,Chinese Taipei,reading,p75,latest,586.3410200000001,2.9849500000000004
+Table I.B1.2a.2,Chinese Taipei,reading,p90,latest,640.4208900000001,3.4083500000000004
+Table I.B1.2a.2,Thailand,reading,mean,latest,391.82964000000004,3.0112
+Table I.B1.2a.2,Thailand,reading,sd,latest,74.49029,1.23425
+Table I.B1.2a.2,Thailand,reading,p10,latest,297.07299,3.05634
+Table I.B1.2a.2,Thailand,reading,p25,latest,339.93408000000005,2.9215700000000004
+Table I.B1.2a.2,Thailand,reading,p50,latest,389.63702,3.21104
+Table I.B1.2a.2,Thailand,reading,p75,latest,442.15572000000003,3.9682800000000005
+Table I.B1.2a.2,Thailand,reading,p90,latest,490.41769000000005,4.223400000000001
+Table I.B1.2a.2,Türkiye,reading,mean,latest,472.09549000000004,2.3062500000000004
+Table I.B1.2a.2,Türkiye,reading,sd,latest,90.7077,1.4987300000000001
+Table I.B1.2a.2,Türkiye,reading,p10,latest,353.12089000000003,4.12941
+Table I.B1.2a.2,Türkiye,reading,p25,latest,410.05583,3.2089900000000005
+Table I.B1.2a.2,Türkiye,reading,p50,latest,473.63675000000006,2.7049700000000003
+Table I.B1.2a.2,Türkiye,reading,p75,latest,535.77129,2.40612
+Table I.B1.2a.2,Türkiye,reading,p90,latest,587.92502,2.4101000000000004
+Table I.B1.2a.2,Ukrainian regions (17 of 27),reading,mean,latest,418.4229,2.49562
+Table I.B1.2a.2,Ukrainian regions (17 of 27),reading,sd,latest,88.65771000000001,1.1766400000000001
+Table I.B1.2a.2,Ukrainian regions (17 of 27),reading,p10,latest,301.91051000000004,3.2477500000000004
+Table I.B1.2a.2,Ukrainian regions (17 of 27),reading,p25,latest,356.08173000000005,3.5076500000000004
+Table I.B1.2a.2,Ukrainian regions (17 of 27),reading,p50,latest,417.83040000000005,2.8864300000000003
+Table I.B1.2a.2,Ukrainian regions (17 of 27),reading,p75,latest,480.97254000000004,2.9468
+Table I.B1.2a.2,Ukrainian regions (17 of 27),reading,p90,latest,534.6496400000001,3.07166
+Table I.B1.2a.2,United Arab Emirates,reading,mean,latest,432.81079000000005,1.6169000000000002
+Table I.B1.2a.2,United Arab Emirates,reading,sd,latest,113.89354000000002,0.7426
+Table I.B1.2a.2,United Arab Emirates,reading,p10,latest,282.01787,1.8190700000000002
+Table I.B1.2a.2,United Arab Emirates,reading,p25,latest,348.70844000000005,2.45079
+Table I.B1.2a.2,United Arab Emirates,reading,p50,latest,432.62346,2.30992
+Table I.B1.2a.2,United Arab Emirates,reading,p75,latest,515.22168,1.9134700000000002
+Table I.B1.2a.2,United Arab Emirates,reading,p90,latest,583.04051,2.02115
+Table I.B1.2a.2,United Kingdom,reading,mean,latest,494.23095000000006,2.0213900000000002
+Table I.B1.2a.2,United Kingdom,reading,sd,latest,99.39250000000001,1.2135900000000002
+Table I.B1.2a.2,United Kingdom,reading,p10,latest,363.95984000000004,3.3858900000000003
+Table I.B1.2a.2,United Kingdom,reading,p25,latest,427.07854000000003,2.45366
+Table I.B1.2a.2,United Kingdom,reading,p50,latest,496.47632000000004,2.43665
+Table I.B1.2a.2,United Kingdom,reading,p75,latest,564.08317,2.56416
+Table I.B1.2a.2,United Kingdom,reading,p90,latest,620.76977,3.14651
+Table I.B1.2a.2,United States*,reading,mean,latest,489.51893,5.836790000000001
+Table I.B1.2a.2,United States*,reading,sd,latest,120.77060000000002,3.0449300000000004
+Table I.B1.2a.2,United States*,reading,p10,latest,331.8632,5.340750000000001
+Table I.B1.2a.2,United States*,reading,p25,latest,404.37818000000004,6.408480000000001
+Table I.B1.2a.2,United States*,reading,p50,latest,490.26645,6.681100000000001
+Table I.B1.2a.2,United States*,reading,p75,latest,574.91071,6.923170000000001
+Table I.B1.2a.2,United States*,reading,p90,latest,643.70172,8.61419
+Table I.B1.2a.2,Uruguay,reading,mean,latest,423.21268000000003,2.04774
+Table I.B1.2a.2,Uruguay,reading,sd,latest,96.75255000000001,1.1128200000000001
+Table I.B1.2a.2,Uruguay,reading,p10,latest,296.57039000000003,2.8960800000000004
+Table I.B1.2a.2,Uruguay,reading,p25,latest,353.86893000000003,2.47095
+Table I.B1.2a.2,Uruguay,reading,p50,latest,424.67489000000006,2.5123900000000003
+Table I.B1.2a.2,Uruguay,reading,p75,latest,490.89839000000006,2.6576400000000002
+Table I.B1.2a.2,Uruguay,reading,p90,latest,549.1088400000001,3.11621
+Table I.B1.2a.2,Viet Nam,reading,mean,latest,391.53666000000004,3.6585500000000004
+Table I.B1.2a.2,Viet Nam,reading,sd,latest,76.33018000000001,1.7870100000000002
+Table I.B1.2a.2,Viet Nam,reading,p10,latest,294.86136000000005,4.10078
+Table I.B1.2a.2,Viet Nam,reading,p25,latest,338.46722000000005,4.14949
+Table I.B1.2a.2,Viet Nam,reading,p50,latest,389.38162000000005,3.9035200000000003
+Table I.B1.2a.2,Viet Nam,reading,p75,latest,441.76198000000005,4.1272
+Table I.B1.2a.2,Viet Nam,reading,p90,latest,491.42738,5.06339
+Table I.B1.2a.2,Zambia,reading,mean,latest,324.87812,8.1965
+Table I.B1.2a.2,Zambia,reading,sd,latest,84.57789000000001,4.228630000000001
+Table I.B1.2a.2,Zambia,reading,p10,latest,225.99740000000003,5.409490000000001
+Table I.B1.2a.2,Zambia,reading,p25,latest,267.57653000000005,5.38987
+Table I.B1.2a.2,Zambia,reading,p50,latest,310.86768,7.50541
+Table I.B1.2a.2,Zambia,reading,p75,latest,376.09376000000003,14.72422
+Table I.B1.2a.2,Zambia,reading,p90,latest,449.22600000000006,15.601360000000001
+Table I.B1.2a.3,OECD average,mathematics,mean,latest,463.02078000000006,0.42482000000000003
+Table I.B1.2a.3,OECD average,mathematics,sd,latest,93.43335,0.23982000000000003
+Table I.B1.2a.3,OECD average,mathematics,p10,latest,341.06237000000004,0.58496
+Table I.B1.2a.3,OECD average,mathematics,p25,latest,396.60198,0.52942
+Table I.B1.2a.3,OECD average,mathematics,p50,latest,462.97721,0.50254
+Table I.B1.2a.3,OECD average,mathematics,p75,latest,528.52702,0.51507
+Table I.B1.2a.3,OECD average,mathematics,p90,latest,584.7036400000001,0.6107600000000001
+Table I.B1.2a.3,OECD total,mathematics,mean,latest,458.36912,1.4863400000000002
+Table I.B1.2a.3,OECD total,mathematics,sd,latest,102.13829000000001,1.04987
+Table I.B1.2a.3,OECD total,mathematics,p10,latest,329.34912,1.4188500000000002
+Table I.B1.2a.3,OECD total,mathematics,p25,latest,383.41231000000005,1.3851600000000002
+Table I.B1.2a.3,OECD total,mathematics,p50,latest,453.30121,1.62864
+Table I.B1.2a.3,OECD total,mathematics,p75,latest,528.9905100000001,2.0083100000000003
+Table I.B1.2a.3,OECD total,mathematics,p90,latest,594.7335800000001,2.64224
+Table I.B1.2a.3,Albania*,mathematics,mean,latest,432.81719000000004,2.89515
+Table I.B1.2a.3,Albania*,mathematics,sd,latest,79.71541,1.3410900000000001
+Table I.B1.2a.3,Albania*,mathematics,p10,latest,330.09276000000006,3.3270000000000004
+Table I.B1.2a.3,Albania*,mathematics,p25,latest,376.41194,3.20712
+Table I.B1.2a.3,Albania*,mathematics,p50,latest,431.05530000000005,3.34681
+Table I.B1.2a.3,Albania*,mathematics,p75,latest,487.34263000000004,3.49581
+Table I.B1.2a.3,Albania*,mathematics,p90,latest,537.7430800000001,3.9098
+Table I.B1.2a.3,Argentina,mathematics,mean,latest,366.8142,2.66346
+Table I.B1.2a.3,Argentina,mathematics,sd,latest,79.59909,1.65199
+Table I.B1.2a.3,Argentina,mathematics,p10,latest,270.11153,2.6988800000000004
+Table I.B1.2a.3,Argentina,mathematics,p25,latest,310.62405,2.5131300000000003
+Table I.B1.2a.3,Argentina,mathematics,p50,latest,360.05986,2.71253
+Table I.B1.2a.3,Argentina,mathematics,p75,latest,417.73971000000006,3.7162100000000002
+Table I.B1.2a.3,Argentina,mathematics,p90,latest,473.41704000000004,4.708270000000001
+Table I.B1.2a.3,Armenia,mathematics,mean,latest,375.79968,1.9513600000000002
+Table I.B1.2a.3,Armenia,mathematics,sd,latest,84.85066,1.2300000000000002
+Table I.B1.2a.3,Armenia,mathematics,p10,latest,272.40733,2.6877400000000002
+Table I.B1.2a.3,Armenia,mathematics,p25,latest,317.56322,2.37354
+Table I.B1.2a.3,Armenia,mathematics,p50,latest,370.98093000000006,2.13566
+Table I.B1.2a.3,Armenia,mathematics,p75,latest,429.52176000000003,2.8899100000000004
+Table I.B1.2a.3,Armenia,mathematics,p90,latest,485.62434,3.5105100000000005
+Table I.B1.2a.3,Australia,mathematics,mean,latest,477.52665,1.9151600000000002
+Table I.B1.2a.3,Australia,mathematics,sd,latest,99.20254000000001,0.8936700000000001
+Table I.B1.2a.3,Australia,mathematics,p10,latest,346.42909000000003,2.3322200000000004
+Table I.B1.2a.3,Australia,mathematics,p25,latest,407.29728000000006,2.3109300000000004
+Table I.B1.2a.3,Australia,mathematics,p50,latest,478.54390000000006,2.1285800000000004
+Table I.B1.2a.3,Australia,mathematics,p75,latest,547.69762,2.33284
+Table I.B1.2a.3,Australia,mathematics,p90,latest,606.34136,2.6787
+Table I.B1.2a.3,Austria,mathematics,mean,latest,477.19387000000006,2.5758
+Table I.B1.2a.3,Austria,mathematics,sd,latest,92.57884000000001,1.2865000000000002
+Table I.B1.2a.3,Austria,mathematics,p10,latest,354.39308000000005,3.99169
+Table I.B1.2a.3,Austria,mathematics,p25,latest,411.68142000000006,3.5004800000000005
+Table I.B1.2a.3,Austria,mathematics,p50,latest,479.40982,3.1341500000000004
+Table I.B1.2a.3,Austria,mathematics,p75,latest,543.68302,2.7301
+Table I.B1.2a.3,Austria,mathematics,p90,latest,595.7572200000001,3.0983500000000004
+Table I.B1.2a.3,Azerbaijan,mathematics,mean,latest,422.39533000000006,3.9786900000000003
+Table I.B1.2a.3,Azerbaijan,mathematics,sd,latest,103.96463000000001,2.35644
+Table I.B1.2a.3,Azerbaijan,mathematics,p10,latest,293.34338,3.75897
+Table I.B1.2a.3,Azerbaijan,mathematics,p25,latest,346.87547,3.6868600000000002
+Table I.B1.2a.3,Azerbaijan,mathematics,p50,latest,415.84112000000005,4.23803
+Table I.B1.2a.3,Azerbaijan,mathematics,p75,latest,492.76036000000005,5.087560000000001
+Table I.B1.2a.3,Azerbaijan,mathematics,p90,latest,562.08997,6.863530000000001
+Table I.B1.2a.3,Belgium,mathematics,mean,latest,479.68612,2.8086
+Table I.B1.2a.3,Belgium,mathematics,sd,latest,98.07648,1.8206600000000002
+Table I.B1.2a.3,Belgium,mathematics,p10,latest,347.28409000000005,5.191890000000001
+Table I.B1.2a.3,Belgium,mathematics,p25,latest,409.16069000000005,4.340400000000001
+Table I.B1.2a.3,Belgium,mathematics,p50,latest,483.36262000000005,3.2615900000000004
+Table I.B1.2a.3,Belgium,mathematics,p75,latest,551.05259,2.89195
+Table I.B1.2a.3,Belgium,mathematics,p90,latest,605.3746500000001,3.2406200000000003
+Table I.B1.2a.3,Brazil,mathematics,mean,latest,376.76794,1.74801
+Table I.B1.2a.3,Brazil,mathematics,sd,latest,80.69853,1.1430200000000001
+Table I.B1.2a.3,Brazil,mathematics,p10,latest,277.30622,1.51699
+Table I.B1.2a.3,Brazil,mathematics,p25,latest,318.52627,1.58498
+Table I.B1.2a.3,Brazil,mathematics,p50,latest,370.54079,1.8664900000000002
+Table I.B1.2a.3,Brazil,mathematics,p75,latest,429.30414,2.45549
+Table I.B1.2a.3,Brazil,mathematics,p90,latest,486.64315000000005,3.53757
+Table I.B1.2a.3,Brunei Darussalam,mathematics,mean,latest,435.18273000000005,0.8529300000000001
+Table I.B1.2a.3,Brunei Darussalam,mathematics,sd,latest,83.51421,0.71455
+Table I.B1.2a.3,Brunei Darussalam,mathematics,p10,latest,329.81300000000005,1.5363000000000002
+Table I.B1.2a.3,Brunei Darussalam,mathematics,p25,latest,376.48772,1.55437
+Table I.B1.2a.3,Brunei Darussalam,mathematics,p50,latest,431.19465,1.2474200000000002
+Table I.B1.2a.3,Brunei Darussalam,mathematics,p75,latest,490.56403000000006,1.46066
+Table I.B1.2a.3,Brunei Darussalam,mathematics,p90,latest,547.412,2.3312600000000003
+Table I.B1.2a.3,B-S-J-Z (China),mathematics,mean,latest,612.42966,2.5464700000000002
+Table I.B1.2a.3,B-S-J-Z (China),mathematics,sd,latest,100.74657,1.6918000000000002
+Table I.B1.2a.3,B-S-J-Z (China),mathematics,p10,latest,480.11838000000006,4.27168
+Table I.B1.2a.3,B-S-J-Z (China),mathematics,p25,latest,546.5937100000001,3.2227200000000003
+Table I.B1.2a.3,B-S-J-Z (China),mathematics,p50,latest,617.46045,2.7149500000000004
+Table I.B1.2a.3,B-S-J-Z (China),mathematics,p75,latest,683.29665,2.9144400000000004
+Table I.B1.2a.3,B-S-J-Z (China),mathematics,p90,latest,737.4501200000001,3.3205400000000003
+Table I.B1.2a.3,Bulgaria,mathematics,mean,latest,405.07756,4.034000000000001
+Table I.B1.2a.3,Bulgaria,mathematics,sd,latest,101.29056000000001,2.59866
+Table I.B1.2a.3,Bulgaria,mathematics,p10,latest,278.10682,4.347510000000001
+Table I.B1.2a.3,Bulgaria,mathematics,p25,latest,330.13845000000003,4.1689300000000005
+Table I.B1.2a.3,Bulgaria,mathematics,p50,latest,399.58389000000005,4.99498
+Table I.B1.2a.3,Bulgaria,mathematics,p75,latest,474.61066000000005,5.14395
+Table I.B1.2a.3,Bulgaria,mathematics,p90,latest,540.19335,6.18203
+Table I.B1.2a.3,Cambodia,mathematics,mean,latest,365.84172,1.6686800000000002
+Table I.B1.2a.3,Cambodia,mathematics,sd,latest,59.12393,1.1083800000000001
+Table I.B1.2a.3,Cambodia,mathematics,p10,latest,290.94019000000003,2.20926
+Table I.B1.2a.3,Cambodia,mathematics,p25,latest,325.37083,1.8263000000000003
+Table I.B1.2a.3,Cambodia,mathematics,p50,latest,364.63371,1.98818
+Table I.B1.2a.3,Cambodia,mathematics,p75,latest,405.56543000000005,2.36551
+Table I.B1.2a.3,Cambodia,mathematics,p90,latest,442.54597,2.81164
+Table I.B1.2a.3,Canada*,mathematics,mean,latest,485.33767000000006,1.9128500000000002
+Table I.B1.2a.3,Canada*,mathematics,sd,latest,98.61293,0.9445800000000001
+Table I.B1.2a.3,Canada*,mathematics,p10,latest,356.25134,2.75952
+Table I.B1.2a.3,Canada*,mathematics,p25,latest,416.95709000000005,2.29834
+Table I.B1.2a.3,Canada*,mathematics,p50,latest,486.49942000000004,1.9727800000000002
+Table I.B1.2a.3,Canada*,mathematics,p75,latest,554.36477,2.1117700000000004
+Table I.B1.2a.3,Canada*,mathematics,p90,latest,612.48325,2.53064
+Table I.B1.2a.3,Chile,mathematics,mean,latest,402.64522000000005,2.1761000000000004
+Table I.B1.2a.3,Chile,mathematics,sd,latest,76.92054,1.2540200000000001
+Table I.B1.2a.3,Chile,mathematics,p10,latest,304.08145,3.2762400000000005
+Table I.B1.2a.3,Chile,mathematics,p25,latest,348.39034000000004,3.05412
+Table I.B1.2a.3,Chile,mathematics,p50,latest,401.35325000000006,2.53222
+Table I.B1.2a.3,Chile,mathematics,p75,latest,454.51542000000006,2.49175
+Table I.B1.2a.3,Chile,mathematics,p90,latest,502.73533000000003,2.7825200000000003
+Table I.B1.2a.3,Colombia,mathematics,mean,latest,380.52867000000003,2.78141
+Table I.B1.2a.3,Colombia,mathematics,sd,latest,75.02674,1.57238
+Table I.B1.2a.3,Colombia,mathematics,p10,latest,286.86381,2.4570600000000002
+Table I.B1.2a.3,Colombia,mathematics,p25,latest,326.96782,2.5098200000000004
+Table I.B1.2a.3,Colombia,mathematics,p50,latest,376.13018000000005,3.1282400000000004
+Table I.B1.2a.3,Colombia,mathematics,p75,latest,430.01268000000005,3.6917700000000004
+Table I.B1.2a.3,Colombia,mathematics,p90,latest,480.93159,4.843240000000001
+Table I.B1.2a.3,Costa Rica,mathematics,mean,latest,387.09124,2.25097
+Table I.B1.2a.3,Costa Rica,mathematics,sd,latest,68.62691000000001,1.1370200000000001
+Table I.B1.2a.3,Costa Rica,mathematics,p10,latest,300.85116000000005,2.6843600000000003
+Table I.B1.2a.3,Costa Rica,mathematics,p25,latest,339.2087,2.3354600000000003
+Table I.B1.2a.3,Costa Rica,mathematics,p50,latest,383.9238,2.3038600000000002
+Table I.B1.2a.3,Costa Rica,mathematics,p75,latest,432.24552000000006,2.8840000000000003
+Table I.B1.2a.3,Costa Rica,mathematics,p90,latest,478.36496000000005,3.6760200000000003
+Table I.B1.2a.3,Croatia,mathematics,mean,latest,455.29170000000005,1.8155000000000001
+Table I.B1.2a.3,Croatia,mathematics,sd,latest,92.13399000000001,0.84511
+Table I.B1.2a.3,Croatia,mathematics,p10,latest,336.0033,2.2477300000000002
+Table I.B1.2a.3,Croatia,mathematics,p25,latest,389.13357,2.5799000000000003
+Table I.B1.2a.3,Croatia,mathematics,p50,latest,454.29823000000005,2.34254
+Table I.B1.2a.3,Croatia,mathematics,p75,latest,518.75788,2.3849400000000003
+Table I.B1.2a.3,Croatia,mathematics,p90,latest,576.74962,2.9222400000000004
+Table I.B1.2a.3,Cyprus,mathematics,mean,latest,411.78134000000006,1.3748300000000002
+Table I.B1.2a.3,Cyprus,mathematics,sd,latest,100.74563,0.9952200000000001
+Table I.B1.2a.3,Cyprus,mathematics,p10,latest,286.92018,1.9957900000000002
+Table I.B1.2a.3,Cyprus,mathematics,p25,latest,337.32985,1.9414200000000001
+Table I.B1.2a.3,Cyprus,mathematics,p50,latest,404.65071000000006,2.37779
+Table I.B1.2a.3,Cyprus,mathematics,p75,latest,479.98587000000003,2.10083
+Table I.B1.2a.3,Cyprus,mathematics,p90,latest,547.18156,2.3199300000000003
+Table I.B1.2a.3,Czechia,mathematics,mean,latest,477.14804000000004,2.59863
+Table I.B1.2a.3,Czechia,mathematics,sd,latest,97.66617000000001,1.5200300000000002
+Table I.B1.2a.3,Czechia,mathematics,p10,latest,351.43888000000004,3.61946
+Table I.B1.2a.3,Czechia,mathematics,p25,latest,408.08946000000003,2.99384
+Table I.B1.2a.3,Czechia,mathematics,p50,latest,475.34708000000006,3.3047500000000003
+Table I.B1.2a.3,Czechia,mathematics,p75,latest,544.21639,3.32026
+Table I.B1.2a.3,Czechia,mathematics,p90,latest,605.9852400000001,3.8830600000000004
+Table I.B1.2a.3,Denmark,mathematics,mean,latest,470.62750000000005,2.10883
+Table I.B1.2a.3,Denmark,mathematics,sd,latest,86.39946,1.10243
+Table I.B1.2a.3,Denmark,mathematics,p10,latest,357.33146000000005,2.98776
+Table I.B1.2a.3,Denmark,mathematics,p25,latest,410.69642000000005,3.0370800000000004
+Table I.B1.2a.3,Denmark,mathematics,p50,latest,472.44778,2.71477
+Table I.B1.2a.3,Denmark,mathematics,p75,latest,530.66218,2.37678
+Table I.B1.2a.3,Denmark,mathematics,p90,latest,581.36485,3.0426100000000003
+Table I.B1.2a.3,Dominican Republic,mathematics,mean,latest,338.82949,1.69283
+Table I.B1.2a.3,Dominican Republic,mathematics,sd,latest,58.308370000000004,0.98438
+Table I.B1.2a.3,Dominican Republic,mathematics,p10,latest,267.14886,1.7154
+Table I.B1.2a.3,Dominican Republic,mathematics,p25,latest,297.73688000000004,1.6918300000000002
+Table I.B1.2a.3,Dominican Republic,mathematics,p50,latest,334.44547,1.9760300000000002
+Table I.B1.2a.3,Dominican Republic,mathematics,p75,latest,376.52267,2.37995
+Table I.B1.2a.3,Dominican Republic,mathematics,p90,latest,417.70816,3.02699
+Table I.B1.2a.3,Dushanbe (Tajikistan),mathematics,mean,latest,382.13727000000006,0.97906
+Table I.B1.2a.3,Dushanbe (Tajikistan),mathematics,sd,latest,55.48105,0.89309
+Table I.B1.2a.3,Dushanbe (Tajikistan),mathematics,p10,latest,313.04783000000003,1.5521
+Table I.B1.2a.3,Dushanbe (Tajikistan),mathematics,p25,latest,344.32536000000005,1.2030100000000001
+Table I.B1.2a.3,Dushanbe (Tajikistan),mathematics,p50,latest,379.9544,1.28976
+Table I.B1.2a.3,Dushanbe (Tajikistan),mathematics,p75,latest,417.36375000000004,1.6282200000000002
+Table I.B1.2a.3,Dushanbe (Tajikistan),mathematics,p90,latest,453.4664,2.47329
+Table I.B1.2a.3,Ecuador,mathematics,mean,latest,365.83936000000006,1.72171
+Table I.B1.2a.3,Ecuador,mathematics,sd,latest,64.79625,1.09668
+Table I.B1.2a.3,Ecuador,mathematics,p10,latest,284.99142,1.9514500000000001
+Table I.B1.2a.3,Ecuador,mathematics,p25,latest,320.74176,1.7484100000000002
+Table I.B1.2a.3,Ecuador,mathematics,p50,latest,363.16043,1.7618900000000002
+Table I.B1.2a.3,Ecuador,mathematics,p75,latest,407.86546000000004,2.23539
+Table I.B1.2a.3,Ecuador,mathematics,p90,latest,451.01112000000006,3.1064700000000003
+Table I.B1.2a.3,El Salvador,mathematics,mean,latest,346.24980000000005,1.80156
+Table I.B1.2a.3,El Salvador,mathematics,sd,latest,62.409690000000005,1.17235
+Table I.B1.2a.3,El Salvador,mathematics,p10,latest,269.93679000000003,2.08299
+Table I.B1.2a.3,El Salvador,mathematics,p25,latest,303.16630000000004,1.8629700000000002
+Table I.B1.2a.3,El Salvador,mathematics,p50,latest,341.55094,1.8362200000000002
+Table I.B1.2a.3,El Salvador,mathematics,p75,latest,384.846,2.3435900000000003
+Table I.B1.2a.3,El Salvador,mathematics,p90,latest,429.12007000000006,3.6205800000000004
+Table I.B1.2a.3,Estonia,mathematics,mean,latest,507.89573,2.2875300000000003
+Table I.B1.2a.3,Estonia,mathematics,sd,latest,89.23802,1.07648
+Table I.B1.2a.3,Estonia,mathematics,p10,latest,390.57020000000006,3.2127700000000003
+Table I.B1.2a.3,Estonia,mathematics,p25,latest,446.53028000000006,3.0960500000000004
+Table I.B1.2a.3,Estonia,mathematics,p50,latest,509.87177,2.4034500000000003
+Table I.B1.2a.3,Estonia,mathematics,p75,latest,569.29093,2.5319900000000004
+Table I.B1.2a.3,Estonia,mathematics,p90,latest,622.15264,3.4849900000000003
+Table I.B1.2a.3,Finland,mathematics,mean,latest,468.69454,2.2006900000000003
+Table I.B1.2a.3,Finland,mathematics,sd,latest,93.09644,1.0289000000000001
+Table I.B1.2a.3,Finland,mathematics,p10,latest,346.43320000000006,2.9926500000000003
+Table I.B1.2a.3,Finland,mathematics,p25,latest,402.46953,3.1119700000000003
+Table I.B1.2a.3,Finland,mathematics,p50,latest,470.85981000000004,2.63219
+Table I.B1.2a.3,Finland,mathematics,p75,latest,534.7847,2.5356500000000004
+Table I.B1.2a.3,Finland,mathematics,p90,latest,588.55205,2.49244
+Table I.B1.2a.3,France,mathematics,mean,latest,457.65501000000006,2.9950900000000003
+Table I.B1.2a.3,France,mathematics,sd,latest,93.42574,1.4111500000000001
+Table I.B1.2a.3,France,mathematics,p10,latest,333.84898000000004,3.9848200000000005
+Table I.B1.2a.3,France,mathematics,p25,latest,388.33192,3.8829300000000004
+Table I.B1.2a.3,France,mathematics,p50,latest,459.01048000000003,4.10686
+Table I.B1.2a.3,France,mathematics,p75,latest,525.95297,3.5224400000000005
+Table I.B1.2a.3,France,mathematics,p90,latest,579.6232600000001,3.3164300000000004
+Table I.B1.2a.3,Georgia,mathematics,mean,latest,416.3627,2.93751
+Table I.B1.2a.3,Georgia,mathematics,sd,latest,90.28634000000001,2.2394100000000003
+Table I.B1.2a.3,Georgia,mathematics,p10,latest,301.75833,3.5202000000000004
+Table I.B1.2a.3,Georgia,mathematics,p25,latest,354.01232000000005,2.97542
+Table I.B1.2a.3,Georgia,mathematics,p50,latest,414.3256,3.0337300000000003
+Table I.B1.2a.3,Georgia,mathematics,p75,latest,476.20942,3.1748900000000004
+Table I.B1.2a.3,Georgia,mathematics,p90,latest,533.64913,4.79903
+Table I.B1.2a.3,Germany,mathematics,mean,latest,463.80565,3.0461600000000004
+Table I.B1.2a.3,Germany,mathematics,sd,latest,98.42893000000001,1.2745300000000002
+Table I.B1.2a.3,Germany,mathematics,p10,latest,335.73149,3.8040300000000005
+Table I.B1.2a.3,Germany,mathematics,p25,latest,392.14755,3.6495500000000005
+Table I.B1.2a.3,Germany,mathematics,p50,latest,462.16707,3.7792200000000005
+Table I.B1.2a.3,Germany,mathematics,p75,latest,533.9319300000001,3.6892300000000002
+Table I.B1.2a.3,Germany,mathematics,p90,latest,594.4465,3.30175
+Table I.B1.2a.3,Greece,mathematics,mean,latest,423.85217000000006,2.92445
+Table I.B1.2a.3,Greece,mathematics,sd,latest,88.46652,1.36701
+Table I.B1.2a.3,Greece,mathematics,p10,latest,311.49787000000003,3.4587800000000004
+Table I.B1.2a.3,Greece,mathematics,p25,latest,359.62067,3.2375800000000003
+Table I.B1.2a.3,Greece,mathematics,p50,latest,421.03426,3.37515
+Table I.B1.2a.3,Greece,mathematics,p75,latest,485.06703000000005,3.8864300000000003
+Table I.B1.2a.3,Greece,mathematics,p90,latest,541.2064200000001,3.9961
+Table I.B1.2a.3,Guatemala,mathematics,mean,latest,334.30248,1.9333700000000003
+Table I.B1.2a.3,Guatemala,mathematics,sd,latest,58.09425,1.2180300000000002
+Table I.B1.2a.3,Guatemala,mathematics,p10,latest,262.61016,2.07016
+Table I.B1.2a.3,Guatemala,mathematics,p25,latest,294.16409000000004,1.8697300000000001
+Table I.B1.2a.3,Guatemala,mathematics,p50,latest,331.35834000000006,1.91846
+Table I.B1.2a.3,Guatemala,mathematics,p75,latest,371.19412000000005,2.40315
+Table I.B1.2a.3,Guatemala,mathematics,p90,latest,411.086,3.29529
+Table I.B1.2a.3,Hong Kong (China),mathematics,mean,latest,521.7077700000001,2.9099700000000004
+Table I.B1.2a.3,Hong Kong (China),mathematics,sd,latest,102.92616000000001,1.74611
+Table I.B1.2a.3,Hong Kong (China),mathematics,p10,latest,386.5325,4.2072400000000005
+Table I.B1.2a.3,Hong Kong (China),mathematics,p25,latest,451.42766000000006,3.7424100000000005
+Table I.B1.2a.3,Hong Kong (China),mathematics,p50,latest,524.4116,3.2450400000000004
+Table I.B1.2a.3,Hong Kong (China),mathematics,p75,latest,592.6307800000001,3.2992000000000004
+Table I.B1.2a.3,Hong Kong (China),mathematics,p90,latest,652.97131,4.1738100000000005
+Table I.B1.2a.3,Hungary,mathematics,mean,latest,459.48854000000006,2.5084000000000004
+Table I.B1.2a.3,Hungary,mathematics,sd,latest,91.44351,1.8806300000000002
+Table I.B1.2a.3,Hungary,mathematics,p10,latest,338.69876000000005,3.8106400000000002
+Table I.B1.2a.3,Hungary,mathematics,p25,latest,394.85576000000003,3.4563800000000002
+Table I.B1.2a.3,Hungary,mathematics,p50,latest,460.89007000000004,2.8286300000000004
+Table I.B1.2a.3,Hungary,mathematics,p75,latest,523.6578900000001,3.00016
+Table I.B1.2a.3,Hungary,mathematics,p90,latest,576.52981,4.21438
+Table I.B1.2a.3,Iceland,mathematics,mean,latest,449.73034,1.46788
+Table I.B1.2a.3,Iceland,mathematics,sd,latest,90.43658,1.0619
+Table I.B1.2a.3,Iceland,mathematics,p10,latest,331.65701,2.7545900000000003
+Table I.B1.2a.3,Iceland,mathematics,p25,latest,385.39692,2.1448300000000002
+Table I.B1.2a.3,Iceland,mathematics,p50,latest,449.43228000000005,2.3807400000000003
+Table I.B1.2a.3,Iceland,mathematics,p75,latest,513.4712400000001,2.39747
+Table I.B1.2a.3,Iceland,mathematics,p90,latest,568.30349,2.8398600000000003
+Table I.B1.2a.3,Indonesia,mathematics,mean,latest,363.90169000000003,2.1007900000000004
+Table I.B1.2a.3,Indonesia,mathematics,sd,latest,59.44008,1.2644300000000002
+Table I.B1.2a.3,Indonesia,mathematics,p10,latest,290.69497,2.46491
+Table I.B1.2a.3,Indonesia,mathematics,p25,latest,322.91015000000004,2.12115
+Table I.B1.2a.3,Indonesia,mathematics,p50,latest,360.76524,2.09735
+Table I.B1.2a.3,Indonesia,mathematics,p75,latest,401.5894,2.5571200000000003
+Table I.B1.2a.3,Indonesia,mathematics,p90,latest,441.48166000000003,3.5551700000000004
+Table I.B1.2a.3,Ireland,mathematics,mean,latest,479.8747,1.8344300000000002
+Table I.B1.2a.3,Ireland,mathematics,sd,latest,83.70908,0.91061
+Table I.B1.2a.3,Ireland,mathematics,p10,latest,369.65212,2.97101
+Table I.B1.2a.3,Ireland,mathematics,p25,latest,422.31047,2.60354
+Table I.B1.2a.3,Ireland,mathematics,p50,latest,481.74000000000007,2.18343
+Table I.B1.2a.3,Ireland,mathematics,p75,latest,538.90084,2.3344500000000004
+Table I.B1.2a.3,Ireland,mathematics,p90,latest,586.6680700000001,2.2865
+Table I.B1.2a.3,Israel,mathematics,mean,latest,433.37492000000003,3.10413
+Table I.B1.2a.3,Israel,mathematics,sd,latest,103.37791000000001,1.3965
+Table I.B1.2a.3,Israel,mathematics,p10,latest,299.91078000000005,3.9183300000000005
+Table I.B1.2a.3,Israel,mathematics,p25,latest,357.72466000000003,3.7636900000000004
+Table I.B1.2a.3,Israel,mathematics,p50,latest,432.02781000000004,3.7272000000000003
+Table I.B1.2a.3,Israel,mathematics,p75,latest,505.9143,3.6797000000000004
+Table I.B1.2a.3,Israel,mathematics,p90,latest,569.38188,3.8553100000000002
+Table I.B1.2a.3,Italy,mathematics,mean,latest,467.76261000000005,2.84566
+Table I.B1.2a.3,Italy,mathematics,sd,latest,93.20763000000001,1.33542
+Table I.B1.2a.3,Italy,mathematics,p10,latest,345.75907,3.68643
+Table I.B1.2a.3,Italy,mathematics,p25,latest,401.22016,3.40566
+Table I.B1.2a.3,Italy,mathematics,p50,latest,468.39648000000005,3.3447700000000005
+Table I.B1.2a.3,Italy,mathematics,p75,latest,533.05704,3.3453600000000003
+Table I.B1.2a.3,Italy,mathematics,p90,latest,589.3449800000001,3.73986
+Table I.B1.2a.3,Japan,mathematics,mean,latest,525.3758,4.204070000000001
+Table I.B1.2a.3,Japan,mathematics,sd,latest,103.96337000000001,2.5786200000000004
+Table I.B1.2a.3,Japan,mathematics,p10,latest,387.35988000000003,6.311330000000001
+Table I.B1.2a.3,Japan,mathematics,p25,latest,455.05241,5.400180000000001
+Table I.B1.2a.3,Japan,mathematics,p50,latest,527.6949000000001,4.67398
+Table I.B1.2a.3,Japan,mathematics,p75,latest,597.9878600000001,4.720770000000001
+Table I.B1.2a.3,Japan,mathematics,p90,latest,658.35121,5.41844
+Table I.B1.2a.3,Jordan,mathematics,mean,latest,387.5613,2.19124
+Table I.B1.2a.3,Jordan,mathematics,sd,latest,66.68414,1.1281100000000002
+Table I.B1.2a.3,Jordan,mathematics,p10,latest,302.32334000000003,2.6954000000000002
+Table I.B1.2a.3,Jordan,mathematics,p25,latest,340.91356,2.5845700000000003
+Table I.B1.2a.3,Jordan,mathematics,p50,latest,386.00589,2.4591200000000004
+Table I.B1.2a.3,Jordan,mathematics,p75,latest,432.11485000000005,2.4808600000000003
+Table I.B1.2a.3,Jordan,mathematics,p90,latest,474.47464,2.7966100000000003
+Table I.B1.2a.3,Kazakhstan,mathematics,mean,latest,413.71493000000004,1.7477600000000002
+Table I.B1.2a.3,Kazakhstan,mathematics,sd,latest,77.63914000000001,0.9043300000000001
+Table I.B1.2a.3,Kazakhstan,mathematics,p10,latest,318.34559,1.7143800000000002
+Table I.B1.2a.3,Kazakhstan,mathematics,p25,latest,358.72801000000004,1.7587400000000002
+Table I.B1.2a.3,Kazakhstan,mathematics,p50,latest,408.67210000000006,1.9063500000000002
+Table I.B1.2a.3,Kazakhstan,mathematics,p75,latest,463.43199000000004,2.1476800000000003
+Table I.B1.2a.3,Kazakhstan,mathematics,p90,latest,516.9816000000001,3.05101
+Table I.B1.2a.3,Kenya,mathematics,mean,latest,325.93541000000005,2.6947900000000002
+Table I.B1.2a.3,Kenya,mathematics,sd,latest,68.54048,2.04252
+Table I.B1.2a.3,Kenya,mathematics,p10,latest,242.79186,2.5253900000000002
+Table I.B1.2a.3,Kenya,mathematics,p25,latest,277.66664000000003,2.3644800000000004
+Table I.B1.2a.3,Kenya,mathematics,p50,latest,320.52635000000004,2.9077400000000004
+Table I.B1.2a.3,Kenya,mathematics,p75,latest,368.01025000000004,3.8102600000000004
+Table I.B1.2a.3,Kenya,mathematics,p90,latest,416.2241,5.88848
+Table I.B1.2a.3,Korea,mathematics,mean,latest,522.2978400000001,3.95806
+Table I.B1.2a.3,Korea,mathematics,sd,latest,112.06826000000001,1.86017
+Table I.B1.2a.3,Korea,mathematics,p10,latest,372.66324000000003,5.667840000000001
+Table I.B1.2a.3,Korea,mathematics,p25,latest,446.80125000000004,5.13691
+Table I.B1.2a.3,Korea,mathematics,p50,latest,527.4298200000001,4.29236
+Table I.B1.2a.3,Korea,mathematics,p75,latest,601.20527,4.36453
+Table I.B1.2a.3,Korea,mathematics,p90,latest,662.93448,5.02587
+Table I.B1.2a.3,Kosovo,mathematics,mean,latest,350.43948,1.32854
+Table I.B1.2a.3,Kosovo,mathematics,sd,latest,66.51169,0.8356800000000001
+Table I.B1.2a.3,Kosovo,mathematics,p10,latest,268.21189000000004,1.98883
+Table I.B1.2a.3,Kosovo,mathematics,p25,latest,303.69977,1.5259200000000002
+Table I.B1.2a.3,Kosovo,mathematics,p50,latest,346.52921000000003,1.51106
+Table I.B1.2a.3,Kosovo,mathematics,p75,latest,392.83654,1.9453700000000003
+Table I.B1.2a.3,Kosovo,mathematics,p90,latest,438.5323,2.49697
+Table I.B1.2a.3,Kurdistan Region (Iraq),mathematics,mean,latest,338.75739000000004,1.7730800000000002
+Table I.B1.2a.3,Kurdistan Region (Iraq),mathematics,sd,latest,55.55771000000001,1.1359100000000002
+Table I.B1.2a.3,Kurdistan Region (Iraq),mathematics,p10,latest,267.65945000000005,2.0260700000000003
+Table I.B1.2a.3,Kurdistan Region (Iraq),mathematics,p25,latest,300.15927000000005,2.12638
+Table I.B1.2a.3,Kurdistan Region (Iraq),mathematics,p50,latest,337.99832000000004,2.1035600000000003
+Table I.B1.2a.3,Kurdistan Region (Iraq),mathematics,p75,latest,376.34844000000004,2.09476
+Table I.B1.2a.3,Kurdistan Region (Iraq),mathematics,p90,latest,410.22906000000006,2.5445900000000004
+Table I.B1.2a.3,Kyrgyzstan,mathematics,mean,latest,363.80642,1.9783800000000002
+Table I.B1.2a.3,Kyrgyzstan,mathematics,sd,latest,64.59551,1.01136
+Table I.B1.2a.3,Kyrgyzstan,mathematics,p10,latest,284.98105000000004,1.8806500000000002
+Table I.B1.2a.3,Kyrgyzstan,mathematics,p25,latest,318.51390000000004,1.8393000000000002
+Table I.B1.2a.3,Kyrgyzstan,mathematics,p50,latest,359.17384000000004,2.08636
+Table I.B1.2a.3,Kyrgyzstan,mathematics,p75,latest,404.19483,2.6371
+Table I.B1.2a.3,Kyrgyzstan,mathematics,p90,latest,450.40574000000004,3.5510200000000003
+Table I.B1.2a.3,Latvia,mathematics,mean,latest,460.49274,1.7023100000000002
+Table I.B1.2a.3,Latvia,mathematics,sd,latest,86.93558,0.95369
+Table I.B1.2a.3,Latvia,mathematics,p10,latest,347.69283,2.8021700000000003
+Table I.B1.2a.3,Latvia,mathematics,p25,latest,400.02807,2.30608
+Table I.B1.2a.3,Latvia,mathematics,p50,latest,459.92705000000007,2.1060100000000004
+Table I.B1.2a.3,Latvia,mathematics,p75,latest,520.85886,1.9563800000000002
+Table I.B1.2a.3,Latvia,mathematics,p90,latest,572.7147,2.5360500000000004
+Table I.B1.2a.3,Lebanon,mathematics,mean,latest,377.13808000000006,3.0241700000000002
+Table I.B1.2a.3,Lebanon,mathematics,sd,latest,87.16617000000001,1.68053
+Table I.B1.2a.3,Lebanon,mathematics,p10,latest,268.43631000000005,3.4700100000000003
+Table I.B1.2a.3,Lebanon,mathematics,p25,latest,314.9821,3.4209600000000004
+Table I.B1.2a.3,Lebanon,mathematics,p50,latest,373.19115000000005,3.5086600000000003
+Table I.B1.2a.3,Lebanon,mathematics,p75,latest,435.37673,3.6949400000000003
+Table I.B1.2a.3,Lebanon,mathematics,p90,latest,492.51327000000003,4.494470000000001
+Table I.B1.2a.3,Lithuania,mathematics,mean,latest,470.49147000000005,1.87433
+Table I.B1.2a.3,Lithuania,mathematics,sd,latest,88.24424,1.2957400000000001
+Table I.B1.2a.3,Lithuania,mathematics,p10,latest,355.15809,3.2515
+Table I.B1.2a.3,Lithuania,mathematics,p25,latest,409.95842000000005,2.3414300000000003
+Table I.B1.2a.3,Lithuania,mathematics,p50,latest,471.07902,1.97415
+Table I.B1.2a.3,Lithuania,mathematics,p75,latest,531.6755400000001,2.2332
+Table I.B1.2a.3,Lithuania,mathematics,p90,latest,584.5055500000001,3.1139200000000002
+Table I.B1.2a.3,Luxembourg,mathematics,mean,latest,458.14300000000003,0.8803300000000001
+Table I.B1.2a.3,Luxembourg,mathematics,sd,latest,98.04335,0.8615400000000001
+Table I.B1.2a.3,Luxembourg,mathematics,p10,latest,331.29479000000003,2.02184
+Table I.B1.2a.3,Luxembourg,mathematics,p25,latest,385.25081000000006,1.5890000000000002
+Table I.B1.2a.3,Luxembourg,mathematics,p50,latest,456.16186000000005,1.64809
+Table I.B1.2a.3,Luxembourg,mathematics,p75,latest,527.91826,1.7155900000000002
+Table I.B1.2a.3,Luxembourg,mathematics,p90,latest,587.68987,2.44639
+Table I.B1.2a.3,Macao (China),mathematics,mean,latest,549.3016200000001,1.1471900000000002
+Table I.B1.2a.3,Macao (China),mathematics,sd,latest,97.43971,0.91532
+Table I.B1.2a.3,Macao (China),mathematics,p10,latest,421.74304,2.37093
+Table I.B1.2a.3,Macao (China),mathematics,p25,latest,482.45831000000004,1.9957700000000003
+Table I.B1.2a.3,Macao (China),mathematics,p50,latest,552.30907,2.08447
+Table I.B1.2a.3,Macao (China),mathematics,p75,latest,617.88711,1.8763900000000002
+Table I.B1.2a.3,Macao (China),mathematics,p90,latest,673.68712,2.52857
+Table I.B1.2a.3,Malaysia,mathematics,mean,latest,397.42258000000004,2.1980600000000003
+Table I.B1.2a.3,Malaysia,mathematics,sd,latest,73.7048,1.17523
+Table I.B1.2a.3,Malaysia,mathematics,p10,latest,307.68154000000004,2.0631500000000003
+Table I.B1.2a.3,Malaysia,mathematics,p25,latest,346.03302,2.1277700000000004
+Table I.B1.2a.3,Malaysia,mathematics,p50,latest,391.94728000000003,2.42783
+Table I.B1.2a.3,Malaysia,mathematics,p75,latest,442.35198,3.1019400000000004
+Table I.B1.2a.3,Malaysia,mathematics,p90,latest,495.73307000000005,4.035620000000001
+Table I.B1.2a.3,Malta,mathematics,mean,latest,439.08271,1.7833500000000002
+Table I.B1.2a.3,Malta,mathematics,sd,latest,103.15268,1.14693
+Table I.B1.2a.3,Malta,mathematics,p10,latest,306.17357000000004,3.87855
+Table I.B1.2a.3,Malta,mathematics,p25,latest,364.18988,2.8328300000000004
+Table I.B1.2a.3,Malta,mathematics,p50,latest,437.46746,2.49318
+Table I.B1.2a.3,Malta,mathematics,p75,latest,512.0855700000001,2.6353600000000004
+Table I.B1.2a.3,Malta,mathematics,p90,latest,575.1060500000001,3.44682
+Table I.B1.2a.3,Mauritius,mathematics,mean,latest,406.85479000000004,3.6681900000000005
+Table I.B1.2a.3,Mauritius,mathematics,sd,latest,84.23311000000001,2.34009
+Table I.B1.2a.3,Mauritius,mathematics,p10,latest,296.80954,3.19246
+Table I.B1.2a.3,Mauritius,mathematics,p25,latest,347.92867,3.4865000000000004
+Table I.B1.2a.3,Mauritius,mathematics,p50,latest,406.40019,3.5813400000000004
+Table I.B1.2a.3,Mauritius,mathematics,p75,latest,464.05906000000004,4.84266
+Table I.B1.2a.3,Mauritius,mathematics,p90,latest,517.37129,7.189710000000001
+Table I.B1.2a.3,Mexico,mathematics,mean,latest,387.58717,1.85817
+Table I.B1.2a.3,Mexico,mathematics,sd,latest,68.33000000000001,1.21625
+Table I.B1.2a.3,Mexico,mathematics,p10,latest,302.46161,2.10059
+Table I.B1.2a.3,Mexico,mathematics,p25,latest,340.50991000000005,1.8813400000000002
+Table I.B1.2a.3,Mexico,mathematics,p50,latest,384.46014,1.8625200000000002
+Table I.B1.2a.3,Mexico,mathematics,p75,latest,431.63520000000005,2.3951900000000004
+Table I.B1.2a.3,Mexico,mathematics,p90,latest,477.72523000000007,3.45908
+Table I.B1.2a.3,Moldova,mathematics,mean,latest,410.13014000000004,2.5569800000000003
+Table I.B1.2a.3,Moldova,mathematics,sd,latest,81.97172,1.12637
+Table I.B1.2a.3,Moldova,mathematics,p10,latest,306.53192,3.0240400000000003
+Table I.B1.2a.3,Moldova,mathematics,p25,latest,352.94837,2.6577
+Table I.B1.2a.3,Moldova,mathematics,p50,latest,407.73676000000006,2.8633400000000004
+Table I.B1.2a.3,Moldova,mathematics,p75,latest,464.2531,3.08827
+Table I.B1.2a.3,Moldova,mathematics,p90,latest,517.84373,3.70657
+Table I.B1.2a.3,Mongolia,mathematics,mean,latest,418.64226,2.29449
+Table I.B1.2a.3,Mongolia,mathematics,sd,latest,82.81798,1.32301
+Table I.B1.2a.3,Mongolia,mathematics,p10,latest,313.57710000000003,2.93066
+Table I.B1.2a.3,Mongolia,mathematics,p25,latest,360.37068000000005,2.5384700000000002
+Table I.B1.2a.3,Mongolia,mathematics,p50,latest,416.72864000000004,2.7328200000000002
+Table I.B1.2a.3,Mongolia,mathematics,p75,latest,474.67016000000007,2.9640500000000003
+Table I.B1.2a.3,Mongolia,mathematics,p90,latest,527.18691,3.6931200000000004
+Table I.B1.2a.3,Montenegro,mathematics,mean,latest,411.05801,1.11695
+Table I.B1.2a.3,Montenegro,mathematics,sd,latest,80.76464,0.8398800000000001
+Table I.B1.2a.3,Montenegro,mathematics,p10,latest,308.26493000000005,2.85271
+Table I.B1.2a.3,Montenegro,mathematics,p25,latest,353.16898000000003,1.8949600000000002
+Table I.B1.2a.3,Montenegro,mathematics,p50,latest,408.14306000000005,1.4951400000000001
+Table I.B1.2a.3,Montenegro,mathematics,p75,latest,466.53381,1.85024
+Table I.B1.2a.3,Montenegro,mathematics,p90,latest,518.51737,1.9058100000000002
+Table I.B1.2a.3,Morocco,mathematics,mean,latest,354.75514000000004,2.9551700000000003
+Table I.B1.2a.3,Morocco,mathematics,sd,latest,66.29677000000001,1.7687400000000002
+Table I.B1.2a.3,Morocco,mathematics,p10,latest,275.48246,2.09334
+Table I.B1.2a.3,Morocco,mathematics,p25,latest,308.22134,2.34459
+Table I.B1.2a.3,Morocco,mathematics,p50,latest,348.40767000000005,3.12062
+Table I.B1.2a.3,Morocco,mathematics,p75,latest,395.50564,4.14756
+Table I.B1.2a.3,Morocco,mathematics,p90,latest,443.58443000000005,5.195880000000001
+Table I.B1.2a.3,Netherlands*,mathematics,mean,latest,483.27027000000004,2.8882800000000004
+Table I.B1.2a.3,Netherlands*,mathematics,sd,latest,105.79665000000001,1.6544
+Table I.B1.2a.3,Netherlands*,mathematics,p10,latest,341.78046,3.8379900000000005
+Table I.B1.2a.3,Netherlands*,mathematics,p25,latest,403.25835,4.3524
+Table I.B1.2a.3,Netherlands*,mathematics,p50,latest,486.90412000000003,3.74861
+Table I.B1.2a.3,Netherlands*,mathematics,p75,latest,562.06344,3.2367000000000004
+Table I.B1.2a.3,Netherlands*,mathematics,p90,latest,620.41699,3.42613
+Table I.B1.2a.3,New Zealand*,mathematics,mean,latest,479.61907,2.16515
+Table I.B1.2a.3,New Zealand*,mathematics,sd,latest,102.49749000000001,1.1297300000000001
+Table I.B1.2a.3,New Zealand*,mathematics,p10,latest,346.06877000000003,3.2146800000000004
+Table I.B1.2a.3,New Zealand*,mathematics,p25,latest,406.85725,3.11045
+Table I.B1.2a.3,New Zealand*,mathematics,p50,latest,477.42057000000005,2.8950500000000003
+Table I.B1.2a.3,New Zealand*,mathematics,p75,latest,551.3960900000001,2.8740400000000004
+Table I.B1.2a.3,New Zealand*,mathematics,p90,latest,614.6767000000001,3.2516300000000005
+Table I.B1.2a.3,North Macedonia,mathematics,mean,latest,379.79204000000004,0.9707800000000001
+Table I.B1.2a.3,North Macedonia,mathematics,sd,latest,88.64803,0.8683900000000001
+Table I.B1.2a.3,North Macedonia,mathematics,p10,latest,268.68186000000003,2.19166
+Table I.B1.2a.3,North Macedonia,mathematics,p25,latest,315.62571,1.6941100000000002
+Table I.B1.2a.3,North Macedonia,mathematics,p50,latest,375.44537,1.5369700000000002
+Table I.B1.2a.3,North Macedonia,mathematics,p75,latest,440.15772000000004,1.5310100000000002
+Table I.B1.2a.3,North Macedonia,mathematics,p90,latest,497.34040000000005,2.34168
+Table I.B1.2a.3,Norway*,mathematics,mean,latest,451.78008000000005,2.02015
+Table I.B1.2a.3,Norway*,mathematics,sd,latest,96.08352000000001,1.15252
+Table I.B1.2a.3,Norway*,mathematics,p10,latest,325.85901,2.83705
+Table I.B1.2a.3,Norway*,mathematics,p25,latest,381.96075,2.55045
+Table I.B1.2a.3,Norway*,mathematics,p50,latest,451.84079,2.55844
+Table I.B1.2a.3,Norway*,mathematics,p75,latest,519.4128800000001,2.6388800000000003
+Table I.B1.2a.3,Norway*,mathematics,p90,latest,577.0862800000001,3.2401500000000003
+Table I.B1.2a.3,Palestinian Authority,mathematics,mean,latest,354.33698000000004,1.77553
+Table I.B1.2a.3,Palestinian Authority,mathematics,sd,latest,67.3301,0.88307
+Table I.B1.2a.3,Palestinian Authority,mathematics,p10,latest,270.76839,1.8705200000000002
+Table I.B1.2a.3,Palestinian Authority,mathematics,p25,latest,306.75952,1.8429200000000001
+Table I.B1.2a.3,Palestinian Authority,mathematics,p50,latest,350.92338,2.00517
+Table I.B1.2a.3,Palestinian Authority,mathematics,p75,latest,399.16194,2.4405900000000003
+Table I.B1.2a.3,Palestinian Authority,mathematics,p90,latest,443.36749000000003,2.8902200000000002
+Table I.B1.2a.3,Paraguay,mathematics,mean,latest,333.73066,1.58776
+Table I.B1.2a.3,Paraguay,mathematics,sd,latest,63.611140000000006,0.99953
+Table I.B1.2a.3,Paraguay,mathematics,p10,latest,255.50958000000003,2.0737300000000003
+Table I.B1.2a.3,Paraguay,mathematics,p25,latest,288.68317,1.7666100000000002
+Table I.B1.2a.3,Paraguay,mathematics,p50,latest,329.59402,1.7661600000000002
+Table I.B1.2a.3,Paraguay,mathematics,p75,latest,374.31137,2.41224
+Table I.B1.2a.3,Paraguay,mathematics,p90,latest,418.52644000000004,3.2050600000000005
+Table I.B1.2a.3,Peru,mathematics,mean,latest,382.43938,2.44829
+Table I.B1.2a.3,Peru,mathematics,sd,latest,78.11496000000001,1.2218300000000002
+Table I.B1.2a.3,Peru,mathematics,p10,latest,285.51649000000003,2.42016
+Table I.B1.2a.3,Peru,mathematics,p25,latest,327.18928000000005,2.5459300000000002
+Table I.B1.2a.3,Peru,mathematics,p50,latest,378.79615,2.7381300000000004
+Table I.B1.2a.3,Peru,mathematics,p75,latest,433.95373,3.3894100000000003
+Table I.B1.2a.3,Peru,mathematics,p90,latest,486.03233000000006,3.9050000000000002
+Table I.B1.2a.3,Philippines,mathematics,mean,latest,370.63089,1.6984700000000001
+Table I.B1.2a.3,Philippines,mathematics,sd,latest,61.811080000000004,0.9691000000000001
+Table I.B1.2a.3,Philippines,mathematics,p10,latest,295.12089000000003,1.8566600000000002
+Table I.B1.2a.3,Philippines,mathematics,p25,latest,325.67424000000005,1.7809400000000002
+Table I.B1.2a.3,Philippines,mathematics,p50,latest,365.14957000000004,1.85888
+Table I.B1.2a.3,Philippines,mathematics,p75,latest,410.72448,2.35122
+Table I.B1.2a.3,Philippines,mathematics,p90,latest,454.78801000000004,3.1422200000000005
+Table I.B1.2a.3,Poland,mathematics,mean,latest,484.12092,2.7584000000000004
+Table I.B1.2a.3,Poland,mathematics,sd,latest,94.83977,1.9886000000000001
+Table I.B1.2a.3,Poland,mathematics,p10,latest,359.95338000000004,4.486630000000001
+Table I.B1.2a.3,Poland,mathematics,p25,latest,417.92420000000004,3.5736700000000003
+Table I.B1.2a.3,Poland,mathematics,p50,latest,484.52284000000003,3.1922900000000003
+Table I.B1.2a.3,Poland,mathematics,p75,latest,550.9066600000001,3.2906500000000003
+Table I.B1.2a.3,Poland,mathematics,p90,latest,606.80469,3.7755600000000005
+Table I.B1.2a.3,Portugal,mathematics,mean,latest,459.94304000000005,3.4547900000000005
+Table I.B1.2a.3,Portugal,mathematics,sd,latest,92.59138,1.2931700000000002
+Table I.B1.2a.3,Portugal,mathematics,p10,latest,339.41835000000003,4.1433
+Table I.B1.2a.3,Portugal,mathematics,p25,latest,392.04890000000006,4.070930000000001
+Table I.B1.2a.3,Portugal,mathematics,p50,latest,458.97251000000006,4.30161
+Table I.B1.2a.3,Portugal,mathematics,p75,latest,526.1189300000001,3.9144400000000004
+Table I.B1.2a.3,Portugal,mathematics,p90,latest,582.16735,4.0395
+Table I.B1.2a.3,Qatar,mathematics,mean,latest,416.16179000000005,1.34722
+Table I.B1.2a.3,Qatar,mathematics,sd,latest,95.57155,1.1108
+Table I.B1.2a.3,Qatar,mathematics,p10,latest,297.88284000000004,2.1861
+Table I.B1.2a.3,Qatar,mathematics,p25,latest,347.00182,1.98574
+Table I.B1.2a.3,Qatar,mathematics,p50,latest,409.47260000000006,1.9983100000000003
+Table I.B1.2a.3,Qatar,mathematics,p75,latest,479.98304,2.4883100000000002
+Table I.B1.2a.3,Qatar,mathematics,p90,latest,544.17235,3.3122300000000005
+Table I.B1.2a.3,Romania,mathematics,mean,latest,419.12421000000006,4.53293
+Table I.B1.2a.3,Romania,mathematics,sd,latest,105.27804,2.5471500000000002
+Table I.B1.2a.3,Romania,mathematics,p10,latest,285.16577,4.08511
+Table I.B1.2a.3,Romania,mathematics,p25,latest,342.15718000000004,4.20751
+Table I.B1.2a.3,Romania,mathematics,p50,latest,414.82845000000003,5.06916
+Table I.B1.2a.3,Romania,mathematics,p75,latest,491.73911000000004,6.640960000000001
+Table I.B1.2a.3,Romania,mathematics,p90,latest,560.75819,7.28277
+Table I.B1.2a.3,Rwanda,mathematics,mean,latest,311.64827,3.02509
+Table I.B1.2a.3,Rwanda,mathematics,sd,latest,67.42151000000001,2.1216500000000003
+Table I.B1.2a.3,Rwanda,mathematics,p10,latest,234.17480000000003,1.9455000000000002
+Table I.B1.2a.3,Rwanda,mathematics,p25,latest,263.96907000000004,2.07154
+Table I.B1.2a.3,Rwanda,mathematics,p50,latest,302.08666000000005,2.6163100000000004
+Table I.B1.2a.3,Rwanda,mathematics,p75,latest,349.73306,4.6915000000000004
+Table I.B1.2a.3,Rwanda,mathematics,p90,latest,406.18164,6.6341600000000005
+Table I.B1.2a.3,Saudi Arabia,mathematics,mean,latest,389.88586000000004,2.40002
+Table I.B1.2a.3,Saudi Arabia,mathematics,sd,latest,71.35391,1.5014900000000002
+Table I.B1.2a.3,Saudi Arabia,mathematics,p10,latest,301.47097,2.32852
+Table I.B1.2a.3,Saudi Arabia,mathematics,p25,latest,339.14622,2.3491400000000002
+Table I.B1.2a.3,Saudi Arabia,mathematics,p50,latest,385.96552,2.4727
+Table I.B1.2a.3,Saudi Arabia,mathematics,p75,latest,436.02446000000003,2.99797
+Table I.B1.2a.3,Saudi Arabia,mathematics,p90,latest,484.27125000000007,4.39876
+Table I.B1.2a.3,Serbia,mathematics,mean,latest,416.7354,2.9969
+Table I.B1.2a.3,Serbia,mathematics,sd,latest,91.73475,1.5223700000000002
+Table I.B1.2a.3,Serbia,mathematics,p10,latest,300.46862000000004,3.2117000000000004
+Table I.B1.2a.3,Serbia,mathematics,p25,latest,349.67199000000005,3.33834
+Table I.B1.2a.3,Serbia,mathematics,p50,latest,413.17074,3.9287400000000003
+Table I.B1.2a.3,Serbia,mathematics,p75,latest,479.50708000000003,3.6969600000000002
+Table I.B1.2a.3,Serbia,mathematics,p90,latest,537.2989,4.24188
+Table I.B1.2a.3,Singapore,mathematics,mean,latest,562.8974800000001,1.5715500000000002
+Table I.B1.2a.3,Singapore,mathematics,sd,latest,108.5528,1.03424
+Table I.B1.2a.3,Singapore,mathematics,p10,latest,411.82392000000004,3.7898300000000003
+Table I.B1.2a.3,Singapore,mathematics,p25,latest,491.02925000000005,2.63917
+Table I.B1.2a.3,Singapore,mathematics,p50,latest,572.9355,2.2539100000000003
+Table I.B1.2a.3,Singapore,mathematics,p75,latest,641.6266800000001,2.16224
+Table I.B1.2a.3,Singapore,mathematics,p90,latest,695.3632600000001,2.4108400000000003
+Table I.B1.2a.3,Slovak Republic,mathematics,mean,latest,469.09830000000005,2.4458200000000003
+Table I.B1.2a.3,Slovak Republic,mathematics,sd,latest,103.82614000000001,1.7576600000000002
+Table I.B1.2a.3,Slovak Republic,mathematics,p10,latest,330.22021,4.56189
+Table I.B1.2a.3,Slovak Republic,mathematics,p25,latest,395.6779,3.5891400000000004
+Table I.B1.2a.3,Slovak Republic,mathematics,p50,latest,471.89646000000005,3.1295100000000002
+Table I.B1.2a.3,Slovak Republic,mathematics,p75,latest,542.5854,3.23489
+Table I.B1.2a.3,Slovak Republic,mathematics,p90,latest,601.84297,3.6393600000000004
+Table I.B1.2a.3,Slovenia,mathematics,mean,latest,459.83559,1.18578
+Table I.B1.2a.3,Slovenia,mathematics,sd,latest,93.19643,1.04035
+Table I.B1.2a.3,Slovenia,mathematics,p10,latest,337.76550000000003,2.40084
+Table I.B1.2a.3,Slovenia,mathematics,p25,latest,392.33671000000004,2.1659300000000004
+Table I.B1.2a.3,Slovenia,mathematics,p50,latest,459.04967000000005,1.7423600000000001
+Table I.B1.2a.3,Slovenia,mathematics,p75,latest,525.7941900000001,1.73903
+Table I.B1.2a.3,Slovenia,mathematics,p90,latest,582.1115000000001,3.0784200000000004
+Table I.B1.2a.3,Spain,mathematics,mean,latest,457.44885000000005,1.6868200000000002
+Table I.B1.2a.3,Spain,mathematics,sd,latest,86.91537000000001,0.80949
+Table I.B1.2a.3,Spain,mathematics,p10,latest,341.89456,2.74806
+Table I.B1.2a.3,Spain,mathematics,p25,latest,397.10583,2.3774
+Table I.B1.2a.3,Spain,mathematics,p50,latest,459.58474,1.8089400000000002
+Table I.B1.2a.3,Spain,mathematics,p75,latest,518.53039,1.7605300000000002
+Table I.B1.2a.3,Spain,mathematics,p90,latest,569.18147,1.76438
+Table I.B1.2a.3,Sweden,mathematics,mean,latest,464.25122000000005,2.5086600000000003
+Table I.B1.2a.3,Sweden,mathematics,sd,latest,98.19586000000001,1.1344
+Table I.B1.2a.3,Sweden,mathematics,p10,latest,335.28212,3.2238100000000003
+Table I.B1.2a.3,Sweden,mathematics,p25,latest,393.67105000000004,2.9696700000000003
+Table I.B1.2a.3,Sweden,mathematics,p50,latest,464.56633000000005,3.44361
+Table I.B1.2a.3,Sweden,mathematics,p75,latest,534.1113300000001,3.3368300000000004
+Table I.B1.2a.3,Sweden,mathematics,p90,latest,593.51481,3.5306200000000003
+Table I.B1.2a.3,Switzerland,mathematics,mean,latest,499.14704000000006,2.59294
+Table I.B1.2a.3,Switzerland,mathematics,sd,latest,101.1028,1.3511700000000002
+Table I.B1.2a.3,Switzerland,mathematics,p10,latest,367.13748000000004,3.2552900000000005
+Table I.B1.2a.3,Switzerland,mathematics,p25,latest,425.61573000000004,3.0314
+Table I.B1.2a.3,Switzerland,mathematics,p50,latest,498.34309,3.3354100000000004
+Table I.B1.2a.3,Switzerland,mathematics,p75,latest,572.02237,3.52035
+Table I.B1.2a.3,Switzerland,mathematics,p90,latest,631.0793100000001,3.5228400000000004
+Table I.B1.2a.3,Chinese Taipei,mathematics,mean,latest,546.18912,3.1154400000000004
+Table I.B1.2a.3,Chinese Taipei,mathematics,sd,latest,113.08131000000002,1.57031
+Table I.B1.2a.3,Chinese Taipei,mathematics,p10,latest,391.23193000000003,4.9328
+Table I.B1.2a.3,Chinese Taipei,mathematics,p25,latest,470.36894000000007,4.2357700000000005
+Table I.B1.2a.3,Chinese Taipei,mathematics,p50,latest,553.9673200000001,3.75727
+Table I.B1.2a.3,Chinese Taipei,mathematics,p75,latest,627.9401200000001,3.3616500000000005
+Table I.B1.2a.3,Chinese Taipei,mathematics,p90,latest,686.55487,3.91116
+Table I.B1.2a.3,Thailand,mathematics,mean,latest,406.76478000000003,2.87827
+Table I.B1.2a.3,Thailand,mathematics,sd,latest,76.46857,1.2995100000000002
+Table I.B1.2a.3,Thailand,mathematics,p10,latest,313.02246,2.7032100000000003
+Table I.B1.2a.3,Thailand,mathematics,p25,latest,352.30542,2.58156
+Table I.B1.2a.3,Thailand,mathematics,p50,latest,401.16974000000005,3.2368
+Table I.B1.2a.3,Thailand,mathematics,p75,latest,456.70187000000004,4.03502
+Table I.B1.2a.3,Thailand,mathematics,p90,latest,508.59791000000007,4.5772200000000005
+Table I.B1.2a.3,Türkiye,mathematics,mean,latest,461.54657000000003,2.39744
+Table I.B1.2a.3,Türkiye,mathematics,sd,latest,97.09190000000001,1.4465100000000002
+Table I.B1.2a.3,Türkiye,mathematics,p10,latest,338.91157000000004,3.71795
+Table I.B1.2a.3,Türkiye,mathematics,p25,latest,391.06242000000003,3.181
+Table I.B1.2a.3,Türkiye,mathematics,p50,latest,456.49141000000003,2.87467
+Table I.B1.2a.3,Türkiye,mathematics,p75,latest,527.82547,3.0354200000000002
+Table I.B1.2a.3,Türkiye,mathematics,p90,latest,593.9891100000001,3.4674300000000002
+Table I.B1.2a.3,Ukrainian regions (17 of 27),mathematics,mean,latest,430.99203000000006,2.55628
+Table I.B1.2a.3,Ukrainian regions (17 of 27),mathematics,sd,latest,88.68146,1.4655
+Table I.B1.2a.3,Ukrainian regions (17 of 27),mathematics,p10,latest,317.40107,3.4836400000000003
+Table I.B1.2a.3,Ukrainian regions (17 of 27),mathematics,p25,latest,368.70998000000003,3.01962
+Table I.B1.2a.3,Ukrainian regions (17 of 27),mathematics,p50,latest,429.38937000000004,2.86119
+Table I.B1.2a.3,Ukrainian regions (17 of 27),mathematics,p75,latest,491.19626000000005,3.04179
+Table I.B1.2a.3,Ukrainian regions (17 of 27),mathematics,p90,latest,546.7167300000001,3.7465100000000002
+Table I.B1.2a.3,United Arab Emirates,mathematics,mean,latest,452.58868,2.15876
+Table I.B1.2a.3,United Arab Emirates,mathematics,sd,latest,102.22658000000001,0.6036400000000001
+Table I.B1.2a.3,United Arab Emirates,mathematics,p10,latest,321.37584000000004,1.9006800000000001
+Table I.B1.2a.3,United Arab Emirates,mathematics,p25,latest,377.11434,2.52604
+Table I.B1.2a.3,United Arab Emirates,mathematics,p50,latest,450.02257000000003,3.2886300000000004
+Table I.B1.2a.3,United Arab Emirates,mathematics,p75,latest,525.1740900000001,2.60212
+Table I.B1.2a.3,United Arab Emirates,mathematics,p90,latest,587.72473,1.8587600000000002
+Table I.B1.2a.3,United Kingdom,mathematics,mean,latest,487.57374000000004,2.1993
+Table I.B1.2a.3,United Kingdom,mathematics,sd,latest,101.70336,1.39429
+Table I.B1.2a.3,United Kingdom,mathematics,p10,latest,356.38550000000004,2.6990600000000002
+Table I.B1.2a.3,United Kingdom,mathematics,p25,latest,415.59139000000005,2.4090100000000003
+Table I.B1.2a.3,United Kingdom,mathematics,p50,latest,484.84444,2.39752
+Table I.B1.2a.3,United Kingdom,mathematics,p75,latest,556.8668100000001,3.00719
+Table I.B1.2a.3,United Kingdom,mathematics,p90,latest,621.87392,3.9541900000000005
+Table I.B1.2a.3,United States*,mathematics,mean,latest,462.84782,5.39684
+Table I.B1.2a.3,United States*,mathematics,sd,latest,101.10089,3.56868
+Table I.B1.2a.3,United States*,mathematics,p10,latest,334.37874000000005,5.01672
+Table I.B1.2a.3,United States*,mathematics,p25,latest,391.10671,4.74113
+Table I.B1.2a.3,United States*,mathematics,p50,latest,459.49639,5.627610000000001
+Table I.B1.2a.3,United States*,mathematics,p75,latest,532.6327100000001,6.67839
+Table I.B1.2a.3,United States*,mathematics,p90,latest,594.5248,9.452240000000002
+Table I.B1.2a.3,Uruguay,mathematics,mean,latest,404.87885000000006,1.9451800000000001
+Table I.B1.2a.3,Uruguay,mathematics,sd,latest,85.19134000000001,1.122
+Table I.B1.2a.3,Uruguay,mathematics,p10,latest,296.77921000000003,2.5690500000000003
+Table I.B1.2a.3,Uruguay,mathematics,p25,latest,344.17276000000004,2.13037
+Table I.B1.2a.3,Uruguay,mathematics,p50,latest,401.91119000000003,2.3775000000000004
+Table I.B1.2a.3,Uruguay,mathematics,p75,latest,462.96735,2.7485700000000004
+Table I.B1.2a.3,Uruguay,mathematics,p90,latest,517.12044,2.7860600000000004
+Table I.B1.2a.3,Viet Nam,mathematics,mean,latest,443.18598000000003,4.24258
+Table I.B1.2a.3,Viet Nam,mathematics,sd,latest,87.47735,2.06562
+Table I.B1.2a.3,Viet Nam,mathematics,p10,latest,334.90000000000003,4.449350000000001
+Table I.B1.2a.3,Viet Nam,mathematics,p25,latest,381.39719,4.51253
+Table I.B1.2a.3,Viet Nam,mathematics,p50,latest,437.73318000000006,4.675540000000001
+Table I.B1.2a.3,Viet Nam,mathematics,p75,latest,500.8065,5.3836
+Table I.B1.2a.3,Viet Nam,mathematics,p90,latest,560.6581100000001,5.62136
+Table I.B1.2a.3,Zambia,mathematics,mean,latest,313.63332,9.27476
+Table I.B1.2a.3,Zambia,mathematics,sd,latest,90.36403000000001,4.906420000000001
+Table I.B1.2a.3,Zambia,mathematics,p10,latest,209.64693000000003,3.66678
+Table I.B1.2a.3,Zambia,mathematics,p25,latest,244.80495000000002,5.484590000000001
+Table I.B1.2a.3,Zambia,mathematics,p50,latest,296.44342,9.85956
+Table I.B1.2a.3,Zambia,mathematics,p75,latest,374.19539000000003,17.83799
+Table I.B1.2a.3,Zambia,mathematics,p90,latest,448.35533000000004,15.14929

@@ -1,0 +1,112 @@
+{
+  "input_sha256": "14e958538fc68dc4bf25b47ad11c4f3f90035873aa96616925e5cea0af242fb8",
+  "label_assertions_passed": [
+    "Table I.B1.2a.1: found header 'Mean score' at column 2",
+    "Table I.B1.2a.1: found header 'Standard deviation' at column 4",
+    "Table I.B1.2a.1: found percentile 'p10' (10th) at column 6",
+    "Table I.B1.2a.1: found percentile 'p25' (25th) at column 8",
+    "Table I.B1.2a.1: found percentile 'p50' (50th) at column 10",
+    "Table I.B1.2a.1: found percentile 'p75' (75th) at column 12",
+    "Table I.B1.2a.1: found percentile 'p90' (90th) at column 14",
+    "Table I.B1.2a.1: verified 93 subjects found including Indonesia",
+    "Table I.B1.2a.2: found header 'Mean score' at column 2",
+    "Table I.B1.2a.2: found header 'Standard deviation' at column 4",
+    "Table I.B1.2a.2: found percentile 'p10' (10th) at column 6",
+    "Table I.B1.2a.2: found percentile 'p25' (25th) at column 8",
+    "Table I.B1.2a.2: found percentile 'p50' (50th) at column 10",
+    "Table I.B1.2a.2: found percentile 'p75' (75th) at column 12",
+    "Table I.B1.2a.2: found percentile 'p90' (90th) at column 14",
+    "Table I.B1.2a.2: verified 93 subjects found including Indonesia",
+    "Table I.B1.2a.3: found header 'Mean score' at column 2",
+    "Table I.B1.2a.3: found header 'Standard deviation' at column 4",
+    "Table I.B1.2a.3: found percentile 'p10' (10th) at column 6",
+    "Table I.B1.2a.3: found percentile 'p25' (25th) at column 8",
+    "Table I.B1.2a.3: found percentile 'p50' (50th) at column 10",
+    "Table I.B1.2a.3: found percentile 'p75' (75th) at column 12",
+    "Table I.B1.2a.3: found percentile 'p90' (90th) at column 14",
+    "Table I.B1.2a.3: verified 93 subjects found including Indonesia",
+    "Table I.B1.2a.10: found 8 proficiency bands (level_below_1b, level_1b, level_1a, level_2, level_3, level_4, level_5, level_6)",
+    "Table I.B1.2a.10: verified 93 subjects found including Indonesia",
+    "Table I.B1.2a.11: found 9 proficiency bands (level_below_1c, level_1c, level_1b, level_1a, level_2, level_3, level_4, level_5, level_6)",
+    "Table I.B1.2a.11: verified 93 subjects found including Indonesia",
+    "Table I.B1.2a.12: found 9 proficiency bands (level_below_1c, level_1c, level_1b, level_1a, level_2, level_3, level_4, level_5, level_6)",
+    "Table I.B1.2a.12: verified 93 subjects found including Indonesia",
+    "Table I.B1.2a.33: found lowtop columns for cycles [2006, 2009, 2012, 2015, 2018, 2022, 2025]",
+    "Table I.B1.2a.33: verified 94 subjects found including Indonesia and OECD average-23",
+    "Table I.B1.2a.34: found lowtop columns for cycles [2000, 2003, 2006, 2009, 2012, 2015, 2018, 2022, 2025]",
+    "Table I.B1.2a.34: verified 94 subjects found including Indonesia and OECD average-23",
+    "Table I.B1.2a.35: found lowtop columns for cycles [2003, 2006, 2009, 2012, 2015, 2018, 2022, 2025]",
+    "Table I.B1.2a.35: verified 94 subjects found including Indonesia and OECD average-23",
+    "Table I.B1.2a.36: found trend science columns for cycles [2006, 2009, 2012, 2015, 2018, 2022, 2025]",
+    "Table I.B1.2a.36: verified 94 subjects found including Indonesia and OECD average-23",
+    "Table I.B1.2a.25: found 'total_variance' at column 6",
+    "Table I.B1.2a.25: found 'between_school_variance' at column 8",
+    "Table I.B1.2a.25: found 'within_school_variance' at column 10",
+    "Table I.B1.2a.25: found 'between_school_pct_of_oecd_average' at column 13",
+    "Table I.B1.2a.25: verified 92 subjects found including Indonesia"
+  ],
+  "provenance": {
+    "licence": "CC BY 4.0",
+    "sha256": "14e958538fc68dc4bf25b47ad11c4f3f90035873aa96616925e5cea0af242fb8",
+    "source_url": "https://stat.link/files/73451bc5-en/mrq53f.xlsx"
+  },
+  "row_counts": {
+    "Table I.B1.2a.1": 651,
+    "Table I.B1.2a.10": 744,
+    "Table I.B1.2a.11": 828,
+    "Table I.B1.2a.12": 828,
+    "Table I.B1.2a.2": 644,
+    "Table I.B1.2a.25": 368,
+    "Table I.B1.2a.3": 644,
+    "Table I.B1.2a.33": 992,
+    "Table I.B1.2a.34": 1140,
+    "Table I.B1.2a.35": 1074,
+    "Table I.B1.2a.36": 496
+  },
+  "skipped_counts": {
+    "Table I.B1.2a.1": {
+      "c": 0,
+      "m": 0
+    },
+    "Table I.B1.2a.10": {
+      "c": 0,
+      "m": 0
+    },
+    "Table I.B1.2a.11": {
+      "c": 0,
+      "m": 9
+    },
+    "Table I.B1.2a.12": {
+      "c": 0,
+      "m": 9
+    },
+    "Table I.B1.2a.2": {
+      "c": 0,
+      "m": 7
+    },
+    "Table I.B1.2a.25": {
+      "c": 0,
+      "m": 0
+    },
+    "Table I.B1.2a.3": {
+      "c": 0,
+      "m": 7
+    },
+    "Table I.B1.2a.33": {
+      "c": 0,
+      "m": 324
+    },
+    "Table I.B1.2a.34": {
+      "c": 0,
+      "m": 552
+    },
+    "Table I.B1.2a.35": {
+      "c": 0,
+      "m": 430
+    },
+    "Table I.B1.2a.36": {
+      "c": 0,
+      "m": 162
+    }
+  }
+}

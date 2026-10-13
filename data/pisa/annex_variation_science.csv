@@ -1,0 +1,369 @@
+table,subject,domain,stat,cycle,value,se
+Table I.B1.2a.25,OECD average,science,total_variance,latest,9702.48011,47.07499000000001
+Table I.B1.2a.25,OECD average,science,between_school_variance,latest,3033.70182,55.647310000000004
+Table I.B1.2a.25,OECD average,science,within_school_variance,latest,6669.85835,32.13308
+Table I.B1.2a.25,OECD average,science,between_school_pct_of_oecd_average,latest,31.267280000000003,
+Table I.B1.2a.25,Albania*,science,total_variance,latest,6587.52612,175.79791
+Table I.B1.2a.25,Albania*,science,between_school_variance,latest,2198.5862300000003,303.01102000000003
+Table I.B1.2a.25,Albania*,science,within_school_variance,latest,4426.774740000001,122.28678000000001
+Table I.B1.2a.25,Albania*,science,between_school_pct_of_oecd_average,latest,22.660040000000002,
+Table I.B1.2a.25,Argentina,science,total_variance,latest,8479.63111,299.69550000000004
+Table I.B1.2a.25,Argentina,science,between_school_variance,latest,3506.7662900000005,346.98818000000006
+Table I.B1.2a.25,Argentina,science,within_school_variance,latest,5006.28235,128.37815
+Table I.B1.2a.25,Argentina,science,between_school_pct_of_oecd_average,latest,36.142990000000005,
+Table I.B1.2a.25,Armenia,science,total_variance,latest,5660.27826,143.15050000000002
+Table I.B1.2a.25,Armenia,science,between_school_variance,latest,1368.7734600000001,233.72261000000003
+Table I.B1.2a.25,Armenia,science,within_school_variance,latest,4384.6607,100.12618
+Table I.B1.2a.25,Armenia,science,between_school_pct_of_oecd_average,latest,14.107460000000001,
+Table I.B1.2a.25,Australia,science,total_variance,latest,10986.841970000001,168.70756
+Table I.B1.2a.25,Australia,science,between_school_variance,latest,2271.6174300000002,180.92044
+Table I.B1.2a.25,Australia,science,within_school_variance,latest,8710.88456,132.15352000000001
+Table I.B1.2a.25,Australia,science,between_school_pct_of_oecd_average,latest,23.412750000000003,
+Table I.B1.2a.25,Austria,science,total_variance,latest,9385.834420000001,235.5362
+Table I.B1.2a.25,Austria,science,between_school_variance,latest,4021.28553,327.29758000000004
+Table I.B1.2a.25,Austria,science,within_school_variance,latest,5376.682030000001,148.29671000000002
+Table I.B1.2a.25,Austria,science,between_school_pct_of_oecd_average,latest,41.44595,
+Table I.B1.2a.25,Azerbaijan,science,total_variance,latest,8221.017080000001,309.53786
+Table I.B1.2a.25,Azerbaijan,science,between_school_variance,latest,2680.74632,339.1738
+Table I.B1.2a.25,Azerbaijan,science,within_school_variance,latest,5556.54315,117.77078000000002
+Table I.B1.2a.25,Azerbaijan,science,between_school_pct_of_oecd_average,latest,27.629500000000004,
+Table I.B1.2a.25,Belgium,science,total_variance,latest,9880.111980000001,322.36899000000005
+Table I.B1.2a.25,Belgium,science,between_school_variance,latest,3963.7805300000005,335.02524000000005
+Table I.B1.2a.25,Belgium,science,within_school_variance,latest,5923.72915,167.44968
+Table I.B1.2a.25,Belgium,science,between_school_pct_of_oecd_average,latest,40.85327,
+Table I.B1.2a.25,Brazil,science,total_variance,latest,8475.445650000001,229.74008
+Table I.B1.2a.25,Brazil,science,between_school_variance,latest,3322.1545,257.88113000000004
+Table I.B1.2a.25,Brazil,science,within_school_variance,latest,5146.197660000001,77.2106
+Table I.B1.2a.25,Brazil,science,between_school_pct_of_oecd_average,latest,34.24026,
+Table I.B1.2a.25,Brunei Darussalam,science,total_variance,latest,8577.48287,129.21129000000002
+Table I.B1.2a.25,Brunei Darussalam,science,between_school_variance,latest,2575.1969400000003,610.76247
+Table I.B1.2a.25,Brunei Darussalam,science,within_school_variance,latest,5864.28405,283.21776
+Table I.B1.2a.25,Brunei Darussalam,science,between_school_pct_of_oecd_average,latest,26.54164,
+Table I.B1.2a.25,B-S-J-Z (China),science,total_variance,latest,7710.796880000001,260.7316
+Table I.B1.2a.25,B-S-J-Z (China),science,between_school_variance,latest,3339.1937300000004,314.20754000000005
+Table I.B1.2a.25,B-S-J-Z (China),science,within_school_variance,latest,4352.671020000001,116.76798000000001
+Table I.B1.2a.25,B-S-J-Z (China),science,between_school_pct_of_oecd_average,latest,34.41588,
+Table I.B1.2a.25,Bulgaria,science,total_variance,latest,11298.296670000002,515.43712
+Table I.B1.2a.25,Bulgaria,science,between_school_variance,latest,6473.645570000001,585.09695
+Table I.B1.2a.25,Bulgaria,science,within_school_variance,latest,4864.699320000001,125.31316000000001
+Table I.B1.2a.25,Bulgaria,science,between_school_pct_of_oecd_average,latest,66.72156000000001,
+Table I.B1.2a.25,Cambodia,science,total_variance,latest,3981.29064,141.84898
+Table I.B1.2a.25,Cambodia,science,between_school_variance,latest,740.9397600000001,120.58696
+Table I.B1.2a.25,Cambodia,science,within_school_variance,latest,3227.8771500000003,90.71825000000001
+Table I.B1.2a.25,Cambodia,science,between_school_pct_of_oecd_average,latest,7.6366000000000005,
+Table I.B1.2a.25,Canada*,science,total_variance,latest,9678.29882,183.44297
+Table I.B1.2a.25,Canada*,science,between_school_variance,latest,1486.19721,135.16973000000002
+Table I.B1.2a.25,Canada*,science,within_school_variance,latest,8178.207340000001,125.00888
+Table I.B1.2a.25,Canada*,science,between_school_pct_of_oecd_average,latest,15.317700000000002,
+Table I.B1.2a.25,Chile,science,total_variance,latest,7636.246470000001,221.23817000000003
+Table I.B1.2a.25,Chile,science,between_school_variance,latest,2159.65983,202.93057000000002
+Table I.B1.2a.25,Chile,science,within_school_variance,latest,5481.08758,127.5348
+Table I.B1.2a.25,Chile,science,between_school_pct_of_oecd_average,latest,22.258840000000003,
+Table I.B1.2a.25,Colombia,science,total_variance,latest,8037.329310000001,293.03914000000003
+Table I.B1.2a.25,Colombia,science,between_school_variance,latest,3075.2484600000003,322.99956000000003
+Table I.B1.2a.25,Colombia,science,within_school_variance,latest,4943.968150000001,129.78958
+Table I.B1.2a.25,Colombia,science,between_school_pct_of_oecd_average,latest,31.695490000000003,
+Table I.B1.2a.25,Costa Rica,science,total_variance,latest,6104.8952500000005,200.45640000000003
+Table I.B1.2a.25,Costa Rica,science,between_school_variance,latest,1902.3580600000003,237.2931
+Table I.B1.2a.25,Costa Rica,science,within_school_variance,latest,4175.7717,98.25461000000001
+Table I.B1.2a.25,Costa Rica,science,between_school_pct_of_oecd_average,latest,19.606930000000002,
+Table I.B1.2a.25,Croatia,science,total_variance,latest,8928.379840000001,198.92564000000002
+Table I.B1.2a.25,Croatia,science,between_school_variance,latest,4245.76126,343.13691
+Table I.B1.2a.25,Croatia,science,within_school_variance,latest,4690.630550000001,137.25162
+Table I.B1.2a.25,Croatia,science,between_school_pct_of_oecd_average,latest,43.75954,
+Table I.B1.2a.25,Cyprus,science,total_variance,latest,12006.61671,242.00581000000003
+Table I.B1.2a.25,Cyprus,science,between_school_variance,latest,2899.1445900000003,590.85834
+Table I.B1.2a.25,Cyprus,science,within_school_variance,latest,9192.52477,252.34224000000003
+Table I.B1.2a.25,Cyprus,science,between_school_pct_of_oecd_average,latest,29.880450000000003,
+Table I.B1.2a.25,Czechia,science,total_variance,latest,9337.23499,312.84162000000003
+Table I.B1.2a.25,Czechia,science,between_school_variance,latest,4041.7430700000004,339.49762000000004
+Table I.B1.2a.25,Czechia,science,within_school_variance,latest,5125.7493,123.33383
+Table I.B1.2a.25,Czechia,science,between_school_pct_of_oecd_average,latest,41.656800000000004,
+Table I.B1.2a.25,Denmark,science,total_variance,latest,9154.40148,248.40998000000002
+Table I.B1.2a.25,Denmark,science,between_school_variance,latest,1195.9297100000001,165.43653
+Table I.B1.2a.25,Denmark,science,within_school_variance,latest,7996.43594,243.00973000000002
+Table I.B1.2a.25,Denmark,science,between_school_pct_of_oecd_average,latest,12.326020000000002,
+Table I.B1.2a.25,Dominican Republic,science,total_variance,latest,5754.299730000001,167.56466
+Table I.B1.2a.25,Dominican Republic,science,between_school_variance,latest,1824.54202,184.29225000000002
+Table I.B1.2a.25,Dominican Republic,science,within_school_variance,latest,3902.9656700000005,89.88593
+Table I.B1.2a.25,Dominican Republic,science,between_school_pct_of_oecd_average,latest,18.8049,
+Table I.B1.2a.25,Dushanbe (Tajikistan),science,total_variance,latest,4147.6435,161.34401000000003
+Table I.B1.2a.25,Dushanbe (Tajikistan),science,between_school_variance,latest,1098.47873,186.09784000000002
+Table I.B1.2a.25,Dushanbe (Tajikistan),science,within_school_variance,latest,3014.1935700000004,110.38795
+Table I.B1.2a.25,Dushanbe (Tajikistan),science,between_school_pct_of_oecd_average,latest,11.32163,
+Table I.B1.2a.25,Ecuador,science,total_variance,latest,5758.924620000001,201.87578000000002
+Table I.B1.2a.25,Ecuador,science,between_school_variance,latest,2130.86283,279.07035
+Table I.B1.2a.25,Ecuador,science,within_school_variance,latest,3634.3982300000002,75.46831
+Table I.B1.2a.25,Ecuador,science,between_school_pct_of_oecd_average,latest,21.962040000000002,
+Table I.B1.2a.25,El Salvador,science,total_variance,latest,5881.33392,230.34760000000003
+Table I.B1.2a.25,El Salvador,science,between_school_variance,latest,2020.7249000000002,260.17235
+Table I.B1.2a.25,El Salvador,science,within_school_variance,latest,3984.3675200000002,93.77893
+Table I.B1.2a.25,El Salvador,science,between_school_pct_of_oecd_average,latest,20.826890000000002,
+Table I.B1.2a.25,Estonia,science,total_variance,latest,7817.0239200000005,190.83679
+Table I.B1.2a.25,Estonia,science,between_school_variance,latest,1473.6583200000002,220.64207000000002
+Table I.B1.2a.25,Estonia,science,within_school_variance,latest,6350.72195,142.74616
+Table I.B1.2a.25,Estonia,science,between_school_pct_of_oecd_average,latest,15.18847,
+Table I.B1.2a.25,Finland,science,total_variance,latest,11017.894950000002,228.41521000000003
+Table I.B1.2a.25,Finland,science,between_school_variance,latest,787.8737000000001,115.96415
+Table I.B1.2a.25,Finland,science,within_school_variance,latest,10280.25173,210.73514000000003
+Table I.B1.2a.25,Finland,science,between_school_pct_of_oecd_average,latest,8.120330000000001,
+Table I.B1.2a.25,France,science,total_variance,latest,10050.242160000002,297.78809
+Table I.B1.2a.25,France,science,between_school_variance,latest,3783.71448,357.18328
+Table I.B1.2a.25,France,science,within_school_variance,latest,6261.226960000001,171.58521000000002
+Table I.B1.2a.25,France,science,between_school_pct_of_oecd_average,latest,38.99739,
+Table I.B1.2a.25,Georgia,science,total_variance,latest,7311.640310000001,314.24942000000004
+Table I.B1.2a.25,Georgia,science,between_school_variance,latest,1972.0662900000002,352.82888
+Table I.B1.2a.25,Georgia,science,within_school_variance,latest,5483.60947,135.15783000000002
+Table I.B1.2a.25,Georgia,science,between_school_pct_of_oecd_average,latest,20.325380000000003,
+Table I.B1.2a.25,Germany,science,total_variance,latest,11958.048710000001,323.30407
+Table I.B1.2a.25,Germany,science,between_school_variance,latest,6047.61415,394.93502
+Table I.B1.2a.25,Germany,science,within_school_variance,latest,5880.392430000001,141.0847
+Table I.B1.2a.25,Germany,science,between_school_pct_of_oecd_average,latest,62.330600000000004,
+Table I.B1.2a.25,Greece,science,total_variance,latest,8372.221580000001,265.52135000000004
+Table I.B1.2a.25,Greece,science,between_school_variance,latest,2222.26155,275.99532000000005
+Table I.B1.2a.25,Greece,science,within_school_variance,latest,6174.5652900000005,152.9376
+Table I.B1.2a.25,Greece,science,between_school_pct_of_oecd_average,latest,22.90406,
+Table I.B1.2a.25,Guatemala,science,total_variance,latest,5329.7897,257.95937000000004
+Table I.B1.2a.25,Guatemala,science,between_school_variance,latest,2231.89789,256.54948
+Table I.B1.2a.25,Guatemala,science,within_school_variance,latest,3118.9564800000003,78.15847000000001
+Table I.B1.2a.25,Guatemala,science,between_school_pct_of_oecd_average,latest,23.003380000000003,
+Table I.B1.2a.25,Hong Kong (China),science,total_variance,latest,10591.350460000001,324.59874
+Table I.B1.2a.25,Hong Kong (China),science,between_school_variance,latest,3169.62856,343.31297
+Table I.B1.2a.25,Hong Kong (China),science,within_school_variance,latest,7417.12459,184.45215000000002
+Table I.B1.2a.25,Hong Kong (China),science,between_school_pct_of_oecd_average,latest,32.66823,
+Table I.B1.2a.25,Hungary,science,total_variance,latest,8424.990220000002,366.53162000000003
+Table I.B1.2a.25,Hungary,science,between_school_variance,latest,4495.13943,473.97901
+Table I.B1.2a.25,Hungary,science,within_school_variance,latest,3959.57776,93.72682
+Table I.B1.2a.25,Hungary,science,between_school_pct_of_oecd_average,latest,46.329800000000006,
+Table I.B1.2a.25,Iceland,science,total_variance,latest,9600.942560000001,236.46849000000003
+Table I.B1.2a.25,Iceland,science,between_school_variance,latest,664.8837900000001,120.80101
+Table I.B1.2a.25,Iceland,science,within_school_variance,latest,9251.99307,519.59033
+Table I.B1.2a.25,Iceland,science,between_school_pct_of_oecd_average,latest,6.852720000000001,
+Table I.B1.2a.25,Indonesia,science,total_variance,latest,4495.87431,170.25060000000002
+Table I.B1.2a.25,Indonesia,science,between_school_variance,latest,1453.9398,159.88471
+Table I.B1.2a.25,Indonesia,science,within_school_variance,latest,3028.1804700000002,66.56536000000001
+Table I.B1.2a.25,Indonesia,science,between_school_pct_of_oecd_average,latest,14.985240000000001,
+Table I.B1.2a.25,Ireland,science,total_variance,latest,8666.27007,187.99068000000003
+Table I.B1.2a.25,Ireland,science,between_school_variance,latest,1253.13263,151.48829
+Table I.B1.2a.25,Ireland,science,within_school_variance,latest,7377.54589,168.23117000000002
+Table I.B1.2a.25,Ireland,science,between_school_pct_of_oecd_average,latest,12.915590000000002,
+Table I.B1.2a.25,Israel,science,total_variance,latest,12378.13277,345.65493000000004
+Table I.B1.2a.25,Israel,science,between_school_variance,latest,3848.79568,391.76726
+Table I.B1.2a.25,Israel,science,within_school_variance,latest,8654.385690000001,243.72512000000003
+Table I.B1.2a.25,Israel,science,between_school_pct_of_oecd_average,latest,39.66816,
+Table I.B1.2a.25,Italy,science,total_variance,latest,8373.63462,228.58435000000003
+Table I.B1.2a.25,Italy,science,between_school_variance,latest,3416.3006100000002,300.18467000000004
+Table I.B1.2a.25,Italy,science,within_school_variance,latest,4946.97966,115.89016000000001
+Table I.B1.2a.25,Italy,science,between_school_pct_of_oecd_average,latest,35.21059,
+Table I.B1.2a.25,Japan,science,total_variance,latest,9941.873160000001,439.35605000000004
+Table I.B1.2a.25,Japan,science,between_school_variance,latest,4644.0482600000005,465.34454000000005
+Table I.B1.2a.25,Japan,science,within_school_variance,latest,5260.42355,163.47744
+Table I.B1.2a.25,Japan,science,between_school_pct_of_oecd_average,latest,47.86455,
+Table I.B1.2a.25,Jordan,science,total_variance,latest,6283.13834,189.20345
+Table I.B1.2a.25,Jordan,science,between_school_variance,latest,1622.37489,167.90539
+Table I.B1.2a.25,Jordan,science,within_school_variance,latest,4683.3067200000005,117.40571000000001
+Table I.B1.2a.25,Jordan,science,between_school_pct_of_oecd_average,latest,16.72124,
+Table I.B1.2a.25,Kazakhstan,science,total_variance,latest,6028.0061000000005,114.64157000000002
+Table I.B1.2a.25,Kazakhstan,science,between_school_variance,latest,1909.68602,140.51063000000002
+Table I.B1.2a.25,Kazakhstan,science,within_school_variance,latest,4176.7232,65.43437
+Table I.B1.2a.25,Kazakhstan,science,between_school_pct_of_oecd_average,latest,19.682450000000003,
+Table I.B1.2a.25,Kenya,science,total_variance,latest,5868.945650000001,368.78735
+Table I.B1.2a.25,Kenya,science,between_school_variance,latest,3391.26902,422.38669000000004
+Table I.B1.2a.25,Kenya,science,within_school_variance,latest,2527.90338,66.5104
+Table I.B1.2a.25,Kenya,science,between_school_pct_of_oecd_average,latest,34.952600000000004,
+Table I.B1.2a.25,Korea,science,total_variance,latest,10693.323260000001,334.62052
+Table I.B1.2a.25,Korea,science,between_school_variance,latest,2567.5498000000002,349.42798000000005
+Table I.B1.2a.25,Korea,science,within_school_variance,latest,8107.037960000001,211.11822
+Table I.B1.2a.25,Korea,science,between_school_pct_of_oecd_average,latest,26.46282,
+Table I.B1.2a.25,Kosovo,science,total_variance,latest,4806.99877,115.61049000000001
+Table I.B1.2a.25,Kosovo,science,between_school_variance,latest,1656.86607,284.79008000000005
+Table I.B1.2a.25,Kosovo,science,within_school_variance,latest,3142.43235,114.33148000000001
+Table I.B1.2a.25,Kosovo,science,between_school_pct_of_oecd_average,latest,17.07673,
+Table I.B1.2a.25,Kurdistan Region (Iraq),science,total_variance,latest,4186.56995,142.2491
+Table I.B1.2a.25,Kurdistan Region (Iraq),science,between_school_variance,latest,1513.2760300000002,130.17997
+Table I.B1.2a.25,Kurdistan Region (Iraq),science,within_school_variance,latest,2702.1195700000003,75.3416
+Table I.B1.2a.25,Kurdistan Region (Iraq),science,between_school_pct_of_oecd_average,latest,15.596800000000002,
+Table I.B1.2a.25,Kyrgyzstan,science,total_variance,latest,4635.18047,164.59060000000002
+Table I.B1.2a.25,Kyrgyzstan,science,between_school_variance,latest,1451.95361,181.79095
+Table I.B1.2a.25,Kyrgyzstan,science,within_school_variance,latest,3239.0176600000004,84.53275000000001
+Table I.B1.2a.25,Kyrgyzstan,science,between_school_pct_of_oecd_average,latest,14.964770000000001,
+Table I.B1.2a.25,Latvia,science,total_variance,latest,9074.19362,204.00298
+Table I.B1.2a.25,Latvia,science,between_school_variance,latest,3347.4868600000004,369.02759000000003
+Table I.B1.2a.25,Latvia,science,within_school_variance,latest,5673.27123,133.82564000000002
+Table I.B1.2a.25,Latvia,science,between_school_pct_of_oecd_average,latest,34.50135,
+Table I.B1.2a.25,Lebanon,science,total_variance,latest,9765.62468,395.31957000000006
+Table I.B1.2a.25,Lebanon,science,between_school_variance,latest,4805.79078,463.74987000000004
+Table I.B1.2a.25,Lebanon,science,within_school_variance,latest,4960.780790000001,137.27511
+Table I.B1.2a.25,Lebanon,science,between_school_pct_of_oecd_average,latest,49.53157,
+Table I.B1.2a.25,Lithuania,science,total_variance,latest,7883.06115,217.34598000000003
+Table I.B1.2a.25,Lithuania,science,between_school_variance,latest,2413.3288900000002,316.73565
+Table I.B1.2a.25,Lithuania,science,within_school_variance,latest,5338.769770000001,134.18367
+Table I.B1.2a.25,Lithuania,science,between_school_pct_of_oecd_average,latest,24.873320000000003,
+Table I.B1.2a.25,Luxembourg,science,total_variance,latest,12844.12124,222.57806000000002
+Table I.B1.2a.25,Luxembourg,science,between_school_variance,latest,4171.899350000001,617.4685900000001
+Table I.B1.2a.25,Luxembourg,science,within_school_variance,latest,8819.46254,451.31369000000007
+Table I.B1.2a.25,Luxembourg,science,between_school_pct_of_oecd_average,latest,42.99828,
+Table I.B1.2a.25,Macao (China),science,total_variance,latest,7677.875110000001,137.77141
+Table I.B1.2a.25,Macao (China),science,between_school_variance,latest,2337.7714100000003,470.18593000000004
+Table I.B1.2a.25,Macao (China),science,within_school_variance,latest,5197.630480000001,219.95086
+Table I.B1.2a.25,Macao (China),science,between_school_pct_of_oecd_average,latest,24.09458,
+Table I.B1.2a.25,Malaysia,science,total_variance,latest,6382.899090000001,178.38347000000002
+Table I.B1.2a.25,Malaysia,science,between_school_variance,latest,1677.46054,269.95671000000004
+Table I.B1.2a.25,Malaysia,science,within_school_variance,latest,4672.37788,146.33252000000002
+Table I.B1.2a.25,Malaysia,science,between_school_pct_of_oecd_average,latest,17.288990000000002,
+Table I.B1.2a.25,Malta,science,total_variance,latest,11715.392890000001,265.61648
+Table I.B1.2a.25,Malta,science,between_school_variance,latest,2141.70562,586.20145
+Table I.B1.2a.25,Malta,science,within_school_variance,latest,9623.087570000002,370.72581
+Table I.B1.2a.25,Malta,science,between_school_pct_of_oecd_average,latest,22.073800000000002,
+Table I.B1.2a.25,Mauritius,science,total_variance,latest,10292.49543,457.51561000000004
+Table I.B1.2a.25,Mauritius,science,between_school_variance,latest,4969.503500000001,638.0563800000001
+Table I.B1.2a.25,Mauritius,science,within_school_variance,latest,5278.81523,175.3068
+Table I.B1.2a.25,Mauritius,science,between_school_pct_of_oecd_average,latest,51.218900000000005,
+Table I.B1.2a.25,Mexico,science,total_variance,latest,5365.46983,201.01382
+Table I.B1.2a.25,Mexico,science,between_school_variance,latest,1733.55707,200.86479000000003
+Table I.B1.2a.25,Mexico,science,within_school_variance,latest,3631.2753500000003,87.13547000000001
+Table I.B1.2a.25,Mexico,science,between_school_pct_of_oecd_average,latest,17.867160000000002,
+Table I.B1.2a.25,Moldova,science,total_variance,latest,7617.299500000001,217.48302
+Table I.B1.2a.25,Moldova,science,between_school_variance,latest,2007.2316,222.69586
+Table I.B1.2a.25,Moldova,science,within_school_variance,latest,5665.87063,124.97358000000001
+Table I.B1.2a.25,Moldova,science,between_school_pct_of_oecd_average,latest,20.687820000000002,
+Table I.B1.2a.25,Mongolia,science,total_variance,latest,6605.223150000001,178.94509000000002
+Table I.B1.2a.25,Mongolia,science,between_school_variance,latest,2168.5974100000003,295.71163
+Table I.B1.2a.25,Mongolia,science,within_school_variance,latest,4440.21726,90.29072000000001
+Table I.B1.2a.25,Mongolia,science,between_school_pct_of_oecd_average,latest,22.35096,
+Table I.B1.2a.25,Montenegro,science,total_variance,latest,7817.082410000001,137.01039
+Table I.B1.2a.25,Montenegro,science,between_school_variance,latest,2679.81035,670.8097100000001
+Table I.B1.2a.25,Montenegro,science,within_school_variance,latest,5053.944130000001,205.42888000000002
+Table I.B1.2a.25,Montenegro,science,between_school_pct_of_oecd_average,latest,27.619850000000003,
+Table I.B1.2a.25,Morocco,science,total_variance,latest,5618.4173900000005,280.34331000000003
+Table I.B1.2a.25,Morocco,science,between_school_variance,latest,2105.43487,239.93943000000002
+Table I.B1.2a.25,Morocco,science,within_school_variance,latest,3522.2335100000005,115.63310000000001
+Table I.B1.2a.25,Morocco,science,between_school_pct_of_oecd_average,latest,21.69997,
+Table I.B1.2a.25,Netherlands*,science,total_variance,latest,11933.51784,339.87589
+Table I.B1.2a.25,Netherlands*,science,between_school_variance,latest,6946.82674,465.29054
+Table I.B1.2a.25,Netherlands*,science,within_school_variance,latest,5002.26674,120.95737000000001
+Table I.B1.2a.25,Netherlands*,science,between_school_pct_of_oecd_average,latest,71.59846,
+Table I.B1.2a.25,New Zealand*,science,total_variance,latest,11632.014430000001,244.77056000000002
+Table I.B1.2a.25,New Zealand*,science,between_school_variance,latest,2003.7090200000002,270.02411
+Table I.B1.2a.25,New Zealand*,science,within_school_variance,latest,9636.458900000001,272.92884000000004
+Table I.B1.2a.25,New Zealand*,science,between_school_pct_of_oecd_average,latest,20.651510000000002,
+Table I.B1.2a.25,North Macedonia,science,total_variance,latest,7892.508280000001,148.10799
+Table I.B1.2a.25,North Macedonia,science,between_school_variance,latest,2734.2573500000003,450.95220000000006
+Table I.B1.2a.25,North Macedonia,science,within_school_variance,latest,5192.498310000001,161.44018000000003
+Table I.B1.2a.25,North Macedonia,science,between_school_pct_of_oecd_average,latest,28.181020000000004,
+Table I.B1.2a.25,Norway*,science,total_variance,latest,10438.489090000001,210.22405
+Table I.B1.2a.25,Norway*,science,between_school_variance,latest,998.9952800000001,118.72454
+Table I.B1.2a.25,Norway*,science,within_school_variance,latest,9471.89124,196.51267
+Table I.B1.2a.25,Norway*,science,between_school_pct_of_oecd_average,latest,10.29629,
+Table I.B1.2a.25,Palestinian Authority,science,total_variance,latest,4981.5671600000005,136.80169
+Table I.B1.2a.25,Palestinian Authority,science,between_school_variance,latest,1198.33236,135.25681
+Table I.B1.2a.25,Palestinian Authority,science,within_school_variance,latest,3764.2303500000003,78.95776000000001
+Table I.B1.2a.25,Palestinian Authority,science,between_school_pct_of_oecd_average,latest,12.35078,
+Table I.B1.2a.25,Paraguay,science,total_variance,latest,6349.286300000001,200.29903000000002
+Table I.B1.2a.25,Paraguay,science,between_school_variance,latest,1945.4249300000001,220.52673000000001
+Table I.B1.2a.25,Paraguay,science,within_school_variance,latest,4392.905900000001,110.61944000000001
+Table I.B1.2a.25,Paraguay,science,between_school_pct_of_oecd_average,latest,20.050800000000002,
+Table I.B1.2a.25,Peru,science,total_variance,latest,6434.83661,204.29673000000003
+Table I.B1.2a.25,Peru,science,between_school_variance,latest,1918.4843700000001,216.06276000000003
+Table I.B1.2a.25,Peru,science,within_school_variance,latest,4537.3642500000005,94.76766
+Table I.B1.2a.25,Peru,science,between_school_pct_of_oecd_average,latest,19.773130000000002,
+Table I.B1.2a.25,Philippines,science,total_variance,latest,7369.9673,230.29881000000003
+Table I.B1.2a.25,Philippines,science,between_school_variance,latest,1693.90199,249.14814
+Table I.B1.2a.25,Philippines,science,within_school_variance,latest,5704.641500000001,136.76496
+Table I.B1.2a.25,Philippines,science,between_school_pct_of_oecd_average,latest,17.458440000000003,
+Table I.B1.2a.25,Poland,science,total_variance,latest,9188.01122,351.21683
+Table I.B1.2a.25,Poland,science,between_school_variance,latest,4139.088220000001,395.62249
+Table I.B1.2a.25,Poland,science,within_school_variance,latest,5073.8840900000005,116.50923000000002
+Table I.B1.2a.25,Poland,science,between_school_pct_of_oecd_average,latest,42.66011,
+Table I.B1.2a.25,Portugal,science,total_variance,latest,8959.88868,207.30352000000002
+Table I.B1.2a.25,Portugal,science,between_school_variance,latest,1603.87542,197.84892000000002
+Table I.B1.2a.25,Portugal,science,within_school_variance,latest,7307.316320000001,166.33748000000003
+Table I.B1.2a.25,Portugal,science,between_school_pct_of_oecd_average,latest,16.53057,
+Table I.B1.2a.25,Qatar,science,total_variance,latest,9867.393370000002,247.23040000000003
+Table I.B1.2a.25,Qatar,science,between_school_variance,latest,3578.5832100000002,407.97532
+Table I.B1.2a.25,Qatar,science,within_school_variance,latest,6258.33488,211.90289
+Table I.B1.2a.25,Qatar,science,between_school_pct_of_oecd_average,latest,36.88318,
+Table I.B1.2a.25,Romania,science,total_variance,latest,10041.487910000002,464.72945000000004
+Table I.B1.2a.25,Romania,science,between_school_variance,latest,5032.22284,451.11075000000005
+Table I.B1.2a.25,Romania,science,within_school_variance,latest,4993.129940000001,133.28834
+Table I.B1.2a.25,Romania,science,between_school_pct_of_oecd_average,latest,51.86533000000001,
+Table I.B1.2a.25,Rwanda,science,total_variance,latest,5706.12477,469.66081
+Table I.B1.2a.25,Rwanda,science,between_school_variance,latest,3053.19131,502.03008000000005
+Table I.B1.2a.25,Rwanda,science,within_school_variance,latest,2664.1169000000004,75.17800000000001
+Table I.B1.2a.25,Rwanda,science,between_school_pct_of_oecd_average,latest,31.46815,
+Table I.B1.2a.25,Saudi Arabia,science,total_variance,latest,6573.68724,237.69262000000003
+Table I.B1.2a.25,Saudi Arabia,science,between_school_variance,latest,1621.30769,243.35675000000003
+Table I.B1.2a.25,Saudi Arabia,science,within_school_variance,latest,4940.14663,104.49793000000001
+Table I.B1.2a.25,Saudi Arabia,science,between_school_pct_of_oecd_average,latest,16.710240000000002,
+Table I.B1.2a.25,Serbia,science,total_variance,latest,8212.19122,245.57955
+Table I.B1.2a.25,Serbia,science,between_school_variance,latest,3407.76031,316.91595
+Table I.B1.2a.25,Serbia,science,within_school_variance,latest,4784.718330000001,110.02027000000001
+Table I.B1.2a.25,Serbia,science,between_school_pct_of_oecd_average,latest,35.12257,
+Table I.B1.2a.25,Singapore,science,total_variance,latest,11083.53569,227.67650000000003
+Table I.B1.2a.25,Singapore,science,between_school_variance,latest,3120.8485,365.79428
+Table I.B1.2a.25,Singapore,science,within_school_variance,latest,7854.766130000001,229.94763000000003
+Table I.B1.2a.25,Singapore,science,between_school_pct_of_oecd_average,latest,32.16547,
+Table I.B1.2a.25,Slovak Republic,science,total_variance,latest,10116.85179,354.26645
+Table I.B1.2a.25,Slovak Republic,science,between_school_variance,latest,5239.5530100000005,483.18001000000004
+Table I.B1.2a.25,Slovak Republic,science,within_school_variance,latest,4708.0044800000005,128.6618
+Table I.B1.2a.25,Slovak Republic,science,between_school_pct_of_oecd_average,latest,54.0022,
+Table I.B1.2a.25,Slovenia,science,total_variance,latest,10076.116230000001,202.55237000000002
+Table I.B1.2a.25,Slovenia,science,between_school_variance,latest,4923.830400000001,455.93713
+Table I.B1.2a.25,Slovenia,science,within_school_variance,latest,5133.2920300000005,148.55180000000001
+Table I.B1.2a.25,Slovenia,science,between_school_pct_of_oecd_average,latest,50.748160000000006,
+Table I.B1.2a.25,Spain,science,total_variance,latest,8700.651600000001,172.31840000000003
+Table I.B1.2a.25,Spain,science,between_school_variance,latest,1349.9907500000002,118.40807000000001
+Table I.B1.2a.25,Spain,science,within_school_variance,latest,7332.06011,106.77815000000001
+Table I.B1.2a.25,Spain,science,between_school_pct_of_oecd_average,latest,13.913870000000001,
+Table I.B1.2a.25,Sweden,science,total_variance,latest,11614.16191,278.46892
+Table I.B1.2a.25,Sweden,science,between_school_variance,latest,1930.37867,236.12154
+Table I.B1.2a.25,Sweden,science,within_school_variance,latest,9760.524800000001,238.64617
+Table I.B1.2a.25,Sweden,science,between_school_pct_of_oecd_average,latest,19.89572,
+Table I.B1.2a.25,Switzerland,science,total_variance,latest,10648.08754,305.33020000000005
+Table I.B1.2a.25,Switzerland,science,between_school_variance,latest,4213.85948,379.31418
+Table I.B1.2a.25,Switzerland,science,within_school_variance,latest,6459.452080000001,191.31164
+Table I.B1.2a.25,Switzerland,science,between_school_pct_of_oecd_average,latest,43.43074,
+Table I.B1.2a.25,Chinese Taipei,science,total_variance,latest,11549.295150000002,331.12313
+Table I.B1.2a.25,Chinese Taipei,science,between_school_variance,latest,4085.5133900000005,367.87652
+Table I.B1.2a.25,Chinese Taipei,science,within_school_variance,latest,7440.148190000001,190.10477
+Table I.B1.2a.25,Chinese Taipei,science,between_school_pct_of_oecd_average,latest,42.10793,
+Table I.B1.2a.25,Thailand,science,total_variance,latest,6640.742700000001,238.20356
+Table I.B1.2a.25,Thailand,science,between_school_variance,latest,2090.60239,242.35582000000002
+Table I.B1.2a.25,Thailand,science,within_school_variance,latest,4561.50191,108.77139000000001
+Table I.B1.2a.25,Thailand,science,between_school_pct_of_oecd_average,latest,21.54709,
+Table I.B1.2a.25,Türkiye,science,total_variance,latest,8919.29398,266.18848
+Table I.B1.2a.25,Türkiye,science,between_school_variance,latest,4857.7082900000005,457.29256000000004
+Table I.B1.2a.25,Türkiye,science,within_school_variance,latest,4044.3566400000004,97.99373000000001
+Table I.B1.2a.25,Türkiye,science,between_school_pct_of_oecd_average,latest,50.06667,
+Table I.B1.2a.25,Ukrainian regions (17 of 27),science,total_variance,latest,8285.43561,214.47354
+Table I.B1.2a.25,Ukrainian regions (17 of 27),science,between_school_variance,latest,2088.9286500000003,239.74968
+Table I.B1.2a.25,Ukrainian regions (17 of 27),science,within_school_variance,latest,6150.532950000001,135.16962
+Table I.B1.2a.25,Ukrainian regions (17 of 27),science,between_school_pct_of_oecd_average,latest,21.52984,
+Table I.B1.2a.25,United Arab Emirates,science,total_variance,latest,12080.806690000001,120.33693000000001
+Table I.B1.2a.25,United Arab Emirates,science,between_school_variance,latest,5769.632210000001,282.97796
+Table I.B1.2a.25,United Arab Emirates,science,within_school_variance,latest,6274.80899,89.82633000000001
+Table I.B1.2a.25,United Arab Emirates,science,between_school_pct_of_oecd_average,latest,59.465540000000004,
+Table I.B1.2a.25,United Kingdom,science,total_variance,latest,10741.20318,240.29114
+Table I.B1.2a.25,United Kingdom,science,between_school_variance,latest,2312.80432,273.83602
+Table I.B1.2a.25,United Kingdom,science,within_school_variance,latest,8453.92588,182.20441000000002
+Table I.B1.2a.25,United Kingdom,science,between_school_pct_of_oecd_average,latest,23.83725,
+Table I.B1.2a.25,United States*,science,total_variance,latest,13063.31801,727.2631
+Table I.B1.2a.25,United States*,science,between_school_variance,latest,3770.98509,702.87728
+Table I.B1.2a.25,United States*,science,within_school_variance,latest,9190.78735,315.54538
+Table I.B1.2a.25,United States*,science,between_school_pct_of_oecd_average,latest,38.866200000000006,
+Table I.B1.2a.25,Uruguay,science,total_variance,latest,7499.056520000001,167.97848000000002
+Table I.B1.2a.25,Uruguay,science,between_school_variance,latest,1582.14741,170.76264
+Table I.B1.2a.25,Uruguay,science,within_school_variance,latest,5900.0491,132.69298
+Table I.B1.2a.25,Uruguay,science,between_school_pct_of_oecd_average,latest,16.306630000000002,
+Table I.B1.2a.25,Uzbekistan,science,total_variance,latest,4862.291480000001,257.90617000000003
+Table I.B1.2a.25,Uzbekistan,science,between_school_variance,latest,1483.2580600000001,215.78729
+Table I.B1.2a.25,Uzbekistan,science,within_school_variance,latest,3374.11106,88.10623000000001
+Table I.B1.2a.25,Uzbekistan,science,between_school_pct_of_oecd_average,latest,15.287410000000001,
+Table I.B1.2a.25,Viet Nam,science,total_variance,latest,6344.940350000001,313.72986000000003
+Table I.B1.2a.25,Viet Nam,science,between_school_variance,latest,2925.0142100000003,365.15695000000005
+Table I.B1.2a.25,Viet Nam,science,within_school_variance,latest,3416.9739600000003,92.60774
+Table I.B1.2a.25,Viet Nam,science,between_school_pct_of_oecd_average,latest,30.147080000000003,
+Table I.B1.2a.25,Zambia,science,total_variance,latest,11147.094270000001,1113.5463100000002
+Table I.B1.2a.25,Zambia,science,between_school_variance,latest,8053.50308,1253.58871
+Table I.B1.2a.25,Zambia,science,within_school_variance,latest,3184.7997600000003,149.34893000000002
+Table I.B1.2a.25,Zambia,science,between_school_pct_of_oecd_average,latest,83.00459000000001,

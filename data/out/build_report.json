@@ -3,6 +3,10 @@
  "kept_events": 10516,
  "dropped_outside_indonesia": 2173,
  "accounting_ok": true,
+ "rows_by_file": {
+  "usgs_idn_m5plus_1976_2026.csv": 12689,
+  "usgs_append.csv": 0
+ },
  "dropped_breakdown": {
   "Philippines": 1232,
   "Timor Leste": 790,

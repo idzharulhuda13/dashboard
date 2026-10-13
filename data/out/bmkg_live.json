@@ -183,6 +183,30 @@
  ],
  "felt": [
   {
+   "waktu_wib": "23:56:33 WIB",
+   "tanggal": "12 Okt 2026",
+   "datetime_utc": "2026-10-12T16:56:33+00:00",
+   "lat": -9.75,
+   "lon": 118.93,
+   "mag": 4.3,
+   "depth_km": 19.0,
+   "wilayah": "Pusat gempa berada di laut 19 km Selatan Kodi, Sumba Barat Daya",
+   "potensi": "",
+   "dirasakan": "III-IV Kab. Sumba Barat Daya"
+  },
+  {
+   "waktu_wib": "21:27:04 WIB",
+   "tanggal": "12 Okt 2026",
+   "datetime_utc": "2026-10-12T14:27:04+00:00",
+   "lat": -8.24,
+   "lon": 120.54,
+   "mag": 3.3,
+   "depth_km": 7.0,
+   "wilayah": "Pusat gempa berada di laut 43 km Utara Ruteng, Manggarai",
+   "potensi": "",
+   "dirasakan": "II-III Kab. Manggarai"
+  },
+  {
    "waktu_wib": "18:58:07 WIB",
    "tanggal": "12 Okt 2026",
    "datetime_utc": "2026-10-12T11:58:07+00:00",
@@ -337,30 +361,6 @@
    "wilayah": "Pusat gempa berada di laut 71 km Barat Bengkulu Utara",
    "potensi": "",
    "dirasakan": "III Kota Bengkulu, III Kab. Bengkulu Tengah, III Kab. Bengkulu Utara, III Kab. Mukomuko, III Kab. Seluma"
-  },
-  {
-   "waktu_wib": "16:21:53 WIB",
-   "tanggal": "08 Okt 2026",
-   "datetime_utc": "2026-10-08T09:21:53+00:00",
-   "lat": 0.56,
-   "lon": 120.44,
-   "mag": 3.0,
-   "depth_km": 13.0,
-   "wilayah": "Pusat gempa berada di darat 40 km Barat Parigi Moutong",
-   "potensi": "",
-   "dirasakan": "II-III Palasa"
-  },
-  {
-   "waktu_wib": "15:07:56 WIB",
-   "tanggal": "08 Okt 2026",
-   "datetime_utc": "2026-10-08T08:07:56+00:00",
-   "lat": 5.66,
-   "lon": 125.19,
-   "mag": 5.8,
-   "depth_km": 10.0,
-   "wilayah": "Pusat gempa berada di laut 230 km barat laut Tahuna - Kep.Sangihe",
-   "potensi": "",
-   "dirasakan": "II Tahuna"
   }
  ]
 }

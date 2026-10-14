@@ -1,4 +1,4 @@
-<!--BUILD sha256:3d4d35a2d4c70e6d9b77d823ea69c0e9cae962897645706b6c8f225870bb2008-->
+<!--BUILD sha256:28f24a7cd0b08535cd41d0a7a2072888b12106c2d8b74ab1d68262d07f71daf4-->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -374,6 +374,100 @@ h1.band-headline {
   height: auto;
   max-width: 100%;
   width: 100%;
+}
+
+.field-hit {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: crosshair;
+}
+
+.field-hit:focus,
+.field-hit:focus-visible {
+  outline: 3px solid var(--on-deep-muted);
+  outline-offset: -4px;
+}
+
+.field-detail {
+  padding: 12px 16px;
+  border-top: 1px solid var(--deep);
+}
+
+.fd-prompt {
+  color: var(--on-deep-muted);
+}
+
+.fd-readout {
+  display: none;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+
+.field-detail.is-open .fd-readout {
+  display: flex;
+}
+
+.field-detail.is-open .fd-prompt {
+  display: none;
+}
+
+.fd-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fd-label {
+  color: var(--on-deep-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.fd-depth,
+.fd-date,
+.fd-prov,
+.fd-item span:not(.fd-label) {
+  color: var(--on-deep);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.fd-mag {
+  color: var(--on-deep);
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.fd-band-1, .fd-mag.fd-band-1 { color: var(--mag-1); }
+.fd-band-2, .fd-mag.fd-band-2 { color: var(--mag-2); }
+.fd-band-3, .fd-mag.fd-band-3 { color: var(--mag-3); }
+.fd-band-4, .fd-mag.fd-band-4 { color: var(--mag-4); }
+.fd-band-5, .fd-mag.fd-band-5 { color: var(--mag-5); }
+
+.field-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.field-cursor {
+  transition: opacity 150ms;
+}
+
+.field-cursor.is-off {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .field-axis-label,
@@ -1447,7 +1541,7 @@ h1.band-headline {
   display: inline-block;
   height: 12px;
   opacity: 1;
-  transition: opacity 0.25s;
+  transition: opacity 150ms;
   width: 12px;
 }
 
@@ -1543,6 +1637,29 @@ button:focus-visible,
           <title id="field-title">Peta sebaran episentrum gempa bumi Indonesia M5+</title>
           <desc id="field-desc">Sebaran spasial titik episentrum gempa bumi berkekuatan M5 ke atas di seluruh kepulauan Indonesia.</desc>
         </svg>
+        <button type="button" id="field-hit" class="field-hit" tabindex="0" aria-label="Peta sebaran episentrum gempa; gunakan tombol panah untuk memilih kejadian, Enter untuk membuka rincian, Escape untuk menutup."></button>
+        <div id="field-detail" class="field-detail">
+          <div id="field-live" class="field-live" role="status" aria-live="polite"></div>
+          <p class="fd-prompt">Arahkan kursor atau ketuk salah satu titik episentrum untuk melihat rinciannya.</p>
+          <div class="fd-readout">
+            <div class="fd-item">
+              <span class="fd-label">Magnitudo</span>
+              <span class="fd-mag"></span>
+            </div>
+            <div class="fd-item">
+              <span class="fd-label">Kedalaman</span>
+              <span class="fd-depth"></span>
+            </div>
+            <div class="fd-item">
+              <span class="fd-label">Tanggal (WIB)</span>
+              <span class="fd-date"></span>
+            </div>
+            <div class="fd-item">
+              <span class="fd-label">Provinsi</span>
+              <span class="fd-prov"></span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div id="scale-field-key" class="scale-slot"></div>
@@ -1771,12 +1888,16 @@ function renderField() {
   let svg = container.querySelector('svg');
 
   if (!svg) {
-    container.innerHTML =
-      '<svg class="field-svg" viewBox="94.5 -6.5 47 18" role="img" aria-labelledby="field-title field-desc">' +
-        '<title id="field-title">Peta sebaran episentrum gempa bumi Indonesia M5+</title>' +
-        '<desc id="field-desc">Sebaran spasial titik episentrum gempa bumi berkekuatan M5 ke atas di seluruh kepulauan Indonesia.</desc>' +
-      '</svg>';
-    svg = container.querySelector('svg');
+    const tempSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    tempSvg.setAttribute('class', 'field-svg');
+    tempSvg.setAttribute('viewBox', '94.5 -6.5 47 18');
+    tempSvg.setAttribute('role', 'img');
+    tempSvg.setAttribute('aria-labelledby', 'field-title field-desc');
+    tempSvg.innerHTML =
+      '<title id="field-title">Peta sebaran episentrum gempa bumi Indonesia M5+</title>' +
+      '<desc id="field-desc">Sebaran spasial titik episentrum gempa bumi berkekuatan M5 ke atas di seluruh kepulauan Indonesia.</desc>';
+    container.insertBefore(tempSvg, container.firstChild);
+    svg = tempSvg;
   } else {
     svg.innerHTML =
       '<title id="field-title">Peta sebaran episentrum gempa bumi Indonesia M5+</title>' +
@@ -1975,6 +2096,19 @@ function renderField() {
     annotShort.textContent = labelShort;
     svg.appendChild(annotShort);
   }
+
+  const gCursor = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  gCursor.setAttribute('id', 'field-cursor');
+  gCursor.setAttribute('class', 'field-cursor is-off');
+  const circleCursor = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  circleCursor.setAttribute('class', 'field-cursor is-off');
+  circleCursor.setAttribute('r', '0.6');
+  circleCursor.setAttribute('fill', 'none');
+  circleCursor.setAttribute('stroke', 'var(--on-deep)');
+  circleCursor.setAttribute('stroke-width', '0.12');
+  circleCursor.setAttribute('focusable', 'false');
+  gCursor.appendChild(circleCursor);
+  svg.appendChild(gCursor);
 }
 function renderProvince() {
   const container = document.getElementById('chart-province');
@@ -2535,7 +2669,6 @@ function initScrollAffordance(id) {
 
 function runAllRenderers() {
   const containers = [
-    'chart-field',
     'scale-hero',
     'scale-field-key',
     'scale-ladder',

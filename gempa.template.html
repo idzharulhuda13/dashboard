@@ -12,7 +12,7 @@
   --plane-2: #F7F1E6;
   --deep: #A83F14;
   --deep-2: #8F3410;
-  --land: #6E2409;
+  --land: #5E1E07;
   --plate: #C99A80;
   --ink: #1A1410;
   --muted: #6B5B4A;
@@ -359,6 +359,13 @@ h1.band-headline {
 .field-detail {
   padding: 12px 16px;
   border-top: 1px solid var(--deep);
+}
+
+.field-note {
+  color: var(--on-deep-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 8px;
 }
 
 .fd-prompt {
@@ -1626,6 +1633,7 @@ button:focus-visible,
           </div>
         </div>
       </div>
+        <p class="field-note">Garis putus-putus menandai batas lempeng tektonik (PB2002, Bird 2003); setiap goresan horizontal menandai satu episentrum gempa.</p>
 
       <div id="scale-field-key" class="scale-slot"></div>
     </section>
@@ -1878,7 +1886,7 @@ function renderField() {
   pathLand.setAttribute('fill', 'var(--land)');
   pathLand.setAttribute('stroke', 'var(--on-deep-muted)');
   pathLand.setAttribute('stroke-opacity', '0.8');
-  pathLand.setAttribute('stroke-width', '0.05');
+  pathLand.setAttribute('stroke-width', '0.07');
   pathLand.setAttribute('stroke-linejoin', 'round');
   pathLand.setAttribute('focusable', 'false');
   pathLand.setAttribute('d', basemap.land || '');
@@ -1890,8 +1898,8 @@ function renderField() {
   const pathPlates = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   pathPlates.setAttribute('fill', 'none');
   pathPlates.setAttribute('stroke', 'var(--plate)');
-  pathPlates.setAttribute('stroke-width', '0.07');
-  pathPlates.setAttribute('stroke-opacity', '0.9');
+  pathPlates.setAttribute('stroke-width', '0.09');
+  pathPlates.setAttribute('stroke-opacity', '1');
   pathPlates.setAttribute('stroke-dasharray', '0.45 0.28');
   pathPlates.setAttribute('stroke-linecap', 'round');
   pathPlates.setAttribute('focusable', 'false');

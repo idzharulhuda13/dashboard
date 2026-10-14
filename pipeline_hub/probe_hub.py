@@ -61,7 +61,7 @@ def check_viewport(browser, url, width, height):
         return {found: true, svg: !!svg, paths: svg ? svg.querySelectorAll('path').length : 0,
                 text: svg ? svg.querySelectorAll('text').length : 0};
     }""")
-    ok = gempa.get("svg") and gempa.get("paths", 0) >= 1 and gempa.get("text", 0) == 0
+    ok = gempa.get("svg") and gempa.get("paths", 0) >= 7 and gempa.get("text", 0) == 0
     out.append((f"[{label}] gempa window", "PASS" if ok else "FAIL",
                 f"svg={gempa.get('svg')} paths={gempa.get('paths')} text_nodes={gempa.get('text')}"))
 

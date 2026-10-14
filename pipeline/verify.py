@@ -560,6 +560,212 @@ def check_11_headline_claims(template_path, data_json):
     )
 
 
+
+def check_12_basemap(basemap_data, data_json, template_path):
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_content = f.read()
+
+    field_basemap = data_json.get("field", {}).get("basemap", {})
+    if not field_basemap:
+        return False, "gempa/data.json missing field.basemap"
+
+    for k in ("land", "plates", "labels"):
+        if field_basemap.get(k) != basemap_data.get(k):
+            return False, f"gempa/data.json field.basemap.{k} does not equal basemap.json {k}"
+
+    land = field_basemap.get("land", "")
+    plates = field_basemap.get("plates", "")
+
+    land_m = land.count("M")
+    if not (500 <= land_m <= 900):
+        return False, f"land subpaths count mismatch (actual: {land_m}, expected: 500..900)"
+    if len(land) > 70000:
+        return False, f"len(land) exceeds 70000 (actual: {len(land)}, expected: <= 70000)"
+
+    plates_m = plates.count("M")
+    if not (30 <= plates_m <= 60):
+        return False, f"plates subpaths count mismatch (actual: {plates_m}, expected: 30..60)"
+    if len(plates) > 6000:
+        return False, f"len(plates) exceeds 6000 (actual: {len(plates)}, expected: <= 6000)"
+
+    for name, path in [("land", land), ("plates", plates)]:
+        nums = [float(x) for x in re.findall(r"[-+]?(?:\d*\.\d+|\d+)", path)]
+        if len(nums) % 2 != 0:
+            return False, f"{name} coordinates count is odd ({len(nums)})"
+        for i in range(0, len(nums), 2):
+            x, y = nums[i], nums[i + 1]
+            if not (94.5 <= x <= 141.5 and -6.5 <= y <= 11.5):
+                return False, f"{name} coordinate ({x}, {y}) outside bbox [94.5..141.5, -6.5..11.5]"
+
+    m_sw = re.search(
+        r"field-basemap-land.*?stroke-width['\"]?\s*[:=,]\s*['\"]?([0-9.]+)",
+        template_content,
+        re.DOTALL,
+    )
+    if not m_sw:
+        m_sw = re.search(
+            r"stroke-width['\"]?\s*[:=,]\s*['\"]?([0-9.]+)['\"]?.*?field-basemap-land",
+            template_content,
+            re.DOTALL,
+        )
+    if not m_sw:
+        return False, "could not find land stroke-width in gempa.template.html"
+    land_sw = float(m_sw.group(1))
+    if land_sw > 0.10:
+        return False, f"template land stroke-width exceeds 0.10 (actual: {land_sw}, expected: <= 0.10)"
+
+    labels = field_basemap.get("labels", [])
+    if len(labels) != 5:
+        return False, f"field.basemap.labels count mismatch (actual: {len(labels)}, expected: 5)"
+    for l in labels:
+        if l.get("kind") != "island":
+            return False, f"field.basemap.labels kind mismatch (actual: {l.get('kind')!r}, expected: 'island')"
+        x, y = l.get("x"), l.get("y")
+        if x is None or y is None or not (94.5 <= x <= 141.5 and -6.5 <= y <= 11.5):
+            return False, f"field.basemap label anchor ({x}, {y}) outside bbox [94.5..141.5, -6.5..11.5]"
+
+    scale = field_basemap.get("scale", {})
+    exp_km = round(3 * 111.195)
+    if exp_km != 334 or scale.get("km") != 334:
+        return False, f"scale km mismatch (actual: {scale.get('km')}, expected: 334)"
+    if scale.get("label") != "334 km":
+        return False, f"scale label mismatch (actual: {scale.get('label')!r}, expected: '334 km')"
+
+    basemap_ids = [
+        "field-basemap-land",
+        "field-basemap-plates",
+        "field-labels",
+        "field-scale",
+    ]
+    for bid in basemap_ids:
+        if (
+            f'id="{bid}"' not in template_content
+            and f"id='{bid}'" not in template_content
+            and f"'id', '{bid}'" not in template_content
+            and f'"id", "{bid}"' not in template_content
+        ):
+            return False, f"gempa.template.html missing id '{bid}'"
+
+    if 'id="field-hit"' in template_content or "field-hit" in template_content:
+        interaction_tokens = [
+            'id="field-cursor"',
+            'id="field-hit"',
+            'id="field-detail"',
+            'id="field-live"',
+            'tabindex="0"',
+            'aria-live="polite"',
+        ]
+        for itok in interaction_tokens:
+            if itok not in template_content and itok.replace('"', "'") not in template_content:
+                ident = itok.split('=', 1)[1].strip('"\'') if '=' in itok else itok
+                if f"'id', '{ident}'" not in template_content and f'"id", "{ident}"' not in template_content:
+                    return False, f"gempa.template.html missing {itok}"
+    else:
+        if 'aria-live="polite"' not in template_content and "aria-live='polite'" not in template_content:
+            return False, 'gempa.template.html missing aria-live="polite"'
+
+    for lic in (
+        "Natural Earth",
+        "domain publik",
+        "Bird 2003 PB2002",
+        "fraxen/tectonicplates",
+        "ODC-By 1.0",
+    ):
+        if lic not in template_content:
+            return False, f"gempa.template.html missing licence literal '{lic}'"
+
+    if "@keyframes" in template_content:
+        return False, "gempa.template.html contains @keyframes"
+
+    for m in re.finditer(r'transition(?:-duration)?\s*:\s*([^;]+);', template_content):
+        prop_val = m.group(1)
+        if "loader" in template_content[max(0, m.start() - 200):m.end()]:
+            continue
+        for num, unit in re.findall(r'(\d+(?:\.\d+)?)(ms|s)\b', prop_val):
+            val_ms = float(num) * 1000 if unit == "s" else float(num)
+            if val_ms > 150:
+                return False, f"gempa.template.html transition duration exceeds 150ms ({val_ms}ms)"
+
+    return (
+        True,
+        "basemap geometry, provenance, bounds, labels, scale, licence literals, and template structure verified",
+    )
+
+
+def check_13_contrast_and_motion(template_path):
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_content = f.read()
+
+    m_root = re.search(r":root\s*\{([^}]+)\}", template_content)
+    if not m_root:
+        return False, "gempa.template.html missing :root block"
+    root_block = m_root.group(1)
+
+    required_tokens = [
+        "--land",
+        "--plate",
+        "--deep",
+        "--deep-2",
+        "--on-deep-muted",
+        "--mag-1",
+        "--mag-2",
+        "--mag-3",
+        "--mag-4",
+        "--mag-5",
+    ]
+    tokens = {}
+    for tok in required_tokens:
+        m = re.search(rf"{tok}\s*:\s*([^;]+);", root_block)
+        if not m:
+            return False, f":root missing token {tok}"
+        tokens[tok] = m.group(1).strip()
+
+    def hex_to_rgb(h):
+        h = h.strip().lstrip("#")
+        return tuple(int(h[i:i + 2], 16) / 255.0 for i in (0, 2, 4))
+
+    def srgb_to_linear(c):
+        return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+
+    def luminance(h):
+        r, g, b = hex_to_rgb(h)
+        return 0.2126 * srgb_to_linear(r) + 0.7152 * srgb_to_linear(g) + 0.0722 * srgb_to_linear(b)
+
+    def contrast(h1, h2):
+        l1, l2 = luminance(h1), luminance(h2)
+        return (max(l1, l2) + 0.05) / (min(l1, l2) + 0.05)
+
+    lum_land = luminance(tokens["--land"])
+    lum_deep2 = luminance(tokens["--deep-2"])
+    if not (lum_land < lum_deep2):
+        return False, f"luminance(--land) is not < luminance(--deep-2) ({lum_land:.4f} vs {lum_deep2:.4f})"
+
+    for i in range(1, 6):
+        mag_tok = f"--mag-{i}"
+        c_land = contrast(tokens[mag_tok], tokens["--land"])
+        if c_land < 3.0:
+            return False, f"contrast({mag_tok}, --land) < 3.0 ({c_land:.2f})"
+        c_deep2 = contrast(tokens[mag_tok], tokens["--deep-2"])
+        if c_deep2 < 3.0:
+            return False, f"contrast({mag_tok}, --deep-2) < 3.0 ({c_deep2:.2f})"
+
+    c_muted_land = contrast(tokens["--on-deep-muted"], tokens["--land"])
+    if c_muted_land < 4.5:
+        return False, f"contrast(--on-deep-muted, --land) < 4.5 ({c_muted_land:.2f})"
+    c_muted_deep2 = contrast(tokens["--on-deep-muted"], tokens["--deep-2"])
+    if c_muted_deep2 < 4.5:
+        return False, f"contrast(--on-deep-muted, --deep-2) < 4.5 ({c_muted_deep2:.2f})"
+
+    c_plate_deep2 = contrast(tokens["--plate"], tokens["--deep-2"])
+    if c_plate_deep2 < 3.0:
+        return False, f"contrast(--plate, --deep-2) < 3.0 ({c_plate_deep2:.2f})"
+    c_plate_land = contrast(tokens["--plate"], tokens["--land"])
+    if c_plate_land < 3.0:
+        return False, f"contrast(--plate, --land) < 3.0 ({c_plate_land:.2f})"
+
+    return True, "luminance order and all contrast thresholds verified against tokens"
+
+
 def main():
     csv_path = os.path.join(ROOT, "data", "out", "gempa_events.csv")
     live_path = os.path.join(ROOT, "data", "out", "bmkg_live.json")
@@ -567,6 +773,7 @@ def main():
     data_path = os.path.join(ROOT, "gempa/data.json")
     template_path = os.path.join(ROOT, "gempa.template.html")
     index_path = os.path.join(ROOT, "gempa/index.html")
+    basemap_path = os.path.join(ROOT, "data", "raw", "basemap.json")
 
     for path, name in [
         (csv_path, "gempa_events.csv"),
@@ -575,10 +782,11 @@ def main():
         (data_path, "gempa/data.json"),
         (template_path, "gempa.template.html"),
         (index_path, "gempa/index.html"),
+        (basemap_path, "basemap.json"),
     ]:
         if not os.path.exists(path):
             print(f"FAIL Input file missing: {name} (actual: not found at {path}, expected: file present)")
-            print("TOTAL 0/10")
+            print("TOTAL 0/13")
             sys.exit(1)
 
     with open(csv_path, "r", encoding="utf-8") as f:
@@ -593,6 +801,9 @@ def main():
     with open(data_path, "r", encoding="utf-8") as f:
         data_json = json.load(f)
 
+    with open(basemap_path, "r", encoding="utf-8") as f:
+        basemap_data = json.load(f)
+
     checks = [
         ("check 1: gempa/data.json 'fig' values", lambda: check_1_fig(rows, build_report, data_json)),
         ("check 2: array counts and values", lambda: check_2_arrays(rows, data_json)),
@@ -605,6 +816,8 @@ def main():
         ("check 9: gempa/index.html no network URLs", lambda: check_9_no_network_urls(index_path)),
         ("check 10: region breakdown and accounting", lambda: check_10_breakdown_and_accounting(rows, build_report, data_json)),
         ("check 11: headline prose claims", lambda: check_11_headline_claims(template_path, data_json)),
+        ("check 12: basemap geometry and template structure", lambda: check_12_basemap(basemap_data, data_json, template_path)),
+        ("check 13: contrast tokens and motion rules", lambda: check_13_contrast_and_motion(template_path)),
     ]
 
     passed = 0

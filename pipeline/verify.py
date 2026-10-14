@@ -7,7 +7,7 @@ independently of the generator.
 
 from collections import Counter
 import csv
-from datetime import datetime
+from datetime import date, datetime
 import hashlib
 import json
 import os
@@ -766,6 +766,77 @@ def check_13_contrast_and_motion(template_path):
     return True, "luminance order and all contrast thresholds verified against tokens"
 
 
+def check_14_events_pairing(rows, data_json):
+    events = data_json.get("events")
+    if not events or not isinstance(events, dict):
+        return False, "gempa/data.json missing or invalid 'events' object"
+
+    row_count = len(rows)
+    events_n = events.get("n")
+    if events_n != row_count:
+        return False, f"events.n mismatch (actual: {events_n}, expected: {row_count})"
+
+    split_lists = {}
+    for key in ("mag", "depth", "day", "prov"):
+        if key not in events or not isinstance(events[key], str):
+            return False, f"events.{key} missing or not a string"
+        val_str = events[key]
+        split_lists[key] = val_str.split(",") if val_str else []
+        if len(split_lists[key]) != row_count:
+            return False, f"events.{key} split length mismatch (actual: {len(split_lists[key])}, expected: {row_count})"
+
+    epoch = date(1970, 1, 1)
+    exp_provinces = sorted(set(r["province"] for r in rows))
+    prov_to_idx = {p: i for i, p in enumerate(exp_provinces)}
+
+    bands = ["M5", "M6", "M7", "M8", "M9"]
+    rebuilt_mag = []
+    rebuilt_depth = []
+    rebuilt_day = []
+    rebuilt_prov = []
+    for b in bands:
+        for r in rows:
+            if r["mag_band"] == b:
+                rebuilt_mag.append(str(round(float(r["mag"]) * 10)))
+                rebuilt_depth.append(str(round(float(r["depth_km"]))))
+                rebuilt_day.append(str((date.fromisoformat(r["date_wib"]) - epoch).days))
+                rebuilt_prov.append(str(prov_to_idx[r["province"]]))
+
+    rebuilt = {
+        "mag": rebuilt_mag,
+        "depth": rebuilt_depth,
+        "day": rebuilt_day,
+        "prov": rebuilt_prov,
+    }
+
+    for key in ("mag", "depth", "day", "prov"):
+        act = split_lists[key]
+        exp = rebuilt[key]
+        for idx, (a, e) in enumerate(zip(act, exp)):
+            if a != e:
+                return False, f"events.{key} mismatch at index {idx} (actual: {a!r}, expected: {e!r})"
+
+    field = data_json.get("field", {})
+    field_order = field.get("order")
+    if field_order != "M5,M6,M7,M8,M9:csv-asc":
+        return False, f"field.order mismatch (actual: {field_order!r}, expected: 'M5,M6,M7,M8,M9:csv-asc')"
+
+    field_provinces = field.get("provinces")
+    if field_provinces != exp_provinces:
+        return False, f"field.provinces mismatch (actual: {field_provinces}, expected: {exp_provinces})"
+
+    n_provinces = len(field_provinces)
+    for idx, p_str in enumerate(split_lists["prov"]):
+        try:
+            p_val = int(p_str)
+        except ValueError:
+            return False, f"events.prov non-integer value at index {idx}: {p_str!r}"
+        if p_val < 0 or p_val >= n_provinces:
+            return False, f"events.prov index {p_val} at position {idx} out of range [0..{n_provinces - 1}]"
+
+    return True, "events pairing, field order, and provinces match CSV recomputation"
+
+
 def main():
     csv_path = os.path.join(ROOT, "data", "out", "gempa_events.csv")
     live_path = os.path.join(ROOT, "data", "out", "bmkg_live.json")
@@ -786,7 +857,7 @@ def main():
     ]:
         if not os.path.exists(path):
             print(f"FAIL Input file missing: {name} (actual: not found at {path}, expected: file present)")
-            print("TOTAL 0/13")
+            print("TOTAL 0/14")
             sys.exit(1)
 
     with open(csv_path, "r", encoding="utf-8") as f:
@@ -818,6 +889,7 @@ def main():
         ("check 11: headline prose claims", lambda: check_11_headline_claims(template_path, data_json)),
         ("check 12: basemap geometry and template structure", lambda: check_12_basemap(basemap_data, data_json, template_path)),
         ("check 13: contrast tokens and motion rules", lambda: check_13_contrast_and_motion(template_path)),
+        ("check 14: events pairing", lambda: check_14_events_pairing(rows, data_json)),
     ]
 
     passed = 0

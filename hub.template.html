@@ -485,6 +485,27 @@ body {
     svg.style.height = 'auto';
     svg.style.display = 'block';
 
+    if (DATA.field.basemap && DATA.field.basemap.land) {
+      var landPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      landPath.setAttribute('d', DATA.field.basemap.land);
+      landPath.setAttribute('fill', 'var(--line)');
+      landPath.setAttribute('stroke', 'var(--muted)');
+      landPath.setAttribute('stroke-width', '0.05');
+      landPath.setAttribute('stroke-opacity', '0.55');
+      svg.appendChild(landPath);
+    }
+
+    if (DATA.field.basemap && DATA.field.basemap.plates) {
+      var platesPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      platesPath.setAttribute('d', DATA.field.basemap.plates);
+      platesPath.setAttribute('fill', 'none');
+      platesPath.setAttribute('stroke', 'var(--muted)');
+      platesPath.setAttribute('stroke-width', '0.06');
+      platesPath.setAttribute('stroke-opacity', '0.8');
+      platesPath.setAttribute('stroke-dasharray', '0.45 0.28');
+      svg.appendChild(platesPath);
+    }
+
     paths.forEach(function (d) {
       if (!d) return;
       var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');

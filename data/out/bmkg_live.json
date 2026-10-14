@@ -183,6 +183,18 @@
  ],
  "felt": [
   {
+   "waktu_wib": "17:30:57 WIB",
+   "tanggal": "14 Okt 2026",
+   "datetime_utc": "2026-10-14T10:30:57+00:00",
+   "lat": -8.14,
+   "lon": 120.56,
+   "mag": 3.8,
+   "depth_km": 10.0,
+   "wilayah": "Pusat gempa berada di laut 53 km utara Ruteng, Manggarai",
+   "potensi": "",
+   "dirasakan": "II - III Kab. Manggarai"
+  },
+  {
    "waktu_wib": "17:22:02 WIB",
    "tanggal": "13 Okt 2026",
    "datetime_utc": "2026-10-13T10:22:02+00:00",
@@ -349,18 +361,6 @@
    "wilayah": "Pusat gempa berada di laut 100 km barat daya Pacitan",
    "potensi": "",
    "dirasakan": "II Pacitan"
-  },
-  {
-   "waktu_wib": "17:34:55 WIB",
-   "tanggal": "09 Okt 2026",
-   "datetime_utc": "2026-10-09T10:34:55+00:00",
-   "lat": -3.96,
-   "lon": 122.4,
-   "mag": 2.4,
-   "depth_km": 3.0,
-   "wilayah": "Pusat gempa berada di darat 12 km barat Kendari",
-   "potensi": "",
-   "dirasakan": "II - III Ranometo"
   }
  ]
 }

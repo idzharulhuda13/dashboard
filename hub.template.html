@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard Data Publik</title>
+  <style>
+/* Hallmark · macrostructure: Index Ledger · pre-emit critique: P4 H4 E4 S4 R4 V4 */
+:root {
+  --ground: #F7F1E6;
+  --panel: #FFFBF3;
+  --ink: #1A1410;
+  --muted: #6B5B4A;
+  --line: #DCCFB8;
+  --accent-gempa: #A83F14;
+  --accent-pisa: #2D4ECF;
+  --font-display: 'Chakra Petch', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/*FONTS:BEGIN*/
+/*__FONTS__*/
+/*FONTS:END*/
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+body {
+  background-color: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.masthead {
+  padding: 3.5rem 0 2.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.masthead-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.masthead-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.masthead-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.masthead-intro {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--ink);
+  max-width: 68ch;
+}
+
+.ledger {
+  display: flex;
+  flex-direction: column;
+}
+
+.entry-row {
+  width: 100%;
+  padding: 3.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.entry-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.entry-col-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.plate-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.plate-gempa {
+  color: var(--accent-gempa);
+}
+
+.plate-pisa {
+  color: var(--accent-pisa);
+}
+
+.entry-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.entry-link-title {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.entry-gempa .entry-link-title:hover {
+  color: var(--accent-gempa);
+  border-bottom-color: var(--accent-gempa);
+}
+
+.entry-pisa .entry-link-title:hover {
+  color: var(--accent-pisa);
+  border-bottom-color: var(--accent-pisa);
+}
+
+.entry-link-title:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.entry-line {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.entry-fact {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.entry-nav {
+  margin-top: 0.5rem;
+}
+
+.entry-link-btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.entry-gempa .entry-link-btn:hover {
+  color: var(--accent-gempa);
+  border-bottom-color: var(--accent-gempa);
+}
+
+.entry-pisa .entry-link-btn:hover {
+  color: var(--accent-pisa);
+  border-bottom-color: var(--accent-pisa);
+}
+
+.entry-link-btn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.entry-col-right {
+  width: 100%;
+}
+
+.window-frame {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.window {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: var(--panel);
+  border: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.window-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: var(--panel);
+  border: 1px solid var(--line);
+  border-top: none;
+}
+
+.caption-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.5rem;
+}
+
+.caption-title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.caption-legend {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.metric-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.metric-name {
+  color: var(--ink);
+}
+
+.metric-values {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.val-idn {
+  color: var(--accent-pisa);
+  font-weight: 500;
+}
+
+.val-sep {
+  color: var(--line);
+}
+
+.val-oecd {
+  color: var(--muted);
+}
+
+.footer {
+  margin-top: auto;
+  padding: 3rem 0;
+}
+
+.footer-text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 80ch;
+}
+
+@media (max-width: 768px) {
+  .entry-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .masthead {
+    padding: 2.5rem 0 2rem;
+  }
+  .entry-row {
+    padding: 2.5rem 0;
+  }
+}
+
+@media (max-width: 390px) {
+  .container {
+    padding: 0 1rem;
+  }
+  html, body {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+  }
+}
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="container">
+      <div class="masthead-inner">
+        <p class="masthead-label">DATA PUBLIK</p>
+        <h1 class="masthead-title">Dashboard Data Publik</h1>
+        <p class="masthead-intro">Kumpulan cerita data yang dibangun dari data publik. Satu halaman, satu kumpulan data, setiap angka dihitung ulang sebelum terbit.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="ledger">
+    <article class="entry-row entry-gempa">
+      <div class="container">
+        <div class="entry-grid">
+          <div class="entry-col-left">
+            <p class="plate-label plate-gempa">Pelat 01</p>
+            <h2 class="entry-name">
+              <a href="/gempa/" class="entry-link-title">Setengah Abad Gempa Indonesia</a>
+            </h2>
+            <p class="entry-line">Gempa berkekuatan 5 atau lebih yang tercatat di wilayah Indonesia sejak 1976, dari katalog USGS.</p>
+            <p class="entry-fact">Datanya append-only, dan halamannya dibangun ulang setiap hari.</p>
+            <p class="entry-nav">
+              <a href="/gempa/" class="entry-link-btn">Buka pelat /gempa/</a>
+            </p>
+          </div>
+          <div class="entry-col-right">
+            <figure class="window-frame">
+              <div id="window-gempa" class="window" role="img" aria-label="Visualisasi medan episentrum gempa Indonesia"></div>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry-row entry-pisa">
+      <div class="container">
+        <div class="entry-grid">
+          <div class="entry-col-left">
+            <p class="plate-label plate-pisa">Pelat 02</p>
+            <h2 class="entry-name">
+              <a href="/pisa/" class="entry-link-title">PISA 2025: Dua Dekade Datar</a>
+            </h2>
+            <p class="entry-line">Hasil sains, membaca dan matematika siswa Indonesia di PISA 2025 dibanding rata-rata OECD, dan siapa yang tertinggal di belakang.</p>
+            <p class="entry-fact">Dihitung dari microdata publik OECD dan tabel lampiran resminya.</p>
+            <p class="entry-nav">
+              <a href="/pisa/" class="entry-link-btn">Buka pelat /pisa/</a>
+            </p>
+          </div>
+          <div class="entry-col-right">
+            <figure class="window-frame">
+              <div id="window-pisa" class="window" role="img" aria-label="Visualisasi perbandingan capaian PISA 2025"></div>
+              <figcaption class="window-caption">
+                <div class="caption-head">
+                  <span class="caption-title">Di bawah ambang minimum kemahiran</span>
+                  <span class="caption-legend">IDN / OECD</span>
+                </div>
+                <div class="metric-group">
+                  <div class="metric-row">
+                    <span class="metric-name">Matematika</span>
+                    <span class="metric-values">
+                      <span class="metric-val val-idn"><span data-fig="prof_math_idn">83,1</span>%</span>
+                      <span class="metric-sep">/</span>
+                      <span class="metric-val val-oecd"><span data-fig="prof_math_oecd">34,9</span>%</span>
+                    </span>
+                  </div>
+                  <div class="metric-row">
+                    <span class="metric-name">Membaca</span>
+                    <span class="metric-values">
+                      <span class="metric-val val-idn"><span data-fig="prof_read_idn">72,9</span>%</span>
+                      <span class="metric-sep">/</span>
+                      <span class="metric-val val-oecd"><span data-fig="prof_read_oecd">31,0</span>%</span>
+                    </span>
+                  </div>
+                  <div class="metric-row">
+                    <span class="metric-name">Sains</span>
+                    <span class="metric-values">
+                      <span class="metric-val val-idn"><span data-fig="prof_scie_idn">63,2</span>%</span>
+                      <span class="metric-sep">/</span>
+                      <span class="metric-val val-oecd"><span data-fig="prof_scie_oecd">25,7</span>%</span>
+                    </span>
+                  </div>
+                </div>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">Sumber: katalog gempa USGS dan OECD PISA 2025 (CC BY 4.0). Setiap angka di setiap halaman dihitung ulang oleh gerbang penerimaan sebelum terbit.</p>
+    </div>
+  </footer>
+
+  <script>
+  const DATA = /*__DATA__*/ {};
+
+  function fillDataFigs() {
+    if (!DATA || typeof DATA !== 'object') return;
+    var elements = document.querySelectorAll('span[data-fig]');
+    elements.forEach(function (el) {
+      var key = el.getAttribute('data-fig');
+      if (!key) return;
+      if (DATA.fig && DATA.fig[key] !== undefined) {
+        var entry = DATA.fig[key];
+        el.textContent = (entry && typeof entry === 'object' && entry.d !== undefined) ? entry.d : entry;
+      } else if (DATA[key] !== undefined) {
+        var val = DATA[key];
+        el.textContent = (val && typeof val === 'object' && val.d !== undefined) ? val.d : val;
+      }
+    });
+  }
+
+  function renderGempa() {
+    var container = document.getElementById('window-gempa');
+    if (!container) return;
+    if (!DATA || !DATA.field || !DATA.field.paths || !DATA.field.viewbox) {
+      container.innerHTML = '';
+      return;
+    }
+    var vb = Array.isArray(DATA.field.viewbox) ? DATA.field.viewbox.join(' ') : DATA.field.viewbox;
+    var paths = Array.isArray(DATA.field.paths)
+      ? DATA.field.paths
+      : Object.keys(DATA.field.paths).map(function (k) { return DATA.field.paths[k]; });
+    if (!paths.length) {
+      container.innerHTML = '';
+      return;
+    }
+
+    container.style.display = 'flex';
+    container.style.alignItems = 'center';
+    container.style.justifyContent = 'center';
+
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', vb);
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.style.width = '100%';
+    svg.style.height = 'auto';
+    svg.style.display = 'block';
+
+    paths.forEach(function (d) {
+      if (!d) return;
+      var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', d);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', 'var(--accent-gempa)');
+      path.setAttribute('stroke-width', '0.25');
+      path.setAttribute('stroke-linecap', 'round');
+      svg.appendChild(path);
+    });
+
+    container.innerHTML = '';
+    container.appendChild(svg);
+  }
+
+  function renderPisa() {
+    var container = document.getElementById('window-pisa');
+    if (!container) return;
+    if (!DATA || !DATA.profBars || !Array.isArray(DATA.profBars) || !DATA.profBars.length) {
+      container.innerHTML = '';
+      return;
+    }
+
+    var totalW = 1000;
+    var totalH = 562.5;
+    var barH = 64;
+    var count = DATA.profBars.length;
+    var gap = (totalH - count * barH) / (count + 1);
+
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 ' + totalW + ' ' + totalH);
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.style.display = 'block';
+    svg.style.width = '100%';
+    svg.style.height = '100%';
+
+    DATA.profBars.forEach(function (item, idx) {
+      var y = gap + idx * (barH + gap);
+      var idnVal = Number(item.idn);
+      var barW = Math.max(0, Math.min(totalW, (idnVal / 100) * totalW));
+
+      var bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      bar.setAttribute('class', 'bar-idn');
+      bar.setAttribute('x', '0');
+      bar.setAttribute('y', String(y));
+      bar.setAttribute('width', String(barW));
+      bar.setAttribute('height', String(barH));
+      bar.setAttribute('rx', '5');
+      bar.setAttribute('fill', 'var(--accent-pisa)');
+      svg.appendChild(bar);
+
+      var oecdVal = Number(item.oecd);
+      var tickX = Math.max(0, Math.min(totalW, (oecdVal / 100) * totalW));
+      var tickY1 = y - 8;
+      var tickY2 = y + barH + 8;
+
+      var tickBg = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      tickBg.setAttribute('x1', String(tickX));
+      tickBg.setAttribute('y1', String(tickY1));
+      tickBg.setAttribute('x2', String(tickX));
+      tickBg.setAttribute('y2', String(tickY2));
+      tickBg.setAttribute('stroke', 'var(--panel)');
+      tickBg.setAttribute('stroke-width', '7');
+      tickBg.setAttribute('stroke-linecap', 'round');
+      svg.appendChild(tickBg);
+
+      var tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      tick.setAttribute('class', 'tick-oecd');
+      tick.setAttribute('x1', String(tickX));
+      tick.setAttribute('y1', String(tickY1));
+      tick.setAttribute('x2', String(tickX));
+      tick.setAttribute('y2', String(tickY2));
+      tick.setAttribute('stroke', 'var(--ink)');
+      tick.setAttribute('stroke-width', '3.5');
+      tick.setAttribute('stroke-linecap', 'round');
+      svg.appendChild(tick);
+    });
+
+    container.innerHTML = '';
+    container.appendChild(svg);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    fillDataFigs();
+    renderGempa();
+    renderPisa();
+  });
+  </script>
+</body>
+</html>

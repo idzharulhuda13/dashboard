@@ -1,4 +1,4 @@
-<!--BUILD sha256:bf8fdc1de1aa725c6035647289223b29345ddf1c8ef26ef455c26df9b640431f-->
+<!--BUILD sha256:ba48560c938a59462943d9f1e9c6ed105df58d61083af82765d82723094d1f8b-->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -1709,12 +1709,12 @@ button:focus-visible,
           <div class="depth-summary-card">
             <span class="depth-cat-badge">Dangkal (kurang dari 70 km)</span>
             <span class="depth-pct"><span class="data-fig" data-fig="pct_dangkal"></span>%</span>
-            <span class="depth-note">Berpusat dekat permukaan kerak bumi; rambatan energinya paling intens dirasakan di daratan pemukiman dan berpotensi memicu gelombang tsunami bila terjadi di dasar laut.</span>
+            <span class="depth-note">Berpusat dekat permukaan kerak bumi, kelas kedalaman 0 sampai 70 km. Energi yang dilepas di kedalaman ini belum banyak teredam batuan di atasnya, jadi gempa dangkal adalah kelas yang paling sering dirasakan sampai ke permukaan dan paling berpotensi merusak; tsunami hanya terjadi bila gempa dangkal di dasar laut mengangkat dasar laut, jadi tidak setiap gempa dangkal memicunya.</span>
           </div>
           <div class="depth-summary-card">
             <span class="depth-cat-badge">Menengah (70 sampai kurang dari 300 km)</span>
             <span class="depth-pct"><span class="data-fig" data-fig="pct_menengah"></span>%</span>
-            <span class="depth-note">Berpusat pada lempeng subduksi yang menunjam ke mantel; getarannya menjangkau wilayah permukaan yang sangat luas, namun energinya telah teredam oleh ketebalan batuan.</span>
+            <span class="depth-note">Berpusat di kedalaman 70 sampai 300 km, kelas menengah. Jarak dari permukaan membuat energinya lebih teredam daripada gempa dangkal, sehingga getaran yang sampai ke permukaan umumnya lebih lemah untuk magnitudo yang sama; gempa sedalam ini juga jarang memicu tsunami.</span>
           </div>
           <div class="depth-summary-card">
             <span class="depth-cat-badge">Dalam (300 km atau lebih)</span>
@@ -1869,7 +1869,7 @@ function renderScaleRule(slotSelector, captionText) {
         `<div class="scale-rule-unit">kunci skala logaritmik (M5 ke M9)</div>` +
       `</div>` +
       `<div class="scale-ladder-desc">` +
-        `<div class="scale-ladder-note">Setiap kenaikan 1 tingkat magnitudo merepresentasikan lonjakan energi sekitar 32 kali lipat. Batang di bawah menggunakan skala logaritmik untuk menampilkan piramida populasi dari M5 hingga M9.</div>` +
+        `<div class="scale-ladder-note">Setiap kenaikan 1 tingkat magnitudo merepresentasikan lonjakan energi sekitar 32 kali lipat (hubungan energi-magnitudo Gutenberg-Richter, 10 pangkat 1,5). Batang di bawah menggunakan skala logaritmik untuk menampilkan piramida populasi dari M5 hingga M9.</div>` +
       `</div>`;
     return;
   }
@@ -2116,6 +2116,20 @@ function renderField() {
   circleCursor.setAttribute('focusable', 'false');
   gCursor.appendChild(circleCursor);
   svg.appendChild(gCursor);
+
+  const elDetail = document.getElementById('field-detail');
+  if (elDetail && elDetail.classList.contains('is-open')) {
+    if (interactionCurrentIndex >= 0 && interactionCurrentIndex < flatPointsList.length) {
+      const pt = flatPointsList[interactionCurrentIndex];
+      gCursor.setAttribute('cx', String(pt.x));
+      gCursor.setAttribute('cy', String(pt.y));
+      circleCursor.setAttribute('cx', String(pt.x));
+      circleCursor.setAttribute('cy', String(pt.y));
+      gCursor.classList.remove('is-off');
+    } else {
+      elDetail.classList.remove('is-open');
+    }
+  }
 }
 function renderProvince() {
   const container = document.getElementById('chart-province');
@@ -2736,7 +2750,7 @@ function stopLoader() {
 }
 
 let flatPointsList = [];
-let interactionCurrentIndex = 0;
+let interactionCurrentIndex = -1;
 
 function initFieldInteraction() {
   const container = document.getElementById('chart-field');
@@ -2804,6 +2818,23 @@ function initFieldInteraction() {
     }
   }
 
+  function formatEventLive(i) {
+    if (i < 0 || i >= flatPointsList.length) return '';
+    const magRaw = Number(mags[i]);
+    const depthVal = depths[i];
+    const dayVal = Number(days[i]);
+    const provIdx = Number(provs[i]);
+
+    const magFormatted = "M" + (magRaw / 10).toFixed(1).replace(".", ",");
+    const depthFormatted = depthVal + " km";
+
+    const d = new Date(dayVal * 86400000);
+    const dateFormatted = d.getUTCDate() + " " + MONTHS_ID[d.getUTCMonth()] + " " + d.getUTCFullYear();
+    const provFormatted = provinces[provIdx] || '';
+
+    return magFormatted + ", kedalaman " + depthFormatted + ", " + dateFormatted + ", " + provFormatted;
+  }
+
   function open(i) {
     if (i < 0 || i >= flatPointsList.length) return;
     interactionCurrentIndex = i;
@@ -2849,7 +2880,7 @@ function initFieldInteraction() {
 
     const elLive = document.getElementById('field-live');
     if (elLive) {
-      elLive.textContent = magFormatted + ", kedalaman " + depthFormatted + ", " + dateFormatted + ", " + provFormatted;
+      elLive.textContent = formatEventLive(i);
     }
 
     setCursor(pt.x, pt.y);
@@ -2928,7 +2959,9 @@ function initFieldInteraction() {
 
     hit.addEventListener('focus', () => {
       if (flatPointsList.length === 0) return;
-      setCursorOnly(interactionCurrentIndex);
+      if (interactionCurrentIndex >= 0) {
+        setCursorOnly(interactionCurrentIndex);
+      }
     });
 
     hit.addEventListener('keydown', (e) => {
@@ -2936,23 +2969,49 @@ function initFieldInteraction() {
 
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         e.preventDefault();
-        interactionCurrentIndex = Math.min(flatPointsList.length - 1, interactionCurrentIndex + 1);
-        setCursorOnly(interactionCurrentIndex);
-        const elDetail = document.getElementById('field-detail');
-        if (elDetail && elDetail.classList.contains('is-open')) {
-          open(interactionCurrentIndex);
+        const prevIndex = interactionCurrentIndex;
+        if (interactionCurrentIndex === -1) {
+          interactionCurrentIndex = 0;
+        } else {
+          interactionCurrentIndex = Math.min(flatPointsList.length - 1, interactionCurrentIndex + 1);
+        }
+        if (interactionCurrentIndex !== prevIndex) {
+          setCursorOnly(interactionCurrentIndex);
+          const elDetail = document.getElementById('field-detail');
+          if (elDetail && elDetail.classList.contains('is-open')) {
+            open(interactionCurrentIndex);
+          } else {
+            const elLive = document.getElementById('field-live');
+            if (elLive) {
+              elLive.textContent = formatEventLive(interactionCurrentIndex);
+            }
+          }
         }
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault();
-        interactionCurrentIndex = Math.max(0, interactionCurrentIndex - 1);
-        setCursorOnly(interactionCurrentIndex);
-        const elDetail = document.getElementById('field-detail');
-        if (elDetail && elDetail.classList.contains('is-open')) {
-          open(interactionCurrentIndex);
+        const prevIndex = interactionCurrentIndex;
+        if (interactionCurrentIndex === -1) {
+          interactionCurrentIndex = flatPointsList.length - 1;
+        } else {
+          interactionCurrentIndex = Math.max(0, interactionCurrentIndex - 1);
+        }
+        if (interactionCurrentIndex !== prevIndex) {
+          setCursorOnly(interactionCurrentIndex);
+          const elDetail = document.getElementById('field-detail');
+          if (elDetail && elDetail.classList.contains('is-open')) {
+            open(interactionCurrentIndex);
+          } else {
+            const elLive = document.getElementById('field-live');
+            if (elLive) {
+              elLive.textContent = formatEventLive(interactionCurrentIndex);
+            }
+          }
         }
       } else if (e.key === 'Enter') {
         e.preventDefault();
-        open(interactionCurrentIndex);
+        if (interactionCurrentIndex >= 0) {
+          open(interactionCurrentIndex);
+        }
       } else if (e.key === 'Escape') {
         e.preventDefault();
         close();
@@ -2980,6 +3039,28 @@ function bootstrap() {
   }
 }
 
+function syncFieldOnResize() {
+  const elDetail = document.getElementById('field-detail');
+  const cursor = document.getElementById('field-cursor');
+  if (elDetail && elDetail.classList.contains('is-open')) {
+    if (interactionCurrentIndex >= 0 && interactionCurrentIndex < flatPointsList.length) {
+      const pt = flatPointsList[interactionCurrentIndex];
+      if (cursor) {
+        cursor.setAttribute('cx', String(pt.x));
+        cursor.setAttribute('cy', String(pt.y));
+        const circle = cursor.querySelector('circle');
+        if (circle) {
+          circle.setAttribute('cx', String(pt.x));
+          circle.setAttribute('cy', String(pt.y));
+        }
+        cursor.classList.remove('is-off');
+      }
+    } else {
+      elDetail.classList.remove('is-open');
+    }
+  }
+}
+
 let resizeTimeout = null;
 window.addEventListener('resize', () => {
   clearTimeout(resizeTimeout);
@@ -2989,6 +3070,7 @@ window.addEventListener('resize', () => {
       injectFigs();
       updateScrollAffordance(document.getElementById('table-live-latest'));
       updateScrollAffordance(document.getElementById('table-live-felt'));
+      syncFieldOnResize();
     } catch (err) {
       // Retain state on resize
     }

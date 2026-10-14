@@ -122,6 +122,25 @@ def load_unique_events():
 
     return [format_event(r) for r in unique]
 
+
+def fmt_event_row(r):
+    mag_val = float(r["mag"])
+    mag_str = f"M{mag_val:.1f}".replace(".", ",")
+    depth_val = round(float(r["depth_km"]))
+    depth_str = f"{depth_val} km"
+    d = date.fromisoformat(r["date_wib"])
+    date_str = f"{d.day} {MONTHS_ID[d.month - 1]} {d.year}"
+    prov_str = r["province"]
+    summary = f"{mag_str}, kedalaman {depth_str}, {date_str}, {prov_str}"
+    return {
+        "mag": mag_str,
+        "depth": depth_str,
+        "date": date_str,
+        "prov": prov_str,
+        "summary": summary,
+    }
+
+
 VIEWPORTS = [
     (390, 844),
     (1440, 900),
@@ -1223,6 +1242,223 @@ def run_checks_for_viewport(browser, width: int, height: int):
                 "message": f"exception in field keyboard: {type(exc).__name__}: {exc}",
                 "details": [str(exc)],
             })
+
+    # S11. Keyboard announce check
+    try:
+        ka_page = context.new_page()
+        ka_page.goto(INDEX_URL)
+        ka_page.wait_for_load_state("load")
+
+        reached = False
+        for _ in range(25):
+            ka_page.keyboard.press("Tab")
+            active_info = ka_page.evaluate("""() => {
+                const el = document.activeElement;
+                if (!el) return null;
+                return { id: el.id || '', tag: el.tagName.toLowerCase() };
+            }""")
+            if active_info and active_info["id"] == "field-hit":
+                reached = True
+                break
+
+        ka_defects = []
+        if not reached:
+            ka_defects.append("could not focus #field-hit with keyboard via Tab")
+
+        initial_live = ka_page.evaluate("() => document.getElementById('field-live')?.textContent || ''")
+
+        # Press ArrowRight once, wait ~400 ms
+        ka_page.keyboard.press("ArrowRight")
+        ka_page.wait_for_timeout(400)
+
+        with open(CSV_PATH, encoding="utf-8") as f:
+            csv_rows = list(csv.DictReader(f))
+        m5_rows = [r for r in csv_rows if r.get("mag_band") == "M5"]
+        first_m5 = fmt_event_row(m5_rows[0])
+
+        after_arrow = ka_page.evaluate("""() => {
+            const detail = document.getElementById("field-detail");
+            const live = document.getElementById("field-live");
+            return {
+                liveText: live ? (live.textContent || "") : "",
+                isOpen: detail ? detail.classList.contains("is-open") : false,
+            };
+        }""")
+
+        # assert (i) #field-live text changed and now contains magnitude of FIRST event of band in same format
+        if after_arrow["liveText"] == initial_live:
+            ka_defects.append(f"#field-live text did not change after ArrowRight (remained '{initial_live}')")
+        if first_m5["mag"] not in after_arrow["liveText"]:
+            ka_defects.append(
+                f"#field-live '{after_arrow['liveText']}' does not contain magnitude of first event '{first_m5['mag']}'"
+            )
+
+        # assert (ii) #field-detail is still closed
+        if after_arrow["isOpen"]:
+            ka_defects.append("#field-detail is open after ArrowRight before Enter")
+
+        # Press Enter and assert panel opens on that same event
+        ka_page.keyboard.press("Enter")
+        ka_page.wait_for_timeout(400)
+
+        after_enter = ka_page.evaluate("""() => {
+            const detail = document.getElementById("field-detail");
+            return {
+                isOpen: detail ? detail.classList.contains("is-open") : false,
+                mag: document.querySelector(".fd-mag")?.textContent || "",
+                depth: document.querySelector(".fd-depth")?.textContent || "",
+                date: document.querySelector(".fd-date")?.textContent || "",
+                prov: document.querySelector(".fd-prov")?.textContent || "",
+            };
+        }""")
+
+        if not after_enter["isOpen"]:
+            ka_defects.append("#field-detail is not open after Enter")
+        if (
+            after_enter["mag"] != first_m5["mag"]
+            or after_enter["depth"] != first_m5["depth"]
+            or after_enter["date"] != first_m5["date"]
+            or after_enter["prov"] != first_m5["prov"]
+        ):
+            ka_defects.append(
+                f".fd-* ({after_enter['mag']}, {after_enter['depth']}, {after_enter['date']}, {after_enter['prov']}) "
+                f"did not match first band-M5 event ({first_m5['mag']}, {first_m5['depth']}, {first_m5['date']}, {first_m5['prov']})"
+            )
+
+        ka_page.close()
+
+        if ka_defects:
+            results.append({
+                "check": "keyboard announce",
+                "pass": False,
+                "message": f"{len(ka_defects)} defect(s) on keyboard announce",
+                "details": ka_defects,
+            })
+        else:
+            results.append({
+                "check": "keyboard announce",
+                "pass": True,
+                "message": (
+                    f"ArrowRight announced first event ({first_m5['mag']}) in #field-live while panel closed, "
+                    f"Enter opened panel on same event ({first_m5['summary']})"
+                ),
+                "details": [],
+            })
+    except Exception as exc:
+        results.append({
+            "check": "keyboard announce",
+            "pass": False,
+            "message": f"exception in keyboard announce: {type(exc).__name__}: {exc}",
+            "details": [str(exc)],
+        })
+
+    # S12. Resize sync check
+    try:
+        rs_page = context.new_page()
+        rs_page.set_viewport_size({"width": width, "height": height})
+        rs_page.goto(INDEX_URL)
+        rs_page.wait_for_load_state("load")
+        rs_page.locator("#chart-field").scroll_into_view_if_needed()
+
+        # Open a detail by hovering an epicentre
+        events = load_unique_events()
+        ev_target = events[-1]
+        pt = rs_page.evaluate(
+            """([xSvg, ySvg]) => {
+                const svg = document.querySelector("#chart-field svg, .field-svg");
+                const rect = svg.getBoundingClientRect();
+                const vb = svg.viewBox.baseVal;
+                const px = rect.left + (xSvg - vb.x) * (rect.width / vb.width);
+                const py = rect.top + (ySvg - vb.y) * (rect.height / vb.height);
+                return { px, py };
+            }""",
+            [ev_target["cx"], ev_target["cy"]],
+        )
+        rs_page.mouse.move(pt["px"], pt["py"])
+        rs_page.wait_for_timeout(200)
+
+        # Resize viewport
+        new_w = width - 50 if width > 400 else width + 50
+        new_h = height - 50
+        rs_page.set_viewport_size({"width": new_w, "height": new_h})
+        rs_page.wait_for_timeout(400)
+
+        sync_res = rs_page.evaluate("""() => {
+            const detail = document.getElementById("field-detail");
+            const cursor = document.getElementById("field-cursor");
+            const field = document.getElementById("chart-field");
+
+            const isDetailOpen = detail ? detail.classList.contains("is-open") : false;
+            const isCursorOff = cursor ? cursor.classList.contains("is-off") : true;
+
+            let cursorVisible = false;
+            let cursorInsideField = false;
+
+            if (cursor && !isCursorOff) {
+                const s = window.getComputedStyle(cursor);
+                const opacity = parseFloat(s.opacity);
+                cursorVisible = opacity > 0 && s.display !== "none" && s.visibility !== "hidden";
+
+                if (field) {
+                    const circle = cursor.querySelector("circle") || cursor;
+                    const cRect = circle.getBoundingClientRect();
+                    const fRect = field.getBoundingClientRect();
+                    cursorInsideField = (
+                        cRect.left >= fRect.left - 5 &&
+                        cRect.right <= fRect.right + 5 &&
+                        cRect.top >= fRect.top - 5 &&
+                        cRect.bottom <= fRect.bottom + 5 &&
+                        cRect.width > 0 &&
+                        cRect.height > 0
+                    );
+                }
+            }
+
+            return {
+                isDetailOpen,
+                isCursorOff,
+                cursorVisible,
+                cursorInsideField,
+            };
+        }""")
+
+        rs_defects = []
+        if sync_res["isDetailOpen"]:
+            if sync_res["isCursorOff"] or not sync_res["cursorVisible"]:
+                rs_defects.append("detail panel is open after resize but cursor is inactive/hidden")
+            if not sync_res["cursorInsideField"]:
+                rs_defects.append("detail panel is open after resize but cursor is not visible inside field element")
+        else:
+            if not sync_res["isCursorOff"] and sync_res["cursorVisible"]:
+                rs_defects.append("detail panel is closed after resize but cursor is still active/visible")
+
+        rs_page.close()
+
+        if rs_defects:
+            results.append({
+                "check": "resize sync",
+                "pass": False,
+                "message": f"{len(rs_defects)} defect(s) on resize sync",
+                "details": rs_defects,
+            })
+        else:
+            results.append({
+                "check": "resize sync",
+                "pass": True,
+                "message": (
+                    f"after resize ({width}x{height} -> {new_w}x{new_h}), cursor and panel agree: "
+                    f"detail isOpen={sync_res['isDetailOpen']}, cursorVisible={sync_res['cursorVisible']}, "
+                    f"cursorInsideField={sync_res['cursorInsideField']}"
+                ),
+                "details": [],
+            })
+    except Exception as exc:
+        results.append({
+            "check": "resize sync",
+            "pass": False,
+            "message": f"exception in resize sync: {type(exc).__name__}: {exc}",
+            "details": [str(exc)],
+        })
 
     context.close()
     return results

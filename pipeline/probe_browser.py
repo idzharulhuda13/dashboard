@@ -864,8 +864,286 @@ def run_checks_for_viewport(browser, width: int, height: int):
                     "details": [str(exc)],
                 })
 
+    # S10. Field keyboard check on a fresh page per viewport
+    try:
+        kb_page = context.new_page()
+        kb_page.goto(INDEX_URL)
+        kb_page.wait_for_load_state("load")
+
+        # Tab navigation to #field-hit
+        # "Tab must reach #field-hit in exactly one stop after the preceding focusable (<= 25 presses total)"
+        focused_sequence = []
+        tab_count = 0
+        reached = False
+        for _ in range(25):
+            tab_count += 1
+            kb_page.keyboard.press("Tab")
+            active_info = kb_page.evaluate("""() => {
+                const el = document.activeElement;
+                if (!el) return null;
+                return {
+                    id: el.id || '',
+                    tag: el.tagName.toLowerCase(),
+                };
+            }""")
+            if active_info:
+                focused_sequence.append(active_info)
+                if active_info["id"] == "field-hit":
+                    reached = True
+                    break
+
+        kb_defects = []
+        if not reached:
+            kb_defects.append(f"#field-hit not reached within 25 Tab presses (focused: {focused_sequence})")
+        elif len(focused_sequence) < 2:
+            kb_defects.append(f"no preceding focusable before #field-hit (focused: {focused_sequence})")
+
+        # Outline & contrast assertion:
+        # "assert outline-style != none, outline-width > 0 and outline contrast >= 3:1 against the effective background"
+        outline_res = kb_page.evaluate("""() => {
+            function parseRgb(str) {
+                if (!str) return null;
+                const m = str.match(/rgba?\\((\\d+),\\s*(\\d+),\\s*(\\d+)(?:,\\s*([\\d.]+))?\\)/);
+                if (!m) return null;
+                return {
+                    r: parseInt(m[1]),
+                    g: parseInt(m[2]),
+                    b: parseInt(m[3]),
+                    a: m[4] !== undefined ? parseFloat(m[4]) : 1.0
+                };
+            }
+
+            function lum(c) {
+                const a = [c.r, c.g, c.b].map(v => {
+                    v /= 255;
+                    return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+                });
+                return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+            }
+
+            function contrastRatio(c1, c2) {
+                const l1 = lum(c1);
+                const l2 = lum(c2);
+                return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+            }
+
+            function getEffectiveBg(el) {
+                let curr = el;
+                while (curr) {
+                    const s = window.getComputedStyle(curr);
+                    const bg = parseRgb(s.backgroundColor);
+                    if (bg && bg.a > 0) return bg;
+                    curr = curr.parentElement;
+                }
+                return { r: 8, g: 13, b: 30, a: 1.0 };
+            }
+
+            const el = document.getElementById('field-hit');
+            if (!el) return { error: '#field-hit not found' };
+            const s = window.getComputedStyle(el);
+            const bg = getEffectiveBg(el);
+            const color = parseRgb(s.outlineColor);
+            const ratio = (color && bg) ? contrastRatio(color, bg) : 0;
+            return {
+                outlineStyle: s.outlineStyle,
+                outlineWidth: parseFloat(s.outlineWidth) || 0,
+                outlineColor: s.outlineColor,
+                ratio: ratio,
+            };
+        }""")
+
+        if outline_res.get("outlineStyle") == "none":
+            kb_defects.append("#field-hit outline-style is 'none'")
+        if outline_res.get("outlineWidth", 0) <= 0:
+            kb_defects.append(f"#field-hit outline-width {outline_res.get('outlineWidth')} <= 0")
+        if outline_res.get("ratio", 0) < 3.0:
+            kb_defects.append(f"#field-hit focus outline contrast {outline_res.get('ratio', 0):.2f} < 3:1")
+
+        # ArrowRight once then Enter -> is-open with .fd-* equal to the CSV row of the first band-M5 event
+        kb_page.keyboard.press("ArrowRight")
+        kb_page.keyboard.press("Enter")
+        kb_page.wait_for_timeout(50)
+
+        open_res = kb_page.evaluate("""() => {
+            const detail = document.getElementById("field-detail");
+            const cursor = document.getElementById("field-cursor");
+            const live = document.getElementById("field-live");
+            return {
+                isOpen: detail ? detail.classList.contains("is-open") : false,
+                isOff: cursor ? cursor.classList.contains("is-off") : true,
+                mag: document.querySelector(".fd-mag")?.textContent || "",
+                depth: document.querySelector(".fd-depth")?.textContent || "",
+                date: document.querySelector(".fd-date")?.textContent || "",
+                prov: document.querySelector(".fd-prov")?.textContent || "",
+                live: live ? live.textContent || "" : "",
+            };
+        }""")
+
+        if not open_res["isOpen"]:
+            kb_defects.append("#field-detail missing class 'is-open' after ArrowRight and Enter")
+        if open_res["isOff"]:
+            kb_defects.append("#field-cursor has class 'is-off' after ArrowRight and Enter")
+
+        with open(CSV_PATH, encoding="utf-8") as f:
+            csv_rows = list(csv.DictReader(f))
+        m5_rows = [r for r in csv_rows if r.get("mag_band") == "M5"]
+
+        def fmt_row(r):
+            mag_val = float(r["mag"])
+            mag_str = f"M{mag_val:.1f}".replace(".", ",")
+            depth_val = round(float(r["depth_km"]))
+            depth_str = f"{depth_val} km"
+            d = date.fromisoformat(r["date_wib"])
+            date_str = f"{d.day} {MONTHS_ID[d.month - 1]} {d.year}"
+            prov_str = r["province"]
+            summary = f"{mag_str}, kedalaman {depth_str}, {date_str}, {prov_str}"
+            return {
+                "mag": mag_str,
+                "depth": depth_str,
+                "date": date_str,
+                "prov": prov_str,
+                "summary": summary,
+            }
+
+        target_ev0 = fmt_row(m5_rows[0])
+        target_ev1 = fmt_row(m5_rows[1])
+
+        match_0 = (
+            open_res["mag"] == target_ev0["mag"]
+            and open_res["depth"] == target_ev0["depth"]
+            and open_res["date"] == target_ev0["date"]
+            and open_res["prov"] == target_ev0["prov"]
+        )
+        match_1 = (
+            open_res["mag"] == target_ev1["mag"]
+            and open_res["depth"] == target_ev1["depth"]
+            and open_res["date"] == target_ev1["date"]
+            and open_res["prov"] == target_ev1["prov"]
+        )
+
+        if not (match_0 or match_1):
+            kb_defects.append(
+                f".fd-* ({open_res['mag']}, {open_res['depth']}, {open_res['date']}, {open_res['prov']}) "
+                f"did not match CSV row of first band-M5 event ({target_ev0['mag']}, {target_ev0['depth']}, {target_ev0['date']}, {target_ev0['prov']}) "
+                f"or ({target_ev1['mag']}, {target_ev1['depth']}, {target_ev1['date']}, {target_ev1['prov']})"
+            )
+
+        # Escape -> no is-open and #field-live == "Rincian ditutup."
+        kb_page.keyboard.press("Escape")
+        kb_page.wait_for_timeout(50)
+
+        esc_res = kb_page.evaluate("""() => {
+            const detail = document.getElementById("field-detail");
+            const live = document.getElementById("field-live");
+            return {
+                isOpen: detail ? detail.classList.contains("is-open") : false,
+                live: live ? live.textContent || "" : "",
+            };
+        }""")
+
+        if esc_res["isOpen"]:
+            kb_defects.append("#field-detail still has class 'is-open' after Escape")
+        if esc_res["live"] != "Rincian ditutup.":
+            kb_defects.append(f"#field-live '{esc_res['live']}' != expected 'Rincian ditutup.' after Escape")
+
+        kb_page.close()
+
+        if kb_defects:
+            results.append({
+                "check": "field keyboard",
+                "pass": False,
+                "message": f"{len(kb_defects)} defect(s) on field keyboard",
+                "details": kb_defects,
+            })
+        else:
+            results.append({
+                "check": "field keyboard",
+                "pass": True,
+                "message": (
+                    f"one Tab stop reached #field-hit ({tab_count} presses total), "
+                    f"focus outline >= 3:1 ({outline_res['ratio']:.2f}:1), "
+                    f"ArrowRight+Enter opens is-open with .fd-* equal to the CSV row of the first band-M5 event "
+                    f"({open_res['mag']}, {open_res['depth']}, {open_res['date']}, {open_res['prov']}), "
+                    f"Escape -> no is-open and #field-live == 'Rincian ditutup.'"
+                ),
+                "details": [],
+            })
+    except Exception as exc:
+        if not any(r["check"] == "field keyboard" for r in results):
+            results.append({
+                "check": "field keyboard",
+                "pass": False,
+                "message": f"exception in field keyboard: {type(exc).__name__}: {exc}",
+                "details": [str(exc)],
+            })
+
     context.close()
     return results
+
+
+def run_reduced_motion_check(browser):
+    try:
+        context = browser.new_context(reduced_motion="reduce")
+        page = context.new_page()
+        page.goto(INDEX_URL)
+        page.wait_for_load_state("load")
+
+        # Open detail via keyboard
+        page.keyboard.press("Tab")
+        page.keyboard.press("Tab")
+        page.keyboard.press("ArrowRight")
+        page.keyboard.press("Enter")
+        page.wait_for_timeout(50)
+
+        res = page.evaluate("""() => {
+            const cursor = document.getElementById("field-cursor");
+            const detail = document.getElementById("field-detail");
+            const cursorDur = cursor ? parseFloat(window.getComputedStyle(cursor).transitionDuration) : NaN;
+            const detailDur = detail ? parseFloat(window.getComputedStyle(detail).transitionDuration) : NaN;
+            const isOpen = detail ? detail.classList.contains("is-open") : false;
+            return {
+                isOpen,
+                cursorDur,
+                detailDur,
+            };
+        }""")
+
+        page.close()
+        context.close()
+
+        defects = []
+        if not res["isOpen"]:
+            defects.append("#field-detail missing class 'is-open' after opening")
+        if res["cursorDur"] != res["cursorDur"] or res["cursorDur"] > 0.001:
+            defects.append(f"#field-cursor transitionDuration {res['cursorDur']}s > 0.001s")
+        if res["detailDur"] != res["detailDur"] or res["detailDur"] > 0.001:
+            defects.append(f"#field-detail transitionDuration {res['detailDur']}s > 0.001s")
+
+        if defects:
+            return {
+                "check": "reduced motion",
+                "pass": False,
+                "message": f"{len(defects)} defect(s) on reduced motion",
+                "details": defects,
+            }
+        else:
+            return {
+                "check": "reduced motion",
+                "pass": True,
+                "message": (
+                    f"after opening detail (is-open), transitionDuration <= 0.001s under reduce verified: "
+                    f"parseFloat(getComputedStyle(document.getElementById('field-cursor')).transitionDuration) == {res['cursorDur']} <= 0.001 "
+                    f"and the same for #field-detail ({res['detailDur']} <= 0.001)"
+                ),
+                "details": [],
+            }
+    except Exception as exc:
+        return {
+            "check": "reduced motion",
+            "pass": False,
+            "message": f"exception in reduced motion: {type(exc).__name__}: {exc}",
+            "details": [str(exc)],
+        }
 
 
 def main():
@@ -915,8 +1193,22 @@ def main():
                         total_contrast += r.get("count", 0)
                     elif r["check"] == "console":
                         total_console += r.get("count", 0)
-                    elif r["check"] == "keyboard":
+                    elif r["check"] in ("keyboard", "field keyboard"):
                         total_focus += r.get("count", 0)
+
+            # Global checks (reduced motion)
+            rm_res = run_reduced_motion_check(browser)
+            total_checks += 1
+            status = "PASS" if rm_res["pass"] else "FAIL"
+            if rm_res["pass"]:
+                passed_checks += 1
+            else:
+                all_passed = False
+
+            print(f"{status} [global] {rm_res['check']}: {rm_res['message']}")
+            if not rm_res["pass"] and rm_res.get("details"):
+                for detail in rm_res["details"]:
+                    print(f"  - {detail}")
 
             browser.close()
     except Exception as exc:
@@ -936,4 +1228,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

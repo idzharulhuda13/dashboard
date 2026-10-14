@@ -1,4 +1,4 @@
-<!--BUILD sha256:28f24a7cd0b08535cd41d0a7a2072888b12106c2d8b74ab1d68262d07f71daf4-->
+<!--BUILD sha256:a1792d8e3e8de5359fae1f5e4430de2bdc50ff6711e113e3747d4dd72003b775-->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -2101,7 +2101,6 @@ function renderField() {
   gCursor.setAttribute('id', 'field-cursor');
   gCursor.setAttribute('class', 'field-cursor is-off');
   const circleCursor = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-  circleCursor.setAttribute('class', 'field-cursor is-off');
   circleCursor.setAttribute('r', '0.6');
   circleCursor.setAttribute('fill', 'none');
   circleCursor.setAttribute('stroke', 'var(--on-deep)');
@@ -2728,11 +2727,240 @@ function stopLoader() {
   }
 }
 
+let flatPointsList = [];
+let interactionCurrentIndex = 0;
+
+function initFieldInteraction() {
+  const container = document.getElementById('chart-field');
+  if (!container || !DATA || !DATA.field) return;
+
+  const hit = document.getElementById('field-hit');
+  const svg = container.querySelector('svg');
+  if (!hit || !svg) return;
+
+  const bands = ['M5', 'M6', 'M7', 'M8', 'M9'];
+  flatPointsList = [];
+  const pathRegex = /M\s*([+-]?(?:\d*\.)?\d+)[,\s]*([+-]?(?:\d*\.)?\d+)/g;
+  let offset = 0;
+
+  bands.forEach((band, bIdx) => {
+    const d = (DATA.field.paths && DATA.field.paths[band]) || '';
+    pathRegex.lastIndex = 0;
+    let m;
+    let count = 0;
+    while ((m = pathRegex.exec(d)) !== null) {
+      flatPointsList.push({
+        x: parseFloat(m[1]),
+        y: parseFloat(m[2]),
+        band: band,
+        bandIndex: bIdx + 1,
+        index: offset + count
+      });
+      count++;
+    }
+    const expectedCount = (DATA.field.counts && (DATA.field.counts[band] !== undefined ? DATA.field.counts[band] : (Array.isArray(DATA.field.counts) ? DATA.field.counts[bIdx] : count))) || count;
+    offset += expectedCount;
+  });
+
+  const events = DATA.events || {};
+  const mags = typeof events.mag === 'string' ? events.mag.split(',') : (Array.isArray(events.mag) ? events.mag : []);
+  const depths = typeof events.depth === 'string' ? events.depth.split(',') : (Array.isArray(events.depth) ? events.depth : []);
+  const days = typeof events.day === 'string' ? events.day.split(',') : (Array.isArray(events.day) ? events.day : []);
+  const provs = typeof events.prov === 'string' ? events.prov.split(',') : (Array.isArray(events.prov) ? events.prov : []);
+  const provinces = DATA.field.provinces || [];
+
+  const MONTHS_ID = [
+    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+  ];
+
+  function setCursor(x, y) {
+    const cursor = document.getElementById('field-cursor');
+    if (!cursor) return;
+    cursor.setAttribute('cx', String(x));
+    cursor.setAttribute('cy', String(y));
+    const circle = cursor.querySelector('circle');
+    if (circle) {
+      circle.setAttribute('cx', String(x));
+      circle.setAttribute('cy', String(y));
+    }
+  }
+
+  function setCursorOnly(index) {
+    if (index < 0 || index >= flatPointsList.length) return;
+    const pt = flatPointsList[index];
+    setCursor(pt.x, pt.y);
+    const cursor = document.getElementById('field-cursor');
+    if (cursor) {
+      cursor.classList.remove('is-off');
+    }
+  }
+
+  function open(i) {
+    if (i < 0 || i >= flatPointsList.length) return;
+    interactionCurrentIndex = i;
+    const pt = flatPointsList[i];
+    const magRaw = Number(mags[i]);
+    const depthVal = depths[i];
+    const dayVal = Number(days[i]);
+    const provIdx = Number(provs[i]);
+
+    const magFormatted = "M" + (magRaw / 10).toFixed(1).replace(".", ",");
+    const depthFormatted = depthVal + " km";
+
+    const d = new Date(dayVal * 86400000);
+    const dateFormatted = d.getUTCDate() + " " + MONTHS_ID[d.getUTCMonth()] + " " + d.getUTCFullYear();
+    const provFormatted = provinces[provIdx] || '';
+
+    const elMag = document.querySelector('.fd-mag');
+    if (elMag) {
+      elMag.textContent = magFormatted;
+      const bandN = Math.min(5, Math.max(1, Math.floor(magRaw / 10) - 4));
+      elMag.className = 'fd-mag fd-band-' + bandN;
+    }
+
+    const elDepth = document.querySelector('.fd-depth');
+    if (elDepth) {
+      elDepth.textContent = depthFormatted;
+    }
+
+    const elDate = document.querySelector('.fd-date');
+    if (elDate) {
+      elDate.textContent = dateFormatted;
+    }
+
+    const elProv = document.querySelector('.fd-prov');
+    if (elProv) {
+      elProv.textContent = provFormatted;
+    }
+
+    const elDetail = document.getElementById('field-detail');
+    if (elDetail) {
+      elDetail.classList.add('is-open');
+    }
+
+    const elLive = document.getElementById('field-live');
+    if (elLive) {
+      elLive.textContent = magFormatted + ", kedalaman " + depthFormatted + ", " + dateFormatted + ", " + provFormatted;
+    }
+
+    setCursor(pt.x, pt.y);
+    const elCursor = document.getElementById('field-cursor');
+    if (elCursor) {
+      elCursor.classList.remove('is-off');
+    }
+  }
+
+  function close() {
+    const elDetail = document.getElementById('field-detail');
+    if (elDetail) {
+      elDetail.classList.remove('is-open');
+    }
+    const elCursor = document.getElementById('field-cursor');
+    if (elCursor) {
+      elCursor.classList.add('is-off');
+    }
+    const elLive = document.getElementById('field-live');
+    if (elLive) {
+      elLive.textContent = "Rincian ditutup.";
+    }
+  }
+
+  function handlePointer(e) {
+    const currentSvg = container.querySelector('svg');
+    if (!currentSvg || !currentSvg.createSVGPoint || !currentSvg.getScreenCTM) return;
+    const ctm = currentSvg.getScreenCTM();
+    if (!ctm) return;
+    const inv = ctm.inverse();
+    if (!inv) return;
+
+    const pt = currentSvg.createSVGPoint();
+    pt.x = e.clientX;
+    pt.y = e.clientY;
+    const svgPt = pt.matrixTransform(inv);
+
+    const scaleX = Math.hypot(ctm.a, ctm.b);
+    const scaleY = Math.hypot(ctm.c, ctm.d);
+    if (scaleX === 0 || scaleY === 0) return;
+
+    const maxDx = 16 / scaleX;
+    const maxDy = 16 / scaleY;
+
+    let nearestIndex = -1;
+    let nearestDistSq = 256;
+
+    for (let i = 0; i < flatPointsList.length; i++) {
+      const p = flatPointsList[i];
+      const dxSvg = p.x - svgPt.x;
+      if (Math.abs(dxSvg) > maxDx) continue;
+      const dySvg = p.y - svgPt.y;
+      if (Math.abs(dySvg) > maxDy) continue;
+
+      const dxPx = dxSvg * scaleX;
+      const dyPx = dySvg * scaleY;
+      const dSq = dxPx * dxPx + dyPx * dyPx;
+
+      if (dSq <= nearestDistSq) {
+        nearestDistSq = dSq;
+        nearestIndex = i;
+      }
+    }
+
+    if (nearestIndex !== -1) {
+      open(nearestIndex);
+    } else {
+      close();
+    }
+  }
+
+  if (!hit.__fieldInteractionBound) {
+    hit.addEventListener('pointermove', handlePointer);
+    hit.addEventListener('pointerdown', handlePointer);
+    hit.addEventListener('pointerleave', close);
+
+    hit.addEventListener('focus', () => {
+      if (flatPointsList.length === 0) return;
+      setCursorOnly(interactionCurrentIndex);
+    });
+
+    hit.addEventListener('keydown', (e) => {
+      if (flatPointsList.length === 0) return;
+
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        interactionCurrentIndex = Math.min(flatPointsList.length - 1, interactionCurrentIndex + 1);
+        setCursorOnly(interactionCurrentIndex);
+        const elDetail = document.getElementById('field-detail');
+        if (elDetail && elDetail.classList.contains('is-open')) {
+          open(interactionCurrentIndex);
+        }
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        interactionCurrentIndex = Math.max(0, interactionCurrentIndex - 1);
+        setCursorOnly(interactionCurrentIndex);
+        const elDetail = document.getElementById('field-detail');
+        if (elDetail && elDetail.classList.contains('is-open')) {
+          open(interactionCurrentIndex);
+        }
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        open(interactionCurrentIndex);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        close();
+      }
+    });
+
+    hit.__fieldInteractionBound = true;
+  }
+}
+
 function bootstrap() {
   setupLoader();
   try {
     injectFigs();
     runAllRenderers();
+    initFieldInteraction();
     injectFigs();
     stopLoader();
   } catch (err) {

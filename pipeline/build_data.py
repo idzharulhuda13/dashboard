@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build p01/data.json and generate p01/index.html for Indonesia earthquake data story.
+"""Build gempa/data.json and generate gempa/index.html for Indonesia earthquake data story.
 
 Deterministic generator: standard library only, frozen inputs, no wall clock,
 no network, no randomness.
@@ -56,7 +56,7 @@ def main():
     csv_path = os.path.join(ROOT, "data", "out", "gempa_events.csv")
     live_path = os.path.join(ROOT, "data", "out", "bmkg_live.json")
     report_path = os.path.join(ROOT, "data", "out", "build_report.json")
-    template_path = os.path.join(ROOT, "p01.template.html")
+    template_path = os.path.join(ROOT, "gempa.template.html")
     fonts_dir = os.path.join(ROOT, "fonts")
 
     for p in [csv_path, live_path, report_path]:
@@ -392,7 +392,7 @@ def main():
     # Compact JSON output (sort_keys=True, separators=(',', ':'))
     compact_json = json.dumps(data_payload, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
 
-    data_json_path = os.path.join(ROOT, "p01/data.json")
+    data_json_path = os.path.join(ROOT, "gempa/data.json")
     with open(data_json_path, "w", encoding="utf-8") as f:
         f.write(compact_json)
 
@@ -437,23 +437,23 @@ def main():
     template_str = template_bytes.decode("utf-8")
 
     if "/*__FONTS__*/" not in template_str:
-        raise RuntimeError("Placeholder /*__FONTS__*/ not found in p01.template.html")
+        raise RuntimeError("Placeholder /*__FONTS__*/ not found in gempa.template.html")
 
     html_rendered = template_str.replace("/*__FONTS__*/", fonts_css_block)
 
-    # Replace DATA placeholder so line becomes const DATA = <p01/data.json content>;
+    # Replace DATA placeholder so line becomes const DATA = <gempa/data.json content>;
     if "/*__DATA__*/ {}" in html_rendered:
         html_rendered = html_rendered.replace("/*__DATA__*/ {}", compact_json)
     elif "/*__DATA__*/" in html_rendered:
         html_rendered = html_rendered.replace("/*__DATA__*/", compact_json)
     else:
-        raise RuntimeError("Placeholder /*__DATA__*/ not found in p01.template.html")
+        raise RuntimeError("Placeholder /*__DATA__*/ not found in gempa.template.html")
 
     # Prepend BUILD stamp on line 1
     stamp_line = f"<!--BUILD sha256:{template_sha256}-->\n"
     final_html = stamp_line + html_rendered
 
-    index_html_path = os.path.join(ROOT, "p01/index.html")
+    index_html_path = os.path.join(ROOT, "gempa/index.html")
     with open(index_html_path, "w", encoding="utf-8") as out_f:
         out_f.write(final_html)
 

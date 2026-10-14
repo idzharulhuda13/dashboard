@@ -41,7 +41,7 @@ except Exception as _import_exc:  # noqa: BLE001 - any import failure is infrast
     sys.exit(2)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-INDEX_PATH = os.path.join(ROOT, "p01", "index.html")
+INDEX_PATH = os.path.join(ROOT, "gempa", "index.html")
 INDEX_URL = f"file://{os.path.abspath(INDEX_PATH)}"
 SHOTS_DIR = os.path.join(ROOT, "shots")
 

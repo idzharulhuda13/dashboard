@@ -81,19 +81,19 @@ esac
 
 # --- 4. publish -------------------------------------------------------------------------
 # Something else may have touched the tree; refuse rather than sweep it into a release.
-if [ -n "$(git status --porcelain -- ':!data/out' ':!data/raw' ':!p01/index.html' ':!p01/data.json')" ]; then
+if [ -n "$(git status --porcelain -- ':!data/out' ':!data/raw' ':!gempa/index.html' ':!gempa/data.json')" ]; then
   git status --short | head -10 | tee -a "$LOG"
   die "working tree has changes outside the generated artefacts; commit or revert them first" 2
 fi
 
-git add -A p01/index.html p01/data.json data/raw data/out 2>/dev/null
+git add -A gempa/index.html gempa/data.json data/raw data/out 2>/dev/null
 if git diff --cached --quiet; then
   log "nothing changed; no commit"
   log "=== publish end (no-op) ==="
   exit 0
 fi
 
-TOTAL=$("$PY" -c "import json;print(json.load(open('p01/data.json'))['fig']['total']['d'])" 2>/dev/null || echo "?")
+TOTAL=$("$PY" -c "import json;print(json.load(open('gempa/data.json'))['fig']['total']['d'])" 2>/dev/null || echo "?")
 LAST=$("$PY" -c "import json;print(json.load(open('data/out/build_report.json'))['last_event'])" 2>/dev/null || echo "?")
 git -c user.name=idzharulhuda13 -c user.email=idzharulhuda@gmail.com \
     commit -q -m "Append gempa baru: total ${TOTAL}, terakhir ${LAST}" || die "commit failed" 2

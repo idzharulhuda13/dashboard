@@ -1,7 +1,7 @@
 # dashboard
 
 Static data stories published at **https://dashboard.idzharulhuda.com**. An index at the root
-links to `p01/` and `p02/`, each plate still one self-contained page for one dataset. No runtime
+links to `gempa/` and `pisa/`, each plate still one self-contained page for one dataset. No runtime
 dependencies: every figure is generated from stored source files at build time and then re-checked by two
 acceptance gates. No network access at runtime, no API keys, no build step for the pages themselves.
 
@@ -21,7 +21,7 @@ instead is that they are always recomputed, and that the claims made in prose st
 Seven bands: the epicentre field, the province ranking, the depth distribution, the magnitude ladder, the
 decade totals, the latest BMKG snapshot, and the method notes.
 
-`p01/index.html` is self-contained. Markup, CSS, JavaScript and the five embedded fonts live in one ~410 KB
+`gempa/index.html` is self-contained. Markup, CSS, JavaScript and the five embedded fonts live in one ~410 KB
 file, and the page makes no request beyond the file itself.
 
 ## Plate 02: PISA 2025
@@ -52,7 +52,7 @@ The annex is the authority for every published figure. The microdata reconciliat
 reported directly on the page, showing that the student microdata matches the official tables within
 reconciliation tolerances.
 
-The published page `p02/index.html` is regenerated deterministically from `p02.template.html`, the frozen CSVs,
+The published page `pisa/index.html` is regenerated deterministically from `pisa.template.html`, the frozen CSVs,
 and embedded fonts. A SHA-256 stamp over its sorted input hashes is embedded as a comment at the top of the
 generated page. Both acceptance gates (`pipeline_pisa/verify.py` and `pipeline_pisa/probe_browser.py`) must
 pass before publishing.
@@ -63,12 +63,12 @@ and `openpyxl`, and they are run by hand.
 
 ## Layout
 
-    index.html              the hub linking to p01/ and p02/
-    p01/index.html          plate 01 published page, generated
-    p01.template.html       plate 01 page source, with data and fonts injected at build time
-    p01/data.json           the data payload for plate 01
-    p02/index.html          plate 02 published page, generated (payload embedded in page)
-    p02.template.html       plate 02 page source, with data and fonts injected at build time
+    index.html              the hub linking to gempa/ and pisa/
+    gempa/index.html          plate 01 published page, generated
+    gempa.template.html       plate 01 page source, with data and fonts injected at build time
+    gempa/data.json           the data payload for plate 01
+    pisa/index.html          plate 02 published page, generated (payload embedded in page)
+    pisa.template.html       plate 02 page source, with data and fonts injected at build time
     pipeline/               harvest, build, gate, push. The daily job for plate 01.
     pipeline_pisa/          derive_from_puf.py, extract_annex.py, build_data.py, verify.py,
                             test_verify.py, probe_browser.py
@@ -77,7 +77,7 @@ and `openpyxl`, and they are run by hand.
     data/raw/               plate 01 source files. The base harvest is never written to.
     data/out/               plate 01 derived table, live snapshot, and build report
 
-Note that p02 has no data.json: its payload is embedded in the page.
+Note that pisa has no data.json: its payload is embedded in the page.
 
 ## Keeping it current
 

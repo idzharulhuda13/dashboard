@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Probe browser acceptance test for PISA plate 02 and hub index.
 
-Renders p02/index.html (and hub index.html when present) in a real Chromium browser via Playwright
+Renders pisa/index.html (and hub index.html when present) in a real Chromium browser via Playwright
 across multiple fresh browser contexts (viewports: 390x844 and 1440x900) and reports measured defects.
 
 Exit codes:
@@ -13,12 +13,12 @@ Checks:
 a. network: offline proof (only file: and data: URLs allowed)
 b. console: zero console errors and page errors
 c. horizontal overflow: scrollWidth <= clientWidth and no rect.right > innerWidth + 1
-d. fonts: document.fonts.check for Chakra Petch and JetBrains Mono (p02); skipped for hub (system font stack)
+d. fonts: document.fonts.check for Chakra Petch and JetBrains Mono (pisa); skipped for hub (system font stack)
 e. contrast: WCAG 4.5:1 (normal) / 3:1 (large/bold/svg) against effective background
 f. keyboard: focus indicators (>= 3:1 contrast), reading tab order, 0 SVG epicentre focusable nodes
 g. svg labels: no SVG chart label overlap >= 5px on both axes
 h. copy: 0 occurrences of U+2014 in rendered body
-i. screenshots: full-page screenshots to shots/p02-<w>.png (and shots/hub-<w>.png)
+i. screenshots: full-page screenshots to shots/pisa-<w>.png (and shots/hub-<w>.png)
 j. svg text size: every <text> inside inline SVGs renders >= 12px effective
 """
 
@@ -41,7 +41,7 @@ except Exception as _import_exc:  # noqa: BLE001 - any import failure is infrast
     sys.exit(2)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-INDEX_PATH = os.path.join(ROOT, "p02", "index.html")
+INDEX_PATH = os.path.join(ROOT, "pisa", "index.html")
 HUB_PATH = os.path.join(ROOT, "index.html")
 SHOTS_DIR = os.path.join(ROOT, "shots")
 
@@ -57,7 +57,7 @@ def handle_infra_failure(exc: Exception):
     sys.exit(2)
 
 
-def run_checks_for_viewport(browser, target_url: str, width: int, height: int, target_name: str = "p02", embeds_fonts: bool = True):
+def run_checks_for_viewport(browser, target_url: str, width: int, height: int, target_name: str = "pisa", embeds_fonts: bool = True):
     results = []
     # Fresh browser context per viewport (never shared or cache-warm)
     try:
@@ -576,7 +576,7 @@ def run_checks_for_viewport(browser, target_url: str, width: int, height: int, t
 
     # i. screenshots
     os.makedirs(SHOTS_DIR, exist_ok=True)
-    shot_prefix = "p02" if target_name == "p02" else "hub"
+    shot_prefix = "pisa" if target_name == "pisa" else "hub"
     shot_filename = f"{shot_prefix}-{width}.png"
     shot_path = os.path.join(SHOTS_DIR, shot_filename)
     page.screenshot(path=shot_path, full_page=True)
@@ -683,11 +683,11 @@ def main():
                 handle_infra_failure(exc)
             startup_phase = False
 
-            # Target 1: p02
-            p02_url = f"file://{os.path.abspath(INDEX_PATH)}"
+            # Target 1: pisa
+            pisa_url = f"file://{os.path.abspath(INDEX_PATH)}"
             for width, height in VIEWPORTS:
                 vp_label = f"{width}x{height}"
-                results = run_checks_for_viewport(browser, p02_url, width, height, target_name="p02", embeds_fonts=True)
+                results = run_checks_for_viewport(browser, pisa_url, width, height, target_name="pisa", embeds_fonts=True)
 
                 for r in results:
                     total_checks += 1

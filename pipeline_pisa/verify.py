@@ -318,7 +318,7 @@ def check_1_stamp(index_html_path: str, template_path: str, csv_dir: str, fonts_
 
     m = re.match(r"^<!--BUILD sha256:([0-9a-fA-F]{64})-->$", line1)
     if not m:
-        return False, f"p02/index.html line 1 invalid stamp format: {line1!r}"
+        return False, f"pisa/index.html line 1 invalid stamp format: {line1!r}"
 
     act_hex = m.group(1).lower()
 
@@ -347,7 +347,7 @@ def check_2_placeholders(index_content: str):
     c_fonts = index_content.count("__FONTS__")
     if c_data != 0 or c_fonts != 0:
         return False, f"unresolved placeholders found (__DATA__: {c_data}, __FONTS__: {c_fonts})"
-    return True, "0 occurrences of __DATA__ and __FONTS__ in p02/index.html"
+    return True, "0 occurrences of __DATA__ and __FONTS__ in pisa/index.html"
 
 
 def check_3_payload_equality(embedded_data: dict, rebuilt_payload: dict):
@@ -617,7 +617,7 @@ def check_10_reconciliation(csv_dir: str):
 def check_11_hygiene(index_content: str):
     em_dashes = index_content.count("\u2014")
     if em_dashes != 0:
-        return False, f"p02/index.html contains U+2014 em dash ({em_dashes} occurrences)"
+        return False, f"pisa/index.html contains U+2014 em dash ({em_dashes} occurrences)"
 
     urls = re.findall(r"https?://[^\s\"'<>]+", index_content)
     allowed_urls = {
@@ -626,7 +626,7 @@ def check_11_hygiene(index_content: str):
     }
     disallowed_urls = [u for u in urls if u not in allowed_urls]
     if disallowed_urls:
-        return False, f"p02/index.html contains external network URLs: {disallowed_urls}"
+        return False, f"pisa/index.html contains external network URLs: {disallowed_urls}"
 
     band_ids = [
         "band-hero", "band-trend", "band-prof", "band-spread",
@@ -663,7 +663,7 @@ def check_12_page_skeleton(index_path: str, template_path: str, fonts_dir: str =
         index_lines = f.readlines()
 
     if not index_lines:
-        return False, "p02/index.html is empty"
+        return False, "pisa/index.html is empty"
 
     page_lines = index_lines[1:]
 
@@ -752,7 +752,7 @@ def check_12_page_skeleton(index_path: str, template_path: str, fonts_dir: str =
 
     reconstructed = "".join(skeleton_lines)
     if reconstructed == template_content:
-        return True, "page skeleton matches p02.template.html byte for byte after collapsing injected regions"
+        return True, "page skeleton matches pisa.template.html byte for byte after collapsing injected regions"
 
     recon_lines = reconstructed.splitlines(keepends=True)
     tmpl_lines = template_content.splitlines(keepends=True)
@@ -918,9 +918,9 @@ def check_15_peers_caveat(embedded_data: dict, csv_dir: str):
 
 def main():
     csv_dir = os.path.join(ROOT, "data", "pisa")
-    template_path = os.path.join(ROOT, "p02.template.html")
+    template_path = os.path.join(ROOT, "pisa.template.html")
     fonts_dir = os.path.join(ROOT, "fonts")
-    index_path = os.path.join(ROOT, "p02", "index.html")
+    index_path = os.path.join(ROOT, "pisa", "index.html")
 
     required_files = [
         (os.path.join(csv_dir, "annex_means.csv"), "annex_means.csv"),
@@ -931,8 +931,8 @@ def main():
         (os.path.join(csv_dir, "puf_quartile_cuts.csv"), "puf_quartile_cuts.csv"),
         (os.path.join(csv_dir, "puf_estimates.csv"), "puf_estimates.csv"),
         (os.path.join(csv_dir, "puf_counts.csv"), "puf_counts.csv"),
-        (template_path, "p02.template.html"),
-        (index_path, "p02/index.html"),
+        (template_path, "pisa.template.html"),
+        (index_path, "pisa/index.html"),
     ]
 
     for path, name in required_files:
@@ -948,7 +948,7 @@ def main():
     prefix = "const DATA = "
     idx = index_content.find(prefix)
     if idx == -1:
-        print("FAIL Embedded DATA not found in p02/index.html")
+        print("FAIL Embedded DATA not found in pisa/index.html")
         print("TOTAL 0/15")
         sys.exit(1)
 
@@ -957,7 +957,7 @@ def main():
     if end_json == -1:
         end_json = index_content.find(";", start_json)
     if end_json == -1:
-        print("FAIL Embedded DATA end delimiter not found in p02/index.html")
+        print("FAIL Embedded DATA end delimiter not found in pisa/index.html")
         print("TOTAL 0/15")
         sys.exit(1)
 

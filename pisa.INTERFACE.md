@@ -1,7 +1,7 @@
-# p02 interface — FROZEN before the writer runs
+# pisa interface — FROZEN before the writer runs
 
 This file is the contract between the generator (`pipeline_pisa/build_data.py`, which fills `/*__DATA__*/`) and the
-six renderers inside `p02.template.html`. Both sides follow it literally. Change it only by patching this file and
+six renderers inside `pisa.template.html`. Both sides follow it literally. Change it only by patching this file and
 the generator in the same change. Every key named here MUST exist in the payload; a renderer may read no key that
 is not named here, and the generator may emit no key a renderer needs that is not named here.
 

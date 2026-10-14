@@ -27,9 +27,9 @@ def copy_tree(dst_dir: str):
     os.makedirs(os.path.join(dst_dir, "data"), exist_ok=True)
     shutil.copytree(os.path.join(ROOT, "pipeline_pisa"), os.path.join(dst_dir, "pipeline_pisa"))
     shutil.copytree(os.path.join(ROOT, "data", "pisa"), os.path.join(dst_dir, "data", "pisa"))
-    shutil.copytree(os.path.join(ROOT, "p02"), os.path.join(dst_dir, "p02"))
+    shutil.copytree(os.path.join(ROOT, "pisa"), os.path.join(dst_dir, "pisa"))
     shutil.copytree(os.path.join(ROOT, "fonts"), os.path.join(dst_dir, "fonts"))
-    shutil.copy2(os.path.join(ROOT, "p02.template.html"), os.path.join(dst_dir, "p02.template.html"))
+    shutil.copy2(os.path.join(ROOT, "pisa.template.html"), os.path.join(dst_dir, "pisa.template.html"))
 
 
 def run_gate(cwd: str) -> subprocess.CompletedProcess:
@@ -78,7 +78,7 @@ def test_scenario_b(temp_dir: str):
 
 
 def test_scenario_c(temp_dir: str):
-    index_html = os.path.join(temp_dir, "p02", "index.html")
+    index_html = os.path.join(temp_dir, "pisa", "index.html")
     with open(index_html, "r", encoding="utf-8") as f:
         content = f.read()
 
@@ -109,7 +109,7 @@ def test_scenario_c(temp_dir: str):
 
 
 def test_scenario_d(temp_dir: str):
-    index_html = os.path.join(temp_dir, "p02", "index.html")
+    index_html = os.path.join(temp_dir, "pisa", "index.html")
     with open(index_html, "r", encoding="utf-8") as f:
         content = f.read()
 
@@ -129,7 +129,7 @@ def test_scenario_d(temp_dir: str):
 
 
 def test_scenario_e(temp_dir: str):
-    index_html = os.path.join(temp_dir, "p02", "index.html")
+    index_html = os.path.join(temp_dir, "pisa", "index.html")
     with open(index_html, "r", encoding="utf-8") as f:
         content = f.read()
 
@@ -149,7 +149,7 @@ def test_scenario_e(temp_dir: str):
 
 
 def test_scenario_f(temp_dir: str):
-    index_html = os.path.join(temp_dir, "p02", "index.html")
+    index_html = os.path.join(temp_dir, "pisa", "index.html")
     with open(index_html, "r", encoding="utf-8") as f:
         content = f.read()
 
@@ -169,7 +169,7 @@ def test_scenario_f(temp_dir: str):
 
 
 def test_scenario_g(temp_dir: str):
-    index_html = os.path.join(temp_dir, "p02", "index.html")
+    index_html = os.path.join(temp_dir, "pisa", "index.html")
     with open(index_html, "r", encoding="utf-8") as f:
         content = f.read()
 

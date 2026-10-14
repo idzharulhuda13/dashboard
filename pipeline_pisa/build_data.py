@@ -41,10 +41,10 @@ def compute_sha256(filepath: str) -> str:
 def main():
     csv_dir = os.path.join(ROOT, "data", "pisa")
     csv_paths = sorted(glob.glob(os.path.join(csv_dir, "*.csv")))
-    template_path = os.path.join(ROOT, "p02.template.html")
+    template_path = os.path.join(ROOT, "pisa.template.html")
     fonts_dir = os.path.join(ROOT, "fonts")
     font_paths = sorted(glob.glob(os.path.join(fonts_dir, "*.woff2")))
-    output_dir = os.path.join(ROOT, "p02")
+    output_dir = os.path.join(ROOT, "pisa")
     output_path = os.path.join(output_dir, "index.html")
 
     if not os.path.exists(template_path):
@@ -371,7 +371,7 @@ def main():
     if idn_rank != 6:
         raise RuntimeError(f"Assertion failed: Indonesia rank in peers is {idn_rank}, expected 6")
 
-    # SCAN p02.template.html FOR data-fig ATTRIBUTES
+    # SCAN pisa.template.html FOR data-fig ATTRIBUTES
     with open(template_path, "r", encoding="utf-8") as f:
         template_str = f.read()
 
@@ -516,7 +516,7 @@ def main():
     fonts_css_block = "/*FONTS:BEGIN*/\n" + "\n".join(font_rules) + "\n/*FONTS:END*/"
 
     if "/*__FONTS__*/" not in template_str:
-        raise RuntimeError("Placeholder /*__FONTS__*/ not found in p02.template.html")
+        raise RuntimeError("Placeholder /*__FONTS__*/ not found in pisa.template.html")
 
     html_rendered = template_str.replace("/*__FONTS__*/", fonts_css_block)
 
@@ -525,7 +525,7 @@ def main():
     elif "/*__DATA__*/" in html_rendered:
         html_rendered = html_rendered.replace("/*__DATA__*/", compact_json)
     else:
-        raise RuntimeError("Placeholder /*__DATA__*/ not found in p02.template.html")
+        raise RuntimeError("Placeholder /*__DATA__*/ not found in pisa.template.html")
 
     final_html = stamp_line + html_rendered
 

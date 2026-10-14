@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Test harness proving pipeline_pisa/verify.py can fail.
 
-Runs six verification scenarios in an isolated temporary directory:
+Runs seven verification scenarios in an isolated temporary directory:
   a) clean copy exits 0
   b) scalar mutation in annex_means.csv exits non-zero
   c) structural mutation in embedded payload array exits non-zero
   d) a narrative character changed in the page body outside the payload exits non-zero
   e) one data-fig fallback literal in the page changed to a different number exits non-zero
   f) injected CSS rule inside the font region exits non-zero
+  g) a percentile in the payload changed to a wrong but still ascending value exits non-zero
 """
 
 import csv
@@ -167,6 +168,40 @@ def test_scenario_f(temp_dir: str):
     print(f"PASS: scenario f: injected CSS in font region exits non-zero (rc={proc.returncode})")
 
 
+def test_scenario_g(temp_dir: str):
+    index_html = os.path.join(temp_dir, "p02", "index.html")
+    with open(index_html, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    lines = content.split("\n")
+    target_idx = None
+    indent = ""
+    for i, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped.startswith("const DATA = "):
+            target_idx = i
+            indent = line[: len(line) - len(line.lstrip(" "))]
+            break
+    if target_idx is None:
+        raise RuntimeError("Payload line 'const DATA = ' not found in index.html")
+
+    payload = json.loads(lines[target_idx].strip()[len("const DATA = "):].rstrip(";"))
+    median = payload["spread"]["idn"]["p50"]
+    payload["spread"]["idn"]["p50"] = median + 20
+    lines[target_idx] = indent + "const DATA = " + json.dumps(payload) + ";"
+
+    with open(index_html, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
+    proc = run_gate(temp_dir)
+    if proc.returncode == 0:
+        print(f"Scenario G output:\n{proc.stdout}")
+        raise AssertionError(
+            "Expected an ascending-but-wrong percentile in the payload to cause non-zero exit"
+        )
+    print(f"PASS: scenario g: still-ascending wrong percentile exits non-zero (rc={proc.returncode})")
+
+
 def main():
     temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
     try:
@@ -208,6 +243,14 @@ def main():
 
         # Scenario F (injected CSS rule inside font region)
         test_scenario_f(temp_dir)
+
+        # Reset temp tree for Scenario G
+        shutil.rmtree(temp_dir)
+        temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
+        copy_tree(temp_dir)
+
+        # Scenario G (percentile value wrong but still ascending)
+        test_scenario_g(temp_dir)
     finally:
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)

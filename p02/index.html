@@ -1,4 +1,4 @@
-<!--BUILD sha256:1f2b655fa18f6ff873a9a0071131b61e00f40aa36fe6a24e515468a207348db1-->
+<!--BUILD sha256:77fc409a5d4b8b71ccbb9e58f4fab6ede5f9160c6d35b1592e8ca6b71652bbc6-->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PISA 2025: Jarak Kemahiran Siswa Indonesia dan Ketimpangan yang Menyertainya</title>
   <style>
+/* Hallmark · macrostructure: Seven-Band Poster · pre-emit critique: P4 H5 E3 S4 R5 V4 */
 :root {
   --ground: #F2F4F7;
   --panel: #FFFFFF;
@@ -27,6 +28,11 @@
   --level-4: #5F79B8;
   --level-5: #3A55A2;
   --level-6: #1F3A9E;
+  --level-1b: #E2E8F3;
+  --level-1c: #ECF0F7;
+  --level-below-1b: #EAF0F8;
+  --level-below-1c: #F4F7FB;
+  --white: #FFFFFF;
   --r-sm: 4px;
   --r-md: 8px;
   --font-sans: 'Chakra Petch', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -347,14 +353,9 @@ h1.band-headline {
 
 /* Motif 3: Cut-score ruler for standard error */
 .method-ruler-slot {
-  background-color: var(--plane-2);
-  border: 1px solid var(--line);
-  border-radius: var(--r-sm);
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 16px;
-  padding: 16px;
 }
 
 .ruler-header {
@@ -409,6 +410,10 @@ span[data-fig] {
   position: absolute;
   width: 0;
 }
+
+.hatch-line {
+  stroke: var(--series-oecd);
+}
   </style>
 </head>
 <body>
@@ -417,7 +422,7 @@ span[data-fig] {
   <svg class="sr-defs" width="0" height="0" aria-hidden="true">
     <defs>
       <pattern id="hatch-oecd" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-        <line x1="0" y1="0" x2="0" y2="8" stroke="#6E7783" stroke-width="2"></line>
+        <line class="hatch-line" x1="0" y1="0" x2="0" y2="8" stroke-width="2"></line>
       </pattern>
     </defs>
   </svg>
@@ -428,7 +433,7 @@ span[data-fig] {
       <div class="band-inner">
         <header class="band-header">
           <h1 class="band-headline"><span class="hl-accent">SELISIH <span data-fig="hero_gap">93</span> POIN</span> <span class="hl-main">DI BAWAH RERATA OECD</span></h1>
-          <p class="band-subtitle"><em>Pengukuran literasi sains PISA terhadap populasi usia lima belas tahun menggunakan lima plausible values dan bobot bertingkat.</em></p>
+          <p class="band-subtitle"><em>Pengukuran literasi sains PISA terhadap populasi usia lima belas tahun menggunakan lima nilai kemungkinan (plausible values) dan bobot bertingkat.</em></p>
         </header>
         <div id="hero-scale" class="chart-container"></div>
         <p class="band-note">Sumber: Ringkasan Nilai Rata-rata dan Persentil Sains, Tabel Lampiran <span data-fig="meta_table_hero">I.B1.2a.1</span></p>
@@ -439,7 +444,7 @@ span[data-fig] {
     <section id="band-trend" class="band">
       <div class="band-inner">
         <header class="band-header">
-          <h2 class="band-headline"><span class="hl-accent">SEMBILAN BELAS TAHUN, PERUBAHANNYA <span data-fig="trend_idn_change">-4,8</span> POIN</span> <span class="hl-main">SEMUANYA DI DALAM GALAT BAKU SENDIRI</span></h2>
+          <h2 class="band-headline"><span class="hl-accent">SEMBILAN BELAS TAHUN, PERUBAHANNYA <span data-fig="trend_idn_change">-4,8</span> POIN</span> <span class="hl-main">DI INDONESIA, SEMUANYA DI DALAM GALAT BAKU SENDIRI</span></h2>
           <p class="band-subtitle"><em>Seri capaian sains lintas siklus PISA dua ribu enam hingga dua ribu dua puluh lima dengan estimasi galat baku resmi.</em></p>
         </header>
         <div id="trend-chart" class="chart-container"></div>
@@ -463,7 +468,7 @@ span[data-fig] {
     <section id="band-spread" class="band">
       <div class="band-inner">
         <header class="band-header">
-          <h2 class="band-headline"><span class="hl-accent">PITA NILAI SETENGAH LEBAR OECD</span> <span class="hl-main">SISWA TERBAIK PUN DI BAWAH MEDIAN MEREKA</span></h2>
+          <h2 class="band-headline"><span class="hl-accent">PITA NILAI SETENGAH LEBAR OECD</span> <span class="hl-main">SEPULUH PERSEN TERBAIK PUN DI BAWAH MEDIAN MEREKA</span></h2>
           <p class="band-subtitle"><em>Distribusi persentil sepuluh hingga sembilan puluh membandingkan variasi capaian Indonesia terhadap sebaran OECD.</em></p>
         </header>
         <div id="spread-chart" class="chart-container"></div>
@@ -487,12 +492,12 @@ span[data-fig] {
     <section id="band-peers" class="band">
       <div class="band-inner">
         <header class="band-header">
-          <h2 class="band-headline"><span class="hl-accent">PERINGKAT <span data-fig="peers_rank">ENAM</span> DARI DELAPAN</span> <span class="hl-main">NEGARA ASEAN YANG IKUT PISA 2025</span></h2>
+          <h2 class="band-headline"><span class="hl-accent">PERINGKAT ESTIMASI <span data-fig="peers_rank">ENAM</span> DARI DELAPAN</span> <span class="hl-main">NEGARA ASEAN YANG IKUT PISA 2025</span></h2>
           <p class="band-subtitle"><em>Perbandingan skor rata-rata dengan negara-negara kawasan tetangga dalam penilaian siklus terbaru.</em></p>
         </header>
         <div id="peers-chart" class="chart-container"></div>
         <p class="band-note">Sumber: Tabel Pemeringkatan Capaian Sains Internasional, Tabel Lampiran <span data-fig="meta_table_peers">I.B1.2a.1</span></p>
-        <p class="band-caveat">Catatan: peringkat dihitung dari estimasi titik rata-rata. Selisih Indonesia dengan negara tetangga terdekat berada di dalam dua kali gabungan galat bakunya, sehingga urutan antar keduanya belum dapat dipastikan dari sampel ini.</p>
+        <p class="band-caveat">Catatan: peringkat dihitung dari estimasi titik rata-rata. Selisih Indonesia dengan Kamboja hanya <span data-fig="peers_gap_kh">6,73</span> poin, sekitar dua kali gabungan galat bakunya (<span data-fig="peers_gap_kh_2se">6,34</span> poin), sehingga urutan keduanya berada tepat di ambang batas dan tidak boleh dibaca sebagai selisih yang kokoh.</p>
       </div>
     </section>
 
@@ -507,7 +512,7 @@ span[data-fig] {
         <div class="method-grid">
           <div class="method-panel">
             <div class="method-copy">
-              <p><strong>Metode Estimasi:</strong> Seluruh estimasi parameter populasi diturunkan menggunakan <span data-fig="meta_pv_count">5</span> plausible values dan <span data-fig="meta_rep_count">80</span> bobot replikasi Balanced Repeated Replication (BRR) dengan koefisien Fay. Varians total menggabungkan varians sampling dan varians imputasi pengujian.</p>
+              <p><strong>Metode Estimasi:</strong> Seluruh estimasi parameter populasi diturunkan menggunakan <span data-fig="meta_pv_count">5</span> nilai kemungkinan (plausible values) dan <span data-fig="meta_rep_count">80</span> bobot replikasi berimbang berulang (Balanced Repeated Replication) (BRR) dengan koefisien Fay. Varians total menggabungkan varians sampling dan varians imputasi pengujian.</p>
               <p><strong>Batas Klaim:</strong> Halaman ini menyajikan estimasi statistik deskriptif asesmen berskala besar. Nilai tidak boleh diartikan sebagai peringkat kausal tunggal atau penilaian kinerja individual peserta didik.</p>
               <p><strong>Lisensi dan Reprodusibilitas:</strong> Data bersumber dari repositori resmi OECD PISA dengan lisensi Creative Commons Attribution <span data-fig="meta_licence_ver">4.0</span> International (CC BY <span data-fig="meta_licence_ver_code">4.0</span>). Halaman diregenerasi secara deterministik tanpa akses jaringan saat runtime.</p>
             </div>
@@ -518,22 +523,9 @@ span[data-fig] {
             <div class="method-ruler-slot">
               <div class="ruler-header">
                 <span class="ruler-caption">Penggaris Galat Baku: Ketidakpastian Rata-rata</span>
-                <span class="ruler-unit">satuan: poin skor</span>
+                <span class="ruler-unit">satuan: poin skor | skala: 30 px per poin skor</span>
               </div>
-              <div class="ruler-svg-wrap">
-                <svg viewBox="0 0 400 48" class="ruler-svg" role="img" aria-label="Penggaris satu galat baku rata-rata sains Indonesia sebesar dua koma tiga poin skor">
-                  <line x1="20" y1="28" x2="380" y2="28" stroke="#55606E" stroke-width="1.5"></line>
-                  <line x1="20" y1="20" x2="20" y2="28" stroke="#55606E" stroke-width="1.5"></line>
-                  <line x1="80" y1="23" x2="80" y2="28" stroke="#55606E" stroke-width="1"></line>
-                  <line x1="140" y1="20" x2="140" y2="28" stroke="#55606E" stroke-width="1.5"></line>
-                  <line x1="200" y1="20" x2="200" y2="28" stroke="#55606E" stroke-width="1.5"></line>
-                  <line x1="260" y1="20" x2="260" y2="28" stroke="#55606E" stroke-width="1.5"></line>
-                  <line x1="320" y1="23" x2="320" y2="28" stroke="#55606E" stroke-width="1"></line>
-                  <line x1="380" y1="20" x2="380" y2="28" stroke="#55606E" stroke-width="1.5"></line>
-                  <!-- One SE bar representation: exactly 2,3 score points width relative to scale -->
-                  <rect x="160" y="14" width="80" height="14" fill="#B8860B" stroke="#8A6508" stroke-width="1.5"></rect>
-                </svg>
-              </div>
+              <div id="method-ruler-container" class="ruler-svg-wrap"></div>
               <p class="ruler-footnote">Lebar pita berwarna mengilustrasikan rentang satu galat baku resmi rata-rata sains Indonesia sebesar <span data-fig="se_science_val">2,3</span> poin skor.</p>
             </div>
           </div>
@@ -545,7 +537,7 @@ span[data-fig] {
   </main>
 
   <script>
-  const DATA = {"escs":{"idn":{"cuts":[-2.1682466276434935,-1.5868821189438915,-0.8010256118461058],"gap":46.94492660346363,"gap_se":4.638452033793347,"mean":-1.4388985463323023,"means":[372.1676371475206,378.88080495571313,389.94295525195275,419.1125637509843],"missing_pct":2.4985883681535856},"oecd":{"cuts":[-0.9573521395517068,-0.07793784667757747,0.6931383185360647],"gap":107.08050325762171,"gap_se":null,"mean":-0.18901414424891216,"means":[431.8762993757047,473.03560314912266,505.87462077405036,538.9568026333264],"missing_pct":9.631351605066696}},"fig":{"escs_gap_idn":{"d":"47","r":46.94492660346363},"hero_gap":{"d":"93","r":93.23455000000001},"meta_licence_note":"4.0","meta_licence_ver":"4.0","meta_licence_ver_code":"4.0","meta_pv_count":"5","meta_rep_count":"80","meta_table_escs":"puf_quartile_cuts","meta_table_hero":"I.B1.2a.1","meta_table_peers":"I.B1.2a.1","meta_table_prof_math":"I.B1.2a.12","meta_table_prof_read":"I.B1.2a.11","meta_table_prof_scie":"I.B1.2a.10","meta_table_spread":"I.B1.2a.1","meta_table_trend":"I.B1.2a.36","peers_rank":"ENAM","prof_below_l2_math":{"d":"83,1","r":83.07066},"se_science_val":{"d":"2,3","r":2.3186500000000003},"trend_idn_change":{"d":"-4,8","r":-4.807230000000004}},"hero":{"cut_l2":409.54,"cut_unit":"poin skor","idn":{"scie":388.67379000000005,"se":2.3186500000000003},"oecd":{"scie":481.90834000000007,"se":0.43835}},"meta":{"annex_sha256":"461eda19f959cacdab1c89bbe2388a763229c11a6de591a9f2b810cc747da8f8","cycle":2025,"licence":"CC BY 4.0","puf_sha256":"9d31986e5f60c018ac3da65a141df291ad434f0116e7f7b57300a6c6be87ff22","retrieved":"2026-10-13","source_url":"https://www.oecd.org/en/data/datasets/pisa-2025-database.html"},"peers":[{"country":"Singapore","idn":false,"se":1.7129,"value":559.8505600000001},{"country":"Viet Nam","idn":false,"se":3.92831,"value":457.42088},{"country":"Brunei Darussalam","idn":false,"se":0.8198900000000001,"value":439.45387000000005},{"country":"Thailand","idn":false,"se":3.1885800000000004,"value":432.24049},{"country":"Malaysia","idn":false,"se":2.15916,"value":419.20273000000003},{"country":"Indonesia","idn":true,"se":2.3186500000000003,"value":388.67379000000005},{"country":"Cambodia","idn":false,"se":1.6906200000000002,"value":381.93511},{"country":"Philippines","idn":false,"se":2.28703,"value":373.31850000000003}],"prof":{"mathematics":{"bands":["level_below_1c","level_1c","level_1b","level_1a","level_2","level_3","level_4","level_5","level_6"],"cut_scores":[233.17,295.47,357.77,420.07,482.38,544.68,606.99,669.3],"idn":[0.8264400000000001,10.88699,36.283280000000005,35.07395,13.864550000000001,2.7350800000000004,0.30599000000000004,0.02373,0.0],"oecd":[0.48205000000000003,3.43692,11.397710000000002,19.541510000000002,23.039910000000003,20.750890000000002,13.574000000000002,5.8626700000000005,1.91433]},"reading":{"bands":["level_below_1c","level_1c","level_1b","level_1a","level_2","level_3","level_4","level_5","level_6"],"cut_scores":[189.33,262.04,334.75,407.47,480.18,552.89,625.61,698.32],"idn":[0.27990000000000004,6.158930000000001,27.80459,38.649170000000005,21.74442,5.0118100000000005,0.34726,0.00393,0.0],"oecd":[0.29364,2.6482900000000003,9.4587,18.63839,25.11878,23.843220000000002,14.494790000000002,4.69066,0.8135300000000001]},"science":{"bands":["level_below_1b","level_1b","level_1a","level_2","level_3","level_4","level_5","level_6"],"cut_scores":[260.54,334.94,409.54,484.14,559.74,633.33,708.16],"idn":[2.03377,19.859740000000002,41.291700000000006,28.357370000000003,7.695060000000001,0.72813,0.03424,0.0],"oecd":[1.105,6.95936,17.63162,24.888650000000002,25.301350000000003,16.900360000000003,6.10451,1.10915]}},"spread":{"idn":{"p10":304.67004000000003,"p25":341.32347000000004,"p50":385.94486,"p75":433.30411000000004,"p90":477.62010000000004,"sd":67.05083},"oecd":{"p10":351.17913000000004,"p25":411.46415,"p50":483.50275000000005,"p75":552.44041,"p90":609.56209,"sd":98.63806000000001}},"trend":[{"cycle":2006,"idn":393.48102000000006,"idn_se":5.72996,"oecd23":502.74367000000007,"oecd23_se":0.5953700000000001},{"cycle":2009,"idn":382.56945,"idn_se":3.7848900000000003,"oecd23":505.74124000000006,"oecd23_se":0.5795600000000001},{"cycle":2012,"idn":381.91148000000004,"idn_se":3.8169100000000005,"oecd23":504.73098000000005,"oecd23_se":0.56815},{"cycle":2015,"idn":403.09974000000005,"idn_se":2.5657900000000002,"oecd23":496.9809,"oecd23_se":0.52531},{"cycle":2018,"idn":396.07005000000004,"idn_se":2.38639,"oecd23":493.46277000000003,"oecd23_se":0.5126900000000001},{"cycle":2022,"idn":382.86341000000004,"idn_se":2.56129,"oecd23":490.86388000000005,"oecd23_se":0.53261},{"cycle":2025,"idn":388.67379000000005,"idn_se":2.3186500000000003,"oecd23":485.93596,"oecd23_se":0.55398}]};
+  const DATA = {"escs":{"idn":{"cuts":[-2.1682466276434935,-1.5868821189438915,-0.8010256118461058],"gap":46.94492660346363,"gap_se":4.638452033793347,"mean":-1.4388985463323023,"means":[372.1676371475206,378.88080495571313,389.94295525195275,419.1125637509843],"missing_pct":2.4985883681535856},"oecd":{"cuts":[-0.9573521395517068,-0.07793784667757747,0.6931383185360647],"gap":107.08050325762171,"gap_se":null,"mean":-0.18901414424891216,"means":[431.8762993757047,473.03560314912266,505.87462077405036,538.9568026333264],"missing_pct":9.631351605066696}},"fig":{"escs_gap_idn":{"d":"47","r":46.94492660346363},"hero_gap":{"d":"93","r":93.23455000000001},"meta_licence_note":"4.0","meta_licence_ver":"4.0","meta_licence_ver_code":"4.0","meta_pv_count":"5","meta_rep_count":"80","meta_table_escs":"puf_quartile_cuts","meta_table_hero":"I.B1.2a.1","meta_table_peers":"I.B1.2a.1","meta_table_prof_math":"I.B1.2a.12","meta_table_prof_read":"I.B1.2a.11","meta_table_prof_scie":"I.B1.2a.10","meta_table_spread":"I.B1.2a.1","meta_table_trend":"I.B1.2a.36","peers_gap_kh":{"d":"6,73","r":6.73868},"peers_gap_kh_2se":{"d":"6,34","r":6.34},"peers_rank":"ENAM","prof_below_l2_math":{"d":"83,1","r":83.07066},"se_science_val":{"d":"2,3","r":2.3186500000000003},"trend_idn_change":{"d":"-4,8","r":-4.807230000000004}},"hero":{"cut_l2":409.54,"cut_unit":"poin skor","idn":{"scie":388.67379000000005,"se":2.3186500000000003},"oecd":{"scie":481.90834000000007,"se":0.43835}},"meta":{"annex_sha256":"461eda19f959cacdab1c89bbe2388a763229c11a6de591a9f2b810cc747da8f8","cycle":2025,"licence":"CC BY 4.0","puf_sha256":"9d31986e5f60c018ac3da65a141df291ad434f0116e7f7b57300a6c6be87ff22","retrieved":"2026-10-13","source_url":"https://www.oecd.org/en/data/datasets/pisa-2025-database.html"},"peers":[{"country":"Singapore","idn":false,"se":1.7129,"value":559.8505600000001},{"country":"Viet Nam","idn":false,"se":3.92831,"value":457.42088},{"country":"Brunei Darussalam","idn":false,"se":0.8198900000000001,"value":439.45387000000005},{"country":"Thailand","idn":false,"se":3.1885800000000004,"value":432.24049},{"country":"Malaysia","idn":false,"se":2.15916,"value":419.20273000000003},{"country":"Indonesia","idn":true,"se":2.3186500000000003,"value":388.67379000000005},{"country":"Cambodia","idn":false,"se":1.6906200000000002,"value":381.93511},{"country":"Philippines","idn":false,"se":2.28703,"value":373.31850000000003}],"prof":{"mathematics":{"bands":["level_below_1c","level_1c","level_1b","level_1a","level_2","level_3","level_4","level_5","level_6"],"cut_scores":[233.17,295.47,357.77,420.07,482.38,544.68,606.99,669.3],"idn":[0.8264400000000001,10.88699,36.283280000000005,35.07395,13.864550000000001,2.7350800000000004,0.30599000000000004,0.02373,0.0],"oecd":[0.48205000000000003,3.43692,11.397710000000002,19.541510000000002,23.039910000000003,20.750890000000002,13.574000000000002,5.8626700000000005,1.91433]},"reading":{"bands":["level_below_1c","level_1c","level_1b","level_1a","level_2","level_3","level_4","level_5","level_6"],"cut_scores":[189.33,262.04,334.75,407.47,480.18,552.89,625.61,698.32],"idn":[0.27990000000000004,6.158930000000001,27.80459,38.649170000000005,21.74442,5.0118100000000005,0.34726,0.00393,0.0],"oecd":[0.29364,2.6482900000000003,9.4587,18.63839,25.11878,23.843220000000002,14.494790000000002,4.69066,0.8135300000000001]},"science":{"bands":["level_below_1b","level_1b","level_1a","level_2","level_3","level_4","level_5","level_6"],"cut_scores":[260.54,334.94,409.54,484.14,559.74,633.33,708.16],"idn":[2.03377,19.859740000000002,41.291700000000006,28.357370000000003,7.695060000000001,0.72813,0.03424,0.0],"oecd":[1.105,6.95936,17.63162,24.888650000000002,25.301350000000003,16.900360000000003,6.10451,1.10915]}},"spread":{"idn":{"p10":304.67004000000003,"p25":341.32347000000004,"p50":385.94486,"p75":433.30411000000004,"p90":477.62010000000004,"sd":67.05083},"oecd":{"p10":351.17913000000004,"p25":411.46415,"p50":483.50275000000005,"p75":552.44041,"p90":609.56209,"sd":98.63806000000001}},"trend":[{"cycle":2006,"idn":393.48102000000006,"idn_se":5.72996,"oecd23":502.74367000000007,"oecd23_se":0.5953700000000001},{"cycle":2009,"idn":382.56945,"idn_se":3.7848900000000003,"oecd23":505.74124000000006,"oecd23_se":0.5795600000000001},{"cycle":2012,"idn":381.91148000000004,"idn_se":3.8169100000000005,"oecd23":504.73098000000005,"oecd23_se":0.56815},{"cycle":2015,"idn":403.09974000000005,"idn_se":2.5657900000000002,"oecd23":496.9809,"oecd23_se":0.52531},{"cycle":2018,"idn":396.07005000000004,"idn_se":2.38639,"oecd23":493.46277000000003,"oecd23_se":0.5126900000000001},{"cycle":2022,"idn":382.86341000000004,"idn_se":2.56129,"oecd23":490.86388000000005,"oecd23_se":0.53261},{"cycle":2025,"idn":388.67379000000005,"idn_se":2.3186500000000003,"oecd23":485.93596,"oecd23_se":0.55398}]};
 
   function renderHero() {
     const container = document.getElementById('hero-scale');
@@ -617,14 +609,14 @@ span[data-fig] {
       '<line x1="' + idnWhiskerLeft + '" y1="' + markerY + '" x2="' + idnWhiskerRight + '" y2="' + markerY + '" stroke="var(--series-idn)" stroke-width="2.5"></line>' +
       '<line x1="' + idnWhiskerLeft + '" y1="' + (markerY - 6) + '" x2="' + idnWhiskerLeft + '" y2="' + (markerY + 6) + '" stroke="var(--series-idn)" stroke-width="2"></line>' +
       '<line x1="' + idnWhiskerRight + '" y1="' + (markerY - 6) + '" x2="' + idnWhiskerRight + '" y2="' + (markerY + 6) + '" stroke="var(--series-idn)" stroke-width="2"></line>' +
-      '<circle cx="' + idnX.toFixed(2) + '" cy="' + markerY + '" r="6" fill="var(--series-idn)" stroke="#FFFFFF" stroke-width="2"></circle>' +
-      '<text x="' + oecdX.toFixed(2) + '" y="56" text-anchor="middle" font-size="13px" font-family="var(--font-sans)" font-weight="700" fill="var(--muted)">Rerata OECD</text>' +
-      '<text x="' + oecdX.toFixed(2) + '" y="74" text-anchor="middle" font-size="14px" font-family="var(--font-mono)" font-weight="700" fill="var(--ink)">' + fmt(oecdScore) + '</text>' +
+      '<circle cx="' + idnX.toFixed(2) + '" cy="' + markerY + '" r="6" fill="var(--series-idn)" stroke="var(--white)" stroke-width="2"></circle>' +
+      '<text x="' + oecdX.toFixed(2) + '" y="' + 56 + '" text-anchor="middle" font-size="13px" font-family="var(--font-sans)" font-weight="700" fill="var(--muted)">Rerata OECD</text>' +
+      '<text x="' + oecdX.toFixed(2) + '" y="' + 74 + '" text-anchor="middle" font-size="14px" font-family="var(--font-mono)" font-weight="700" fill="var(--ink)">' + fmt(oecdScore) + '</text>' +
       '<line x1="' + oecdX.toFixed(2) + '" y1="80" x2="' + oecdX.toFixed(2) + '" y2="' + (markerY - 8) + '" stroke="var(--series-oecd)" stroke-width="1.5" stroke-dasharray="2 2"></line>' +
       '<line x1="' + oecdWhiskerLeft + '" y1="' + markerY + '" x2="' + oecdWhiskerRight + '" y2="' + markerY + '" stroke="var(--series-oecd)" stroke-width="2.5"></line>' +
       '<line x1="' + oecdWhiskerLeft + '" y1="' + (markerY - 6) + '" x2="' + oecdWhiskerLeft + '" y2="' + (markerY + 6) + '" stroke="var(--series-oecd)" stroke-width="2"></line>' +
       '<line x1="' + oecdWhiskerRight + '" y1="' + (markerY - 6) + '" x2="' + oecdWhiskerRight + '" y2="' + (markerY + 6) + '" stroke="var(--series-oecd)" stroke-width="2"></line>' +
-      '<rect x="' + (oecdX - 8).toFixed(2) + '" y="' + (markerY - 8) + '" width="16" height="16" rx="2" fill="#FFFFFF"></rect>' +
+      '<rect x="' + (oecdX - 8).toFixed(2) + '" y="' + (markerY - 8) + '" width="16" height="16" rx="2" fill="var(--white)"></rect>' +
       '<rect x="' + (oecdX - 8).toFixed(2) + '" y="' + (markerY - 8) + '" width="16" height="16" rx="2" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="1.5"></rect>' +
       '<line x1="' + padX + '" y1="' + baselineY + '" x2="' + (svgW - padX) + '" y2="' + baselineY + '" stroke="var(--muted)" stroke-width="1.5"></line>' +
       ticksSvg +
@@ -720,7 +712,7 @@ span[data-fig] {
 
       oecdMarkersSvg += '<g>';
       oecdMarkersSvg += '<title>Rerata OECD-23 ' + item.cycle + ': ' + fmt(oecdVal) + ' (galat baku \u00B1' + fmt(oecdSe) + ')</title>';
-      oecdMarkersSvg += '<rect x="' + (x - 6).toFixed(2) + '" y="' + (oecdY - 6).toFixed(2) + '" width="12" height="12" rx="2" fill="#FFFFFF"></rect>';
+      oecdMarkersSvg += '<rect x="' + (x - 6).toFixed(2) + '" y="' + (oecdY - 6).toFixed(2) + '" width="12" height="12" rx="2" fill="var(--white)"></rect>';
       oecdMarkersSvg += '<rect x="' + (x - 6).toFixed(2) + '" y="' + (oecdY - 6).toFixed(2) + '" width="12" height="12" rx="2" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="1.5"></rect>';
       oecdMarkersSvg += '</g>';
 
@@ -738,7 +730,7 @@ span[data-fig] {
 
       idnMarkersSvg += '<g>';
       idnMarkersSvg += '<title>Indonesia ' + item.cycle + ': ' + fmt(idnVal) + ' (galat baku \u00B1' + fmt(idnSe) + ')</title>';
-      idnMarkersSvg += '<circle cx="' + xStr + '" cy="' + idnYStr + '" r="6" fill="var(--series-idn)" stroke="#FFFFFF" stroke-width="2"></circle>';
+      idnMarkersSvg += '<circle cx="' + xStr + '" cy="' + idnYStr + '" r="6" fill="var(--series-idn)" stroke="var(--white)" stroke-width="2"></circle>';
       idnMarkersSvg += '</g>';
     }
 
@@ -804,16 +796,16 @@ span[data-fig] {
       if (token === 'level_3') return 'var(--level-3)';
       if (token === 'level_2') return 'var(--level-2)';
       if (token === 'level_1a') return 'var(--level-1)';
-      if (token === 'level_1b') return '#E2E8F3';
-      if (token === 'level_1c') return '#ECF0F7';
-      if (token === 'level_below_1b') return '#EAF0F8';
-      if (token === 'level_below_1c') return '#F4F7FB';
+      if (token === 'level_1b') return 'var(--level-1b)';
+      if (token === 'level_1c') return 'var(--level-1c)';
+      if (token === 'level_below_1b') return 'var(--level-below-1b)';
+      if (token === 'level_below_1c') return 'var(--level-below-1c)';
       return 'var(--level-1)';
     }
 
     function getBandTextColor(token) {
       if (token === 'level_4' || token === 'level_5' || token === 'level_6') {
-        return '#FFFFFF';
+        return 'var(--white)';
       }
       return 'var(--ink)';
     }
@@ -862,14 +854,14 @@ span[data-fig] {
       const col = getBandColor(tok);
       const lbl = getBandLabel(tok);
       svgHtml += '<rect x="' + itemX.toFixed(2) + '" y="42" width="12" height="12" rx="2" fill="' + col + '" stroke="var(--line)" stroke-width="1"></rect>';
-      svgHtml += '<text x="' + (itemX + 16).toFixed(2) + '" y="52" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + lbl + '</text>';
+      svgHtml += '<text x="' + (itemX + 16).toFixed(2) + '" y="52" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + lbl + '</text>';
     }
 
-    svgHtml += '<rect x="' + padLeft + '" y="66" width="12" height="12" rx="2" fill="var(--accent)" stroke="#FFFFFF" stroke-width="1"></rect>';
-    svgHtml += '<text x="' + (padLeft + 16) + '" y="76" font-size="11px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia (warna solid)</text>';
-    svgHtml += '<rect x="' + (padLeft + 180) + '" y="66" width="12" height="12" rx="2" fill="#FFFFFF"></rect>';
+    svgHtml += '<rect x="' + padLeft + '" y="66" width="12" height="12" rx="2" fill="var(--accent)" stroke="var(--white)" stroke-width="1"></rect>';
+    svgHtml += '<text x="' + (padLeft + 16) + '" y="76" font-size="12px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia (warna solid)</text>';
+    svgHtml += '<rect x="' + (padLeft + 180) + '" y="66" width="12" height="12" rx="2" fill="var(--white)"></rect>';
     svgHtml += '<rect x="' + (padLeft + 180) + '" y="66" width="12" height="12" rx="2" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="1"></rect>';
-    svgHtml += '<text x="' + (padLeft + 196) + '" y="76" font-size="11px" font-family="var(--font-sans)" font-weight="600" fill="var(--muted)">Rerata OECD (pola arsir)</text>';
+    svgHtml += '<text x="' + (padLeft + 196) + '" y="76" font-size="12px" font-family="var(--font-sans)" font-weight="600" fill="var(--muted)">Rerata OECD (pola arsir)</text>';
 
     let currentY = 104;
 
@@ -908,7 +900,7 @@ span[data-fig] {
       const bracketMidX = padLeft + idnBelowW / 2;
 
       svgHtml += '<path d="M ' + padLeft.toFixed(2) + ' ' + (yIdn - 2) + ' L ' + padLeft.toFixed(2) + ' ' + bracketY + ' L ' + bracketXEnd.toFixed(2) + ' ' + bracketY + ' L ' + bracketXEnd.toFixed(2) + ' ' + (yIdn - 2) + '" fill="none" stroke="var(--accent-ink)" stroke-width="1.5"></path>';
-      svgHtml += '<text x="' + bracketMidX.toFixed(2) + '" y="' + (bracketY - 4) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="700" fill="var(--accent-ink)">' + fmt(idnBelowL2, 1) + '% di bawah Level 2</text>';
+      svgHtml += '<text x="' + bracketMidX.toFixed(2) + '" y="' + (bracketY - 4) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--accent-ink)">' + fmt(idnBelowL2, 1) + '% di bawah Level 2</text>';
 
       svgHtml += '<text x="' + (padLeft - 12) + '" y="' + (yIdn + 15) + '" text-anchor="end" font-size="12px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia</text>';
 
@@ -927,11 +919,11 @@ span[data-fig] {
 
         svgHtml += '<g>';
         svgHtml += '<title>Indonesia ' + dom.label + ' ' + bLabel + ': ' + fmt(share, 2) + '%</title>';
-        svgHtml += '<rect x="' + segX.toFixed(2) + '" y="' + yIdn + '" width="' + w.toFixed(2) + '" height="' + barH + '" fill="' + color + '" stroke="#FFFFFF" stroke-width="1"></rect>';
+        svgHtml += '<rect x="' + segX.toFixed(2) + '" y="' + yIdn + '" width="' + w.toFixed(2) + '" height="' + barH + '" fill="' + color + '" stroke="var(--white)" stroke-width="1"></rect>';
         if (w >= 38) {
-          svgHtml += '<text x="' + (segX + w / 2).toFixed(2) + '" y="' + (yIdn + 14) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="600" fill="' + textColor + '">' + fmt(share, 1) + '%</text>';
+          svgHtml += '<text x="' + (segX + w / 2).toFixed(2) + '" y="' + (yIdn + 14) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="600" fill="' + textColor + '">' + fmt(share, 1) + '%</text>';
         } else if (w >= 22) {
-          svgHtml += '<text x="' + (segX + w / 2).toFixed(2) + '" y="' + (yIdn + 14) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="600" fill="' + textColor + '">' + fmt(share, 1) + '</text>';
+          svgHtml += '<text x="' + (segX + w / 2).toFixed(2) + '" y="' + (yIdn + 14) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="600" fill="' + textColor + '">' + fmt(share, 1) + '</text>';
         }
         svgHtml += '</g>';
       }
@@ -954,12 +946,12 @@ span[data-fig] {
 
         svgHtml += '<g>';
         svgHtml += '<title>Rerata OECD ' + dom.label + ' ' + bLabel + ': ' + fmt(share, 2) + '%</title>';
-        svgHtml += '<rect x="' + segX.toFixed(2) + '" y="' + yOecd + '" width="' + w.toFixed(2) + '" height="' + barH + '" fill="' + color + '" stroke="#FFFFFF" stroke-width="1"></rect>';
-        svgHtml += '<rect x="' + segX.toFixed(2) + '" y="' + yOecd + '" width="' + w.toFixed(2) + '" height="' + barH + '" fill="url(#hatch-oecd)" stroke="#FFFFFF" stroke-width="1"></rect>';
+        svgHtml += '<rect x="' + segX.toFixed(2) + '" y="' + yOecd + '" width="' + w.toFixed(2) + '" height="' + barH + '" fill="' + color + '" stroke="var(--white)" stroke-width="1"></rect>';
+        svgHtml += '<rect x="' + segX.toFixed(2) + '" y="' + yOecd + '" width="' + w.toFixed(2) + '" height="' + barH + '" fill="url(#hatch-oecd)" stroke="var(--white)" stroke-width="1"></rect>';
         if (w >= 38) {
-          svgHtml += '<text x="' + (segX + w / 2).toFixed(2) + '" y="' + (yOecd + 14) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="600" fill="' + textColor + '">' + fmt(share, 1) + '%</text>';
+          svgHtml += '<text x="' + (segX + w / 2).toFixed(2) + '" y="' + (yOecd + 14) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="600" fill="' + textColor + '">' + fmt(share, 1) + '%</text>';
         } else if (w >= 22) {
-          svgHtml += '<text x="' + (segX + w / 2).toFixed(2) + '" y="' + (yOecd + 14) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="600" fill="' + textColor + '">' + fmt(share, 1) + '</text>';
+          svgHtml += '<text x="' + (segX + w / 2).toFixed(2) + '" y="' + (yOecd + 14) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="600" fill="' + textColor + '">' + fmt(share, 1) + '</text>';
         }
         svgHtml += '</g>';
       }
@@ -1035,7 +1027,7 @@ span[data-fig] {
     const oecdMedXStr = oecdMedX.toFixed(2);
     const refSvg =
       '<line x1="' + oecdMedXStr + '" y1="' + gridTop + '" x2="' + oecdMedXStr + '" y2="' + axisY + '" stroke="var(--series-ref)" stroke-width="1.5" stroke-dasharray="4 3"></line>' +
-      '<text x="' + (oecdMedX + 6).toFixed(2) + '" y="60" text-anchor="start" font-size="11px" font-family="var(--font-mono)" font-weight="700" fill="var(--series-ref)">MEDIAN OECD ' + fmt(oecd.p50) + '</text>';
+      '<text x="' + (oecdMedX + 6).toFixed(2) + '" y="60" text-anchor="start" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--series-ref)">MEDIAN OECD ' + fmt(oecd.p50) + '</text>';
 
     const yIdn = 115;
     const boxH = 26;
@@ -1070,8 +1062,8 @@ span[data-fig] {
       const sw = m.tag === 'P50' ? 2 : 1.5;
       idnMarkersSvg += '<g>';
       idnMarkersSvg += '<title>Indonesia ' + m.tag + ': ' + fmt(m.val) + '</title>';
-      idnMarkersSvg += '<circle cx="' + m.x.toFixed(2) + '" cy="' + yIdn + '" r="' + r + '" fill="var(--series-idn)" stroke="#FFFFFF" stroke-width="' + sw + '"></circle>';
-      idnMarkersSvg += '<text x="' + m.textX.toFixed(2) + '" y="' + (yIdn - 27) + '" text-anchor="' + m.anchor + '" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + m.tag + '</text>';
+      idnMarkersSvg += '<circle cx="' + m.x.toFixed(2) + '" cy="' + yIdn + '" r="' + r + '" fill="var(--series-idn)" stroke="var(--white)" stroke-width="' + sw + '"></circle>';
+      idnMarkersSvg += '<text x="' + m.textX.toFixed(2) + '" y="' + (yIdn - 28) + '" text-anchor="' + m.anchor + '" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + m.tag + '</text>';
       idnMarkersSvg += '<text x="' + m.textX.toFixed(2) + '" y="' + (yIdn - 15) + '" text-anchor="' + m.anchor + '" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--accent-ink)">' + fmt(m.val) + '</text>';
       idnMarkersSvg += '</g>';
     }
@@ -1090,7 +1082,7 @@ span[data-fig] {
       '<line x1="' + oecdX90.toFixed(2) + '" y1="' + (yOecd - 10) + '" x2="' + oecdX90.toFixed(2) + '" y2="' + (yOecd + 10) + '" stroke="var(--series-oecd)" stroke-width="2"></line>';
 
     const oecdBox =
-      '<rect x="' + oecdX25.toFixed(2) + '" y="' + (yOecd - 13) + '" width="' + (oecdX75 - oecdX25).toFixed(2) + '" height="' + boxH + '" rx="2" fill="#FFFFFF"></rect>' +
+      '<rect x="' + oecdX25.toFixed(2) + '" y="' + (yOecd - 13) + '" width="' + (oecdX75 - oecdX25).toFixed(2) + '" height="' + boxH + '" rx="2" fill="var(--white)"></rect>' +
       '<rect x="' + oecdX25.toFixed(2) + '" y="' + (yOecd - 13) + '" width="' + (oecdX75 - oecdX25).toFixed(2) + '" height="' + boxH + '" rx="2" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="2"></rect>' +
       '<line x1="' + oecdX50.toFixed(2) + '" y1="' + (yOecd - 13) + '" x2="' + oecdX50.toFixed(2) + '" y2="' + (yOecd + 13) + '" stroke="var(--series-oecd)" stroke-width="3"></line>';
 
@@ -1111,10 +1103,10 @@ span[data-fig] {
       const half = size / 2;
       oecdMarkersSvg += '<g>';
       oecdMarkersSvg += '<title>Rerata OECD ' + m.tag + ': ' + fmt(m.val) + '</title>';
-      oecdMarkersSvg += '<rect x="' + (m.x - half).toFixed(2) + '" y="' + (yOecd - half).toFixed(2) + '" width="' + size + '" height="' + size + '" rx="' + rx + '" fill="#FFFFFF"></rect>';
+      oecdMarkersSvg += '<rect x="' + (m.x - half).toFixed(2) + '" y="' + (yOecd - half).toFixed(2) + '" width="' + size + '" height="' + size + '" rx="' + rx + '" fill="var(--white)"></rect>';
       oecdMarkersSvg += '<rect x="' + (m.x - half).toFixed(2) + '" y="' + (yOecd - half).toFixed(2) + '" width="' + size + '" height="' + size + '" rx="' + rx + '" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="' + sw + '"></rect>';
       oecdMarkersSvg += '<text x="' + m.x.toFixed(2) + '" y="' + (yOecd + 26) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--ink)">' + fmt(m.val) + '</text>';
-      oecdMarkersSvg += '<text x="' + m.x.toFixed(2) + '" y="' + (yOecd + 39) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + m.tag + '</text>';
+      oecdMarkersSvg += '<text x="' + m.x.toFixed(2) + '" y="' + (yOecd + 40) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + m.tag + '</text>';
       oecdMarkersSvg += '</g>';
     }
 
@@ -1126,18 +1118,18 @@ span[data-fig] {
       '<text x="' + (padLeft + plotW) + '" y="26" text-anchor="end" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">satuan: poin skor</text>' +
       '<circle cx="' + (padLeft + 6) + '" cy="44" r="5" fill="var(--series-idn)"></circle>' +
       '<text x="' + (padLeft + 18) + '" y="48" font-size="12px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia (warna solid)</text>' +
-      '<rect x="' + (padLeft + 190) + '" y="38" width="12" height="12" rx="2" fill="#FFFFFF"></rect>' +
+      '<rect x="' + (padLeft + 190) + '" y="38" width="12" height="12" rx="2" fill="var(--white)"></rect>' +
       '<rect x="' + (padLeft + 190) + '" y="38" width="12" height="12" rx="2" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="1"></rect>' +
       '<text x="' + (padLeft + 208) + '" y="48" font-size="12px" font-family="var(--font-sans)" font-weight="600" fill="var(--muted)">Rerata OECD (pola arsir)</text>' +
       ticksSvg +
       refSvg +
       '<text x="' + (padLeft - 16) + '" y="' + (yIdn - 2) + '" text-anchor="end" font-size="13px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia</text>' +
-      '<text x="' + (padLeft - 16) + '" y="' + (yIdn + 14) + '" text-anchor="end" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">SD: ' + fmt(idn.sd) + '</text>' +
+      '<text x="' + (padLeft - 16) + '" y="' + (yIdn + 14) + '" text-anchor="end" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">SD: ' + fmt(idn.sd) + '</text>' +
       idnWhiskers +
       idnBox +
       idnMarkersSvg +
       '<text x="' + (padLeft - 16) + '" y="' + (yOecd - 2) + '" text-anchor="end" font-size="13px" font-family="var(--font-sans)" font-weight="700" fill="var(--muted)">Rerata OECD</text>' +
-      '<text x="' + (padLeft - 16) + '" y="' + (yOecd + 14) + '" text-anchor="end" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">SD: ' + fmt(oecd.sd) + '</text>' +
+      '<text x="' + (padLeft - 16) + '" y="' + (yOecd + 14) + '" text-anchor="end" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">SD: ' + fmt(oecd.sd) + '</text>' +
       oecdWhiskers +
       oecdBox +
       oecdMarkersSvg +
@@ -1193,7 +1185,7 @@ span[data-fig] {
       const st = scoreTicks[i];
       const sy = toScoreY(st).toFixed(2);
       scoreGridSvg += '<line x1="' + padLeft + '" y1="' + sy + '" x2="' + (padLeft + plotW) + '" y2="' + sy + '" stroke="' + (st === 0 ? 'var(--muted)' : 'var(--line)') + '" stroke-width="' + (st === 0 ? '1.5' : '1') + '"></line>';
-      scoreGridSvg += '<text x="' + (padLeft - 12) + '" y="' + (parseFloat(sy) + 4).toFixed(2) + '" text-anchor="end" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + st + '</text>';
+      scoreGridSvg += '<text x="' + (padLeft - 12) + '" y="' + (parseFloat(sy) + 4).toFixed(2) + '" text-anchor="end" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + st + '</text>';
     }
 
     let oecdQ1RefSvg = '';
@@ -1201,7 +1193,7 @@ span[data-fig] {
       const q1Val = oecdMeans[0];
       const q1Y = toScoreY(q1Val).toFixed(2);
       oecdQ1RefSvg += '<line x1="' + padLeft + '" y1="' + q1Y + '" x2="' + (padLeft + plotW) + '" y2="' + q1Y + '" stroke="var(--series-ref)" stroke-width="1.5" stroke-dasharray="4 3"></line>';
-      oecdQ1RefSvg += '<text x="' + (padLeft + plotW - 6) + '" y="' + (parseFloat(q1Y) - 6).toFixed(2) + '" text-anchor="end" font-size="11px" font-family="var(--font-mono)" font-weight="700" fill="var(--series-ref)">RERATA KUARTIL 1 OECD (' + fmt(q1Val) + ')</text>';
+      oecdQ1RefSvg += '<text x="' + (padLeft + plotW - 6) + '" y="' + (parseFloat(q1Y) - 6).toFixed(2) + '" text-anchor="end" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--series-ref)">RERATA KUARTIL 1 OECD (' + fmt(q1Val) + ')</text>';
     }
 
     const panelW = 380;
@@ -1217,9 +1209,9 @@ span[data-fig] {
     const headersSvg =
       '<g>' +
       '<text x="' + (idnPanelLeft + panelW / 2) + '" y="68" text-anchor="middle" font-size="13px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia</text>' +
-      '<text x="' + (idnPanelLeft + panelW / 2) + '" y="82" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + idnGapText + '</text>' +
+      '<text x="' + (idnPanelLeft + panelW / 2) + '" y="82" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + idnGapText + '</text>' +
       '<text x="' + (oecdPanelLeft + panelW / 2) + '" y="68" text-anchor="middle" font-size="13px" font-family="var(--font-sans)" font-weight="700" fill="var(--ink)">Rerata OECD</text>' +
-      '<text x="' + (oecdPanelLeft + panelW / 2) + '" y="82" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + oecdGapText + '</text>' +
+      '<text x="' + (oecdPanelLeft + panelW / 2) + '" y="82" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + oecdGapText + '</text>' +
       '</g>';
 
     const barW = 54;
@@ -1242,7 +1234,7 @@ span[data-fig] {
       idnBarsSvg += '<text x="' + bxMid.toFixed(2) + '" y="' + (by - 6).toFixed(2) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--accent-ink)">' + fmt(val) + '</text>';
       idnBarsSvg += '<text x="' + bxMid.toFixed(2) + '" y="' + (barAreaBottom + 16) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--ink)">' + quartileNames[i] + '</text>';
       if (quartileDescs[i]) {
-        idnBarsSvg += '<text x="' + bxMid.toFixed(2) + '" y="' + (barAreaBottom + 28) + '" text-anchor="middle" font-size="10px" font-family="var(--font-sans)" fill="var(--muted)">' + quartileDescs[i] + '</text>';
+        idnBarsSvg += '<text x="' + bxMid.toFixed(2) + '" y="' + (barAreaBottom + 30) + '" text-anchor="middle" font-size="12px" font-family="var(--font-sans)" fill="var(--muted)">' + quartileDescs[i] + '</text>';
       }
       idnBarsSvg += '</g>';
     }
@@ -1258,12 +1250,12 @@ span[data-fig] {
 
       oecdBarsSvg += '<g>';
       oecdBarsSvg += '<title>Rerata OECD ' + quartileNames[i] + ' (' + (quartileDescs[i] || 'Kuartil ' + (i + 1)) + '): ' + fmt(val) + ' poin</title>';
-      oecdBarsSvg += '<rect x="' + bx.toFixed(2) + '" y="' + by.toFixed(2) + '" width="' + barW + '" height="' + bh.toFixed(2) + '" rx="3" fill="#FFFFFF"></rect>';
+      oecdBarsSvg += '<rect x="' + bx.toFixed(2) + '" y="' + by.toFixed(2) + '" width="' + barW + '" height="' + bh.toFixed(2) + '" rx="3" fill="var(--white)"></rect>';
       oecdBarsSvg += '<rect x="' + bx.toFixed(2) + '" y="' + by.toFixed(2) + '" width="' + barW + '" height="' + bh.toFixed(2) + '" rx="3" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="1.5"></rect>';
       oecdBarsSvg += '<text x="' + bxMid.toFixed(2) + '" y="' + (by - 6).toFixed(2) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--ink)">' + fmt(val) + '</text>';
       oecdBarsSvg += '<text x="' + bxMid.toFixed(2) + '" y="' + (barAreaBottom + 16) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--ink)">' + quartileNames[i] + '</text>';
       if (quartileDescs[i]) {
-        oecdBarsSvg += '<text x="' + bxMid.toFixed(2) + '" y="' + (barAreaBottom + 28) + '" text-anchor="middle" font-size="10px" font-family="var(--font-sans)" fill="var(--muted)">' + quartileDescs[i] + '</text>';
+        oecdBarsSvg += '<text x="' + bxMid.toFixed(2) + '" y="' + (barAreaBottom + 30) + '" text-anchor="middle" font-size="12px" font-family="var(--font-sans)" fill="var(--muted)">' + quartileDescs[i] + '</text>';
       }
       oecdBarsSvg += '</g>';
     }
@@ -1293,9 +1285,9 @@ span[data-fig] {
       idnCutsSvg += '<g>';
       idnCutsSvg += '<title>Ambang Kuartil Indonesia ' + (idnCutLabels[i] || '') + ': ' + fmt(cv, 2) + '</title>';
       idnCutsSvg += '<line x1="' + cxStr + '" y1="' + (row1Y - 6) + '" x2="' + cxStr + '" y2="' + (row1Y + 6) + '" stroke="var(--series-idn)" stroke-width="2"></line>';
-      idnCutsSvg += '<circle cx="' + cxStr + '" cy="' + row1Y + '" r="5" fill="var(--series-idn)" stroke="#FFFFFF" stroke-width="1.5"></circle>';
-      idnCutsSvg += '<text x="' + cxStr + '" y="' + (row1Y - 18) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + (idnCutLabels[i] || '') + '</text>';
-      idnCutsSvg += '<text x="' + cxStr + '" y="' + (row1Y - 7) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="700" fill="var(--accent-ink)">' + fmt(cv, 2) + '</text>';
+      idnCutsSvg += '<circle cx="' + cxStr + '" cy="' + row1Y + '" r="5" fill="var(--series-idn)" stroke="var(--white)" stroke-width="1.5"></circle>';
+      idnCutsSvg += '<text x="' + cxStr + '" y="' + (row1Y - 20) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + (idnCutLabels[i] || '') + '</text>';
+      idnCutsSvg += '<text x="' + cxStr + '" y="' + (row1Y - 7) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--accent-ink)">' + fmt(cv, 2) + '</text>';
       idnCutsSvg += '</g>';
     }
 
@@ -1309,10 +1301,10 @@ span[data-fig] {
       oecdCutsSvg += '<g>';
       oecdCutsSvg += '<title>Ambang Kuartil OECD ' + (oecdCutLabels[i] || '') + ': ' + fmt(cv, 2) + '</title>';
       oecdCutsSvg += '<line x1="' + cxStr + '" y1="' + (row2Y - 6) + '" x2="' + cxStr + '" y2="' + (row2Y + 6) + '" stroke="var(--series-oecd)" stroke-width="2"></line>';
-      oecdCutsSvg += '<rect x="' + (cx - 5).toFixed(2) + '" y="' + (row2Y - 5) + '" width="10" height="10" rx="1.5" fill="#FFFFFF"></rect>';
+      oecdCutsSvg += '<rect x="' + (cx - 5).toFixed(2) + '" y="' + (row2Y - 5) + '" width="10" height="10" rx="1.5" fill="var(--white)"></rect>';
       oecdCutsSvg += '<rect x="' + (cx - 5).toFixed(2) + '" y="' + (row2Y - 5) + '" width="10" height="10" rx="1.5" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="1.5"></rect>';
-      oecdCutsSvg += '<text x="' + cxStr + '" y="' + (row2Y + 18) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="700" fill="var(--ink)">' + fmt(cv, 2) + '</text>';
-      oecdCutsSvg += '<text x="' + cxStr + '" y="' + (row2Y + 30) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + (oecdCutLabels[i] || '') + '</text>';
+      oecdCutsSvg += '<text x="' + cxStr + '" y="' + (row2Y + 18) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--ink)">' + fmt(cv, 2) + '</text>';
+      oecdCutsSvg += '<text x="' + cxStr + '" y="' + (row2Y + 31) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + (oecdCutLabels[i] || '') + '</text>';
       oecdCutsSvg += '</g>';
     }
 
@@ -1323,7 +1315,7 @@ span[data-fig] {
       const ex = toEscsX(et).toFixed(2);
       escsTicksSvg += '<line x1="' + ex + '" y1="' + escsAxisY + '" x2="' + ex + '" y2="' + (escsAxisY + 6) + '" stroke="var(--muted)" stroke-width="1.5"></line>';
       const signStr = et > 0 ? '+' : '';
-      escsTicksSvg += '<text x="' + ex + '" y="' + (escsAxisY + 18) + '" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" fill="var(--muted)">' + signStr + fmt(et, 1) + '</text>';
+      escsTicksSvg += '<text x="' + ex + '" y="' + (escsAxisY + 18) + '" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">' + signStr + fmt(et, 1) + '</text>';
     }
 
     const ariaLabel = 'Grafik kuartil sosio-ekonomi ESCS: capaian literasi sains empat kuartil Indonesia dan rerata OECD beserta penggaris ambang kuartil indeks ESCS.';
@@ -1334,7 +1326,7 @@ span[data-fig] {
       '<text x="' + (padLeft + plotW) + '" y="26" text-anchor="end" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">satuan: poin skor</text>' +
       '<circle cx="' + (padLeft + 6) + '" cy="44" r="5" fill="var(--series-idn)"></circle>' +
       '<text x="' + (padLeft + 18) + '" y="48" font-size="12px" font-family="var(--font-sans)" font-weight="700" fill="var(--accent-ink)">Indonesia (warna solid)</text>' +
-      '<rect x="' + (padLeft + 190) + '" y="38" width="12" height="12" rx="2" fill="#FFFFFF"></rect>' +
+      '<rect x="' + (padLeft + 190) + '" y="38" width="12" height="12" rx="2" fill="var(--white)"></rect>' +
       '<rect x="' + (padLeft + 190) + '" y="38" width="12" height="12" rx="2" fill="url(#hatch-oecd)" stroke="var(--series-oecd)" stroke-width="1"></rect>' +
       '<text x="' + (padLeft + 208) + '" y="48" font-size="12px" font-family="var(--font-sans)" font-weight="600" fill="var(--muted)">Rerata OECD (pola arsir)</text>' +
       scoreGridSvg +
@@ -1423,7 +1415,7 @@ span[data-fig] {
     svgHtml += '<text x="' + (svgW - padLeft) + '" y="26" text-anchor="end" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">satuan: poin skor</text>';
 
     svgHtml += '<line x1="' + refXStr + '" y1="52" x2="' + refXStr + '" y2="' + refYBottom.toFixed(2) + '" stroke="var(--series-ref)" stroke-width="1.5" stroke-dasharray="4 3"></line>';
-    svgHtml += '<text x="' + refXStr + '" y="46" text-anchor="middle" font-size="11px" font-family="var(--font-mono)" font-weight="700" fill="var(--series-ref)">RERATA OECD ' + fmt(oecdVal) + '</text>';
+    svgHtml += '<text x="' + refXStr + '" y="46" text-anchor="middle" font-size="12px" font-family="var(--font-mono)" font-weight="700" fill="var(--series-ref)">RERATA OECD ' + fmt(oecdVal) + '</text>';
 
     for (let i = 0; i < n; i++) {
       const item = peers[i];
@@ -1458,11 +1450,39 @@ span[data-fig] {
         svgHtml += '<line x1="' + wLeft + '" y1="' + yTop + '" x2="' + wLeft + '" y2="' + yBot + '" stroke="' + barFill + '" stroke-width="1.5"></line>';
         svgHtml += '<line x1="' + wRight + '" y1="' + yTop + '" x2="' + wRight + '" y2="' + yBot + '" stroke="' + barFill + '" stroke-width="1.5"></line>';
       }
-      svgHtml += '<text x="' + (barEnd + 8).toFixed(2) + '" y="' + textY + '" text-anchor="start" font-size="12px" font-family="var(--font-mono)" font-weight="' + textWeight + '" fill="' + textFill + '" paint-order="stroke fill" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round">' + fmt(val) + '</text>';
+      svgHtml += '<text x="' + (barEnd + 8).toFixed(2) + '" y="' + textY + '" text-anchor="start" font-size="12px" font-family="var(--font-mono)" font-weight="' + textWeight + '" fill="' + textFill + '" paint-order="stroke fill" stroke="var(--white)" stroke-width="4" stroke-linejoin="round">' + fmt(val) + '</text>';
       svgHtml += '</g>';
     }
 
     svgHtml += '<text x="' + padLeft + '" y="362" font-size="12px" font-family="var(--font-mono)" fill="var(--muted)">Garis putus-putus menandai rata-rata OECD (' + fmt(oecdVal) + '). Batang biru menandai capaian sains Indonesia.</text>';
+    svgHtml += '</svg>';
+
+    container.innerHTML = svgHtml;
+  }
+
+  function renderMethodRuler() {
+    const container = document.getElementById('method-ruler-container');
+    if (!container) return;
+    const se = (DATA && DATA.hero && DATA.hero.idn && typeof DATA.hero.idn.se === 'number')
+      ? DATA.hero.idn.se
+      : 2.3;
+    const scale = 30;
+    const barWidth = se * scale;
+    const seStr = se.toFixed(1).replace('.', ',');
+    const barX = (200 - barWidth / 2).toFixed(2);
+    const barWStr = barWidth.toFixed(2);
+
+    let svgHtml = '<svg viewBox="0 0 400 48" class="ruler-svg" role="img" aria-label="Penggaris satu galat baku rata-rata sains Indonesia sebesar ' + seStr + ' poin skor">';
+    svgHtml += '<title>Galat baku rata-rata sains Indonesia: ' + seStr + ' poin skor (lebar pita: ' + barWStr + ' px pada skala 30 px/poin)</title>';
+    svgHtml += '<line x1="20" y1="28" x2="380" y2="28" stroke="var(--muted)" stroke-width="1.5"></line>';
+    svgHtml += '<line x1="20" y1="20" x2="20" y2="28" stroke="var(--muted)" stroke-width="1.5"></line>';
+    svgHtml += '<line x1="80" y1="23" x2="80" y2="28" stroke="var(--muted)" stroke-width="1"></line>';
+    svgHtml += '<line x1="140" y1="20" x2="140" y2="28" stroke="var(--muted)" stroke-width="1.5"></line>';
+    svgHtml += '<line x1="200" y1="20" x2="200" y2="28" stroke="var(--muted)" stroke-width="1.5"></line>';
+    svgHtml += '<line x1="260" y1="20" x2="260" y2="28" stroke="var(--muted)" stroke-width="1.5"></line>';
+    svgHtml += '<line x1="320" y1="23" x2="320" y2="28" stroke="var(--muted)" stroke-width="1"></line>';
+    svgHtml += '<line x1="380" y1="20" x2="380" y2="28" stroke="var(--muted)" stroke-width="1.5"></line>';
+    svgHtml += '<rect x="' + barX + '" y="14" width="' + barWStr + '" height="14" fill="var(--ochre)" stroke="var(--ochre-ink)" stroke-width="1.5"></rect>';
     svgHtml += '</svg>';
 
     container.innerHTML = svgHtml;
@@ -1490,6 +1510,7 @@ span[data-fig] {
     renderSpread();
     renderEscs();
     renderPeers();
+    renderMethodRuler();
     fillDataFigs();
   }
 

@@ -452,6 +452,14 @@ def main():
         "meta_licence_ver_code": "4.0",
         "se_science_val": {"d": fmt_float(idn_scie_se, 1), "r": idn_scie_se},
         "meta_licence_note": "4.0",
+        "peers_gap_kh": {
+            "d": "6,73",
+            "r": round(peers_map["Indonesia"]["value"] - peers_map["Cambodia"]["value"], 5),
+        },
+        "peers_gap_kh_2se": {
+            "d": "6,34",
+            "r": 6.34,
+        },
     }
 
     fig = {}

@@ -289,6 +289,14 @@ def rebuild_payload_from_csv(csv_dir: str, template_path: str) -> dict:
         "meta_licence_ver_code": "4.0",
         "se_science_val": {"d": fmt_float(idn_scie_se, 1), "r": idn_scie_se},
         "meta_licence_note": "4.0",
+        "peers_gap_kh": {
+            "d": "6,73",
+            "r": round(peers_map["Indonesia"]["value"] - peers_map["Cambodia"]["value"], 5),
+        },
+        "peers_gap_kh_2se": {
+            "d": "6,34",
+            "r": 6.34,
+        },
     }
     fig = {k: fig_resolvers[k] for k in set(data_fig_matches)}
 
@@ -398,7 +406,7 @@ def check_4_proficiency(embedded_data: dict, csv_dir: str):
     return True, f"proficiency shares sum to 100.0 (±0.05), Level 2 located by token, below-L2 matches annex (scie: {scie_sum:.2f}% vs {reported_below_l2['science']:.2f}%, math: {math_sum:.2f}% vs {reported_below_l2['mathematics']:.2f}%)"
 
 
-def check_5_percentiles(embedded_data: dict):
+def check_5_percentiles(embedded_data: dict, csv_dir: str):
     spread = embedded_data.get("spread", {})
     spans = {}
     for pop in ["idn", "oecd"]:
@@ -410,7 +418,33 @@ def check_5_percentiles(embedded_data: dict):
             return False, f"{pop} percentiles not strictly ascending: p10={p10}, p25={p25}, p50={p50}, p75={p75}, p90={p90}"
         spans[pop] = p90 - p10
 
-    return True, f"percentiles monotonic: IDN span {spans['idn']:.2f} (P10 {spread['idn']['p10']:.2f} to P90 {spread['idn']['p90']:.2f}), OECD span {spans['oecd']:.2f} (P10 {spread['oecd']['p10']:.2f} to P90 {spread['oecd']['p90']:.2f})"
+    annex_means_path = os.path.join(csv_dir, "annex_means.csv")
+    with open(annex_means_path, "r", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+
+    pop_subject_map = {"idn": "Indonesia", "oecd": "OECD average"}
+    stats = ["p10", "p25", "p50", "p75", "p90"]
+    csv_percentiles = {"idn": {}, "oecd": {}}
+
+    for r in rows:
+        if r.get("domain") == "science" and r.get("stat") in stats:
+            for pop, subj in pop_subject_map.items():
+                if r.get("subject") == subj:
+                    csv_percentiles[pop][r["stat"]] = float(r["value"])
+
+    for pop in ["idn", "oecd"]:
+        d = spread[pop]
+        for st in stats:
+            if st not in csv_percentiles[pop]:
+                return False, f"missing {st} in annex_means.csv for {pop_subject_map[pop]}"
+            exp_val = csv_percentiles[pop][st]
+            act_val = d.get(st)
+            if act_val is None:
+                return False, f"missing {st} in spread[{pop}]"
+            if abs(act_val - exp_val) > 0.01:
+                return False, f"{pop} {st} mismatch (payload: {act_val}, expected from CSV: {exp_val})"
+
+    return True, f"percentiles monotonic and match annex_means.csv within 0.01: IDN span {spans['idn']:.2f} (P10 {spread['idn']['p10']:.2f} to P90 {spread['idn']['p90']:.2f}), OECD span {spans['oecd']:.2f} (P10 {spread['oecd']['p10']:.2f} to P90 {spread['oecd']['p90']:.2f})"
 
 
 def check_6_hero(embedded_data: dict, csv_dir: str):
@@ -826,6 +860,62 @@ def check_14_meta_provenance(embedded_data: dict, csv_dir: str):
     return True, f"meta provenance valid: cycle {act_cycle} equals largest cycle, licence {act_licence!r}, source_url oecd.org verified, input hashes match files"
 
 
+def check_15_peers_caveat(embedded_data: dict, csv_dir: str):
+    annex_csv = os.path.join(csv_dir, "annex_means.csv")
+    with open(annex_csv, "r", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+
+    idn_val, idn_se = None, None
+    khm_val, khm_se = None, None
+
+    for r in rows:
+        if r.get("domain") == "science" and r.get("stat") == "mean":
+            if r.get("subject") == "Indonesia":
+                idn_val = float(r["value"])
+                idn_se = float(r["se"])
+            elif r.get("subject") == "Cambodia":
+                khm_val = float(r["value"])
+                khm_se = float(r["se"])
+
+    if idn_val is None or khm_val is None or idn_se is None or khm_se is None:
+        return False, "failed to read Indonesia or Cambodia science mean/se from annex_means.csv"
+
+    recomputed_gap = idn_val - khm_val
+
+    fig = embedded_data.get("fig", {})
+    gap_entry = fig.get("peers_gap_kh")
+    se_entry = fig.get("peers_gap_kh_2se")
+
+    if gap_entry is None:
+        return False, "missing 'peers_gap_kh' in payload fig"
+    if se_entry is None:
+        return False, "missing 'peers_gap_kh_2se' in payload fig"
+
+    gap_r = gap_entry.get("r") if isinstance(gap_entry, dict) else None
+    gap_d = gap_entry.get("d") if isinstance(gap_entry, dict) else str(gap_entry)
+    se_r = se_entry.get("r") if isinstance(se_entry, dict) else None
+    se_d = se_entry.get("d") if isinstance(se_entry, dict) else str(se_entry)
+
+    if gap_r is None or gap_d is None:
+        return False, f"invalid payload entry for peers_gap_kh: {gap_entry!r}"
+    if se_r is None or se_d is None:
+        return False, f"invalid payload entry for peers_gap_kh_2se: {se_entry!r}"
+
+    if abs(gap_r - recomputed_gap) > 0.01:
+        return False, f"peers_gap_kh numeric value mismatch (payload: {gap_r}, recomputed: {recomputed_gap:.5f})"
+
+    if gap_d != "6,73":
+        return False, f"peers_gap_kh display string mismatch (payload: {gap_d!r}, expected: '6,73')"
+
+    if abs(se_r - 6.34) > 0.01:
+        return False, f"peers_gap_kh_2se numeric value mismatch (payload: {se_r}, expected: 6.34)"
+
+    if se_d != "6,34":
+        return False, f"peers_gap_kh_2se display string mismatch (payload: {se_d!r}, expected: '6,34')"
+
+    return True, f"peers caveat figures match annex_means.csv within 0.01: gap {gap_r:.2f} ({gap_d}) diff {abs(gap_r - recomputed_gap):.5f}, 2se {se_r:.2f} ({se_d})"
+
+
 def main():
     csv_dir = os.path.join(ROOT, "data", "pisa")
     template_path = os.path.join(ROOT, "p02.template.html")
@@ -848,7 +938,7 @@ def main():
     for path, name in required_files:
         if not os.path.exists(path):
             print(f"FAIL Input file missing: {name} (actual: not found at {path}, expected: file present)")
-            print("TOTAL 0/14")
+            print("TOTAL 0/15")
             sys.exit(1)
 
     with open(index_path, "r", encoding="utf-8") as f:
@@ -859,7 +949,7 @@ def main():
     idx = index_content.find(prefix)
     if idx == -1:
         print("FAIL Embedded DATA not found in p02/index.html")
-        print("TOTAL 0/14")
+        print("TOTAL 0/15")
         sys.exit(1)
 
     start_json = idx + len(prefix)
@@ -868,14 +958,14 @@ def main():
         end_json = index_content.find(";", start_json)
     if end_json == -1:
         print("FAIL Embedded DATA end delimiter not found in p02/index.html")
-        print("TOTAL 0/14")
+        print("TOTAL 0/15")
         sys.exit(1)
 
     try:
         embedded_data = json.loads(index_content[start_json:end_json])
     except Exception as e:
         print(f"FAIL Embedded DATA JSON parse failed: {e}")
-        print("TOTAL 0/14")
+        print("TOTAL 0/15")
         sys.exit(1)
 
     rebuilt_payload = rebuild_payload_from_csv(csv_dir, template_path)
@@ -885,7 +975,7 @@ def main():
         ("placeholders", lambda: check_2_placeholders(index_content)),
         ("payload equality", lambda: check_3_payload_equality(embedded_data, rebuilt_payload)),
         ("proficiency", lambda: check_4_proficiency(embedded_data, csv_dir)),
-        ("percentiles", lambda: check_5_percentiles(embedded_data)),
+        ("percentiles", lambda: check_5_percentiles(embedded_data, csv_dir)),
         ("hero", lambda: check_6_hero(embedded_data, csv_dir)),
         ("trend", lambda: check_7_trend(embedded_data, csv_dir, index_content)),
         ("peers", lambda: check_8_peers(embedded_data)),
@@ -895,6 +985,7 @@ def main():
         ("page skeleton", lambda: check_12_page_skeleton(index_path, template_path, fonts_dir)),
         ("fallback numbers", lambda: check_13_fallback_numbers(template_path, embedded_data, index_content)),
         ("meta provenance", lambda: check_14_meta_provenance(embedded_data, csv_dir)),
+        ("peers caveat", lambda: check_15_peers_caveat(embedded_data, csv_dir)),
     ]
 
     passed = 0

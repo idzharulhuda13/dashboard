@@ -1,4 +1,4 @@
-<!--BUILD sha256:ca6e7d19369cef984722e7c4b29cbfc5081f679732e7e0ca140b3249d8631b3b-->
+<!--BUILD sha256:f5e5fe628a93aa862a63c41965de2aebba2d7f00ffb00218fa4de6bfbefa09a5-->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -2750,7 +2750,7 @@ function initFieldInteraction() {
     let count = 0;
     while ((m = pathRegex.exec(d)) !== null) {
       flatPointsList.push({
-        x: parseFloat(m[1]),
+        x: parseFloat(m[1]) + 0.5,
         y: parseFloat(m[2]),
         band: band,
         bandIndex: bIdx + 1,

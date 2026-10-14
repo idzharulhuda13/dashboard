@@ -70,7 +70,33 @@ def load_unique_events():
 
     pairs = [round_pair(r) for r in rows]
     counts = Counter(pairs)
-    unique = [r for r, p in zip(rows, pairs) if counts[p] == 1]
+
+    sx, sy = 1382.0 / 47.0, 588.0 / 20.0
+    msx, msy = 350.0 / 47.0, 175.0 / 20.0
+    my_d2 = (0.5 * sx) ** 2
+    my_md2 = (0.5 * msx) ** 2
+
+    float_centers = [(float(p[0]) + 0.5, float(p[1])) for p in pairs]
+
+    unique = []
+    for i, r in enumerate(rows):
+        p = pairs[i]
+        if counts[p] != 1:
+            continue
+        ax, ay = float(p[0]), float(p[1])
+        collision = False
+        for j, (cx, cy) in enumerate(float_centers):
+            if j == i:
+                continue
+            if abs(cx - ax) > 1.0 or abs(cy - ay) > 1.0:
+                continue
+            d2 = ((cx - ax) * sx) ** 2 + ((cy - ay) * sy) ** 2
+            md2 = ((cx - ax) * msx) ** 2 + ((cy - ay) * msy) ** 2
+            if d2 <= my_d2 or md2 <= my_md2:
+                collision = True
+                break
+        if not collision:
+            unique.append(r)
 
     def format_event(r):
         mag_val = float(r["mag"])
@@ -750,9 +776,9 @@ def run_checks_for_viewport(browser, width: int, height: int):
             hover_defects.append(f".fd-date '{hover_res['date']}' != expected '{ev_a['date']}'")
         if hover_res["prov"] != ev_a["prov"]:
             hover_defects.append(f".fd-prov '{hover_res['prov']}' != expected '{ev_a['prov']}'")
-        if abs(hover_res["cx"] - ev_a["cx"]) > 0.06 or abs(hover_res["cy"] - ev_a["cy"]) > 0.06:
+        if abs(hover_res["cx"] - (ev_a["cx"] + 0.5)) > 0.06 or abs(hover_res["cy"] - ev_a["cy"]) > 0.06:
             hover_defects.append(
-                f"cursor cx/cy ({hover_res['cx']}, {hover_res['cy']}) not within 0.06 of ({ev_a['cx']}, {ev_a['cy']})"
+                f"cursor cx/cy ({hover_res['cx']}, {hover_res['cy']}) not within 0.06 of centre"
             )
         if hover_res["live"] != ev_a["summary"]:
             hover_defects.append(f"#field-live '{hover_res['live']}' != expected '{ev_a['summary']}'")
@@ -769,6 +795,68 @@ def run_checks_for_viewport(browser, width: int, height: int):
                 "check": "field detail hover",
                 "pass": True,
                 "message": f"hover on ({ev_a['cx']}, {ev_a['cy']}) opens detail ({ev_a['summary']}) with cursor matching within 0.06",
+                "details": [],
+            })
+
+        # 1b. field detail centre
+        centre_x = round(ev_a["cx"] + 0.5, 4)
+        pt_centre = s9_page.evaluate(
+            """([xSvg, ySvg]) => {
+                const svg = document.querySelector("#chart-field svg, .field-svg");
+                const rect = svg.getBoundingClientRect();
+                const vb = svg.viewBox.baseVal;
+                const px = rect.left + (xSvg - vb.x) * (rect.width / vb.width);
+                const py = rect.top + (ySvg - vb.y) * (rect.height / vb.height);
+                return { px, py };
+            }""",
+            [centre_x, ev_a["cy"]],
+        )
+
+        s9_page.mouse.move(pt_centre["px"], pt_centre["py"])
+        s9_page.wait_for_timeout(100)
+
+        centre_res = s9_page.evaluate("""() => {
+            const detail = document.getElementById("field-detail");
+            const cursor = document.getElementById("field-cursor");
+            const circle = cursor ? cursor.querySelector("circle") : null;
+            return {
+                isOpen: detail ? detail.classList.contains("is-open") : false,
+                mag: document.querySelector(".fd-mag")?.textContent || "",
+                depth: document.querySelector(".fd-depth")?.textContent || "",
+                date: document.querySelector(".fd-date")?.textContent || "",
+                prov: document.querySelector(".fd-prov")?.textContent || "",
+                cx: circle ? parseFloat(circle.getAttribute("cx") || cursor.getAttribute("cx") || "NaN") : NaN,
+            };
+        }""")
+
+        centre_defects = []
+        if not centre_res["isOpen"]:
+            centre_defects.append("#field-detail missing class 'is-open'")
+        if centre_res["mag"] != ev_a["mag"]:
+            centre_defects.append(f".fd-mag '{centre_res['mag']}' != expected '{ev_a['mag']}'")
+        if centre_res["depth"] != ev_a["depth"]:
+            centre_defects.append(f".fd-depth '{centre_res['depth']}' != expected '{ev_a['depth']}'")
+        if centre_res["date"] != ev_a["date"]:
+            centre_defects.append(f".fd-date '{centre_res['date']}' != expected '{ev_a['date']}'")
+        if centre_res["prov"] != ev_a["prov"]:
+            centre_defects.append(f".fd-prov '{centre_res['prov']}' != expected '{ev_a['prov']}'")
+        if abs(centre_res["cx"] - centre_x) > 0.06:
+            centre_defects.append(
+                f"cursor cx ({centre_res['cx']}) not within 0.06 of centre ({centre_x})"
+            )
+
+        if centre_defects:
+            results.append({
+                "check": "field detail centre",
+                "pass": False,
+                "message": f"{len(centre_defects)} defect(s) on field detail centre",
+                "details": centre_defects,
+            })
+        else:
+            results.append({
+                "check": "field detail centre",
+                "pass": True,
+                "message": f"hover on centre ({centre_x}, {ev_a['cy']}) opens detail ({ev_a['summary']}) with cursor matching within 0.06",
                 "details": [],
             })
 
@@ -855,7 +943,7 @@ def run_checks_for_viewport(browser, width: int, height: int):
 
         s9_page.close()
     except Exception as exc:
-        for chk in ["field detail hover", "field tap", "field aria-live"]:
+        for chk in ["field detail hover", "field detail centre", "field tap", "field aria-live"]:
             if not any(r["check"] == chk for r in results):
                 results.append({
                     "check": chk,

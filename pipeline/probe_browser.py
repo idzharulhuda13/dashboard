@@ -22,8 +22,11 @@ i. screenshots: full-page screenshots to shots/gempa-<w>.png
 j. epicentre text size: no <text> inside epicentre SVG renders smaller than 12px effective
 """
 
+import csv
 import os
 import sys
+from collections import Counter
+from datetime import date
 
 # The import is guarded on purpose. Playwright is a dependency of this gate, not of the page, so
 # a missing or broken installation is an infrastructure failure and must exit 2. Left unguarded
@@ -44,6 +47,54 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INDEX_PATH = os.path.join(ROOT, "gempa", "index.html")
 INDEX_URL = f"file://{os.path.abspath(INDEX_PATH)}"
 SHOTS_DIR = os.path.join(ROOT, "shots")
+CSV_PATH = os.path.join(ROOT, "data", "out", "gempa_events.csv")
+
+MONTHS_ID = [
+    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember",
+]
+
+
+def load_unique_events():
+    with open(CSV_PATH, encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+
+    def round_pair(r):
+        lon = float(r["lon"])
+        neg_lat = -float(r["lat"])
+        if abs(neg_lat) < 0.05:
+            neg_lat = 0.0
+        if abs(lon) < 0.05:
+            lon = 0.0
+        return (f"{lon:.1f}", f"{neg_lat:.1f}")
+
+    pairs = [round_pair(r) for r in rows]
+    counts = Counter(pairs)
+    unique = [r for r, p in zip(rows, pairs) if counts[p] == 1]
+
+    def format_event(r):
+        mag_val = float(r["mag"])
+        mag_str = f"M{mag_val:.1f}".replace(".", ",")
+        depth_val = round(float(r["depth_km"]))
+        depth_str = f"{depth_val} km"
+        d = date.fromisoformat(r["date_wib"])
+        date_str = f"{d.day} {MONTHS_ID[d.month - 1]} {d.year}"
+        prov_str = r["province"]
+        summary = f"{mag_str}, kedalaman {depth_str}, {date_str}, {prov_str}"
+        p = round_pair(r)
+        return {
+            "row": r,
+            "pair": p,
+            "cx": float(p[0]),
+            "cy": float(p[1]),
+            "mag": mag_str,
+            "depth": depth_str,
+            "date": date_str,
+            "prov": prov_str,
+            "summary": summary,
+        }
+
+    return [format_event(r) for r in unique]
 
 VIEWPORTS = [
     (390, 844),
@@ -638,6 +689,181 @@ def run_checks_for_viewport(browser, width: int, height: int):
                     "details": [],
                 })
 
+    page.close()
+
+    # S9. Field interaction checks on a fresh page per viewport
+    try:
+        s9_page = context.new_page()
+        s9_page.goto(INDEX_URL)
+        s9_page.wait_for_load_state("load")
+
+        s9_page.locator("#chart-field").scroll_into_view_if_needed()
+
+        events = load_unique_events()
+        ev_a = events[-1]
+        ev_b = events[-2]
+
+        # 1. field detail hover
+        pt_a = s9_page.evaluate(
+            """([xSvg, ySvg]) => {
+                const svg = document.querySelector("#chart-field svg, .field-svg");
+                const rect = svg.getBoundingClientRect();
+                const vb = svg.viewBox.baseVal;
+                const px = rect.left + (xSvg - vb.x) * (rect.width / vb.width);
+                const py = rect.top + (ySvg - vb.y) * (rect.height / vb.height);
+                return { px, py };
+            }""",
+            [ev_a["cx"], ev_a["cy"]],
+        )
+
+        s9_page.mouse.move(pt_a["px"], pt_a["py"])
+        s9_page.wait_for_timeout(100)
+
+        hover_res = s9_page.evaluate("""() => {
+            const detail = document.getElementById("field-detail");
+            const cursor = document.getElementById("field-cursor");
+            const circle = cursor ? cursor.querySelector("circle") : null;
+            const live = document.getElementById("field-live");
+            return {
+                isOpen: detail ? detail.classList.contains("is-open") : false,
+                isOff: cursor ? cursor.classList.contains("is-off") : true,
+                mag: document.querySelector(".fd-mag")?.textContent || "",
+                depth: document.querySelector(".fd-depth")?.textContent || "",
+                date: document.querySelector(".fd-date")?.textContent || "",
+                prov: document.querySelector(".fd-prov")?.textContent || "",
+                cx: circle ? parseFloat(circle.getAttribute("cx") || cursor.getAttribute("cx") || "NaN") : NaN,
+                cy: circle ? parseFloat(circle.getAttribute("cy") || cursor.getAttribute("cy") || "NaN") : NaN,
+                live: live ? live.textContent || "" : "",
+            };
+        }""")
+
+        hover_defects = []
+        if not hover_res["isOpen"]:
+            hover_defects.append("#field-detail missing class 'is-open'")
+        if hover_res["isOff"]:
+            hover_defects.append("#field-cursor has class 'is-off'")
+        if hover_res["mag"] != ev_a["mag"]:
+            hover_defects.append(f".fd-mag '{hover_res['mag']}' != expected '{ev_a['mag']}'")
+        if hover_res["depth"] != ev_a["depth"]:
+            hover_defects.append(f".fd-depth '{hover_res['depth']}' != expected '{ev_a['depth']}'")
+        if hover_res["date"] != ev_a["date"]:
+            hover_defects.append(f".fd-date '{hover_res['date']}' != expected '{ev_a['date']}'")
+        if hover_res["prov"] != ev_a["prov"]:
+            hover_defects.append(f".fd-prov '{hover_res['prov']}' != expected '{ev_a['prov']}'")
+        if abs(hover_res["cx"] - ev_a["cx"]) > 0.06 or abs(hover_res["cy"] - ev_a["cy"]) > 0.06:
+            hover_defects.append(
+                f"cursor cx/cy ({hover_res['cx']}, {hover_res['cy']}) not within 0.06 of ({ev_a['cx']}, {ev_a['cy']})"
+            )
+        if hover_res["live"] != ev_a["summary"]:
+            hover_defects.append(f"#field-live '{hover_res['live']}' != expected '{ev_a['summary']}'")
+
+        if hover_defects:
+            results.append({
+                "check": "field detail hover",
+                "pass": False,
+                "message": f"{len(hover_defects)} defect(s) on field detail hover",
+                "details": hover_defects,
+            })
+        else:
+            results.append({
+                "check": "field detail hover",
+                "pass": True,
+                "message": f"hover on ({ev_a['cx']}, {ev_a['cy']}) opens detail ({ev_a['summary']}) with cursor matching within 0.06",
+                "details": [],
+            })
+
+        # 2. field tap
+        s9_page.mouse.click(pt_a["px"], pt_a["py"])
+        s9_page.wait_for_timeout(100)
+
+        tap_res = s9_page.evaluate("""() => {
+            const detail = document.getElementById("field-detail");
+            const isOpen = detail ? detail.classList.contains("is-open") : false;
+            const rect = detail ? detail.getBoundingClientRect() : null;
+            const winW = window.innerWidth;
+            return {
+                isOpen,
+                rectRight: rect ? rect.right : null,
+                winW,
+            };
+        }""")
+
+        tap_defects = []
+        if not tap_res["isOpen"]:
+            tap_defects.append("#field-detail missing class 'is-open' after tap")
+        if tap_res["rectRight"] is None or tap_res["rectRight"] > tap_res["winW"]:
+            tap_defects.append(
+                f"#field-detail right ({tap_res['rectRight']}px) exceeds window.innerWidth ({tap_res['winW']}px)"
+            )
+
+        if tap_defects:
+            results.append({
+                "check": "field tap",
+                "pass": False,
+                "message": f"{len(tap_defects)} defect(s) on field tap",
+                "details": tap_defects,
+            })
+        else:
+            results.append({
+                "check": "field tap",
+                "pass": True,
+                "message": f"tap keeps detail open and within viewport (right {tap_res['rectRight']:.1f}px <= {tap_res['winW']}px)",
+                "details": [],
+            })
+
+        # 3. field aria-live
+        s9_page.mouse.move(pt_a["px"], pt_a["py"])
+        s9_page.wait_for_timeout(100)
+        live_text_a = s9_page.evaluate("() => document.getElementById('field-live')?.textContent || ''")
+
+        pt_b = s9_page.evaluate(
+            """([xSvg, ySvg]) => {
+                const svg = document.querySelector("#chart-field svg, .field-svg");
+                const rect = svg.getBoundingClientRect();
+                const vb = svg.viewBox.baseVal;
+                const px = rect.left + (xSvg - vb.x) * (rect.width / vb.width);
+                const py = rect.top + (ySvg - vb.y) * (rect.height / vb.height);
+                return { px, py };
+            }""",
+            [ev_b["cx"], ev_b["cy"]],
+        )
+
+        s9_page.mouse.move(pt_b["px"], pt_b["py"])
+        s9_page.wait_for_timeout(100)
+        live_text_b = s9_page.evaluate("() => document.getElementById('field-live')?.textContent || ''")
+
+        aria_defects = []
+        if live_text_a == live_text_b:
+            aria_defects.append(f"#field-live text did not change across distinct events: '{live_text_a}'")
+        if live_text_b != ev_b["summary"]:
+            aria_defects.append(f"#field-live text '{live_text_b}' != expected B summary '{ev_b['summary']}'")
+
+        if aria_defects:
+            results.append({
+                "check": "field aria-live",
+                "pass": False,
+                "message": f"{len(aria_defects)} defect(s) on field aria-live",
+                "details": aria_defects,
+            })
+        else:
+            results.append({
+                "check": "field aria-live",
+                "pass": True,
+                "message": f"aria-live updated on distinct event hover ('{live_text_a}' -> '{live_text_b}')",
+                "details": [],
+            })
+
+        s9_page.close()
+    except Exception as exc:
+        for chk in ["field detail hover", "field tap", "field aria-live"]:
+            if not any(r["check"] == chk for r in results):
+                results.append({
+                    "check": chk,
+                    "pass": False,
+                    "message": f"exception in {chk}: {type(exc).__name__}: {exc}",
+                    "details": [str(exc)],
+                })
+
     context.close()
     return results
 
@@ -710,3 +936,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

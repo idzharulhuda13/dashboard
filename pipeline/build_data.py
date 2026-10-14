@@ -8,7 +8,7 @@ no network, no randomness.
 import base64
 from collections import Counter
 import csv
-from datetime import datetime
+from datetime import date, datetime
 import hashlib
 import json
 import os
@@ -56,10 +56,11 @@ def main():
     csv_path = os.path.join(ROOT, "data", "out", "gempa_events.csv")
     live_path = os.path.join(ROOT, "data", "out", "bmkg_live.json")
     report_path = os.path.join(ROOT, "data", "out", "build_report.json")
+    basemap_path = os.path.join(ROOT, "data", "raw", "basemap.json")
     template_path = os.path.join(ROOT, "gempa.template.html")
     fonts_dir = os.path.join(ROOT, "fonts")
 
-    for p in [csv_path, live_path, report_path]:
+    for p in [csv_path, live_path, report_path, basemap_path]:
         if not os.path.exists(p):
             raise RuntimeError(f"Missing input file: {p}")
 
@@ -85,6 +86,10 @@ def main():
     with open(csv_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         rows = list(reader)
+
+    # 4. Read basemap.json
+    with open(basemap_path, "r", encoding="utf-8") as f:
+        basemap = json.load(f)
 
     # INVARIANTS
     #
@@ -278,9 +283,21 @@ def main():
             "place": r["place"]
         })
 
-    # Epicentre field SVG paths per magnitude band
-    # Each run: M{lon rounded to 1 dp} {negated lat rounded to 1 dp}h1
-    band_paths = {"M5": [], "M6": [], "M7": [], "M8": [], "M9": []}
+    # Epicentre field SVG paths and event buffers per magnitude band
+    # ONE loop over CSV rows that, per row, appends the dot to band_paths[mag_band] AND
+    # appends four event values to per-band buffers: mag tenths round(mag*10),
+    # int round(depth_km), day = days from 1970-01-01 of date_wib, province index into sorted distinct provinces.
+    epoch = date(1970, 1, 1)
+    sorted_provinces = sorted(set(r["province"] for r in rows))
+    prov_to_idx = {p: i for i, p in enumerate(sorted_provinces)}
+
+    band_order = ["M5", "M6", "M7", "M8", "M9"]
+    band_paths = {b: [] for b in band_order}
+    band_mag = {b: [] for b in band_order}
+    band_depth = {b: [] for b in band_order}
+    band_day = {b: [] for b in band_order}
+    band_prov = {b: [] for b in band_order}
+
     for r in rows:
         band = r["mag_band"]
         lon = float(r["lon"])
@@ -291,10 +308,37 @@ def main():
             lon = 0.0
         band_paths[band].append(f"M{lon:.1f} {neg_lat:.1f}h1")
 
+        band_mag[band].append(str(round(float(r["mag"]) * 10)))
+        band_depth[band].append(str(round(float(r["depth_km"]))))
+        band_day[band].append(str((date.fromisoformat(r["date_wib"]) - epoch).days))
+        band_prov[band].append(str(prov_to_idx[r["province"]]))
+
+    events_data = {
+        "day": ",".join(v for b in band_order for v in band_day[b]),
+        "depth": ",".join(v for b in band_order for v in band_depth[b]),
+        "mag": ",".join(v for b in band_order for v in band_mag[b]),
+        "n": total_events,
+        "prov": ",".join(v for b in band_order for v in band_prov[b]),
+    }
+
+    field_basemap = {
+        "land": basemap["land"],
+        "plates": basemap["plates"],
+        "labels": basemap["labels"],
+        "scale": {
+            "span_deg": 3,
+            "km": round(3 * 111.195),
+            "label": "334 km",
+        },
+    }
+
     field_data = {
+        "basemap": field_basemap,
         "counts": actual_mag_counts,
-        "paths": {b: "".join(band_paths[b]) for b in ["M5", "M6", "M7", "M8", "M9"]},
-        "viewbox": [94.5, -6.5, 47, 18]
+        "order": "M5,M6,M7,M8,M9:csv-asc",
+        "paths": {b: "".join(band_paths[b]) for b in band_order},
+        "provinces": sorted_provinces,
+        "viewbox": [94.5, -6.5, 47, 18],
     }
 
     # Time span WIB
@@ -380,6 +424,7 @@ def main():
         "decades": decades_list,
         "deep_prov": deep_prov,
         "depth_bands": depth_bands_list,
+        "events": events_data,
         "field": field_data,
         "fig": fig_data,
         "live": live_data,

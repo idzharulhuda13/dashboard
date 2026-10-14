@@ -1,4 +1,4 @@
-<!--BUILD sha256:b51d21c1dde7899bf2fb03fe2c794d29e016f76b77fb9ca833fe974f6e1f8acc-->
+<!--BUILD sha256:bf8fdc1de1aa725c6035647289223b29345ddf1c8ef26ef455c26df9b640431f-->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -2922,9 +2922,9 @@ function initFieldInteraction() {
   }
 
   if (!hit.__fieldInteractionBound) {
-    hit.addEventListener('pointermove', handlePointer);
+    hit.addEventListener('pointermove', (e) => { if (e.pointerType !== 'touch') handlePointer(e); });
     hit.addEventListener('pointerdown', handlePointer);
-    hit.addEventListener('pointerleave', close);
+    hit.addEventListener('pointerleave', (e) => { if (e.pointerType !== 'touch') close(); });
 
     hit.addEventListener('focus', () => {
       if (flatPointsList.length === 0) return;

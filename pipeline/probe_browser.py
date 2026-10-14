@@ -138,7 +138,10 @@ def run_checks_for_viewport(browser, width: int, height: int):
     results = []
     # Fresh browser context per viewport (never shared or cache-warm)
     try:
-        context = browser.new_context(viewport={"width": width, "height": height})
+        context_args = {"viewport": {"width": width, "height": height}}
+        if width == 390:
+            context_args["has_touch"] = True
+        context = browser.new_context(**context_args)
         page = context.new_page()
     except Exception as exc:
         handle_infra_failure(exc)
@@ -861,8 +864,24 @@ def run_checks_for_viewport(browser, width: int, height: int):
             })
 
         # 2. field tap
-        s9_page.mouse.click(pt_a["px"], pt_a["py"])
-        s9_page.wait_for_timeout(100)
+        pt_tap = s9_page.evaluate(
+            """([xSvg, ySvg]) => {
+                const svg = document.querySelector("#chart-field svg, .field-svg");
+                const rect = svg.getBoundingClientRect();
+                const vb = svg.viewBox.baseVal;
+                const px = rect.left + (xSvg - vb.x) * (rect.width / vb.width);
+                const py = rect.top + (ySvg - vb.y) * (rect.height / vb.height);
+                return { px, py };
+            }""",
+            [round(ev_a["cx"] + 0.5, 4), ev_a["cy"]],
+        )
+
+        if width == 390:
+            s9_page.touchscreen.tap(pt_tap["px"], pt_tap["py"])
+        else:
+            s9_page.mouse.click(pt_tap["px"], pt_tap["py"])
+
+        s9_page.wait_for_timeout(600)
 
         tap_res = s9_page.evaluate("""() => {
             const detail = document.getElementById("field-detail");
@@ -873,6 +892,10 @@ def run_checks_for_viewport(browser, width: int, height: int):
                 isOpen,
                 rectRight: rect ? rect.right : null,
                 winW,
+                mag: document.querySelector(".fd-mag")?.textContent || "",
+                depth: document.querySelector(".fd-depth")?.textContent || "",
+                date: document.querySelector(".fd-date")?.textContent || "",
+                prov: document.querySelector(".fd-prov")?.textContent || "",
             };
         }""")
 
@@ -883,6 +906,42 @@ def run_checks_for_viewport(browser, width: int, height: int):
             tap_defects.append(
                 f"#field-detail right ({tap_res['rectRight']}px) exceeds window.innerWidth ({tap_res['winW']}px)"
             )
+        if tap_res["mag"] != ev_a["mag"]:
+            tap_defects.append(f".fd-mag '{tap_res['mag']}' != expected '{ev_a['mag']}'")
+        if tap_res["depth"] != ev_a["depth"]:
+            tap_defects.append(f".fd-depth '{tap_res['depth']}' != expected '{ev_a['depth']}'")
+        if tap_res["date"] != ev_a["date"]:
+            tap_defects.append(f".fd-date '{tap_res['date']}' != expected '{ev_a['date']}'")
+        if tap_res["prov"] != ev_a["prov"]:
+            tap_defects.append(f".fd-prov '{tap_res['prov']}' != expected '{ev_a['prov']}'")
+
+        pt_empty = s9_page.evaluate(
+            """([xSvg, ySvg]) => {
+                const svg = document.querySelector("#chart-field svg, .field-svg");
+                const rect = svg.getBoundingClientRect();
+                const vb = svg.viewBox.baseVal;
+                const px = rect.left + (xSvg - vb.x) * (rect.width / vb.width);
+                const py = rect.top + (ySvg - vb.y) * (rect.height / vb.height);
+                return { px, py };
+            }""",
+            [94.5, 2.0],
+        )
+
+        if width == 390:
+            s9_page.touchscreen.tap(pt_empty["px"], pt_empty["py"])
+        else:
+            s9_page.mouse.click(pt_empty["px"], pt_empty["py"])
+
+        s9_page.wait_for_timeout(100)
+
+        empty_res = s9_page.evaluate("""() => {
+            const detail = document.getElementById("field-detail");
+            return {
+                isOpen: detail ? detail.classList.contains("is-open") : false,
+            };
+        }""")
+        if empty_res["isOpen"]:
+            tap_defects.append("#field-detail still has class 'is-open' after tapping empty map space")
 
         if tap_defects:
             results.append({

@@ -2887,9 +2887,9 @@ function initFieldInteraction() {
   }
 
   if (!hit.__fieldInteractionBound) {
-    hit.addEventListener('pointermove', handlePointer);
+    hit.addEventListener('pointermove', (e) => { if (e.pointerType !== 'touch') handlePointer(e); });
     hit.addEventListener('pointerdown', handlePointer);
-    hit.addEventListener('pointerleave', close);
+    hit.addEventListener('pointerleave', (e) => { if (e.pointerType !== 'touch') close(); });
 
     hit.addEventListener('focus', () => {
       if (flatPointsList.length === 0) return;

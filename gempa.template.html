@@ -12,6 +12,8 @@
   --plane-2: #F7F1E6;
   --deep: #A83F14;
   --deep-2: #8F3410;
+  --land: #6E2409;
+  --plate: #C99A80;
   --ink: #1A1410;
   --muted: #6B5B4A;
   --line: #DCCFB8;
@@ -339,7 +341,9 @@ h1.band-headline {
   width: 100%;
 }
 
-.field-axis-label {
+.field-axis-label,
+.field-island-label,
+.field-scale-label {
   fill: var(--on-deep-muted);
   font-family: var(--font-mono);
   font-size: 2.2px;
@@ -364,14 +368,19 @@ h1.band-headline {
 @media (max-width: 719px) {
   .field-axis-x-alt,
   .field-axis-y-alt,
-  .field-annotation-long {
+  .field-annotation-long,
+  .field-island-label,
+  .field-scale-bar,
+  .field-scale-label {
     display: none;
   }
 }
 
 @media (min-width: 540px) {
   .field-axis-label,
-  .field-annotation {
+  .field-annotation,
+  .field-island-label,
+  .field-scale-label {
     font-size: 1.4px;
   }
 }
@@ -381,21 +390,27 @@ h1.band-headline {
     display: none;
   }
   .field-axis-label,
-  .field-annotation {
+  .field-annotation,
+  .field-island-label,
+  .field-scale-label {
     font-size: 1.0px;
   }
 }
 
 @media (min-width: 960px) {
   .field-axis-label,
-  .field-annotation {
+  .field-annotation,
+  .field-island-label,
+  .field-scale-label {
     font-size: 0.72px;
   }
 }
 
 @media (min-width: 1200px) {
   .field-axis-label,
-  .field-annotation {
+  .field-annotation,
+  .field-island-label,
+  .field-scale-label {
     font-size: 0.55px;
   }
 }
@@ -1734,6 +1749,35 @@ function renderField() {
   }
   if (!svg) return;
 
+  const basemap = (DATA.field && DATA.field.basemap) || {};
+
+  const gLand = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  gLand.setAttribute('id', 'field-basemap-land');
+  const pathLand = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  pathLand.setAttribute('fill', 'var(--land)');
+  pathLand.setAttribute('stroke', 'var(--on-deep-muted)');
+  pathLand.setAttribute('stroke-opacity', '0.8');
+  pathLand.setAttribute('stroke-width', '0.05');
+  pathLand.setAttribute('stroke-linejoin', 'round');
+  pathLand.setAttribute('focusable', 'false');
+  pathLand.setAttribute('d', basemap.land || '');
+  gLand.appendChild(pathLand);
+  svg.appendChild(gLand);
+
+  const gPlates = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  gPlates.setAttribute('id', 'field-basemap-plates');
+  const pathPlates = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  pathPlates.setAttribute('fill', 'none');
+  pathPlates.setAttribute('stroke', 'var(--plate)');
+  pathPlates.setAttribute('stroke-width', '0.07');
+  pathPlates.setAttribute('stroke-opacity', '0.9');
+  pathPlates.setAttribute('stroke-dasharray', '0.45 0.28');
+  pathPlates.setAttribute('stroke-linecap', 'round');
+  pathPlates.setAttribute('focusable', 'false');
+  pathPlates.setAttribute('d', basemap.plates || '');
+  gPlates.appendChild(pathPlates);
+  svg.appendChild(gPlates);
+
   // Stroke-width and opacity scale: M5 (0.12 / 0.30) fine texture, M6 (0.22 / 0.60), M7 (0.40 / 0.85), M8 (0.60 / 0.95), M9 (0.80 / 1.00) prominent marks.
   const bandsConfig = [
     { band: 'M5', stroke: 'var(--mag-1)', strokeWidth: '0.12', opacity: '0.30' },
@@ -1756,6 +1800,64 @@ function renderField() {
     path.setAttribute('focusable', 'false');
     svg.appendChild(path);
   });
+
+  const gLabels = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  gLabels.setAttribute('id', 'field-labels');
+  if (Array.isArray(basemap.labels)) {
+    basemap.labels.forEach((item) => {
+      const textEl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      textEl.setAttribute('class', 'field-island-label');
+      textEl.setAttribute('x', String(item.x));
+      textEl.setAttribute('y', String(item.y));
+      textEl.setAttribute('text-anchor', 'middle');
+      textEl.textContent = item.text;
+      gLabels.appendChild(textEl);
+    });
+  }
+  svg.appendChild(gLabels);
+
+  const gScale = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  gScale.setAttribute('id', 'field-scale');
+
+  const scaleLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  scaleLine.setAttribute('class', 'field-scale-bar');
+  scaleLine.setAttribute('x1', '98');
+  scaleLine.setAttribute('y1', '2.5');
+  scaleLine.setAttribute('x2', '98');
+  scaleLine.setAttribute('y2', '5.5');
+  scaleLine.setAttribute('stroke', 'var(--on-deep-muted)');
+  scaleLine.setAttribute('stroke-width', '0.06');
+  gScale.appendChild(scaleLine);
+
+  const scaleTick1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  scaleTick1.setAttribute('class', 'field-scale-bar');
+  scaleTick1.setAttribute('x1', '97.7');
+  scaleTick1.setAttribute('y1', '2.5');
+  scaleTick1.setAttribute('x2', '98.3');
+  scaleTick1.setAttribute('y2', '2.5');
+  scaleTick1.setAttribute('stroke', 'var(--on-deep-muted)');
+  scaleTick1.setAttribute('stroke-width', '0.06');
+  gScale.appendChild(scaleTick1);
+
+  const scaleTick2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  scaleTick2.setAttribute('class', 'field-scale-bar');
+  scaleTick2.setAttribute('x1', '97.7');
+  scaleTick2.setAttribute('y1', '5.5');
+  scaleTick2.setAttribute('x2', '98.3');
+  scaleTick2.setAttribute('y2', '5.5');
+  scaleTick2.setAttribute('stroke', 'var(--on-deep-muted)');
+  scaleTick2.setAttribute('stroke-width', '0.06');
+  gScale.appendChild(scaleTick2);
+
+  const scaleText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  scaleText.setAttribute('class', 'field-scale-label');
+  scaleText.setAttribute('x', '98.7');
+  scaleText.setAttribute('y', '3.8');
+  scaleText.setAttribute('text-anchor', 'start');
+  scaleText.textContent = (basemap.scale && basemap.scale.label) || '';
+  gScale.appendChild(scaleText);
+
+  svg.appendChild(gScale);
 
   const lonLabels = [
     { x: 100, text: '100°BT', alt: true },

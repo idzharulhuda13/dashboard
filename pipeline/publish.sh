@@ -83,6 +83,15 @@ esac
 # index.html is generated from the same data as the plate, so it is rebuilt and gated in the same
 # run: a new earthquake can then never leave the hub's window drawing a stale field.
 "$PY" pipeline_hub/build_hub.py >>"$LOG" 2>&1 || die "hub build failed" 1
+
+"$PY" pipeline/build_og.py >>"$LOG" 2>&1
+OG=$?
+case "$OG" in
+  0) log "og: pass ($(tail -1 "$LOG"))" ;;
+  2) die "og could not start a browser (INFRA-FAIL); images were not built" 2 ;;
+  *) die "og found a defect in the rendered images (exit $OG)" 1 ;;
+esac
+
 "$PY" pipeline_hub/verify.py >>"$LOG" 2>&1
 HV=$?
 if [ "$HV" -ne 0 ]; then
@@ -94,12 +103,12 @@ log "hub verify: pass"
 
 # --- 4. publish -------------------------------------------------------------------------
 # Something else may have touched the tree; refuse rather than sweep it into a release.
-if [ -n "$(git status --porcelain -- ':!data/out' ':!data/raw' ':!gempa/index.html' ':!gempa/data.json' ':!index.html')" ]; then
+if [ -n "$(git status --porcelain -- ':!data/out' ':!data/raw' ':!gempa/index.html' ':!gempa/data.json' ':!index.html' ':!sitemap.xml' ':!assets/og')" ]; then
   git status --short | head -10 | tee -a "$LOG"
   die "working tree has changes outside the generated artefacts; commit or revert them first" 2
 fi
 
-git add -A gempa/index.html gempa/data.json index.html data/raw data/out 2>/dev/null
+git add -A gempa/index.html gempa/data.json index.html data/raw data/out sitemap.xml assets/og 2>/dev/null
 if git diff --cached --quiet; then
   log "nothing changed; no commit"
   log "=== publish end (no-op) ==="

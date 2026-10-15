@@ -22,8 +22,9 @@ import zlib
 try:
     from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 except Exception as _import_exc:
-    print(f"INFRA-FAIL: playwright could not be imported: {_import_exc}", file=sys.stderr)
-    sys.exit(2)
+    sync_playwright = None
+    PlaywrightTimeoutError = Exception
+    _import_error = str(_import_exc)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -32,6 +33,22 @@ TARGETS = [
     ("gempa", "gempa/index.html"),
     ("pisa", "pisa/index.html"),
 ]
+
+SPECS = {
+    "hub": "hub|viewport|1200x630",
+    "gempa": "gempa|card|left400|map-right",
+    "pisa": "pisa|viewport|1200x630",
+}
+
+
+def spec_line(slug: str) -> str:
+    """Return a stable single-line description of that slug's capture spec."""
+    return SPECS.get(slug, f"{slug}|viewport|1200x630")
+
+
+def compute_src_sha(html_bytes: bytes, slug: str) -> str:
+    """Compute sha256(html_bytes + b'\\0' + spec_line)."""
+    return hashlib.sha256(html_bytes + b"\0" + spec_line(slug).encode("utf-8")).hexdigest()
 
 
 def decode_png(png_bytes: bytes):
@@ -133,7 +150,7 @@ def decode_png(png_bytes: bytes):
     return width, height, color_type, bpp, rows
 
 
-def verify_og_bands(png_path: str, sidecar_path: str, expected_sha: str):
+def verify_og_bands(png_path: str, sidecar_path: str, expected_sha: str, slug: str = None):
     """Validate image and sidecar against C8 gate bands."""
     if not os.path.exists(sidecar_path):
         print(f"BAND-FAIL: sidecar {sidecar_path} missing", file=sys.stderr)
@@ -168,6 +185,10 @@ def verify_og_bands(png_path: str, sidecar_path: str, expected_sha: str):
     # Step-4 sample: sample every 4th pixel along both axes
     colors = set()
     lums = []
+    gempa_ink_samples = 0
+    hero_bg = (168, 63, 20)
+    slot_bg = (143, 52, 16)
+
     for y in range(0, height, 4):
         row = rows[y]
         for x in range(0, width, 4):
@@ -179,6 +200,9 @@ def verify_og_bands(png_path: str, sidecar_path: str, expected_sha: str):
             colors.add((r, g, b))
             lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
             lums.append(lum)
+            if slug == "gempa" and x >= 480:
+                if (r, g, b) != hero_bg and (r, g, b) != slot_bg:
+                    gempa_ink_samples += 1
 
     if len(colors) < 64:
         print(f"BAND-FAIL: distinct RGB colours on step-4 sample: {len(colors)} < 64", file=sys.stderr)
@@ -189,8 +213,106 @@ def verify_og_bands(png_path: str, sidecar_path: str, expected_sha: str):
         print(f"BAND-FAIL: luminance range: {lum_range:.1f} < 60.0", file=sys.stderr)
         sys.exit(1)
 
+    if slug == "gempa" and gempa_ink_samples < 400:
+        print(f"BAND-FAIL: gempa right-hand ink samples on step-4: {gempa_ink_samples} < 400", file=sys.stderr)
+        sys.exit(1)
 
-def render_page(browser, html_path: str, png_path: str):
+
+GEMPA_CARD_CSS = """
+.nav-home, #loader, #err-box,
+#band-province, #band-depth, #band-mag, #band-decade, #band-live, #band-footer {
+  display: none !important;
+}
+
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  width: 1200px !important;
+  height: 630px !important;
+}
+
+.dashboard-root {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: 1200px !important;
+  width: 1200px !important;
+  height: 630px !important;
+}
+
+#band-hero {
+  box-sizing: border-box !important;
+  width: 1200px !important;
+  height: 630px !important;
+  padding: 40px !important;
+  display: grid !important;
+  grid-template-columns: 400px 1fr !important;
+  grid-template-rows: auto 1fr !important;
+  column-gap: 40px !important;
+}
+
+.band-subtitle,
+#scale-hero,
+.stat-cell-dominant,
+.field-note,
+#scale-field-key,
+#field-detail,
+.stat-meta {
+  display: none !important;
+}
+
+.hero-header-grid {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+h1.band-headline {
+  margin: 0 0 16px 0 !important;
+  padding: 0 !important;
+}
+
+.hero-stats {
+  grid-column: 1 !important;
+  grid-row: 2 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+.hero-stats-sub {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.stat-cell-sub {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: baseline !important;
+  padding: 6px 0 !important;
+}
+
+.stat-cell-sub .stat-value {
+  margin: 0 !important;
+}
+
+#chart-field {
+  grid-column: 2 !important;
+  grid-row: 1 / -1 !important;
+  margin: 0 !important;
+  align-self: center !important;
+  width: 100% !important;
+}
+"""
+
+
+def render_page(browser, slug: str, html_path: str, png_path: str):
     """Render page with Playwright following C7 renderer contract."""
     page = browser.new_page(viewport={"width": 1200, "height": 630}, device_scale_factor=1)
     file_url = f"file://{os.path.abspath(html_path)}"
@@ -221,6 +343,21 @@ def render_page(browser, html_path: str, png_path: str):
         sys.exit(2)
 
     page.wait_for_timeout(300)
+
+    if slug == "gempa":
+        page.add_style_tag(content=GEMPA_CARD_CSS)
+        field_box = page.locator("#chart-field").bounding_box()
+        if not field_box:
+            print(f"RENDER-FAIL: #chart-field not found on {html_path}", file=sys.stderr)
+            sys.exit(1)
+        fx, fy, fw, fh = field_box["x"], field_box["y"], field_box["width"], field_box["height"]
+        if not (fx >= 0 and fy >= 0 and (fx + fw) <= 1200 and (fy + fh) <= 630 and fw > 0 and fh > 0):
+            print(
+                f"RENDER-FAIL: #chart-field bounding box ({fx}, {fy}, {fw}, {fh}) not inside 0..1200 x 0..630 frame",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
     page.evaluate("window.scrollTo(0, 0)")
     page.wait_for_timeout(100)
 
@@ -256,7 +393,7 @@ def main():
 
         with open(html_path, "rb") as f:
             html_bytes = f.read()
-        src_sha = hashlib.sha256(html_bytes).hexdigest()
+        src_sha = compute_src_sha(html_bytes, slug)
 
         png_path = os.path.join(og_dir, f"{slug}.png")
         sidecar_path = os.path.join(og_dir, f"{slug}.srcsha")
@@ -280,6 +417,9 @@ def main():
             needs_generation.append(plan[-1])
 
     if needs_generation:
+        if sync_playwright is None:
+            print(f"INFRA-FAIL: playwright could not be imported: {_import_error}", file=sys.stderr)
+            sys.exit(2)
         try:
             with sync_playwright() as p:
                 try:
@@ -290,7 +430,7 @@ def main():
 
                 try:
                     for item in needs_generation:
-                        render_page(browser, item["html_path"], item["png_path"])
+                        render_page(browser, item["slug"], item["html_path"], item["png_path"])
                         with open(item["sidecar_path"], "w", encoding="utf-8") as sf:
                             sf.write(f"{item['src_sha']}\n")
                 finally:
@@ -305,7 +445,7 @@ def main():
 
     # Verify gate bands and report
     for item in plan:
-        verify_og_bands(item["png_path"], item["sidecar_path"], item["src_sha"])
+        verify_og_bands(item["png_path"], item["sidecar_path"], item["src_sha"], item["slug"])
         status = "skipped" if item["skip"] else "written"
         png_bytes = os.path.getsize(item["png_path"])
         print(f"{item['slug']} png={png_bytes} sha={item['src_sha'][:8]} {status}")

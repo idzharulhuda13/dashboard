@@ -9,6 +9,7 @@ import base64
 import csv
 import glob
 import hashlib
+import importlib.util
 import json
 import os
 import re
@@ -824,6 +825,23 @@ def decode_png(png_bytes: bytes):
     return width, height, color_type, bpp, rows
 
 
+def load_build_og_spec_line():
+    candidate_paths = [
+        os.path.join(ROOT, "pipeline", "build_og.py"),
+        os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "pipeline", "build_og.py"),
+        "/root/projects/dashboard/pipeline/build_og.py",
+    ]
+    for p in candidate_paths:
+        if os.path.exists(p):
+            spec = importlib.util.spec_from_file_location("build_og", p)
+            if spec and spec.loader:
+                mod = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(mod)
+                if hasattr(mod, "spec_line"):
+                    return mod.spec_line
+    raise RuntimeError("Could not find pipeline/build_og.py to import spec_line")
+
+
 def check_11_og_images():
     targets = [
         ("hub", os.path.join(ROOT, "index.html")),
@@ -831,6 +849,7 @@ def check_11_og_images():
         ("pisa", os.path.join(ROOT, "pisa", "index.html")),
     ]
     og_dir = os.path.join(ROOT, "assets", "og")
+    get_spec_line = load_build_og_spec_line()
 
     for slug, html_path in targets:
         sidecar_path = os.path.join(og_dir, f"{slug}.srcsha")
@@ -840,7 +859,7 @@ def check_11_og_images():
             return False, f"source page for {slug} not found at {html_path}"
         with open(html_path, "rb") as f:
             html_bytes = f.read()
-        expected_sha = hashlib.sha256(html_bytes).hexdigest()
+        expected_sha = hashlib.sha256(html_bytes + b"\0" + get_spec_line(slug).encode("utf-8")).hexdigest()
 
         if not os.path.exists(sidecar_path):
             return False, f"OG sidecar for {slug} not found at {sidecar_path}"
@@ -868,6 +887,10 @@ def check_11_og_images():
 
         colors = set()
         lums = []
+        gempa_ink_samples = 0
+        hero_bg = (168, 63, 20)
+        slot_bg = (143, 52, 16)
+
         for y in range(0, height, 4):
             row = rows[y]
             for x in range(0, width, 4):
@@ -879,6 +902,9 @@ def check_11_og_images():
                 colors.add((r, g, b))
                 lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
                 lums.append(lum)
+                if slug == "gempa" and x >= 480:
+                    if (r, g, b) != hero_bg and (r, g, b) != slot_bg:
+                        gempa_ink_samples += 1
 
         if len(colors) < 64:
             return False, f"OG image {slug} distinct RGB colours on step-4 sample: {len(colors)} < 64"
@@ -886,6 +912,9 @@ def check_11_og_images():
         lum_range = max(lums) - min(lums)
         if lum_range < 60.0:
             return False, f"OG image {slug} luminance range: {lum_range:.1f} < 60.0"
+
+        if slug == "gempa" and gempa_ink_samples < 400:
+            return False, f"OG image gempa ink samples on right-hand 60% (x >= 480): {gempa_ink_samples} < 400"
 
     return True, "all 3 OG images (hub, gempa, pisa) satisfy C8 gate bands and sidecar sha256"
 

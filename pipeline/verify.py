@@ -13,6 +13,7 @@ import json
 import os
 import re
 import sys
+from urllib.parse import urlparse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -410,8 +411,20 @@ def check_9_no_network_urls(index_html_path):
     with open(index_html_path, "r", encoding="utf-8") as f:
         content = f.read()
 
+    allowed_hosts = {
+        "www.w3.org",
+        "w3.org",
+        "dashboard.idzharulhuda.com",
+        "idzharulhuda.com",
+        "schema.org",
+        "earthquake.usgs.gov",
+        "www.usgs.gov",
+    }
     urls = re.findall(r"https?://[^\s\"\'<>]+", content)
-    network_urls = [u for u in urls if u != "http://www.w3.org/2000/svg"]
+    network_urls = [
+        u for u in urls
+        if urlparse(u).hostname not in allowed_hosts and u != "http://www.w3.org/2000/svg"
+    ]
     if network_urls:
         return False, f"gempa/index.html contains network http URLs (actual: {network_urls}, expected: none)"
 
@@ -837,6 +850,372 @@ def check_14_events_pairing(rows, data_json):
     return True, "events pairing, field order, and provinces match CSV recomputation"
 
 
+def check_15_data_fig_spans(index_html_path, template_path, data_json):
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_content = f.read()
+
+    with open(index_html_path, "r", encoding="utf-8") as f:
+        index_content = f.read()
+
+    span_regex = r'<span\b[^>]*\bdata-fig=["\']([^"\']+)["\'][^>]*>(.*?)</span>'
+    tmpl_spans = re.findall(span_regex, template_content, re.DOTALL)
+    idx_spans = re.findall(span_regex, index_content, re.DOTALL)
+
+    if len(idx_spans) != len(tmpl_spans):
+        return (
+            False,
+            f"gempa/index.html data-fig span count mismatch (actual: {len(idx_spans)}, expected: {len(tmpl_spans)})",
+        )
+
+    fig = data_json.get("fig", {})
+
+    for k, text in idx_spans:
+        if not text:
+            return (
+                False,
+                f"gempa/index.html data-fig span '{k}' is empty (actual: empty, expected: non-empty)",
+            )
+        if k not in fig or "d" not in fig[k]:
+            return (
+                False,
+                f"gempa/data.json fig missing key '{k}' or 'd' property",
+            )
+        exp_val = fig[k]["d"]
+        if text != exp_val:
+            return (
+                False,
+                f"gempa/index.html data-fig span '{k}' text mismatch (actual: {text!r}, expected: {exp_val!r})",
+            )
+
+    return (
+        True,
+        f"all {len(idx_spans)} data-fig spans are non-empty and equal fig[k]['d'] (count matches template)",
+    )
+
+
+def check_16_static_strings_and_noscript(index_html_path):
+    with open(index_html_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    no_scripts = re.sub(r"<script\b[^>]*>.*?</script>", "", content, flags=re.DOTALL | re.IGNORECASE)
+
+    for forbidden in ("Memuat narasi data seismik", "Terjadi kendala teknis"):
+        if forbidden in no_scripts:
+            return (
+                False,
+                f"gempa/index.html contains {forbidden!r} outside <script> blocks (actual: present, expected: absent)",
+            )
+
+    target_noscript = "<noscript><style>#loader,#err-box{display:none!important}</style></noscript>"
+    if target_noscript not in content:
+        return (
+            False,
+            f"gempa/index.html missing required noscript line (actual: missing, expected: {target_noscript!r})",
+        )
+
+    return (
+        True,
+        "loader and error strings absent outside scripts, and noscript line present",
+    )
+
+
+def check_17_head_and_jsonld(index_html_path, template_path, data_json):
+    with open(index_html_path, "r", encoding="utf-8") as f:
+        index_content = f.read()
+
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_content = f.read()
+
+    begin_count = index_content.count("<!--SEO:BEGIN-->")
+    end_count = index_content.count("<!--SEO:END-->")
+    if begin_count != 1:
+        return (
+            False,
+            f"gempa/index.html <!--SEO:BEGIN--> count mismatch (actual: {begin_count}, expected: 1)",
+        )
+    if end_count != 1:
+        return (
+            False,
+            f"gempa/index.html <!--SEO:END--> count mismatch (actual: {end_count}, expected: 1)",
+        )
+
+    if index_content.count("<!--SEO") != 2:
+        return (
+            False,
+            f"gempa/index.html contains leftover marker text (actual: {index_content.count('<!--SEO')}, expected: 2)",
+        )
+
+    idx_begin = index_content.find("<!--SEO:BEGIN-->")
+    idx_end = index_content.find("<!--SEO:END-->")
+    if idx_begin >= idx_end:
+        return (
+            False,
+            "gempa/index.html <!--SEO:BEGIN--> must precede <!--SEO:END-->",
+        )
+
+    m_block = re.search(
+        r"([ \t]*<!--SEO:BEGIN-->\n.*?\n[ \t]*<!--SEO:END-->)",
+        index_content,
+        re.DOTALL,
+    )
+    if not m_block:
+        return False, "gempa/index.html could not extract SEO block"
+    actual_block = m_block.group(1)
+
+    if "\u2014" in actual_block:
+        return False, "gempa/index.html SEO block contains U+2014 em dash"
+
+    placeholders = [
+        "{TITLE}",
+        "{DESC}",
+        "{CANONICAL}",
+        "{THEME}",
+        "{SLUG}",
+        "{OGALT}",
+        "{JSONLD}",
+    ]
+    for ph in placeholders:
+        if ph in actual_block:
+            return (
+                False,
+                f"gempa/index.html SEO block contains placeholder {ph}",
+            )
+    if re.search(r"\{[A-Z_]+\}", actual_block):
+        return (
+            False,
+            "gempa/index.html SEO block contains unexpanded placeholder",
+        )
+
+    m_title = re.search(r"<title>(.*?)</title>", actual_block)
+    if not m_title:
+        return False, "gempa/index.html SEO block missing <title>"
+    act_title = m_title.group(1)
+    if len(act_title) > 60:
+        return (
+            False,
+            f"gempa/index.html title exceeds 60 characters (actual: {len(act_title)}, expected: <= 60)",
+        )
+
+    m_desc = re.search(r'<meta name="description" content="([^"]*)"', actual_block)
+    if not m_desc:
+        return False, 'gempa/index.html SEO block missing <meta name="description">'
+    act_desc = m_desc.group(1)
+    if len(act_desc) > 155:
+        return (
+            False,
+            f"gempa/index.html description exceeds 155 characters (actual: {len(act_desc)}, expected: <= 155)",
+        )
+
+    fig = data_json.get("fig", {})
+    first_year = fig.get("span_first_wib", {}).get("r", "")[:4]
+    last_year = fig.get("span_last_wib", {}).get("r", "")[:4]
+    total_d = fig.get("total", {}).get("d", "")
+    rate_year_d = fig.get("rate_year", {}).get("d", "")
+
+    exp_title = f"Setengah Abad Gempa Indonesia {first_year}-{last_year}"
+    exp_desc = f"{total_d} gempa M5+ di Indonesia sejak {first_year}, rata-rata {rate_year_d} per tahun: episentrum, kedalaman, magnitudo, dan provinsi paling sering diguncang (USGS)."
+
+    if act_title != exp_title:
+        return (
+            False,
+            f"gempa/index.html title mismatch (actual: {act_title!r}, expected: {exp_title!r})",
+        )
+    if act_desc != exp_desc:
+        return (
+            False,
+            f"gempa/index.html description mismatch (actual: {act_desc!r}, expected: {exp_desc!r})",
+        )
+
+    title_nums = re.findall(r"\d+", act_title)
+    if title_nums != [first_year, last_year]:
+        return (
+            False,
+            f"gempa/index.html title numeric tokens mismatch (actual: {title_nums}, expected: {[first_year, last_year]})",
+        )
+
+    desc_nums = re.findall(r"\b(?:\d{1,3}(?:\.\d{3})+|\d+)\b", act_desc)
+    if desc_nums != [total_d, first_year, rate_year_d]:
+        return (
+            False,
+            f"gempa/index.html description numeric tokens mismatch (actual: {desc_nums}, expected: {[total_d, first_year, rate_year_d]})",
+        )
+
+    site = "https://dashboard.idzharulhuda.com"
+    canonical = f"{site}/gempa/"
+    m_canonical = re.search(r'<link rel="canonical" href="([^"]*)"', actual_block)
+    if not m_canonical:
+        return False, 'gempa/index.html SEO block missing <link rel="canonical">'
+    if m_canonical.group(1) != canonical:
+        return (
+            False,
+            f"gempa/index.html canonical URL mismatch (actual: {m_canonical.group(1)!r}, expected: {canonical!r})",
+        )
+
+    required_icons = [
+        '<link rel="icon" href="/favicon.ico" sizes="32x32">',
+        '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',
+        '<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">',
+        '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',
+    ]
+    for icon in required_icons:
+        if icon not in actual_block:
+            return (
+                False,
+                f"gempa/index.html SEO block missing icon link (actual: missing, expected: {icon!r})",
+            )
+
+    m_script = re.search(
+        r'<script type="application/ld\+json">(.*?)</script>', actual_block
+    )
+    if not m_script:
+        return (
+            False,
+            'gempa/index.html SEO block missing <script type="application/ld+json">',
+        )
+    raw_jsonld = m_script.group(1)
+    try:
+        act_graph = json.loads(raw_jsonld)
+    except Exception as e:
+        return False, f"gempa/index.html JSON-LD invalid JSON: {e}"
+
+    t_first = fig.get("span_first_wib", {}).get("r", "")[:10]
+    t_last = fig.get("span_last_wib", {}).get("r", "")[:10]
+
+    exp_graph = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Dataset",
+                "name": exp_title,
+                "description": exp_desc,
+                "url": canonical,
+                "inLanguage": "id",
+                "keywords": ["gempa bumi", "Indonesia", "USGS"],
+                "creator": {
+                    "@type": "Person",
+                    "name": "Idzharul Huda",
+                    "url": "https://idzharulhuda.com/",
+                },
+                "license": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+                "spatialCoverage": {
+                    "@type": "Place",
+                    "name": "Indonesia",
+                },
+                "temporalCoverage": f"{t_first}/{t_last}",
+                "isBasedOn": {
+                    "@type": "Dataset",
+                    "name": "ANSS Comprehensive Earthquake Catalog (ComCat)",
+                    "url": "https://earthquake.usgs.gov/data/catalog/",
+                },
+                "citation": "U.S. Geological Survey, ANSS Comprehensive Earthquake Catalog (ComCat), katalog gempa bumi M5+ Indonesia yang diunduh pipeline ini.",
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Dashboard Data Publik",
+                        "item": f"{site}/",
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": exp_title,
+                        "item": canonical,
+                    },
+                ],
+            },
+        ],
+    }
+
+    act_nodes = act_graph.get("@graph", [])
+    exp_nodes = exp_graph["@graph"]
+    if act_graph.get("@context") != exp_graph["@context"]:
+        return (
+            False,
+            f"JSON-LD @context mismatch (actual: {act_graph.get('@context')!r}, expected: {exp_graph['@context']!r})",
+        )
+    if len(act_nodes) != len(exp_nodes):
+        return (
+            False,
+            f"JSON-LD @graph length mismatch (actual: {len(act_nodes)}, expected: {len(exp_nodes)})",
+        )
+    for i, (an, en) in enumerate(zip(act_nodes, exp_nodes)):
+        if an.get("@type") != en.get("@type"):
+            return (
+                False,
+                f"JSON-LD node {i} @type mismatch (actual: {an.get('@type')!r}, expected: {en.get('@type')!r})",
+            )
+        if set(an.keys()) != set(en.keys()):
+            return (
+                False,
+                f"JSON-LD node {i} field set mismatch (actual: {sorted(an.keys())}, expected: {sorted(en.keys())})",
+            )
+        for k in en:
+            if an[k] != en[k]:
+                return (
+                    False,
+                    f"JSON-LD node {i} field '{k}' mismatch (actual: {an[k]!r}, expected: {en[k]!r})",
+                )
+
+    m_theme = re.search(r":root\s*\{[^}]*--ground:\s*([^;]+);", template_content)
+    theme = m_theme.group(1).strip() if m_theme else "#F7F1E6"
+
+    exp_ogalt = f"Kartu pratinjau pelat gempa: judul SETENGAH ABAD, {total_d} GEMPA M5+, dengan ringkasan laju tahunan dan median kedalaman."
+    exp_jsonld = json.dumps(exp_graph, ensure_ascii=True, separators=(",", ":"))
+
+    def html_esc(s: str) -> str:
+        return s.replace("&", "&amp;").replace('"', "&quot;")
+
+    expected_lines = [
+        "  <!--SEO:BEGIN-->",
+        f"  <title>{html_esc(exp_title)}</title>",
+        f'  <meta name="description" content="{html_esc(exp_desc)}">',
+        f'  <link rel="canonical" href="{html_esc(canonical)}">',
+        f'  <meta name="theme-color" content="{html_esc(theme)}">',
+        '  <meta property="og:type" content="website">',
+        f'  <meta property="og:url" content="{html_esc(canonical)}">',
+        f'  <meta property="og:title" content="{html_esc(exp_title)}">',
+        f'  <meta property="og:description" content="{html_esc(exp_desc)}">',
+        f'  <meta property="og:image" content="{site}/assets/og/gempa.png">',
+        '  <meta property="og:image:width" content="1200">',
+        '  <meta property="og:image:height" content="630">',
+        f'  <meta property="og:image:alt" content="{html_esc(exp_ogalt)}">',
+        '  <meta property="og:site_name" content="Dashboard Data Publik">',
+        '  <meta property="og:locale" content="id_ID">',
+        '  <meta name="twitter:card" content="summary_large_image">',
+        f'  <meta name="twitter:title" content="{html_esc(exp_title)}">',
+        f'  <meta name="twitter:description" content="{html_esc(exp_desc)}">',
+        f'  <meta name="twitter:image" content="{site}/assets/og/gempa.png">',
+        '  <link rel="icon" href="/favicon.ico" sizes="32x32">',
+        '  <link rel="icon" type="image/svg+xml" href="/favicon.svg">',
+        '  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">',
+        '  <link rel="apple-touch-icon" href="/apple-touch-icon.png">',
+        f'  <script type="application/ld+json">{exp_jsonld}</script>',
+        "  <!--SEO:END-->",
+    ]
+
+    actual_lines = actual_block.splitlines()
+    if len(actual_lines) != len(expected_lines):
+        return (
+            False,
+            f"gempa/index.html SEO block line count mismatch (actual: {len(actual_lines)}, expected: {len(expected_lines)})",
+        )
+
+    for idx, (act_l, exp_l) in enumerate(zip(actual_lines, expected_lines)):
+        if act_l != exp_l:
+            return (
+                False,
+                f"gempa/index.html SEO block line {idx + 1} mismatch (actual: {act_l!r}, expected: {exp_l!r})",
+            )
+
+    return (
+        True,
+        "C2 head kit region, tags, attributes, copy constraints, icon links, and C5 JSON-LD graph verified",
+    )
+
+
 def main():
     csv_path = os.path.join(ROOT, "data", "out", "gempa_events.csv")
     live_path = os.path.join(ROOT, "data", "out", "bmkg_live.json")
@@ -857,7 +1236,7 @@ def main():
     ]:
         if not os.path.exists(path):
             print(f"FAIL Input file missing: {name} (actual: not found at {path}, expected: file present)")
-            print("TOTAL 0/14")
+            print("TOTAL 0/17")
             sys.exit(1)
 
     with open(csv_path, "r", encoding="utf-8") as f:
@@ -890,6 +1269,9 @@ def main():
         ("check 12: basemap geometry and template structure", lambda: check_12_basemap(basemap_data, data_json, template_path)),
         ("check 13: contrast tokens and motion rules", lambda: check_13_contrast_and_motion(template_path)),
         ("check 14: events pairing", lambda: check_14_events_pairing(rows, data_json)),
+        ("check 15: gempa/index.html data-fig spans", lambda: check_15_data_fig_spans(index_path, template_path, data_json)),
+        ("check 16: gempa/index.html static strings and noscript", lambda: check_16_static_strings_and_noscript(index_path)),
+        ("check 17: gempa/index.html head kit and JSON-LD", lambda: check_17_head_and_jsonld(index_path, template_path, data_json)),
     ]
 
     passed = 0

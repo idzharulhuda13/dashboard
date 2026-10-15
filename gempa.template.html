@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--SEO:BEGIN-->
   <title>Setengah Abad Gempa Indonesia 1976-2026</title>
+  <!--SEO:END-->
   <style>
 :root {
   --ground: #F7F1E6;
@@ -1556,17 +1558,15 @@ button:focus-visible,
   }
 }
 </style>
+  <noscript><style>#loader,#err-box{display:none!important}</style></noscript>
 </head>
 <body>
     <nav class="nav-home"><a href="/">Dashboard</a></nav>
   <div id="loader" role="status" aria-live="polite">
     <div class="loader-disc"></div>
-    <p>Memuat narasi data seismik Indonesia…</p>
   </div>
 
-  <div id="err-box" class="hidden" role="alert">
-    <p>Terjadi kendala teknis saat memuat berkas data seismik.</p>
-  </div>
+  <div id="err-box" class="hidden" role="alert"></div>
 
   <main class="dashboard-root">
     <!-- BAND 1: HERO -->
@@ -1802,6 +1802,12 @@ button:focus-visible,
 
   <script>
 const DATA = /*__DATA__*/ {};
+const loader = document.getElementById('loader');
+if (loader) {
+  const p = document.createElement('p');
+  p.textContent = 'Memuat narasi data seismik Indonesia…';
+  loader.appendChild(p);
+}
 
 function renderHero() {
   // Deliberate no-op: all hero band figures are populated via data-fig attributes
@@ -2999,6 +3005,9 @@ function bootstrap() {
     stopLoader();
     const errBox = document.getElementById('err-box');
     if (errBox) {
+      const p = document.createElement('p');
+      p.textContent = 'Terjadi kendala teknis saat memuat berkas data seismik.';
+      errBox.appendChild(p);
       errBox.classList.remove('hidden');
     }
   }

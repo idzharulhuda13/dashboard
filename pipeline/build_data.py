@@ -12,6 +12,7 @@ from datetime import date, datetime
 import hashlib
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -481,10 +482,170 @@ def main():
     template_sha256 = hashlib.sha256(template_bytes).hexdigest()
     template_str = template_bytes.decode("utf-8")
 
+    # Validate template SEO marker pair
+    tmpl_begin_count = template_str.count("<!--SEO:BEGIN-->")
+    tmpl_end_count = template_str.count("<!--SEO:END-->")
+    if tmpl_begin_count != 1 or tmpl_end_count != 1:
+        raise RuntimeError(
+            f"gempa.template.html must contain exactly one SEO marker pair (found {tmpl_begin_count} BEGIN, {tmpl_end_count} END)"
+        )
+    if template_str.index("<!--SEO:BEGIN-->") >= template_str.index("<!--SEO:END-->"):
+        raise RuntimeError("In gempa.template.html, <!--SEO:BEGIN--> must come before <!--SEO:END-->")
+
+    # Extract theme color from :root { --ground: ... }
+    ground_match = re.search(r":root\s*\{[^}]*?--ground:\s*([^;]+);", template_str)
+    if not ground_match:
+        raise RuntimeError("Could not parse :root { --ground: ... } from gempa.template.html")
+    theme_color = ground_match.group(1).strip()
+
+    site_url = "https://dashboard.idzharulhuda.com"
+    page_slug = "gempa"
+    canonical_url = f"{site_url}/{page_slug}/"
+
+    first_year = fig_data["span_first_wib"]["r"][:4]
+    last_year = fig_data["span_last_wib"]["r"][:4]
+    total_val = fig_data["total"]["d"]
+    rate_year_val = fig_data["rate_year"]["d"]
+    span_first_date = fig_data["span_first_wib"]["r"][:10]
+    span_last_date = fig_data["span_last_wib"]["r"][:10]
+
+    title = f"Setengah Abad Gempa Indonesia {first_year}-{last_year}"
+    desc = (
+        f"{total_val} gempa M5+ di Indonesia sejak {first_year}, "
+        f"rata-rata {rate_year_val} per tahun: episentrum, kedalaman, magnitudo, "
+        f"dan provinsi paling sering diguncang (USGS)."
+    )
+    ogalt = (
+        f"Kartu pratinjau pelat gempa: judul SETENGAH ABAD, {total_val} GEMPA M5+, "
+        f"dengan ringkasan laju tahunan dan median kedalaman."
+    )
+
+    # Gates assertions
+    if len(title) > 60:
+        raise RuntimeError(f"Title exceeds 60 chars ({len(title)}): '{title}'")
+    if len(desc) > 155:
+        raise RuntimeError(f"Description exceeds 155 chars ({len(desc)}): '{desc}'")
+    for text, label in [(title, "title"), (desc, "desc"), (ogalt, "ogalt")]:
+        if "\u2014" in text:
+            raise RuntimeError(f"U+2014 em dash found in {label}")
+
+    title_nums = re.findall(r"\b\d+(?:[\.,]\d+)*\b", title)
+    for num in title_nums:
+        if num not in (first_year, last_year):
+            raise RuntimeError(f"Unexpected numeric token in title: {num}")
+
+    desc_nums = re.findall(r"\b\d+(?:[\.,]\d+)*\b", desc)
+    expected_desc_nums = {total_val, "5", first_year, rate_year_val}
+    for num in desc_nums:
+        if num not in expected_desc_nums:
+            raise RuntimeError(f"Unexpected numeric token in desc: {num}")
+
+    graph = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Dataset",
+                "name": title,
+                "description": desc,
+                "url": canonical_url,
+                "inLanguage": "id",
+                "keywords": ["gempa bumi", "Indonesia", "USGS"],
+                "creator": {
+                    "@type": "Person",
+                    "name": "Idzharul Huda",
+                    "url": "https://idzharulhuda.com/",
+                },
+                "license": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+                "spatialCoverage": {
+                    "@type": "Place",
+                    "name": "Indonesia",
+                },
+                "temporalCoverage": f"{span_first_date}/{span_last_date}",
+                "isBasedOn": {
+                    "@type": "Dataset",
+                    "name": "ANSS Comprehensive Earthquake Catalog (ComCat)",
+                    "url": "https://earthquake.usgs.gov/data/catalog/",
+                },
+                "citation": "U.S. Geological Survey, ANSS Comprehensive Earthquake Catalog (ComCat), katalog gempa bumi M5+ Indonesia yang diunduh pipeline ini.",
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Dashboard Data Publik",
+                        "item": f"{site_url}/",
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": title,
+                        "item": canonical_url,
+                    },
+                ],
+            },
+        ],
+    }
+    jsonld_str = json.dumps(graph, ensure_ascii=True, separators=(",", ":"))
+
+    def escape_attr(val: str) -> str:
+        return str(val).replace("&", "&amp;").replace('"', "&quot;")
+
+    esc_title = escape_attr(title)
+    esc_desc = escape_attr(desc)
+    esc_canonical = escape_attr(canonical_url)
+    esc_theme = escape_attr(theme_color)
+    esc_site = escape_attr(site_url)
+    esc_slug = escape_attr(page_slug)
+    esc_ogalt = escape_attr(ogalt)
+
+    seo_inner_lines = [
+        f"  <title>{esc_title}</title>",
+        f"  <meta name=\"description\" content=\"{esc_desc}\">",
+        f"  <link rel=\"canonical\" href=\"{esc_canonical}\">",
+        f"  <meta name=\"theme-color\" content=\"{esc_theme}\">",
+        '  <meta property="og:type" content="website">',
+        f"  <meta property=\"og:url\" content=\"{esc_canonical}\">",
+        f"  <meta property=\"og:title\" content=\"{esc_title}\">",
+        f"  <meta property=\"og:description\" content=\"{esc_desc}\">",
+        f"  <meta property=\"og:image\" content=\"{esc_site}/assets/og/{esc_slug}.png\">",
+        '  <meta property="og:image:width" content="1200">',
+        '  <meta property="og:image:height" content="630">',
+        f"  <meta property=\"og:image:alt\" content=\"{esc_ogalt}\">",
+        '  <meta property="og:site_name" content="Dashboard Data Publik">',
+        '  <meta property="og:locale" content="id_ID">',
+        '  <meta name="twitter:card" content="summary_large_image">',
+        f"  <meta name=\"twitter:title\" content=\"{esc_title}\">",
+        f"  <meta name=\"twitter:description\" content=\"{esc_desc}\">",
+        f"  <meta name=\"twitter:image\" content=\"{esc_site}/assets/og/{esc_slug}.png\">",
+        '  <link rel="icon" href="/favicon.ico" sizes="32x32">',
+        '  <link rel="icon" type="image/svg+xml" href="/favicon.svg">',
+        '  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">',
+        '  <link rel="apple-touch-icon" href="/apple-touch-icon.png">',
+        f"  <script type=\"application/ld+json\">{jsonld_str}</script>",
+    ]
+    seo_inner_block = "\n".join(seo_inner_lines)
+
+    if "\u2014" in seo_inner_block or "\u2014" in jsonld_str:
+        raise RuntimeError("U+2014 em dash found in generated SEO block")
+
     if "/*__FONTS__*/" not in template_str:
         raise RuntimeError("Placeholder /*__FONTS__*/ not found in gempa.template.html")
 
     html_rendered = template_str.replace("/*__FONTS__*/", fonts_css_block)
+
+    seo_pattern = re.compile(r"(<!--SEO:BEGIN-->)(.*?)(<!--SEO:END-->)", re.DOTALL)
+    html_rendered = seo_pattern.sub(lambda m: f"{m.group(1)}\n{seo_inner_block}\n  {m.group(3)}", html_rendered)
+
+    out_begin_count = html_rendered.count("<!--SEO:BEGIN-->")
+    out_end_count = html_rendered.count("<!--SEO:END-->")
+    if out_begin_count != 1 or out_end_count != 1:
+        raise RuntimeError(
+            f"Emitted page must contain exactly one SEO marker pair (found {out_begin_count} BEGIN, {out_end_count} END)"
+        )
+    if html_rendered.index("<!--SEO:BEGIN-->") >= html_rendered.index("<!--SEO:END-->"):
+        raise RuntimeError("In emitted page, <!--SEO:BEGIN--> must come before <!--SEO:END-->")
 
     # Replace DATA placeholder so line becomes const DATA = <gempa/data.json content>;
     if "/*__DATA__*/ {}" in html_rendered:
@@ -493,6 +654,43 @@ def main():
         html_rendered = html_rendered.replace("/*__DATA__*/", compact_json)
     else:
         raise RuntimeError("Placeholder /*__DATA__*/ not found in gempa.template.html")
+
+    # Fill every <span ... data-fig="k"> that is still empty with payload's formatted value fig[k]["d"]
+    def fill_data_fig(match: re.Match) -> str:
+        open_tag = match.group(1)
+        key = match.group(2)
+        inner = match.group(3)
+        if key not in fig_data or "d" not in fig_data[key]:
+            raise RuntimeError(f"data-fig key '{key}' is not in payload fig data")
+        if not inner.strip():
+            val = str(fig_data[key]["d"])
+            if not val:
+                raise RuntimeError(f"data-fig key '{key}' produced empty formatted value")
+            return f"{open_tag}{val}</span>"
+        return match.group(0)
+
+    span_fig_re = re.compile(
+        r'(<span\b[^>]*?\bdata-fig=["\']([^"\']+)["\'][^>]*?>)(.*?)</span>',
+        re.DOTALL
+    )
+    html_rendered = span_fig_re.sub(fill_data_fig, html_rendered)
+
+    # Validate that every data-fig span is non-empty and names a key in payload
+    all_spans = list(span_fig_re.finditer(html_rendered))
+    for m in all_spans:
+        k = m.group(2)
+        content = m.group(3)
+        if k not in fig_data or "d" not in fig_data[k]:
+            raise RuntimeError(f"data-fig key '{k}' is not in payload fig data")
+        if not content.strip():
+            raise RuntimeError(f"data-fig span with key '{k}' remained empty")
+
+    all_fig_tags = re.findall(r'<([a-zA-Z0-9]+)\b[^>]*\bdata-fig=["\']([^"\']+)["\'][^>]*>', html_rendered)
+    for tag_name, k in all_fig_tags:
+        if tag_name.lower() != "span":
+            raise RuntimeError(f"Found data-fig on non-span tag <{tag_name}> with key '{k}'")
+        if k not in fig_data or "d" not in fig_data[k]:
+            raise RuntimeError(f"data-fig key '{k}' is not in payload fig data")
 
     # Prepend BUILD stamp on line 1
     stamp_line = f"<!--BUILD sha256:{template_sha256}-->\n"

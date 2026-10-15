@@ -14,6 +14,7 @@ import math
 import os
 import re
 import sys
+from urllib.parse import urlparse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -620,11 +621,19 @@ def check_11_hygiene(index_content: str):
         return False, f"pisa/index.html contains U+2014 em dash ({em_dashes} occurrences)"
 
     urls = re.findall(r"https?://[^\s\"'<>]+", index_content)
-    allowed_urls = {
-        "http://www.w3.org/2000/svg",
-        "https://www.oecd.org/en/data/datasets/pisa-2025-database.html",
+    allowed_hosts = {
+        "www.w3.org",
+        "w3.org",
+        "www.oecd.org",
+        "oecd.org",
+        "dashboard.idzharulhuda.com",
+        "idzharulhuda.com",
+        "schema.org",
     }
-    disallowed_urls = [u for u in urls if u not in allowed_urls]
+    disallowed_urls = [
+        u for u in urls
+        if (urlparse(u).hostname or "") not in allowed_hosts and u != "http://www.w3.org/2000/svg"
+    ]
     if disallowed_urls:
         return False, f"pisa/index.html contains external network URLs: {disallowed_urls}"
 
@@ -666,14 +675,56 @@ def check_12_page_skeleton(index_path: str, template_path: str, fonts_dir: str =
         return False, "pisa/index.html is empty"
 
     page_lines = index_lines[1:]
+    page_content = "".join(page_lines)
+
+    tmpl_begin_count = template_content.count("<!--SEO:BEGIN-->")
+    tmpl_end_count = template_content.count("<!--SEO:END-->")
+    if tmpl_begin_count != 1 or tmpl_end_count != 1:
+        return False, f"template SEO markers count mismatch (begin: {tmpl_begin_count}, end: {tmpl_end_count})"
+    if template_content.index("<!--SEO:BEGIN-->") >= template_content.index("<!--SEO:END-->"):
+        return False, "template <!--SEO:BEGIN--> must precede <!--SEO:END-->"
+
+    page_begin_count = page_content.count("<!--SEO:BEGIN-->")
+    page_end_count = page_content.count("<!--SEO:END-->")
+    if page_begin_count != 1 or page_end_count != 1:
+        return False, f"page SEO markers count mismatch (begin: {page_begin_count}, end: {page_end_count})"
+    if page_content.index("<!--SEO:BEGIN-->") >= page_content.index("<!--SEO:END-->"):
+        return False, "page <!--SEO:BEGIN--> must precede <!--SEO:END-->"
+
+    tmpl_skeleton_lines = []
+    in_tmpl_seo = False
+    for line in template_content.splitlines(keepends=True):
+        if "<!--SEO:BEGIN-->" in line:
+            in_tmpl_seo = True
+            tmpl_skeleton_lines.append(line)
+            continue
+        if "<!--SEO:END-->" in line:
+            in_tmpl_seo = False
+            tmpl_skeleton_lines.append(line)
+            continue
+        if in_tmpl_seo:
+            continue
+        tmpl_skeleton_lines.append(line)
+    template_skeleton = "".join(tmpl_skeleton_lines)
 
     skeleton_lines = []
     font_lines = []
     in_fonts = False
     fonts_begin_found = False
     fonts_end_found = False
+    in_page_seo = False
 
     for line in page_lines:
+        if "<!--SEO:BEGIN-->" in line:
+            in_page_seo = True
+            skeleton_lines.append(line)
+            continue
+        if "<!--SEO:END-->" in line:
+            in_page_seo = False
+            skeleton_lines.append(line)
+            continue
+        if in_page_seo:
+            continue
         if "/*FONTS:BEGIN*/" in line:
             in_fonts = True
             fonts_begin_found = True
@@ -751,11 +802,11 @@ def check_12_page_skeleton(index_path: str, template_path: str, fonts_dir: str =
         return False, "font region mismatch"
 
     reconstructed = "".join(skeleton_lines)
-    if reconstructed == template_content:
+    if reconstructed == template_skeleton:
         return True, "page skeleton matches pisa.template.html byte for byte after collapsing injected regions"
 
     recon_lines = reconstructed.splitlines(keepends=True)
-    tmpl_lines = template_content.splitlines(keepends=True)
+    tmpl_lines = template_skeleton.splitlines(keepends=True)
     max_len = max(len(recon_lines), len(tmpl_lines))
     for line_no in range(1, max_len + 1):
         r_line = recon_lines[line_no - 1] if line_no <= len(recon_lines) else "<EOF>\n"
@@ -916,6 +967,300 @@ def check_15_peers_caveat(embedded_data: dict, csv_dir: str):
     return True, f"peers caveat figures match annex_means.csv within 0.01: gap {gap_r:.2f} ({gap_d}) diff {abs(gap_r - recomputed_gap):.5f}, 2se {se_r:.2f} ({se_d})"
 
 
+def check_16_head_and_jsonld(index_path: str, template_path: str, embedded_data: dict):
+    with open(index_path, "r", encoding="utf-8") as f:
+        index_content = f.read()
+
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_content = f.read()
+
+    begin_count = index_content.count("<!--SEO:BEGIN-->")
+    end_count = index_content.count("<!--SEO:END-->")
+    if begin_count != 1:
+        return (
+            False,
+            f"pisa/index.html <!--SEO:BEGIN--> count mismatch (actual: {begin_count}, expected: 1)",
+        )
+    if end_count != 1:
+        return (
+            False,
+            f"pisa/index.html <!--SEO:END--> count mismatch (actual: {end_count}, expected: 1)",
+        )
+
+    if index_content.count("<!--SEO") != 2:
+        return (
+            False,
+            f"pisa/index.html contains leftover marker text (actual: {index_content.count('<!--SEO')}, expected: 2)",
+        )
+
+    idx_begin = index_content.find("<!--SEO:BEGIN-->")
+    idx_end = index_content.find("<!--SEO:END-->")
+    if idx_begin >= idx_end:
+        return (
+            False,
+            "pisa/index.html <!--SEO:BEGIN--> must precede <!--SEO:END-->",
+        )
+
+    m_block = re.search(
+        r"([ \t]*<!--SEO:BEGIN-->\n.*?\n[ \t]*<!--SEO:END-->)",
+        index_content,
+        re.DOTALL,
+    )
+    if not m_block:
+        return False, "pisa/index.html could not extract SEO block"
+    actual_block = m_block.group(1)
+
+    if "\u2014" in actual_block:
+        return False, "pisa/index.html SEO block contains U+2014 em dash"
+
+    placeholders = [
+        "{TITLE}",
+        "{DESC}",
+        "{CANONICAL}",
+        "{THEME}",
+        "{SLUG}",
+        "{OGALT}",
+        "{JSONLD}",
+    ]
+    for ph in placeholders:
+        if ph in actual_block:
+            return (
+                False,
+                f"pisa/index.html SEO block contains placeholder {ph}",
+            )
+    if re.search(r"\{[A-Z_]+\}", actual_block):
+        return (
+            False,
+            "pisa/index.html SEO block contains unexpanded placeholder",
+        )
+
+    m_title = re.search(r"<title>(.*?)</title>", actual_block)
+    if not m_title:
+        return False, "pisa/index.html SEO block missing <title>"
+    act_title = m_title.group(1)
+    if len(act_title) > 60:
+        return (
+            False,
+            f"pisa/index.html title exceeds 60 characters (actual: {len(act_title)}, expected: <= 60)",
+        )
+
+    m_desc = re.search(r'<meta name="description" content="([^"]*)"', actual_block)
+    if not m_desc:
+        return False, 'pisa/index.html SEO block missing <meta name="description">'
+    act_desc = m_desc.group(1)
+    if len(act_desc) > 155:
+        return (
+            False,
+            f"pisa/index.html description exceeds 155 characters (actual: {len(act_desc)}, expected: <= 155)",
+        )
+
+    meta = embedded_data.get("meta", {})
+    fig = embedded_data.get("fig", {})
+    cycle = meta.get("cycle")
+    hero_gap = fig.get("hero_gap", {}).get("d") if isinstance(fig.get("hero_gap"), dict) else str(fig.get("hero_gap", ""))
+    prof_below_l2_math = fig.get("prof_below_l2_math", {}).get("d") if isinstance(fig.get("prof_below_l2_math"), dict) else str(fig.get("prof_below_l2_math", ""))
+
+    exp_title = f"PISA {cycle}: Selisih {hero_gap} Poin Sains Indonesia di Bawah OECD"
+    exp_desc = f"Rerata sains siswa Indonesia {hero_gap} poin di bawah rata-rata OECD pada PISA {cycle}, dan {prof_below_l2_math}% siswa masih di bawah ambang minimum kemahiran matematika."
+
+    if act_title != exp_title:
+        return (
+            False,
+            f"pisa/index.html title mismatch (actual: {act_title!r}, expected: {exp_title!r})",
+        )
+    if act_desc != exp_desc:
+        return (
+            False,
+            f"pisa/index.html description mismatch (actual: {act_desc!r}, expected: {exp_desc!r})",
+        )
+
+    title_nums = re.findall(r"\d+", act_title)
+    if title_nums != [str(cycle), str(hero_gap)]:
+        return (
+            False,
+            f"pisa/index.html title numeric tokens mismatch (actual: {title_nums}, expected: {[str(cycle), str(hero_gap)]})",
+        )
+
+    desc_nums = re.findall(r"\b(?:\d{1,3}(?:[\.,]\d+)+|\d+)\b", act_desc)
+    if desc_nums != [str(hero_gap), str(cycle), str(prof_below_l2_math)]:
+        return (
+            False,
+            f"pisa/index.html description numeric tokens mismatch (actual: {desc_nums}, expected: {[str(hero_gap), str(cycle), str(prof_below_l2_math)]})",
+        )
+
+    site = "https://dashboard.idzharulhuda.com"
+    canonical = f"{site}/pisa/"
+    m_canonical = re.search(r'<link rel="canonical" href="([^"]*)"', actual_block)
+    if not m_canonical:
+        return False, 'pisa/index.html SEO block missing <link rel="canonical">'
+    if m_canonical.group(1) != canonical:
+        return (
+            False,
+            f"pisa/index.html canonical URL mismatch (actual: {m_canonical.group(1)!r}, expected: {canonical!r})",
+        )
+
+    required_icons = [
+        '<link rel="icon" href="/favicon.ico" sizes="32x32">',
+        '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',
+        '<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">',
+        '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',
+    ]
+    for icon in required_icons:
+        if icon not in actual_block:
+            return (
+                False,
+                f"pisa/index.html SEO block missing icon link (actual: missing, expected: {icon!r})",
+            )
+
+    m_script = re.search(
+        r'<script type="application/ld\+json">(.*?)</script>', actual_block
+    )
+    if not m_script:
+        return (
+            False,
+            'pisa/index.html SEO block missing <script type="application/ld+json">',
+        )
+    raw_jsonld = m_script.group(1)
+    try:
+        act_graph = json.loads(raw_jsonld)
+    except Exception as e:
+        return False, f"pisa/index.html JSON-LD invalid JSON: {e}"
+
+    exp_graph = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Dataset",
+                "name": exp_title,
+                "description": exp_desc,
+                "url": canonical,
+                "inLanguage": "id",
+                "keywords": ["PISA", "Indonesia", "OECD"],
+                "creator": {
+                    "@type": "Person",
+                    "name": "Idzharul Huda",
+                    "url": "https://idzharulhuda.com/",
+                },
+                "license": meta["licence"],
+                "spatialCoverage": {
+                    "@type": "Place",
+                    "name": "Indonesia",
+                },
+                "temporalCoverage": str(cycle),
+                "isBasedOn": {
+                    "@type": "Dataset",
+                    "name": "OECD PISA 2025 database",
+                    "url": meta["source_url"],
+                },
+                "citation": f"OECD PISA 2025 database, diunduh {meta['retrieved']}.",
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Dashboard Data Publik",
+                        "item": f"{site}/",
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": exp_title,
+                        "item": canonical,
+                    },
+                ],
+            },
+        ],
+    }
+
+    act_nodes = act_graph.get("@graph", [])
+    exp_nodes = exp_graph["@graph"]
+    if act_graph.get("@context") != exp_graph["@context"]:
+        return (
+            False,
+            f"JSON-LD @context mismatch (actual: {act_graph.get('@context')!r}, expected: {exp_graph['@context']!r})",
+        )
+    if len(act_nodes) != len(exp_nodes):
+        return (
+            False,
+            f"JSON-LD @graph length mismatch (actual: {len(act_nodes)}, expected: {len(exp_nodes)})",
+        )
+    for i, (an, en) in enumerate(zip(act_nodes, exp_nodes)):
+        if an.get("@type") != en.get("@type"):
+            return (
+                False,
+                f"JSON-LD node {i} @type mismatch (actual: {an.get('@type')!r}, expected: {en.get('@type')!r})",
+            )
+        if set(an.keys()) != set(en.keys()):
+            return (
+                False,
+                f"JSON-LD node {i} field set mismatch (actual: {sorted(an.keys())}, expected: {sorted(en.keys())})",
+            )
+        for k in en:
+            if an[k] != en[k]:
+                return (
+                    False,
+                    f"JSON-LD node {i} field '{k}' mismatch (actual: {an[k]!r}, expected: {en[k]!r})",
+                )
+
+    m_theme = re.search(r":root\s*\{[^}]*--ground:\s*([^;]+);", template_content)
+    theme = m_theme.group(1).strip() if m_theme else "#F2F4F7"
+
+    exp_ogalt = f"Kartu pratinjau pelat PISA: judul SELISIH {hero_gap} POIN DI BAWAH RERATA OECD pada halaman capaian sains siswa Indonesia."
+    exp_jsonld = json.dumps(exp_graph, ensure_ascii=True, separators=(",", ":"))
+
+    def html_esc(s: str) -> str:
+        return s.replace("&", "&amp;").replace('"', "&quot;")
+
+    expected_lines = [
+        "  <!--SEO:BEGIN-->",
+        f"  <title>{html_esc(exp_title)}</title>",
+        f'  <meta name="description" content="{html_esc(exp_desc)}">',
+        f'  <link rel="canonical" href="{html_esc(canonical)}">',
+        f'  <meta name="theme-color" content="{html_esc(theme)}">',
+        '  <meta property="og:type" content="website">',
+        f'  <meta property="og:url" content="{html_esc(canonical)}">',
+        f'  <meta property="og:title" content="{html_esc(exp_title)}">',
+        f'  <meta property="og:description" content="{html_esc(exp_desc)}">',
+        f'  <meta property="og:image" content="{site}/assets/og/pisa.png">',
+        '  <meta property="og:image:width" content="1200">',
+        '  <meta property="og:image:height" content="630">',
+        f'  <meta property="og:image:alt" content="{html_esc(exp_ogalt)}">',
+        '  <meta property="og:site_name" content="Dashboard Data Publik">',
+        '  <meta property="og:locale" content="id_ID">',
+        '  <meta name="twitter:card" content="summary_large_image">',
+        f'  <meta name="twitter:title" content="{html_esc(exp_title)}">',
+        f'  <meta name="twitter:description" content="{html_esc(exp_desc)}">',
+        f'  <meta name="twitter:image" content="{site}/assets/og/pisa.png">',
+        '  <link rel="icon" href="/favicon.ico" sizes="32x32">',
+        '  <link rel="icon" type="image/svg+xml" href="/favicon.svg">',
+        '  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">',
+        '  <link rel="apple-touch-icon" href="/apple-touch-icon.png">',
+        f'  <script type="application/ld+json">{exp_jsonld}</script>',
+        "  <!--SEO:END-->",
+    ]
+
+    actual_lines = actual_block.splitlines()
+    if len(actual_lines) != len(expected_lines):
+        return (
+            False,
+            f"pisa/index.html SEO block line count mismatch (actual: {len(actual_lines)}, expected: {len(expected_lines)})",
+        )
+
+    for idx, (act_l, exp_l) in enumerate(zip(actual_lines, expected_lines)):
+        if act_l != exp_l:
+            return (
+                False,
+                f"pisa/index.html SEO block line {idx + 1} mismatch (actual: {act_l!r}, expected: {exp_l!r})",
+            )
+
+    return (
+        True,
+        "C2 head kit region, tags, attributes, copy constraints, icon links, and C5 JSON-LD graph verified",
+    )
+
+
 def main():
     csv_dir = os.path.join(ROOT, "data", "pisa")
     template_path = os.path.join(ROOT, "pisa.template.html")
@@ -938,7 +1283,7 @@ def main():
     for path, name in required_files:
         if not os.path.exists(path):
             print(f"FAIL Input file missing: {name} (actual: not found at {path}, expected: file present)")
-            print("TOTAL 0/15")
+            print("TOTAL 0/16")
             sys.exit(1)
 
     with open(index_path, "r", encoding="utf-8") as f:
@@ -949,7 +1294,7 @@ def main():
     idx = index_content.find(prefix)
     if idx == -1:
         print("FAIL Embedded DATA not found in pisa/index.html")
-        print("TOTAL 0/15")
+        print("TOTAL 0/16")
         sys.exit(1)
 
     start_json = idx + len(prefix)
@@ -958,14 +1303,14 @@ def main():
         end_json = index_content.find(";", start_json)
     if end_json == -1:
         print("FAIL Embedded DATA end delimiter not found in pisa/index.html")
-        print("TOTAL 0/15")
+        print("TOTAL 0/16")
         sys.exit(1)
 
     try:
         embedded_data = json.loads(index_content[start_json:end_json])
     except Exception as e:
         print(f"FAIL Embedded DATA JSON parse failed: {e}")
-        print("TOTAL 0/15")
+        print("TOTAL 0/16")
         sys.exit(1)
 
     rebuilt_payload = rebuild_payload_from_csv(csv_dir, template_path)
@@ -986,6 +1331,7 @@ def main():
         ("fallback numbers", lambda: check_13_fallback_numbers(template_path, embedded_data, index_content)),
         ("meta provenance", lambda: check_14_meta_provenance(embedded_data, csv_dir)),
         ("peers caveat", lambda: check_15_peers_caveat(embedded_data, csv_dir)),
+        ("head kit and JSON-LD", lambda: check_16_head_and_jsonld(index_path, template_path, embedded_data)),
     ]
 
     passed = 0

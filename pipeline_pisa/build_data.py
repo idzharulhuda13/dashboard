@@ -515,10 +515,163 @@ def main():
 
     fonts_css_block = "/*FONTS:BEGIN*/\n" + "\n".join(font_rules) + "\n/*FONTS:END*/"
 
+    # Validate template SEO marker pair
+    tmpl_begin_count = template_str.count("<!--SEO:BEGIN-->")
+    tmpl_end_count = template_str.count("<!--SEO:END-->")
+    if tmpl_begin_count != 1 or tmpl_end_count != 1:
+        raise RuntimeError(
+            f"pisa.template.html must contain exactly one SEO marker pair (found {tmpl_begin_count} BEGIN, {tmpl_end_count} END)"
+        )
+    if template_str.index("<!--SEO:BEGIN-->") >= template_str.index("<!--SEO:END-->"):
+        raise RuntimeError("In pisa.template.html, <!--SEO:BEGIN--> must come before <!--SEO:END-->")
+
+    # Extract theme color from :root { --ground: ... }
+    ground_match = re.search(r":root\s*\{[^}]*?--ground:\s*([^;]+);", template_str)
+    if not ground_match:
+        raise RuntimeError("Could not parse :root { --ground: ... } from pisa.template.html")
+    theme_color = ground_match.group(1).strip()
+
+    site_url = "https://dashboard.idzharulhuda.com"
+    page_slug = "pisa"
+    canonical_url = f"{site_url}/{page_slug}/"
+
+    cycle = meta["cycle"]
+    hero_gap = fig["hero_gap"]["d"]
+    prof_below_l2_math = fig["prof_below_l2_math"]["d"]
+
+    title = f"PISA {cycle}: Selisih {hero_gap} Poin Sains Indonesia di Bawah OECD"
+    desc = (
+        f"Rerata sains siswa Indonesia {hero_gap} poin di bawah rata-rata OECD pada PISA {cycle}, "
+        f"dan {prof_below_l2_math}% siswa masih di bawah ambang minimum kemahiran matematika."
+    )
+    ogalt = f"Kartu pratinjau pelat PISA: judul SELISIH {hero_gap} POIN DI BAWAH RERATA OECD pada halaman capaian sains siswa Indonesia."
+
+    # Gates assertions
+    if len(title) > 60:
+        raise RuntimeError(f"Title exceeds 60 chars ({len(title)}): '{title}'")
+    if len(desc) > 155:
+        raise RuntimeError(f"Description exceeds 155 chars ({len(desc)}): '{desc}'")
+    for text, label in [(title, "title"), (desc, "desc"), (ogalt, "ogalt")]:
+        if "\u2014" in text:
+            raise RuntimeError(f"U+2014 em dash found in {label}")
+
+    title_nums = re.findall(r"\b\d+(?:[\.,]\d+)*\b", title)
+    for num in title_nums:
+        if num not in (str(cycle), hero_gap):
+            raise RuntimeError(f"Unexpected numeric token in title: {num}")
+
+    desc_nums = re.findall(r"\b\d+(?:[\.,]\d+)*\b", desc)
+    expected_desc_nums = {hero_gap, str(cycle), prof_below_l2_math}
+    for num in desc_nums:
+        if num not in expected_desc_nums:
+            raise RuntimeError(f"Unexpected numeric token in desc: {num}")
+
+    graph = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Dataset",
+                "name": title,
+                "description": desc,
+                "url": canonical_url,
+                "inLanguage": "id",
+                "keywords": ["PISA", "Indonesia", "OECD"],
+                "creator": {
+                    "@type": "Person",
+                    "name": "Idzharul Huda",
+                    "url": "https://idzharulhuda.com/",
+                },
+                "license": meta["licence"],
+                "spatialCoverage": {
+                    "@type": "Place",
+                    "name": "Indonesia",
+                },
+                "temporalCoverage": str(cycle),
+                "isBasedOn": {
+                    "@type": "Dataset",
+                    "name": "OECD PISA 2025 database",
+                    "url": meta["source_url"],
+                },
+                "citation": f"OECD PISA 2025 database, diunduh {meta['retrieved']}.",
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Dashboard Data Publik",
+                        "item": f"{site_url}/",
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": title,
+                        "item": canonical_url,
+                    },
+                ],
+            },
+        ],
+    }
+    jsonld_str = json.dumps(graph, ensure_ascii=True, separators=(",", ":"))
+
+    def escape_attr(val: str) -> str:
+        return str(val).replace("&", "&amp;").replace('"', "&quot;")
+
+    esc_title = escape_attr(title)
+    esc_desc = escape_attr(desc)
+    esc_canonical = escape_attr(canonical_url)
+    esc_theme = escape_attr(theme_color)
+    esc_site = escape_attr(site_url)
+    esc_slug = escape_attr(page_slug)
+    esc_ogalt = escape_attr(ogalt)
+
+    seo_inner_lines = [
+        f"  <title>{esc_title}</title>",
+        f"  <meta name=\"description\" content=\"{esc_desc}\">",
+        f"  <link rel=\"canonical\" href=\"{esc_canonical}\">",
+        f"  <meta name=\"theme-color\" content=\"{esc_theme}\">",
+        '  <meta property="og:type" content="website">',
+        f"  <meta property=\"og:url\" content=\"{esc_canonical}\">",
+        f"  <meta property=\"og:title\" content=\"{esc_title}\">",
+        f"  <meta property=\"og:description\" content=\"{esc_desc}\">",
+        f"  <meta property=\"og:image\" content=\"{esc_site}/assets/og/{esc_slug}.png\">",
+        '  <meta property="og:image:width" content="1200">',
+        '  <meta property="og:image:height" content="630">',
+        f"  <meta property=\"og:image:alt\" content=\"{esc_ogalt}\">",
+        '  <meta property="og:site_name" content="Dashboard Data Publik">',
+        '  <meta property="og:locale" content="id_ID">',
+        '  <meta name="twitter:card" content="summary_large_image">',
+        f"  <meta name=\"twitter:title\" content=\"{esc_title}\">",
+        f"  <meta name=\"twitter:description\" content=\"{esc_desc}\">",
+        f"  <meta name=\"twitter:image\" content=\"{esc_site}/assets/og/{esc_slug}.png\">",
+        '  <link rel="icon" href="/favicon.ico" sizes="32x32">',
+        '  <link rel="icon" type="image/svg+xml" href="/favicon.svg">',
+        '  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">',
+        '  <link rel="apple-touch-icon" href="/apple-touch-icon.png">',
+        f"  <script type=\"application/ld+json\">{jsonld_str}</script>",
+    ]
+    seo_inner_block = "\n".join(seo_inner_lines)
+
+    if "\u2014" in seo_inner_block or "\u2014" in jsonld_str:
+        raise RuntimeError("U+2014 em dash found in generated SEO block")
+
     if "/*__FONTS__*/" not in template_str:
         raise RuntimeError("Placeholder /*__FONTS__*/ not found in pisa.template.html")
 
     html_rendered = template_str.replace("/*__FONTS__*/", fonts_css_block)
+
+    seo_pattern = re.compile(r"(<!--SEO:BEGIN-->)(.*?)(<!--SEO:END-->)", re.DOTALL)
+    html_rendered = seo_pattern.sub(lambda m: f"{m.group(1)}\n{seo_inner_block}\n  {m.group(3)}", html_rendered)
+
+    out_begin_count = html_rendered.count("<!--SEO:BEGIN-->")
+    out_end_count = html_rendered.count("<!--SEO:END-->")
+    if out_begin_count != 1 or out_end_count != 1:
+        raise RuntimeError(
+            f"Emitted page must contain exactly one SEO marker pair (found {out_begin_count} BEGIN, {out_end_count} END)"
+        )
+    if html_rendered.index("<!--SEO:BEGIN-->") >= html_rendered.index("<!--SEO:END-->"):
+        raise RuntimeError("In emitted page, <!--SEO:BEGIN--> must come before <!--SEO:END-->")
 
     if "/*__DATA__*/ {}" in html_rendered:
         html_rendered = html_rendered.replace("/*__DATA__*/ {}", compact_json)

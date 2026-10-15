@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Test harness proving pipeline_pisa/verify.py can fail.
 
-Runs seven verification scenarios in an isolated temporary directory:
+Runs twelve verification scenarios in an isolated temporary directory:
   a) clean copy exits 0
   b) scalar mutation in annex_means.csv exits non-zero
   c) structural mutation in embedded payload array exits non-zero
@@ -9,6 +9,11 @@ Runs seven verification scenarios in an isolated temporary directory:
   e) one data-fig fallback literal in the page changed to a different number exits non-zero
   f) injected CSS rule inside the font region exits non-zero
   g) a percentile in the payload changed to a wrong but still ascending value exits non-zero
+  h) meta name="description" deleted exits non-zero
+  i) canonical path changed exits non-zero
+  j) JSON-LD license changed to CC0 exits non-zero
+  k) apple-touch-icon link removed exits non-zero
+  l) https://evil.example.com/x injected exits non-zero
 """
 
 import csv
@@ -30,6 +35,25 @@ def copy_tree(dst_dir: str):
     shutil.copytree(os.path.join(ROOT, "pisa"), os.path.join(dst_dir, "pisa"))
     shutil.copytree(os.path.join(ROOT, "fonts"), os.path.join(dst_dir, "fonts"))
     shutil.copy2(os.path.join(ROOT, "pisa.template.html"), os.path.join(dst_dir, "pisa.template.html"))
+
+    icon_files = [
+        "favicon.ico",
+        "favicon.svg",
+        "favicon-96.png",
+        "apple-touch-icon.png",
+        "robots.txt",
+        "sitemap.xml",
+    ]
+    for fname in icon_files:
+        src = os.path.join(ROOT, fname)
+        if os.path.exists(src):
+            shutil.copy2(src, os.path.join(dst_dir, fname))
+
+    og_src = os.path.join(ROOT, "assets", "og")
+    if os.path.exists(og_src):
+        dst_og = os.path.join(dst_dir, "assets", "og")
+        os.makedirs(os.path.dirname(dst_og), exist_ok=True)
+        shutil.copytree(og_src, dst_og)
 
 
 def run_gate(cwd: str) -> subprocess.CompletedProcess:
@@ -202,6 +226,105 @@ def test_scenario_g(temp_dir: str):
     print(f"PASS: scenario g: still-ascending wrong percentile exits non-zero (rc={proc.returncode})")
 
 
+def test_scenario_h(temp_dir: str):
+    index_html = os.path.join(temp_dir, "pisa", "index.html")
+    with open(index_html, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    mutated_content = re.sub(r'  <meta name="description" content="[^"]*">\n', '', content, count=1)
+    if mutated_content == content:
+        raise RuntimeError('meta name="description" not found in pisa/index.html')
+
+    with open(index_html, "w", encoding="utf-8") as f:
+        f.write(mutated_content)
+
+    proc = run_gate(temp_dir)
+    if proc.returncode == 0:
+        print(f"Scenario H output:\n{proc.stdout}")
+        raise AssertionError('Expected deleted meta description in pisa/index.html to cause non-zero exit')
+    print(f"PASS: scenario h: meta name=\"description\" deleted exits non-zero (rc={proc.returncode})")
+
+
+def test_scenario_i(temp_dir: str):
+    index_html = os.path.join(temp_dir, "pisa", "index.html")
+    with open(index_html, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    target = '<link rel="canonical" href="https://dashboard.idzharulhuda.com/pisa/">'
+    if target not in content:
+        raise RuntimeError(f"Target canonical link {target!r} not found in pisa/index.html")
+    mutated_content = content.replace(target, '<link rel="canonical" href="https://dashboard.idzharulhuda.com/pisa-changed/">', 1)
+
+    with open(index_html, "w", encoding="utf-8") as f:
+        f.write(mutated_content)
+
+    proc = run_gate(temp_dir)
+    if proc.returncode == 0:
+        print(f"Scenario I output:\n{proc.stdout}")
+        raise AssertionError("Expected canonical path mutation in pisa/index.html to cause non-zero exit")
+    print(f"PASS: scenario i: canonical path changed exits non-zero (rc={proc.returncode})")
+
+
+def test_scenario_j(temp_dir: str):
+    index_html = os.path.join(temp_dir, "pisa", "index.html")
+    with open(index_html, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    target = '"license":"CC BY 4.0"'
+    if target not in content:
+        raise RuntimeError(f"Target license {target!r} not found in pisa/index.html")
+    mutated_content = content.replace(target, '"license":"CC0"', 1)
+
+    with open(index_html, "w", encoding="utf-8") as f:
+        f.write(mutated_content)
+
+    proc = run_gate(temp_dir)
+    if proc.returncode == 0:
+        print(f"Scenario J output:\n{proc.stdout}")
+        raise AssertionError("Expected JSON-LD license mutation to cause non-zero exit")
+    print(f"PASS: scenario j: JSON-LD license changed to CC0 exits non-zero (rc={proc.returncode})")
+
+
+def test_scenario_k(temp_dir: str):
+    index_html = os.path.join(temp_dir, "pisa", "index.html")
+    with open(index_html, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    target = '  <link rel="apple-touch-icon" href="/apple-touch-icon.png">\n'
+    if target not in content:
+        raise RuntimeError(f"Target apple-touch-icon {target!r} not found in pisa/index.html")
+    mutated_content = content.replace(target, "", 1)
+
+    with open(index_html, "w", encoding="utf-8") as f:
+        f.write(mutated_content)
+
+    proc = run_gate(temp_dir)
+    if proc.returncode == 0:
+        print(f"Scenario K output:\n{proc.stdout}")
+        raise AssertionError("Expected removal of apple-touch-icon link to cause non-zero exit")
+    print(f"PASS: scenario k: apple-touch-icon link removed exits non-zero (rc={proc.returncode})")
+
+
+def test_scenario_l(temp_dir: str):
+    index_html = os.path.join(temp_dir, "pisa", "index.html")
+    with open(index_html, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    target = "</body>"
+    if target not in content:
+        raise RuntimeError("</body> not found in pisa/index.html")
+    mutated_content = content.replace(target, '<a href="https://evil.example.com/x">evil</a></body>', 1)
+
+    with open(index_html, "w", encoding="utf-8") as f:
+        f.write(mutated_content)
+
+    proc = run_gate(temp_dir)
+    if proc.returncode == 0:
+        print(f"Scenario L output:\n{proc.stdout}")
+        raise AssertionError("Expected evil URL injection to cause non-zero exit")
+    print(f"PASS: scenario l: https://evil.example.com/x injected exits non-zero (rc={proc.returncode})")
+
+
 def main():
     temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
     try:
@@ -251,6 +374,46 @@ def main():
 
         # Scenario G (percentile value wrong but still ascending)
         test_scenario_g(temp_dir)
+
+        # Reset temp tree for Scenario H
+        shutil.rmtree(temp_dir)
+        temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
+        copy_tree(temp_dir)
+
+        # Scenario H (meta name="description" deleted)
+        test_scenario_h(temp_dir)
+
+        # Reset temp tree for Scenario I
+        shutil.rmtree(temp_dir)
+        temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
+        copy_tree(temp_dir)
+
+        # Scenario I (canonical path changed)
+        test_scenario_i(temp_dir)
+
+        # Reset temp tree for Scenario J
+        shutil.rmtree(temp_dir)
+        temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
+        copy_tree(temp_dir)
+
+        # Scenario J (JSON-LD license changed to CC0)
+        test_scenario_j(temp_dir)
+
+        # Reset temp tree for Scenario K
+        shutil.rmtree(temp_dir)
+        temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
+        copy_tree(temp_dir)
+
+        # Scenario K (apple-touch-icon link removed)
+        test_scenario_k(temp_dir)
+
+        # Reset temp tree for Scenario L
+        shutil.rmtree(temp_dir)
+        temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
+        copy_tree(temp_dir)
+
+        # Scenario L (https://evil.example.com/x injected)
+        test_scenario_l(temp_dir)
     finally:
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)

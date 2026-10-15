@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Test harness proving pipeline_hub/verify.py can fail.
 
-Runs thirteen verification scenarios in an isolated temporary directory:
+Runs fifteen verification scenarios in an isolated temporary directory:
   a) clean copy exits 0
   b) mutated proficiency value in data/pisa/annex_proficiency.csv exits non-zero
   c) mutated number inside the page's payload exits non-zero
@@ -15,16 +15,22 @@ Runs thirteen verification scenarios in an isolated temporary directory:
   k) the Sitemap: line removed from robots.txt exits non-zero
   l) one byte of favicon.ico flipped exits non-zero
   m) one ListItem name in the hub JSON-LD mutated exits non-zero
+  n) og image size out of band exits non-zero
+  o) the map region of the gempa card is blank exits non-zero
 """
 
 import csv
+import hashlib
+import importlib.util
 import json
 import os
 import re
 import shutil
+import struct
 import subprocess
 import sys
 import tempfile
+import zlib
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://dashboard.idzharulhuda.com"
@@ -351,6 +357,92 @@ def test_scenario_m(temp_dir: str):
     print(f"PASS: scenario m: one ListItem name in the hub JSON-LD mutated exits non-zero (rc={proc.returncode})")
 
 
+def make_synthetic_gempa_blank_map_png(width: int = 1200, height: int = 630) -> bytes:
+    hero_bg = (168, 63, 20)
+    raw = bytearray()
+    for y in range(height):
+        row = bytearray([0])
+        for x in range(width):
+            if x < 480:
+                r = int(x / 480 * 255)
+                g = int(y / height * 255)
+                b = 128
+                row.extend((r, g, b))
+            else:
+                row.extend(hero_bg)
+        raw.extend(row)
+
+    comp = zlib.compress(raw, level=6)
+
+    def chunk(tag: bytes, data: bytes) -> bytes:
+        return struct.pack(">I", len(data)) + tag + data + struct.pack(">I", zlib.crc32(tag + data) & 0xFFFFFFFF)
+
+    ihdr = struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0)
+    return b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", ihdr) + chunk(b"IDAT", comp) + chunk(b"IEND", b"")
+
+
+def test_scenario_n(temp_dir: str):
+    hub_png = os.path.join(temp_dir, "assets", "og", "hub.png")
+    if not os.path.exists(hub_png):
+        raise RuntimeError(f"Target OG image not found at {hub_png}")
+    with open(hub_png, "rb") as f:
+        data = f.read()
+    if len(data) < 8000:
+        raise RuntimeError(f"Target OG image {hub_png} smaller than 8000 bytes ({len(data)} bytes)")
+    with open(hub_png, "wb") as f:
+        f.write(data[:8000])
+
+    proc = run_gate(temp_dir)
+    if proc.returncode == 0:
+        print(f"Scenario N output:\n{proc.stdout}")
+        raise AssertionError("Expected truncated assets/og/hub.png to cause non-zero exit")
+    fail_lines = [l for l in proc.stdout.splitlines() if l.startswith("FAIL")]
+    if not any("og image" in l.lower() for l in fail_lines):
+        print(f"Scenario N output:\n{proc.stdout}")
+        raise AssertionError(f"Expected FAIL line mentioning og image, got: {fail_lines}")
+    print(f"PASS: scenario n: og image size out of band exits non-zero (rc={proc.returncode})")
+
+
+def test_scenario_o(temp_dir: str):
+    gempa_png = os.path.join(temp_dir, "assets", "og", "gempa.png")
+    png_bytes = make_synthetic_gempa_blank_map_png(1200, 630)
+    os.makedirs(os.path.dirname(gempa_png), exist_ok=True)
+    with open(gempa_png, "wb") as f:
+        f.write(png_bytes)
+
+    build_og_path = os.path.join(ROOT, "pipeline", "build_og.py")
+    if not os.path.exists(build_og_path):
+        raise RuntimeError(f"pipeline/build_og.py not found at {build_og_path}")
+    spec = importlib.util.spec_from_file_location("build_og", build_og_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError("Failed to create module spec for pipeline/build_og.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    if not hasattr(mod, "spec_line"):
+        raise RuntimeError("spec_line function not found in pipeline/build_og.py")
+
+    gempa_html_path = os.path.join(temp_dir, "gempa", "index.html")
+    if not os.path.exists(gempa_html_path):
+        raise RuntimeError(f"gempa/index.html not found at {gempa_html_path}")
+    with open(gempa_html_path, "rb") as f:
+        html_bytes = f.read()
+
+    sidecar_sha = hashlib.sha256(html_bytes + b"\0" + mod.spec_line("gempa").encode("utf-8")).hexdigest()
+    gempa_srcsha = os.path.join(temp_dir, "assets", "og", "gempa.srcsha")
+    with open(gempa_srcsha, "w", encoding="utf-8") as f:
+        f.write(f"{sidecar_sha}\n")
+
+    proc = run_gate(temp_dir)
+    if proc.returncode == 0:
+        print(f"Scenario O output:\n{proc.stdout}")
+        raise AssertionError("Expected blank map region in gempa OG image to cause non-zero exit")
+    fail_lines = [l for l in proc.stdout.splitlines() if l.startswith("FAIL")]
+    if not any("ink samples" in l and "60%" in l for l in fail_lines):
+        print(f"Scenario O output:\n{proc.stdout}")
+        raise AssertionError(f"Expected FAIL line naming ink samples on right-hand 60%, got: {fail_lines}")
+    print(f"PASS: scenario o: the map region of the gempa card is blank exits non-zero (rc={proc.returncode})")
+
+
 def main():
     scenarios = [
         ("scenario a", test_scenario_a),
@@ -366,6 +458,8 @@ def main():
         ("scenario k", test_scenario_k),
         ("scenario l", test_scenario_l),
         ("scenario m", test_scenario_m),
+        ("scenario n", test_scenario_n),
+        ("scenario o", test_scenario_o),
     ]
 
     for name, func in scenarios:

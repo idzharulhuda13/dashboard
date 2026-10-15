@@ -12,9 +12,18 @@ import hashlib
 import json
 import os
 import re
+import struct
 import sys
+from urllib.parse import urlparse
+import xml.etree.ElementTree as ET
+import zlib
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SITE = "https://dashboard.idzharulhuda.com"
+
+
+def html_esc(s: str) -> str:
+    return s.replace("&", "&amp;").replace('"', "&quot;")
 
 
 def fmt_float(v: float, dp: int = 1) -> str:
@@ -196,13 +205,55 @@ def check_5_skeleton(index_path: str, template_path: str):
         return False, "index.html is empty"
 
     page_lines = index_lines[1:]
+    page_content = "".join(page_lines)
+
+    tmpl_begin_count = template_content.count("<!--SEO:BEGIN-->")
+    tmpl_end_count = template_content.count("<!--SEO:END-->")
+    if tmpl_begin_count != 1 or tmpl_end_count != 1:
+        return False, f"template SEO markers count mismatch (begin: {tmpl_begin_count}, end: {tmpl_end_count})"
+    if template_content.index("<!--SEO:BEGIN-->") >= template_content.index("<!--SEO:END-->"):
+        return False, "template <!--SEO:BEGIN--> must precede <!--SEO:END-->"
+
+    page_begin_count = page_content.count("<!--SEO:BEGIN-->")
+    page_end_count = page_content.count("<!--SEO:END-->")
+    if page_begin_count != 1 or page_end_count != 1:
+        return False, f"page SEO markers count mismatch (begin: {page_begin_count}, end: {page_end_count})"
+    if page_content.index("<!--SEO:BEGIN-->") >= page_content.index("<!--SEO:END-->"):
+        return False, "page <!--SEO:BEGIN--> must precede <!--SEO:END-->"
+
+    tmpl_skeleton_lines = []
+    in_tmpl_seo = False
+    for line in template_content.splitlines(keepends=True):
+        if "<!--SEO:BEGIN-->" in line:
+            in_tmpl_seo = True
+            tmpl_skeleton_lines.append(line)
+            continue
+        if "<!--SEO:END-->" in line:
+            in_tmpl_seo = False
+            tmpl_skeleton_lines.append(line)
+            continue
+        if in_tmpl_seo:
+            continue
+        tmpl_skeleton_lines.append(line)
+    template_skeleton = "".join(tmpl_skeleton_lines)
 
     skeleton_lines = []
     in_fonts = False
     fonts_begin_found = False
     fonts_end_found = False
+    in_page_seo = False
 
     for line in page_lines:
+        if "<!--SEO:BEGIN-->" in line:
+            in_page_seo = True
+            skeleton_lines.append(line)
+            continue
+        if "<!--SEO:END-->" in line:
+            in_page_seo = False
+            skeleton_lines.append(line)
+            continue
+        if in_page_seo:
+            continue
         if "/*FONTS:BEGIN*/" in line:
             in_fonts = True
             fonts_begin_found = True
@@ -225,11 +276,11 @@ def check_5_skeleton(index_path: str, template_path: str):
         return False, f"font markers missing (begin: {fonts_begin_found}, end: {fonts_end_found})"
 
     reconstructed = "".join(skeleton_lines)
-    if reconstructed == template_content:
+    if reconstructed == template_skeleton:
         return True, "page skeleton matches hub.template.html byte for byte after collapsing injected regions"
 
     recon_lines = reconstructed.splitlines(keepends=True)
-    tmpl_lines = template_content.splitlines(keepends=True)
+    tmpl_lines = template_skeleton.splitlines(keepends=True)
     max_len = max(len(recon_lines), len(tmpl_lines))
     for line_no in range(1, max_len + 1):
         r_line = recon_lines[line_no - 1] if line_no <= len(recon_lines) else "<EOF>\n"
@@ -305,7 +356,17 @@ def check_7_hygiene(index_content: str, gempa_data_path: str):
         return False, f"index.html contains U+2014 em dash ({em_dashes} occurrences)"
 
     urls = re.findall(r"https?://[^\s\"'<>]+", index_content)
-    disallowed_urls = [u for u in urls if u != "http://www.w3.org/2000/svg"]
+    allowed_hosts = {
+        "www.w3.org",
+        "w3.org",
+        "dashboard.idzharulhuda.com",
+        "idzharulhuda.com",
+        "schema.org",
+    }
+    disallowed_urls = [
+        u for u in urls
+        if (urlparse(u).hostname or "") not in allowed_hosts and u != "http://www.w3.org/2000/svg"
+    ]
     if disallowed_urls:
         return False, f"index.html contains external network URLs: {disallowed_urls}"
 
@@ -333,24 +394,526 @@ def check_7_hygiene(index_content: str, gempa_data_path: str):
     return True, "hygiene clean (0 U+2014, 0 external network URLs, placeholders resolved, entry links present, no earthquake total printed)"
 
 
+def check_8_head_and_jsonld(index_path: str, template_path: str, gempa_data_path: str, embedded_data: dict):
+    with open(index_path, "r", encoding="utf-8") as f:
+        index_content = f.read()
+
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_content = f.read()
+
+    with open(gempa_data_path, "r", encoding="utf-8") as f:
+        gempa_json = json.load(f)
+
+    begin_count = index_content.count("<!--SEO:BEGIN-->")
+    end_count = index_content.count("<!--SEO:END-->")
+    if begin_count != 1:
+        return False, f"index.html <!--SEO:BEGIN--> count mismatch (actual: {begin_count}, expected: 1)"
+    if end_count != 1:
+        return False, f"index.html <!--SEO:END--> count mismatch (actual: {end_count}, expected: 1)"
+    if index_content.count("<!--SEO") != 2:
+        return False, f"index.html contains leftover marker text (actual: {index_content.count('<!--SEO')}, expected: 2)"
+
+    idx_begin = index_content.find("<!--SEO:BEGIN-->")
+    idx_end = index_content.find("<!--SEO:END-->")
+    if idx_begin >= idx_end:
+        return False, "index.html <!--SEO:BEGIN--> must precede <!--SEO:END-->"
+
+    m_block = re.search(r"([ \t]*<!--SEO:BEGIN-->\n.*?\n[ \t]*<!--SEO:END-->)", index_content, re.DOTALL)
+    if not m_block:
+        return False, "index.html could not extract SEO block"
+    actual_block = m_block.group(1)
+
+    if "\u2014" in actual_block:
+        return False, "index.html SEO block contains U+2014 em dash"
+
+    placeholders = ["{TITLE}", "{DESC}", "{CANONICAL}", "{THEME}", "{SLUG}", "{OGALT}", "{JSONLD}"]
+    for ph in placeholders:
+        if ph in actual_block:
+            return False, f"index.html SEO block contains placeholder {ph}"
+    if re.search(r"\{[A-Z_]+\}", actual_block):
+        return False, "index.html SEO block contains unexpanded placeholder"
+
+    m_theme = re.search(r":root\s*\{[^}]*--ground:\s*([^;]+);", template_content)
+    if not m_theme:
+        return False, "hub.template.html missing :root --ground color"
+    theme = m_theme.group(1).strip()
+
+    m_h1 = re.search(r"<h1[^>]*>([^<]+)</h1>", template_content)
+    if not m_h1:
+        return False, "hub.template.html missing body H1 text"
+    h1_text = m_h1.group(1).strip()
+
+    plate_entries = re.findall(r'<a href="(/[^"]*/)" class="entry-link-title">([^<]+)</a>', template_content)
+    if len(plate_entries) < 2:
+        return False, f"hub.template.html plate entries count < 2 (actual: {len(plate_entries)})"
+
+    gempa_fig = gempa_json.get("fig", {})
+    span_first_wib = gempa_fig.get("span_first_wib", {}).get("r", "")
+    if not span_first_wib or len(span_first_wib) < 4:
+        return False, "gempa/data.json missing or invalid fig.span_first_wib.r"
+    gempa_first_year = span_first_wib[:4]
+
+    prof_entry = embedded_data.get("fig", {}).get("prof_math_idn")
+    prof_math_idn_d = prof_entry.get("d") if isinstance(prof_entry, dict) else str(prof_entry)
+    if not prof_math_idn_d:
+        return False, "missing fig.prof_math_idn.d in embedded data"
+
+    TITLE = "Dashboard Data Publik: Katalog Gempa dan PISA 2025"
+    CANONICAL = f"{SITE}/"
+    SLUG = "hub"
+    DESC = (
+        f"Dua pelat data: katalog gempa M5+ Indonesia sejak {gempa_first_year} "
+        f"dan PISA 2025; {prof_math_idn_d}% siswa di bawah ambang minimum kemahiran. "
+        "Angka dihitung ulang sebelum terbit."
+    )
+    OGALT = "Kartu pratinjau indeks Dashboard Data Publik: pelat katalog gempa M5+ Indonesia dan pelat hasil PISA 2025."
+
+    if len(TITLE) > 60:
+        return False, f"title exceeds 60 characters (actual: {len(TITLE)}, expected: <= 60)"
+    if len(DESC) > 155:
+        return False, f"description exceeds 155 characters (actual: {len(DESC)}, expected: <= 155)"
+    for name, s in [("TITLE", TITLE), ("DESC", DESC), ("OGALT", OGALT)]:
+        if "\u2014" in s:
+            return False, f"{name} contains U+2014 em dash"
+
+    gempa_total_d = gempa_fig.get("total", {}).get("d", "")
+    if gempa_total_d and (gempa_total_d in TITLE or gempa_total_d in DESC):
+        return False, f"earthquake total ({gempa_total_d!r}) found in hub TITLE or DESC"
+    raw_events_d = gempa_fig.get("raw_events", {}).get("d", "")
+    if raw_events_d and (raw_events_d in TITLE or raw_events_d in DESC):
+        return False, f"earthquake raw_events ({raw_events_d!r}) found in hub TITLE or DESC"
+
+    title_nums = re.findall(r"\b\d+(?:[.,]\d+)?\b", TITLE)
+    if title_nums != ["2025"]:
+        return False, f"title numeric tokens mismatch (actual: {title_nums}, expected: ['2025'])"
+
+    desc_nums = re.findall(r"\b\d+(?:[.,]\d+)?\b", DESC)
+    expected_desc_nums = [gempa_first_year, "2025", prof_math_idn_d]
+    if desc_nums != expected_desc_nums:
+        return False, f"description numeric tokens mismatch (actual: {desc_nums}, expected: {expected_desc_nums})"
+
+    website = {
+        "@type": "WebSite",
+        "name": h1_text,
+        "url": CANONICAL,
+        "inLanguage": "id",
+        "description": DESC,
+    }
+    list_items = []
+    for pos, (href, name) in enumerate(plate_entries, 1):
+        plate_url = f"{SITE}{href}" if href.startswith("/") else href
+        list_items.append({
+            "@type": "ListItem",
+            "position": pos,
+            "name": name,
+            "url": plate_url,
+        })
+    collection_page = {
+        "@type": "CollectionPage",
+        "name": TITLE,
+        "url": CANONICAL,
+        "inLanguage": "id",
+        "description": DESC,
+        "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": list_items,
+        },
+    }
+    exp_graph = {
+        "@context": "https://schema.org",
+        "@graph": [website, collection_page],
+    }
+
+    m_script = re.search(r'<script type="application/ld\+json">(.*?)</script>', actual_block)
+    if not m_script:
+        return False, 'index.html SEO block missing <script type="application/ld+json">'
+    try:
+        act_graph = json.loads(m_script.group(1))
+    except Exception as e:
+        return False, f"index.html JSON-LD invalid JSON: {e}"
+
+    if act_graph.get("@context") != exp_graph["@context"]:
+        return False, f"JSON-LD @context mismatch (actual: {act_graph.get('@context')!r}, expected: {exp_graph['@context']!r})"
+    act_nodes = act_graph.get("@graph", [])
+    exp_nodes = exp_graph["@graph"]
+    if len(act_nodes) != len(exp_nodes):
+        return False, f"JSON-LD @graph length mismatch (actual: {len(act_nodes)}, expected: {len(exp_nodes)})"
+    for i, (an, en) in enumerate(zip(act_nodes, exp_nodes)):
+        if an.get("@type") != en.get("@type"):
+            return False, f"JSON-LD node {i} @type mismatch (actual: {an.get('@type')!r}, expected: {en.get('@type')!r})"
+        if set(an.keys()) != set(en.keys()):
+            return False, f"JSON-LD node {i} field set mismatch (actual: {sorted(an.keys())}, expected: {sorted(en.keys())})"
+        for k in en:
+            if an[k] != en[k]:
+                return False, f"JSON-LD node {i} field '{k}' mismatch (actual: {an[k]!r}, expected: {en[k]!r})"
+
+    cp_node = act_nodes[1]
+    item_list = cp_node.get("mainEntity", {}).get("itemListElement", [])
+    if len(item_list) != len(plate_entries):
+        return False, f"JSON-LD ItemList length mismatch (actual: {len(item_list)}, expected: {len(plate_entries)})"
+    for pos, (item, (href, exp_name)) in enumerate(zip(item_list, plate_entries), 1):
+        if item.get("name") != exp_name:
+            return False, f"JSON-LD ListItem {pos} name mismatch (actual: {item.get('name')!r}, expected: {exp_name!r})"
+        exp_url = f"{SITE}{href}" if href.startswith("/") else href
+        if item.get("url") != exp_url:
+            return False, f"JSON-LD ListItem {pos} url mismatch (actual: {item.get('url')!r}, expected: {exp_url!r})"
+        if item.get("position") != pos:
+            return False, f"JSON-LD ListItem {pos} position mismatch (actual: {item.get('position')!r}, expected: {pos})"
+
+    required_icons = [
+        '<link rel="icon" href="/favicon.ico" sizes="32x32">',
+        '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',
+        '<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">',
+        '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',
+    ]
+    for icon in required_icons:
+        if icon not in actual_block:
+            return False, f"index.html SEO block missing icon link (actual: missing, expected: {icon!r})"
+
+    exp_jsonld = json.dumps(exp_graph, ensure_ascii=True, separators=(",", ":"))
+    expected_lines = [
+        "  <!--SEO:BEGIN-->",
+        f"  <title>{html_esc(TITLE)}</title>",
+        f'  <meta name="description" content="{html_esc(DESC)}">',
+        f'  <link rel="canonical" href="{html_esc(CANONICAL)}">',
+        f'  <meta name="theme-color" content="{html_esc(theme)}">',
+        '  <meta property="og:type" content="website">',
+        f'  <meta property="og:url" content="{html_esc(CANONICAL)}">',
+        f'  <meta property="og:title" content="{html_esc(TITLE)}">',
+        f'  <meta property="og:description" content="{html_esc(DESC)}">',
+        f'  <meta property="og:image" content="{SITE}/assets/og/{SLUG}.png">',
+        '  <meta property="og:image:width" content="1200">',
+        '  <meta property="og:image:height" content="630">',
+        f'  <meta property="og:image:alt" content="{html_esc(OGALT)}">',
+        '  <meta property="og:site_name" content="Dashboard Data Publik">',
+        '  <meta property="og:locale" content="id_ID">',
+        '  <meta name="twitter:card" content="summary_large_image">',
+        f'  <meta name="twitter:title" content="{html_esc(TITLE)}">',
+        f'  <meta name="twitter:description" content="{html_esc(DESC)}">',
+        f'  <meta name="twitter:image" content="{SITE}/assets/og/{SLUG}.png">',
+        '  <link rel="icon" href="/favicon.ico" sizes="32x32">',
+        '  <link rel="icon" type="image/svg+xml" href="/favicon.svg">',
+        '  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">',
+        '  <link rel="apple-touch-icon" href="/apple-touch-icon.png">',
+        f'  <script type="application/ld+json">{exp_jsonld}</script>',
+        "  <!--SEO:END-->",
+    ]
+    actual_lines = actual_block.splitlines()
+    if len(actual_lines) != len(expected_lines):
+        return False, f"index.html SEO block line count mismatch (actual: {len(actual_lines)}, expected: {len(expected_lines)})"
+    for idx, (act_l, exp_l) in enumerate(zip(actual_lines, expected_lines)):
+        if act_l != exp_l:
+            return False, f"index.html SEO block line {idx + 1} mismatch (actual: {act_l!r}, expected: {exp_l!r})"
+
+    return True, "C2 head kit region, tags, attributes, copy constraints, icon links, and C5 JSON-LD graph verified"
+
+
+def check_9_sitemap(sitemap_path: str, gempa_data_path: str, pisa_index_path: str):
+    if not os.path.exists(sitemap_path):
+        return False, f"sitemap.xml not found at {sitemap_path}"
+
+    try:
+        tree = ET.parse(sitemap_path)
+        root = tree.getroot()
+    except Exception as e:
+        return False, f"sitemap.xml XML parse error: {e}"
+
+    for elem in root.iter():
+        tag_local = elem.tag.split("}")[-1] if "}" in elem.tag else elem.tag
+        if tag_local in ("priority", "changefreq"):
+            return False, f"sitemap.xml contains forbidden <{tag_local}> tag"
+
+    discovered_locs = set()
+    if os.path.isfile(os.path.join(ROOT, "index.html")):
+        discovered_locs.add(f"{SITE}/")
+    for entry in sorted(os.listdir(ROOT)):
+        if entry.startswith(".") or entry.startswith("_"):
+            continue
+        dir_path = os.path.join(ROOT, entry)
+        if os.path.isdir(dir_path) and os.path.isfile(os.path.join(dir_path, "index.html")):
+            discovered_locs.add(f"{SITE}/{entry}/")
+
+    url_elems = [e for e in root if (e.tag.split("}")[-1] if "}" in e.tag else e.tag) == "url"]
+    if not url_elems:
+        return False, "sitemap.xml contains no <url> entries"
+
+    sitemap_locs = []
+    sitemap_map = {}
+    for idx, u in enumerate(url_elems, 1):
+        loc_elem = None
+        lastmod_elem = None
+        for child in u:
+            c_tag = child.tag.split("}")[-1] if "}" in child.tag else child.tag
+            if c_tag == "loc":
+                loc_elem = child
+            elif c_tag == "lastmod":
+                lastmod_elem = child
+        if loc_elem is None or not loc_elem.text:
+            return False, f"sitemap.xml <url> #{idx} missing <loc>"
+        if lastmod_elem is None or not lastmod_elem.text:
+            return False, f"sitemap.xml <url> #{idx} missing <lastmod>"
+        loc_url = loc_elem.text.strip()
+        lastmod_val = lastmod_elem.text.strip()
+        sitemap_locs.append(loc_url)
+        sitemap_map[loc_url] = lastmod_val
+
+    if set(sitemap_locs) != discovered_locs:
+        return False, f"sitemap.xml <loc> set mismatch (actual: {sorted(set(sitemap_locs))}, expected: {sorted(discovered_locs)})"
+
+    if not os.path.exists(gempa_data_path):
+        return False, f"gempa/data.json not found to re-derive lastmod: {gempa_data_path}"
+    with open(gempa_data_path, "r", encoding="utf-8") as f:
+        gempa_json = json.load(f)
+    gempa_span_last = gempa_json.get("fig", {}).get("span_last_wib", {}).get("r", "")
+    gempa_lastmod = gempa_span_last[:10]
+    if not re.match(r"^\d{4}-\d{2}-\d{2}$", gempa_lastmod):
+        return False, f"gempa re-derived lastmod invalid format: {gempa_lastmod!r}"
+
+    if not os.path.exists(pisa_index_path):
+        return False, f"pisa/index.html not found to re-derive lastmod: {pisa_index_path}"
+    with open(pisa_index_path, "r", encoding="utf-8") as f:
+        pisa_html = f.read()
+    m_pisa_data = re.search(r"const DATA = (.*?);\n", pisa_html)
+    if not m_pisa_data:
+        m_pisa_data = re.search(r"const DATA = (.*?);", pisa_html)
+    if not m_pisa_data:
+        return False, "could not find const DATA in pisa/index.html to re-derive lastmod"
+    try:
+        pisa_data = json.loads(m_pisa_data.group(1))
+    except Exception as e:
+        return False, f"failed to parse const DATA in pisa/index.html: {e}"
+    pisa_lastmod = pisa_data.get("meta", {}).get("retrieved", "")
+    if not re.match(r"^\d{4}-\d{2}-\d{2}$", pisa_lastmod):
+        return False, f"pisa re-derived lastmod invalid format: {pisa_lastmod!r}"
+
+    root_lastmod = max(gempa_lastmod, pisa_lastmod)
+
+    expected_lastmods = {
+        f"{SITE}/": root_lastmod,
+        f"{SITE}/gempa/": gempa_lastmod,
+        f"{SITE}/pisa/": pisa_lastmod,
+    }
+
+    for loc, exp_lm in expected_lastmods.items():
+        if loc in sitemap_map and sitemap_map[loc] != exp_lm:
+            return False, f"sitemap.xml <lastmod> for {loc} mismatch (actual: {sitemap_map[loc]!r}, expected: {exp_lm!r})"
+
+    expected_loc_order = [f"{SITE}/"] + sorted(loc for loc in discovered_locs if loc != f"{SITE}/")
+    if sitemap_locs != expected_loc_order:
+        return False, f"sitemap.xml url ordering mismatch (actual: {sitemap_locs}, expected: {expected_loc_order})"
+
+    return True, f"sitemap.xml parsed with ElementTree: {len(sitemap_locs)} URLs matching repo discovery, re-derived lastmods verified, no priority/changefreq"
+
+
+def check_10_robots(robots_path: str):
+    if not os.path.exists(robots_path):
+        return False, f"robots.txt not found at {robots_path}"
+
+    with open(robots_path, "rb") as f:
+        actual_bytes = f.read()
+
+    expected_bytes = (
+        b"User-agent: *\n"
+        b"Allow: /\n"
+        b"Content-Signal: search=yes, ai-input=yes, ai-train=yes\n"
+        b"Sitemap: https://dashboard.idzharulhuda.com/sitemap.xml\n"
+    )
+
+    if actual_bytes != expected_bytes:
+        return False, f"robots.txt byte mismatch (actual: {actual_bytes!r}, expected: {expected_bytes!r})"
+
+    return True, "robots.txt byte-equal to four-line contract body"
+
+
+def decode_png(png_bytes: bytes):
+    """Decode PNG image using Python standard library only (struct + zlib + scanline unfilter)."""
+    if len(png_bytes) < 8 or png_bytes[:8] != b"\x89PNG\r\n\x1a\n":
+        raise ValueError("Invalid PNG signature")
+
+    pos = 8
+    ihdr_data = None
+    idat_chunks = []
+
+    while pos < len(png_bytes):
+        if pos + 8 > len(png_bytes):
+            raise ValueError("Truncated PNG chunk header")
+        length, = struct.unpack(">I", png_bytes[pos:pos + 4])
+        chunk_type = png_bytes[pos + 4:pos + 8]
+        chunk_data = png_bytes[pos + 8:pos + 8 + length]
+        if pos + 12 + length > len(png_bytes):
+            raise ValueError("Truncated PNG chunk data")
+        pos += 12 + length
+
+        if chunk_type == b"IHDR":
+            ihdr_data = chunk_data
+        elif chunk_type == b"IDAT":
+            idat_chunks.append(chunk_data)
+        elif chunk_type == b"IEND":
+            break
+
+    if not ihdr_data:
+        raise ValueError("Missing IHDR chunk")
+
+    width, height, bit_depth, color_type, comp, filt, interlace = struct.unpack(">IIBBBBB", ihdr_data)
+    if bit_depth != 8:
+        raise ValueError(f"Unsupported bit depth: {bit_depth}")
+    if interlace != 0:
+        raise ValueError("Interlaced PNG not supported")
+
+    if color_type == 2:    # RGB
+        bpp = 3
+    elif color_type == 6:  # RGBA
+        bpp = 4
+    elif color_type == 0:  # Grayscale
+        bpp = 1
+    elif color_type == 4:  # Grayscale + Alpha
+        bpp = 2
+    else:
+        raise ValueError(f"Unsupported color type: {color_type}")
+
+    decomp = zlib.decompress(b"".join(idat_chunks))
+    line_bytes = width * bpp
+    stride = line_bytes + 1
+    expected_decomp_len = height * stride
+    if len(decomp) != expected_decomp_len:
+        raise ValueError(f"Decompressed length mismatch: {len(decomp)} != {expected_decomp_len}")
+
+    prior = bytearray(line_bytes)
+    rows = []
+
+    for y in range(height):
+        offset = y * stride
+        ftype = decomp[offset]
+        filt_row = decomp[offset + 1:offset + 1 + line_bytes]
+        recon = bytearray(line_bytes)
+
+        if ftype == 0:  # None
+            recon[:] = filt_row
+        elif ftype == 1:  # Sub
+            for x in range(bpp):
+                recon[x] = filt_row[x]
+            for x in range(bpp, line_bytes):
+                recon[x] = (filt_row[x] + recon[x - bpp]) & 0xff
+        elif ftype == 2:  # Up
+            for x in range(line_bytes):
+                recon[x] = (filt_row[x] + prior[x]) & 0xff
+        elif ftype == 3:  # Average
+            for x in range(bpp):
+                recon[x] = (filt_row[x] + (prior[x] >> 1)) & 0xff
+            for x in range(bpp, line_bytes):
+                recon[x] = (filt_row[x] + ((recon[x - bpp] + prior[x]) >> 1)) & 0xff
+        elif ftype == 4:  # Paeth
+            for x in range(bpp):
+                recon[x] = (filt_row[x] + prior[x]) & 0xff
+            for x in range(bpp, line_bytes):
+                a = recon[x - bpp]
+                b = prior[x]
+                c = prior[x - bpp]
+                p = a + b - c
+                pa = abs(p - a)
+                pb = abs(p - b)
+                pc = abs(p - c)
+                pr = a if pa <= pb and pa <= pc else (b if pb <= pc else c)
+                recon[x] = (filt_row[x] + pr) & 0xff
+        else:
+            raise ValueError(f"Unknown filter type: {ftype}")
+
+        prior = recon
+        rows.append(recon)
+
+    return width, height, color_type, bpp, rows
+
+
+def check_11_og_images():
+    targets = [
+        ("hub", os.path.join(ROOT, "index.html")),
+        ("gempa", os.path.join(ROOT, "gempa", "index.html")),
+        ("pisa", os.path.join(ROOT, "pisa", "index.html")),
+    ]
+    og_dir = os.path.join(ROOT, "assets", "og")
+
+    for slug, html_path in targets:
+        sidecar_path = os.path.join(og_dir, f"{slug}.srcsha")
+        png_path = os.path.join(og_dir, f"{slug}.png")
+
+        if not os.path.exists(html_path):
+            return False, f"source page for {slug} not found at {html_path}"
+        with open(html_path, "rb") as f:
+            html_bytes = f.read()
+        expected_sha = hashlib.sha256(html_bytes).hexdigest()
+
+        if not os.path.exists(sidecar_path):
+            return False, f"OG sidecar for {slug} not found at {sidecar_path}"
+        with open(sidecar_path, "r", encoding="utf-8") as sf:
+            sidecar_sha = sf.read().strip()
+        if sidecar_sha != expected_sha:
+            return False, f"OG sidecar sha256 mismatch for {slug} (actual: {sidecar_sha}, expected: {expected_sha})"
+
+        if not os.path.exists(png_path):
+            return False, f"OG image for {slug} not found at {png_path}"
+        size = os.path.getsize(png_path)
+        if not (15000 <= size <= 300000):
+            return False, f"OG image size for {slug} out of bounds: {size} bytes (expected 15000 <= bytes <= 300000)"
+
+        with open(png_path, "rb") as f:
+            png_bytes = f.read()
+
+        try:
+            width, height, color_type, bpp, rows = decode_png(png_bytes)
+        except Exception as exc:
+            return False, f"failed to decode OG PNG for {slug}: {exc}"
+
+        if width != 1200 or height != 630:
+            return False, f"OG image dimensions for {slug} mismatch: {width}x{height} (expected 1200x630)"
+
+        colors = set()
+        lums = []
+        for y in range(0, height, 4):
+            row = rows[y]
+            for x in range(0, width, 4):
+                idx = x * bpp
+                if bpp >= 3:
+                    r, g, b = row[idx], row[idx + 1], row[idx + 2]
+                else:
+                    r = g = b = row[idx]
+                colors.add((r, g, b))
+                lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
+                lums.append(lum)
+
+        if len(colors) < 64:
+            return False, f"OG image {slug} distinct RGB colours on step-4 sample: {len(colors)} < 64"
+
+        lum_range = max(lums) - min(lums)
+        if lum_range < 60.0:
+            return False, f"OG image {slug} luminance range: {lum_range:.1f} < 60.0"
+
+    return True, "all 3 OG images (hub, gempa, pisa) satisfy C8 gate bands and sidecar sha256"
+
+
 def main():
     template_path = os.path.join(ROOT, "hub.template.html")
     annex_prof_path = os.path.join(ROOT, "data", "pisa", "annex_proficiency.csv")
     gempa_data_path = os.path.join(ROOT, "gempa", "data.json")
+    pisa_index_path = os.path.join(ROOT, "pisa", "index.html")
     fonts_dir = os.path.join(ROOT, "fonts")
     index_path = os.path.join(ROOT, "index.html")
+    sitemap_path = os.path.join(ROOT, "sitemap.xml")
+    robots_path = os.path.join(ROOT, "robots.txt")
 
     required_files = [
         (annex_prof_path, "data/pisa/annex_proficiency.csv"),
         (gempa_data_path, "gempa/data.json"),
+        (pisa_index_path, "pisa/index.html"),
         (template_path, "hub.template.html"),
         (index_path, "index.html"),
+        (sitemap_path, "sitemap.xml"),
+        (robots_path, "robots.txt"),
     ]
 
     for path, name in required_files:
         if not os.path.exists(path):
             print(f"FAIL Input file missing: {name} (actual: not found at {path}, expected: file present)")
-            print("TOTAL 0/7")
+            print("TOTAL 0/11")
             sys.exit(1)
 
     with open(index_path, "r", encoding="utf-8") as f:
@@ -360,7 +923,7 @@ def main():
     idx = index_content.find(prefix)
     if idx == -1:
         print("FAIL Embedded DATA not found in index.html")
-        print("TOTAL 0/7")
+        print("TOTAL 0/11")
         sys.exit(1)
 
     start_json = idx + len(prefix)
@@ -369,14 +932,14 @@ def main():
         end_json = index_content.find(";", start_json)
     if end_json == -1:
         print("FAIL Embedded DATA end delimiter not found in index.html")
-        print("TOTAL 0/7")
+        print("TOTAL 0/11")
         sys.exit(1)
 
     try:
         embedded_data = json.loads(index_content[start_json:end_json])
     except Exception as e:
         print(f"FAIL Embedded DATA JSON parse failed: {e}")
-        print("TOTAL 0/7")
+        print("TOTAL 0/11")
         sys.exit(1)
 
     checks = [
@@ -387,6 +950,10 @@ def main():
         ("skeleton", lambda: check_5_skeleton(index_path, template_path)),
         ("font region", lambda: check_6_font_region(index_path, fonts_dir)),
         ("hygiene", lambda: check_7_hygiene(index_content, gempa_data_path)),
+        ("head kit and JSON-LD", lambda: check_8_head_and_jsonld(index_path, template_path, gempa_data_path, embedded_data)),
+        ("sitemap", lambda: check_9_sitemap(sitemap_path, gempa_data_path, pisa_index_path)),
+        ("robots", lambda: check_10_robots(robots_path)),
+        ("og images", lambda: check_11_og_images()),
     ]
 
     passed = 0

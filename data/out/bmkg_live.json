@@ -183,6 +183,42 @@
  ],
  "felt": [
   {
+   "waktu_wib": "22:32:38 WIB",
+   "tanggal": "15 Okt 2026",
+   "datetime_utc": "2026-10-15T15:32:38+00:00",
+   "lat": -7.22,
+   "lon": 107.71,
+   "mag": 2.7,
+   "depth_km": 4.0,
+   "wilayah": "Pusat gempa berada di darat 21 km barat Kab. Garut",
+   "potensi": "",
+   "dirasakan": "III Darajat, III Pasirwangi"
+  },
+  {
+   "waktu_wib": "17:58:23 WIB",
+   "tanggal": "15 Okt 2026",
+   "datetime_utc": "2026-10-15T10:58:23+00:00",
+   "lat": -6.73,
+   "lon": 106.61,
+   "mag": 4.1,
+   "depth_km": 5.0,
+   "wilayah": "Pusat gempa berada di darat 26 km barat daya kota Bogor",
+   "potensi": "",
+   "dirasakan": "IV Pamijahan, IV Kabandungan"
+  },
+  {
+   "waktu_wib": "17:49:43 WIB",
+   "tanggal": "15 Okt 2026",
+   "datetime_utc": "2026-10-15T10:49:43+00:00",
+   "lat": -6.77,
+   "lon": 106.6,
+   "mag": 3.5,
+   "depth_km": 10.0,
+   "wilayah": "Pusat gempa berada di darat 25 km utara Kab. Sukabumi",
+   "potensi": "",
+   "dirasakan": "III Kalapanunggal, III Leuwiliang, III Cipeuteuy"
+  },
+  {
    "waktu_wib": "17:30:57 WIB",
    "tanggal": "14 Okt 2026",
    "datetime_utc": "2026-10-14T10:30:57+00:00",
@@ -325,42 +361,6 @@
    "wilayah": "Pusat gempa berada di darat 29 km barat laut Pohuwato",
    "potensi": "",
    "dirasakan": "III-IV Buol, III-IV Tolitoli, III Kab. Gorontalo, II - III Kota Gorontalo, II - III Kab. Bone Bolango, III Kab. Boalemo, III Kab. Pohuwato"
-  },
-  {
-   "waktu_wib": "17:17:12 WIB",
-   "tanggal": "11 Okt 2026",
-   "datetime_utc": "2026-10-11T10:17:12+00:00",
-   "lat": 0.09,
-   "lon": 100.16,
-   "mag": 4.0,
-   "depth_km": 16.0,
-   "wilayah": "Pusat gempa berada di darat 5 km selatan Pasaman",
-   "potensi": "",
-   "dirasakan": "II - III Kota Padang Panjang, II - III Kota Bukittinggi, III Kabupaten Pasaman"
-  },
-  {
-   "waktu_wib": "19:28:18 WIB",
-   "tanggal": "10 Okt 2026",
-   "datetime_utc": "2026-10-10T12:28:18+00:00",
-   "lat": 1.91,
-   "lon": 97.96,
-   "mag": 4.0,
-   "depth_km": 9.0,
-   "wilayah": "Pusat gempa berada di laut 50 km selatan Aceh Singkil",
-   "potensi": "",
-   "dirasakan": "III Aceh Singkil"
-  },
-  {
-   "waktu_wib": "18:53:23 WIB",
-   "tanggal": "10 Okt 2026",
-   "datetime_utc": "2026-10-10T11:53:23+00:00",
-   "lat": -8.98,
-   "lon": 110.69,
-   "mag": 4.4,
-   "depth_km": 75.0,
-   "wilayah": "Pusat gempa berada di laut 100 km barat daya Pacitan",
-   "potensi": "",
-   "dirasakan": "II Pacitan"
   }
  ]
 }

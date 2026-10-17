@@ -183,6 +183,30 @@
  ],
  "felt": [
   {
+   "waktu_wib": "21:22:04 WIB",
+   "tanggal": "16 Okt 2026",
+   "datetime_utc": "2026-10-16T14:22:04+00:00",
+   "lat": -6.76,
+   "lon": 106.63,
+   "mag": 2.3,
+   "depth_km": 18.0,
+   "wilayah": "Pusat gempa berada di darat 26 km Barat Daya Kota Bogor",
+   "potensi": "",
+   "dirasakan": "II Leuwiliang"
+  },
+  {
+   "waktu_wib": "10:21:55 WIB",
+   "tanggal": "16 Okt 2026",
+   "datetime_utc": "2026-10-16T03:21:55+00:00",
+   "lat": -6.69,
+   "lon": 106.63,
+   "mag": 2.5,
+   "depth_km": 9.0,
+   "wilayah": "Pusat gempa berada di darat 21 km Barat Daya Kota Bogor",
+   "potensi": "",
+   "dirasakan": "II Kabandungan"
+  },
+  {
    "waktu_wib": "22:32:38 WIB",
    "tanggal": "15 Okt 2026",
    "datetime_utc": "2026-10-15T15:32:38+00:00",
@@ -337,30 +361,6 @@
    "wilayah": "Pusat gempa berada di laut 38 km Barat Daya Muarabinuangeun",
    "potensi": "",
    "dirasakan": "II-III Palabuhan Ratu, II Labuan, II Ciemas, II Gekbrong"
-  },
-  {
-   "waktu_wib": "05:07:28 WIB",
-   "tanggal": "12 Okt 2026",
-   "datetime_utc": "2026-10-11T22:07:28+00:00",
-   "lat": -4.08,
-   "lon": 136.34,
-   "mag": 4.5,
-   "depth_km": 10.0,
-   "wilayah": "Pusat gempa berada di darat 7 km tenggara Deiyai",
-   "potensi": "",
-   "dirasakan": "III Enarotali"
-  },
-  {
-   "waktu_wib": "04:34:53 WIB",
-   "tanggal": "12 Okt 2026",
-   "datetime_utc": "2026-10-11T21:34:53+00:00",
-   "lat": 0.64,
-   "lon": 121.75,
-   "mag": 5.7,
-   "depth_km": 76.0,
-   "wilayah": "Pusat gempa berada di darat 29 km barat laut Pohuwato",
-   "potensi": "",
-   "dirasakan": "III-IV Buol, III-IV Tolitoli, III Kab. Gorontalo, II - III Kota Gorontalo, II - III Kab. Bone Bolango, III Kab. Boalemo, III Kab. Pohuwato"
   }
  ]
 }

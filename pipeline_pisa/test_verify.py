@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Test harness proving pipeline_pisa/verify.py can fail.
 
-Runs twelve verification scenarios in an isolated temporary directory:
+Runs fourteen verification scenarios in an isolated temporary directory:
   a) clean copy exits 0
   b) scalar mutation in annex_means.csv exits non-zero
   c) structural mutation in embedded payload array exits non-zero
@@ -14,9 +14,13 @@ Runs twelve verification scenarios in an isolated temporary directory:
   j) JSON-LD license changed to CC0 exits non-zero
   k) apple-touch-icon link removed exits non-zero
   l) https://evil.example.com/x injected exits non-zero
+  m) jargon injected into a headline exits non-zero via the plain-language check
+  n) official term inside a method-band parenthesis is allowed and exits 0
 """
 
 import csv
+import glob
+import hashlib
 import json
 import os
 import re
@@ -137,10 +141,10 @@ def test_scenario_d(temp_dir: str):
     with open(index_html, "r", encoding="utf-8") as f:
         content = f.read()
 
-    target = "Pengukuran literasi sains PISA"
+    target = "PISA menguji kemampuan sains siswa"
     if target not in content:
         raise RuntimeError(f"Target subtitle phrase {target!r} not found in index.html")
-    mutated_content = content.replace(target, "Pengukuran literasi sains UNESCO", 1)
+    mutated_content = content.replace(target, "TIMSS menguji kemampuan sains siswa", 1)
 
     with open(index_html, "w", encoding="utf-8") as f:
         f.write(mutated_content)
@@ -325,6 +329,96 @@ def test_scenario_l(temp_dir: str):
     print(f"PASS: scenario l: https://evil.example.com/x injected exits non-zero (rc={proc.returncode})")
 
 
+def test_scenario_m(temp_dir: str):
+    index_html = os.path.join(temp_dir, "pisa", "index.html")
+    template_html = os.path.join(temp_dir, "pisa.template.html")
+
+    with open(index_html, "r", encoding="utf-8") as f:
+        index_content = f.read()
+    with open(template_html, "r", encoding="utf-8") as f:
+        template_content = f.read()
+
+    target = "DI BAWAH RATA-RATA NEGARA OECD"
+    if target not in index_content:
+        raise RuntimeError(f"Target hero headline phrase {target!r} not found in pisa/index.html")
+    if target not in template_content:
+        raise RuntimeError(f"Target hero headline phrase {target!r} not found in pisa.template.html")
+
+    replacement = "DI BAWAH RERATA NEGARA OECD"
+    mutated_index = index_content.replace(target, replacement, 1)
+    mutated_template = template_content.replace(target, replacement, 1)
+
+    with open(index_html, "w", encoding="utf-8") as f:
+        f.write(mutated_index)
+    with open(template_html, "w", encoding="utf-8") as f:
+        f.write(mutated_template)
+
+    proc = run_gate(temp_dir)
+    if proc.returncode == 0:
+        print(f"Scenario M output:\n{proc.stdout}")
+        raise AssertionError("Expected jargon injection into headline to cause non-zero exit")
+    if "plain language" not in proc.stdout:
+        print(f"Scenario M output:\n{proc.stdout}")
+        raise AssertionError(f"Expected gate stdout to contain 'plain language', got:\n{proc.stdout}")
+
+    print(f"PASS: scenario m: jargon injected into a headline exits non-zero via the plain-language check (rc={proc.returncode})")
+
+
+def test_scenario_n(temp_dir: str):
+    index_html = os.path.join(temp_dir, "pisa", "index.html")
+    template_html = os.path.join(temp_dir, "pisa.template.html")
+
+    with open(index_html, "r", encoding="utf-8") as f:
+        index_content = f.read()
+    with open(template_html, "r", encoding="utf-8") as f:
+        template_content = f.read()
+
+    target = "(istilah resminya: plausible values)"
+    replacement = "(istilah resminya: plausible values, galat baku)"
+    if target not in index_content:
+        raise RuntimeError(f"Target method-band phrase {target!r} not found in pisa/index.html")
+    if target not in template_content:
+        raise RuntimeError(f"Target method-band phrase {target!r} not found in pisa.template.html")
+
+    mutated_index = index_content.replace(target, replacement, 1)
+    mutated_template = template_content.replace(target, replacement, 1)
+
+    with open(template_html, "w", encoding="utf-8") as f:
+        f.write(mutated_template)
+
+    # Recompute the build stamp so check_1 (stamp) passes
+    csv_paths = sorted(glob.glob(os.path.join(temp_dir, "data", "pisa", "*.csv")))
+    font_paths = sorted(glob.glob(os.path.join(temp_dir, "fonts", "*.woff2")))
+    input_paths = csv_paths + [template_html] + font_paths
+
+    stamp_hasher = hashlib.sha256()
+    for p in input_paths:
+        rel_path = os.path.relpath(p, temp_dir)
+        with open(p, "rb") as bf:
+            data = bf.read()
+        stamp_hasher.update(rel_path.encode("utf-8"))
+        stamp_hasher.update(b"\x00")
+        stamp_hasher.update(data)
+
+    exp_hex = stamp_hasher.hexdigest().lower()
+    mutated_index = re.sub(
+        r"^<!--BUILD sha256:[0-9a-fA-F]{64}-->",
+        f"<!--BUILD sha256:{exp_hex}-->",
+        mutated_index,
+    )
+
+    with open(index_html, "w", encoding="utf-8") as f:
+        f.write(mutated_index)
+
+    proc = run_gate(temp_dir)
+    if proc.returncode != 0:
+        raise AssertionError(
+            f"Expected gate to exit 0 when official term in method-band parenthesis, got {proc.returncode}:\n{proc.stdout}"
+        )
+
+    print("PASS: scenario n: official term inside a method-band parenthesis is allowed (rc=0)")
+
+
 def main():
     temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
     try:
@@ -414,6 +508,22 @@ def main():
 
         # Scenario L (https://evil.example.com/x injected)
         test_scenario_l(temp_dir)
+
+        # Reset temp tree for Scenario M
+        shutil.rmtree(temp_dir)
+        temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
+        copy_tree(temp_dir)
+
+        # Scenario M (jargon injected into headline in both index and template)
+        test_scenario_m(temp_dir)
+
+        # Reset temp tree for Scenario N
+        shutil.rmtree(temp_dir)
+        temp_dir = tempfile.mkdtemp(prefix="gate_pisa_test_")
+        copy_tree(temp_dir)
+
+        # Scenario N (official term inside a method-band parenthesis is allowed)
+        test_scenario_n(temp_dir)
     finally:
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)

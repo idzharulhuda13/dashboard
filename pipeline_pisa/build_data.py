@@ -539,12 +539,12 @@ def main():
     hero_gap = fig["hero_gap"]["d"]
     prof_below_l2_math = fig["prof_below_l2_math"]["d"]
 
-    title = f"PISA {cycle}: Selisih {hero_gap} Poin Sains Indonesia di Bawah OECD"
+    title = f"PISA {cycle}: Sains Indonesia {hero_gap} Poin di Bawah Rata-rata OECD"
     desc = (
-        f"Rerata sains siswa Indonesia {hero_gap} poin di bawah rata-rata OECD pada PISA {cycle}, "
-        f"dan {prof_below_l2_math}% siswa masih di bawah ambang minimum kemahiran matematika."
+        f"Nilai sains siswa Indonesia {hero_gap} poin di bawah rata-rata negara OECD pada PISA {cycle}, "
+        f"dan {prof_below_l2_math}% siswa belum mencapai kemampuan dasar matematika."
     )
-    ogalt = f"Kartu pratinjau pelat PISA: judul SELISIH {hero_gap} POIN DI BAWAH RERATA OECD pada halaman capaian sains siswa Indonesia."
+    ogalt = f"Kartu pratinjau pelat PISA: nilai sains siswa Indonesia {hero_gap} poin di bawah rata-rata negara OECD."
 
     # Gates assertions
     if len(title) > 60:

@@ -1060,8 +1060,11 @@ def check_16_head_and_jsonld(index_path: str, template_path: str, embedded_data:
     hero_gap = fig.get("hero_gap", {}).get("d") if isinstance(fig.get("hero_gap"), dict) else str(fig.get("hero_gap", ""))
     prof_below_l2_math = fig.get("prof_below_l2_math", {}).get("d") if isinstance(fig.get("prof_below_l2_math"), dict) else str(fig.get("prof_below_l2_math", ""))
 
-    exp_title = f"PISA {cycle}: Selisih {hero_gap} Poin Sains Indonesia di Bawah OECD"
-    exp_desc = f"Rerata sains siswa Indonesia {hero_gap} poin di bawah rata-rata OECD pada PISA {cycle}, dan {prof_below_l2_math}% siswa masih di bawah ambang minimum kemahiran matematika."
+    exp_title = f"PISA {cycle}: Sains Indonesia {hero_gap} Poin di Bawah Rata-rata OECD"
+    exp_desc = (
+        f"Nilai sains siswa Indonesia {hero_gap} poin di bawah rata-rata negara OECD pada PISA {cycle}, "
+        f"dan {prof_below_l2_math}% siswa belum mencapai kemampuan dasar matematika."
+    )
 
     if act_title != exp_title:
         return (
@@ -1207,7 +1210,7 @@ def check_16_head_and_jsonld(index_path: str, template_path: str, embedded_data:
     m_theme = re.search(r":root\s*\{[^}]*--ground:\s*([^;]+);", template_content)
     theme = m_theme.group(1).strip() if m_theme else "#F2F4F7"
 
-    exp_ogalt = f"Kartu pratinjau pelat PISA: judul SELISIH {hero_gap} POIN DI BAWAH RERATA OECD pada halaman capaian sains siswa Indonesia."
+    exp_ogalt = f"Kartu pratinjau pelat PISA: nilai sains siswa Indonesia {hero_gap} poin di bawah rata-rata negara OECD."
     exp_jsonld = json.dumps(exp_graph, ensure_ascii=True, separators=(",", ":"))
 
     def html_esc(s: str) -> str:
@@ -1261,6 +1264,96 @@ def check_16_head_and_jsonld(index_path: str, template_path: str, embedded_data:
     )
 
 
+def check_17_plain_language(index_content: str):
+    clean_content = re.sub(r"<!--.*?-->", "", index_content, flags=re.DOTALL)
+    clean_content = re.sub(r"<style[^>]*>.*?</style>", "", clean_content, flags=re.DOTALL | re.IGNORECASE)
+
+    banned_terms = [
+        "galat baku",
+        "standard error",
+        "standar error",
+        "plausible values",
+        "nilai kemungkinan",
+        "margin of error",
+        "sosio-ekonomi",
+        "socio-economic",
+        "rerata",
+        "galat",
+        "kuartil",
+        "persentil",
+        "median",
+        "proporsi",
+        "estimasi",
+        "kemahiran",
+        "kecakapan",
+        "sosioekonomi",
+        "escs",
+        "replikasi",
+        "koefisien",
+        "varians",
+        "imputasi",
+        "deterministik",
+        "reprodusibilitas",
+        "populasi",
+        "parameter",
+        "deskriptif",
+        "kausal",
+        "asimetris",
+    ]
+    pattern_parts = [r"\b" + re.escape(t) + r"\b" for t in banned_terms]
+    pattern_parts.append(r"\bsd:")
+    pattern_parts.append(r"\bLevel\s*[1-6][abc]?\b")
+    pattern_parts.append(r"\bP(?:10|25|50|75|90)\b")
+    banned_regex = re.compile("|".join(pattern_parts), re.IGNORECASE)
+
+    section_re = re.compile(
+        r'<section\s+[^>]*id=["\'](band-[^"\']+)["\'][^>]*>(.*?)</section>',
+        re.DOTALL,
+    )
+    pos = 0
+    segments = []
+    for m in section_re.finditer(clean_content):
+        if m.start() > pos:
+            segments.append(("outside-bands", clean_content[pos : m.start()]))
+        band_id = m.group(1)
+        band_content = m.group(2)
+        segments.append((band_id, band_content))
+        pos = m.end()
+    if pos < len(clean_content):
+        segments.append(("outside-bands", clean_content[pos:]))
+
+    total_candidates = 0
+    covered_bands = set()
+
+    for band_id, text in segments:
+        if band_id == "band-method":
+            text = re.sub(r"\([^)]*\)", "", text)
+
+        html_no_script = re.sub(r"<script[^>]*>.*?</script>", "", text, flags=re.DOTALL | re.IGNORECASE)
+        text_nodes = re.findall(r">([^<]+)<", html_no_script)
+        sq_literals = re.findall(r"'([^'\n\r]*)'", text)
+        dq_literals = re.findall(r'"([^"\n\r]*)"', text)
+
+        for item in text_nodes + sq_literals + dq_literals:
+            if " " in item:
+                total_candidates += 1
+                if band_id != "outside-bands":
+                    covered_bands.add(band_id)
+                candidate = re.sub(r"[#.][\w-]*escs[\w-]*", "", item, flags=re.IGNORECASE)
+                m = banned_regex.search(candidate)
+                if m:
+                    display = " ".join(item.split())
+                    return (
+                        False,
+                        f"plain language: banned term '{m.group(0)}' found in {band_id}: {display[:120]!r}",
+                    )
+
+    return (
+        True,
+        f"plain language clean: 0 jargon hits across {total_candidates} reader-facing strings in {len(covered_bands)} bands",
+    )
+
+
 def main():
     csv_dir = os.path.join(ROOT, "data", "pisa")
     template_path = os.path.join(ROOT, "pisa.template.html")
@@ -1283,7 +1376,7 @@ def main():
     for path, name in required_files:
         if not os.path.exists(path):
             print(f"FAIL Input file missing: {name} (actual: not found at {path}, expected: file present)")
-            print("TOTAL 0/16")
+            print("TOTAL 0/17")
             sys.exit(1)
 
     with open(index_path, "r", encoding="utf-8") as f:
@@ -1294,7 +1387,7 @@ def main():
     idx = index_content.find(prefix)
     if idx == -1:
         print("FAIL Embedded DATA not found in pisa/index.html")
-        print("TOTAL 0/16")
+        print("TOTAL 0/17")
         sys.exit(1)
 
     start_json = idx + len(prefix)
@@ -1303,14 +1396,14 @@ def main():
         end_json = index_content.find(";", start_json)
     if end_json == -1:
         print("FAIL Embedded DATA end delimiter not found in pisa/index.html")
-        print("TOTAL 0/16")
+        print("TOTAL 0/17")
         sys.exit(1)
 
     try:
         embedded_data = json.loads(index_content[start_json:end_json])
     except Exception as e:
         print(f"FAIL Embedded DATA JSON parse failed: {e}")
-        print("TOTAL 0/16")
+        print("TOTAL 0/17")
         sys.exit(1)
 
     rebuilt_payload = rebuild_payload_from_csv(csv_dir, template_path)
@@ -1332,6 +1425,7 @@ def main():
         ("meta provenance", lambda: check_14_meta_provenance(embedded_data, csv_dir)),
         ("peers caveat", lambda: check_15_peers_caveat(embedded_data, csv_dir)),
         ("head kit and JSON-LD", lambda: check_16_head_and_jsonld(index_path, template_path, embedded_data)),
+        ("plain language", lambda: check_17_plain_language(index_content)),
     ]
 
     passed = 0

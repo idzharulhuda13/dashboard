@@ -183,6 +183,42 @@
  ],
  "felt": [
   {
+   "waktu_wib": "22:45:27 WIB",
+   "tanggal": "17 Okt 2026",
+   "datetime_utc": "2026-10-17T15:45:27+00:00",
+   "lat": -1.98,
+   "lon": 121.33,
+   "mag": 2.6,
+   "depth_km": 5.0,
+   "wilayah": "Pusat gempa berada di darat 39 km selatan Morowali Utara",
+   "potensi": "",
+   "dirasakan": "II - III Kolonodale"
+  },
+  {
+   "waktu_wib": "19:46:17 WIB",
+   "tanggal": "17 Okt 2026",
+   "datetime_utc": "2026-10-17T12:46:17+00:00",
+   "lat": -9.52,
+   "lon": 118.54,
+   "mag": 4.6,
+   "depth_km": 10.0,
+   "wilayah": "Pusat gempa berada di laut 49 km Barat KODI-SUMBABARATDAYA",
+   "potensi": "",
+   "dirasakan": "III Sumba Barat Daya, III Kota Bima, III Kab. Bima, III Sumbawa, III Sumba Barat"
+  },
+  {
+   "waktu_wib": "15:20:52 WIB",
+   "tanggal": "17 Okt 2026",
+   "datetime_utc": "2026-10-17T08:20:52+00:00",
+   "lat": -0.75,
+   "lon": 131.38,
+   "mag": 4.2,
+   "depth_km": 3.0,
+   "wilayah": "Pusat gempa berada di Laut 11 km TimurLaut Kota Sorong",
+   "potensi": "",
+   "dirasakan": "III Sorong"
+  },
+  {
    "waktu_wib": "21:22:04 WIB",
    "tanggal": "16 Okt 2026",
    "datetime_utc": "2026-10-16T14:22:04+00:00",
@@ -325,42 +361,6 @@
    "wilayah": "Pusat gempa berada di laut 43 km Utara Ruteng, Manggarai",
    "potensi": "",
    "dirasakan": "II-III Kab. Manggarai"
-  },
-  {
-   "waktu_wib": "18:58:07 WIB",
-   "tanggal": "12 Okt 2026",
-   "datetime_utc": "2026-10-12T11:58:07+00:00",
-   "lat": -9.2,
-   "lon": 113.02,
-   "mag": 4.6,
-   "depth_km": 21.0,
-   "wilayah": "Pusat gempa berada di laut 121 km BaratDaya Lumajang, Jawa Timur",
-   "potensi": "",
-   "dirasakan": "III Lumajang, III Malang, III Jember, II Blitar"
-  },
-  {
-   "waktu_wib": "12:28:13 WIB",
-   "tanggal": "12 Okt 2026",
-   "datetime_utc": "2026-10-12T05:28:13+00:00",
-   "lat": -8.53,
-   "lon": 112.27,
-   "mag": 4.1,
-   "depth_km": 101.0,
-   "wilayah": "Pusat gempa berada di laut 44 km selatan Kab. Blitar",
-   "potensi": "",
-   "dirasakan": "III Malang, III Blitar, II Trenggalek, II Lumajang"
-  },
-  {
-   "waktu_wib": "12:19:47 WIB",
-   "tanggal": "12 Okt 2026",
-   "datetime_utc": "2026-10-12T05:19:47+00:00",
-   "lat": -7.16,
-   "lon": 105.77,
-   "mag": 4.6,
-   "depth_km": 18.0,
-   "wilayah": "Pusat gempa berada di laut 38 km Barat Daya Muarabinuangeun",
-   "potensi": "",
-   "dirasakan": "II-III Palabuhan Ratu, II Labuan, II Ciemas, II Gekbrong"
   }
  ]
 }

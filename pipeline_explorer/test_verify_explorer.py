@@ -99,15 +99,25 @@ def mutate_rename_band_key(data: dict, _raw: str) -> str:
 
 def mutate_band_se(data: dict, _raw: str) -> str:
     # A wrong band SE (e.g. an estimate instead of the OECD annex column) must fail check 2.
-    arr = data["levels_se"]["indonesia"]["science"]
+    d = copy.deepcopy(data)
+    arr = d["levels_se"]["indonesia"]["science"]
     idx = next(i for i, v in enumerate(arr) if v is not None)
     arr[idx] = round(arr[idx] + 0.5, 2)
-    return dump_json(data)
+    return dump_json(d)
 
 
 def mutate_non_canonical_bytes(_data: dict, raw: str) -> str:
     # Trailing space before newline preserves JSON semantics and stays under 220 KB, isolating check 10.
     return raw.rstrip("\n") + " \n"
+
+
+def mutate_variation_domain_swap(data: dict, _raw: str) -> str:
+    # This is exactly the reported bug: with per-domain keys present, a page could still print science
+    # numbers under "matematika". Only the per-domain CSV recompute (check 2) can catch the swap.
+    d = copy.deepcopy(data)
+    var = d["variation"]["indonesia"]
+    var["science"], var["mathematics"] = var["mathematics"], var["science"]
+    return dump_json(d)
 
 
 def run_gate(payload_path: Path) -> subprocess.CompletedProcess[str]:
@@ -150,6 +160,7 @@ def main() -> int:
         ("12. rename a band key to below_1b", 1, "schema", mutate_rename_band_key),
         ("13. non-canonical trailing whitespace bytes", 10, "determinism", mutate_non_canonical_bytes),
         ("14. bump one band SE by 0.5", 2, "recompute", mutate_band_se),
+        ("15. swap Indonesia science/mathematics variation arrays", 2, "recompute", mutate_variation_domain_swap),
     ]
 
     behaved = 0

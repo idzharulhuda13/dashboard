@@ -23,6 +23,8 @@ INPUT_FILES = (
     "annex_proficiency.csv",
     "annex_trend_science.csv",
     "annex_variation_science.csv",
+    "annex_variation_reading.csv",
+    "annex_variation_mathematics.csv",
     "puf_counts.csv",
 )
 
@@ -145,7 +147,12 @@ def build_payload(csv_dir: Path = DEFAULT_CSV_DIR) -> tuple[dict, dict[str, int]
     prof_rows = tables_rows["annex_proficiency.csv"]
     lowtop_rows = tables_rows["annex_lowtop.csv"]
     trend_rows = tables_rows["annex_trend_science.csv"]
-    var_rows = tables_rows["annex_variation_science.csv"]
+    var_rows_by_domain = {
+        "science": tables_rows["annex_variation_science.csv"],
+        "reading": tables_rows["annex_variation_reading.csv"],
+        "mathematics": tables_rows["annex_variation_mathematics.csv"],
+    }
+    var_rows = [r for rows in var_rows_by_domain.values() for r in rows]
 
     all_subjects: set[str] = set()
     for rows in tables_rows.values():
@@ -317,24 +324,28 @@ def build_payload(csv_dir: Path = DEFAULT_CSV_DIR) -> tuple[dict, dict[str, int]
             "se": se_arr,
         }
 
-    var_idx: dict[tuple[str, str], dict[str, str]] = {}
-    for r in var_rows:
-        if r["domain"] == "science":
-            var_idx[(r["subject"], r["stat"])] = r
+    var_idx: dict[tuple[str, str, str], dict[str, str]] = {}
+    for dom, rows in var_rows_by_domain.items():
+        for r in rows:
+            if r["domain"] == dom:
+                var_idx[(dom, r["subject"], r["stat"])] = r
 
-    variation_science: dict[str, list[float | None]] = {}
+    variation: dict[str, dict[str, list[float | None]]] = {}
     csv_missing_variation = 0
     for c in countries:
         src = c["source"]
         cid = c["id"]
-        v_arr: list[float | None] = []
-        for st in VARIATION_CSV_STATS:
-            v_row = var_idx.get((src, st))
-            v = parse_float(v_row["value"], 2) if v_row else None
-            if v is None:
-                csv_missing_variation += 1
-            v_arr.append(v)
-        variation_science[cid] = v_arr
+        per_domain: dict[str, list[float | None]] = {}
+        for dom in DOMAINS:
+            v_arr: list[float | None] = []
+            for st in VARIATION_CSV_STATS:
+                v_row = var_idx.get((dom, src, st))
+                v = parse_float(v_row["value"], 2) if v_row else None
+                if v is None:
+                    csv_missing_variation += 1
+                v_arr.append(v)
+            per_domain[dom] = v_arr
+        variation[cid] = per_domain
 
     prof_tables: dict[str, str] = {}
     for r in prof_rows:
@@ -347,7 +358,10 @@ def build_payload(csv_dir: Path = DEFAULT_CSV_DIR) -> tuple[dict, dict[str, int]
         "proficiency": {d: prof_tables[d] for d in DOMAINS},
         "share": next(clean_table_id(r["table"]) for r in lowtop_rows if r["domain"] == "science" and r.get("table")),
         "trend": next(clean_table_id(r["table"]) for r in trend_rows if r["domain"] == "science" and r.get("table")),
-        "variation": next(clean_table_id(r["table"]) for r in var_rows if r["domain"] == "science" and r.get("table")),
+        "variation": {
+            d: next(clean_table_id(r["table"]) for r in var_rows_by_domain[d] if r["domain"] == d and r.get("table"))
+            for d in DOMAINS
+        },
     }
 
     # Setiap key/value dari puf_counts.csv apa adanya (tanpa key karangan, tanpa null), plus dua hitungan turunan.
@@ -377,7 +391,7 @@ def build_payload(csv_dir: Path = DEFAULT_CSV_DIR) -> tuple[dict, dict[str, int]
         "levels_se": levels_se,
         "share": share,
         "trend_science": trend_science,
-        "variation_science": variation_science,
+        "variation": variation,
     }
 
     expected_nulls = {
@@ -386,7 +400,7 @@ def build_payload(csv_dir: Path = DEFAULT_CSV_DIR) -> tuple[dict, dict[str, int]
         "levels_se": csv_missing_levels_se,
         "share": csv_missing_share,
         "trend_science": csv_missing_trend,
-        "variation_science": csv_missing_variation,
+        "variation": csv_missing_variation,
     }
     return payload, expected_nulls
 
@@ -435,7 +449,8 @@ def count_payload_nulls(payload: dict) -> dict[str, int]:
     )
     variation_nulls = sum(
         1
-        for arr in payload["variation_science"].values()
+        for dom_map in payload["variation"].values()
+        for arr in dom_map.values()
         for v in arr
         if v is None
     )
@@ -445,7 +460,7 @@ def count_payload_nulls(payload: dict) -> dict[str, int]:
         "levels_se": levels_se_nulls,
         "share": share_nulls,
         "trend_science": trend_nulls,
-        "variation_science": variation_nulls,
+        "variation": variation_nulls,
     }
 
 

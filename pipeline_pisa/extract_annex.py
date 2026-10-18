@@ -169,20 +169,20 @@ def find_trend_science_columns(ws, sheet_name, assertions):
     return cols
 
 
-def find_variation_science_columns(ws, sheet_name, assertions):
+def find_variation_columns(ws, sheet_name, assertions, subj):
     cols = []
     # Total variance
     tot_col = None
     for c in range(1, ws.max_column + 1):
         r6 = str(ws.cell(6, c).value or "").strip().lower()
-        if "total variation in science performance" in r6:
+        if f"total variation in {subj} performance" in r6:
             if ws.cell(9, c).value != "Variance" or ws.cell(9, c + 1).value != "S.E.":
                 sys.exit(f"Assertion failed: {sheet_name} total_variance col {c} missing Variance/S.E.")
             tot_col = c
             cols.append(("total_variance", c, c + 1))
             break
     if tot_col is None:
-        sys.exit(f"Assertion failed: {sheet_name} missing 'Total variation in science performance' header")
+        sys.exit(f"Assertion failed: {sheet_name} missing 'Total variation in {subj} performance' header")
     assertions.append(f"{sheet_name}: found 'total_variance' at column {tot_col}")
 
     # Between school variance
@@ -196,7 +196,7 @@ def find_variation_science_columns(ws, sheet_name, assertions):
             cols.append(("between_school_variance", c, c + 1))
             break
     if btw_col is None:
-        sys.exit(f"Assertion failed: {sheet_name} missing 'Variation in science performance between schools' header")
+        sys.exit(f"Assertion failed: {sheet_name} missing 'Variation in {subj} performance between schools' header")
     assertions.append(f"{sheet_name}: found 'between_school_variance' at column {btw_col}")
 
     # Within school variance
@@ -210,7 +210,7 @@ def find_variation_science_columns(ws, sheet_name, assertions):
             cols.append(("within_school_variance", c, c + 1))
             break
     if wth_col is None:
-        sys.exit(f"Assertion failed: {sheet_name} missing 'Variation in science performance within schools' header")
+        sys.exit(f"Assertion failed: {sheet_name} missing 'Variation in {subj} performance within schools' header")
     assertions.append(f"{sheet_name}: found 'within_school_variance' at column {wth_col}")
 
     # Between school pct of oecd average
@@ -301,6 +301,8 @@ def main():
         "annex_trend_science.csv": [],
         "annex_lowtop.csv": [],
         "annex_variation_science.csv": [],
+        "annex_variation_reading.csv": [],
+        "annex_variation_mathematics.csv": [],
     }
     sheet_counts = {}
     sheet_skipped = {}
@@ -420,30 +422,35 @@ def main():
     sheet_counts[sname] = written
     sheet_skipped[sname] = {"m": skip_m, "c": skip_c}
 
-    # 5. Variation science sheet
-    sname = "Table I.B1.2a.25"
-    ws = wb[sname]
-    cols = find_variation_science_columns(ws, sname, assertions)
-    subjects = extract_subject_rows(ws, sname, is_trend=False)
-    assertions.append(f"{sname}: verified {len(subjects)} subjects found including Indonesia")
+    # 5. Variation sheets: sains (I.B1.2a.25), membaca (I.B1.2a.27), matematika (I.B1.2a.29)
+    variation_specs = [
+        ("Table I.B1.2a.25", "science", "annex_variation_science.csv"),
+        ("Table I.B1.2a.27", "reading", "annex_variation_reading.csv"),
+        ("Table I.B1.2a.29", "mathematics", "annex_variation_mathematics.csv"),
+    ]
+    for sname, subj, csv_name in variation_specs:
+        ws = wb[sname]
+        cols = find_variation_columns(ws, sname, assertions, subj)
+        subjects = extract_subject_rows(ws, sname, is_trend=False)
+        assertions.append(f"{sname}: verified {len(subjects)} subjects found including Indonesia")
 
-    written = 0
-    skip_m = 0
-    skip_c = 0
-    for r, subject in subjects:
-        for stat, vc, sec in cols:
-            val = ws.cell(r, vc).value
-            se = ws.cell(r, sec).value if sec is not None else None
-            val_str, se_str, sym = format_value_and_se(val, se)
-            if sym == "m":
-                skip_m += 1
-            elif sym == "c":
-                skip_c += 1
-            elif val_str is not None:
-                output_rows["annex_variation_science.csv"].append([sname, subject, "science", stat, "latest", val_str, se_str])
-                written += 1
-    sheet_counts[sname] = written
-    sheet_skipped[sname] = {"m": skip_m, "c": skip_c}
+        written = 0
+        skip_m = 0
+        skip_c = 0
+        for r, subject in subjects:
+            for stat, vc, sec in cols:
+                val = ws.cell(r, vc).value
+                se = ws.cell(r, sec).value if sec is not None else None
+                val_str, se_str, sym = format_value_and_se(val, se)
+                if sym == "m":
+                    skip_m += 1
+                elif sym == "c":
+                    skip_c += 1
+                elif val_str is not None:
+                    output_rows[csv_name].append([sname, subject, subj, stat, "latest", val_str, se_str])
+                    written += 1
+        sheet_counts[sname] = written
+        sheet_skipped[sname] = {"m": skip_m, "c": skip_c}
 
     # All assertions passed, write CSV files
     out_dir = Path("/root/projects/dashboard/data/pisa")

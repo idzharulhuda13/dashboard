@@ -1716,10 +1716,10 @@ html.js-ready .reveal-panel.is-pending {
   <section id="band-variation" class="band band--paper reveal-panel" aria-labelledby="heading-variation">
     <div class="wrap">
       <div class="band-header">
-        <p class="kicker"><span class="kicker-num">05 / Dekomposisi Variansi Sains</span> &middot; Tabel <span class="fig" data-fig="meta.tables.variation">I.B1.2a.25</span></p>
-        <h2 id="heading-variation" class="band-title">Sebaran di Dalam Sekolah vs Antar-Sekolah (Khusus Sains)</h2>
+        <p class="kicker"><span class="kicker-num">05 / Dekomposisi Variansi</span> &middot; <span data-varlabel="cap">Sains</span> &middot; Tabel <span class="fig" data-fig="meta.tables.variation.science">I.B1.2a.25</span></p>
+        <h2 id="heading-variation" class="band-title">Sebaran di Dalam Sekolah vs Antar-Sekolah</h2>
         <p class="band-prose">
-          Apakah perbedaan nilai siswa terutama terjadi karena jurang mutu antar-sekolah, atau perbedaan capaian murid di dalam sekolah yang sama? Di Indonesia, variansi skor sains di dalam sekolah sebesar <span class="fig" data-fig="var.indonesia.within">3.028,18</span> dan antar-sekolah sebesar <span class="fig" data-fig="var.indonesia.between">1.453,94</span> (total variansi <span class="fig" data-fig="var.indonesia.total">4.495,87</span>). Ketika dinormalisasi terhadap rata-rata variansi total OECD, porsi antar-sekolah Indonesia adalah <span class="fig" data-fig="var.indonesia.between_pct">14,99</span>%, Viet Nam <span class="fig" data-fig="var.viet-nam.between_pct">30,15</span>%, dan Rata-rata OECD <span class="fig" data-fig="var.oecd-average.between_pct">31,27</span>%.
+          Apakah perbedaan nilai siswa terutama terjadi karena jurang mutu antar-sekolah, atau perbedaan capaian murid di dalam sekolah yang sama? Di Indonesia, variansi skor <span data-varlabel="low">sains</span> di dalam sekolah sebesar <span class="fig" data-fig="var.indonesia.science.within">3.028,18</span> dan antar-sekolah sebesar <span class="fig" data-fig="var.indonesia.science.between">1.453,94</span> (total variansi <span class="fig" data-fig="var.indonesia.science.total">4.495,87</span>). Ketika dinormalisasi terhadap rata-rata variansi total OECD, porsi antar-sekolah Indonesia adalah <span class="fig" data-fig="var.indonesia.science.between_pct">14,99</span>%, Viet Nam <span class="fig" data-fig="var.viet-nam.science.between_pct">30,15</span>%, dan Rata-rata OECD <span class="fig" data-fig="var.oecd-average.science.between_pct">31,27</span>%.
         </p>
       </div>
 
@@ -1729,7 +1729,7 @@ html.js-ready .reveal-panel.is-pending {
             <span class="legend-item"><span class="swatch swatch--oecd"></span>Porsi variansi di dalam sekolah (% dari kombinasian dalam + antar)</span>
             <span class="legend-item"><span class="swatch swatch--idn"></span>Porsi variansi antar-sekolah (% dari kombinasian dalam + antar)</span>
           </div>
-          <span class="note-foot">Data Tabel <span class="fig" data-fig="meta.tables.variation">I.B1.2a.25</span> hanya dipublikasikan untuk domain utama Sains.</span>
+          <span class="note-foot">Variansi dihitung pada skala skor PISA; sumber Tabel <span class="fig" data-fig="meta.tables.variation.science">I.B1.2a.25</span>.</span>
         </div>
 
         <p id="variation-reader-sentence" class="callout-line">
@@ -1740,7 +1740,7 @@ html.js-ready .reveal-panel.is-pending {
 
         <div id="table-wrap-variation" class="data-table-wrap" role="region" tabindex="0" aria-label="Tabel data, bisa digeser ke samping" hidden>
           <table class="data-table">
-            <caption>Tabel variansi skor sains di dalam sekolah dan antar-sekolah (Tabel <span class="fig" data-fig="meta.tables.variation">I.B1.2a.25</span>)</caption>
+            <caption>Tabel variansi skor <span data-varlabel="low">sains</span> di dalam sekolah dan antar-sekolah (Tabel <span class="fig" data-fig="meta.tables.variation.science">I.B1.2a.25</span>)</caption>
             <thead>
               <tr>
                 <th scope="col">Negara / Ekonomi</th>
@@ -1831,8 +1831,8 @@ html.js-ready .reveal-panel.is-pending {
                 <td class="num"><span class="fig" data-fig="meta.tables.proficiency.mathematics">I.B1.2a.12</span></td>
               </tr>
               <tr>
-                <td>Sebaran variansi dalam vs antar-sekolah</td>
-                <td class="num"><span class="fig" data-fig="meta.tables.variation">I.B1.2a.25</span></td>
+                <td>Sebaran variansi dalam vs antar-sekolah (sains · membaca · matematika)</td>
+                <td class="num"><span class="fig" data-fig="meta.tables.variation.science">I.B1.2a.25</span> · <span class="fig" data-fig="meta.tables.variation.reading">I.B1.2a.27</span> · <span class="fig" data-fig="meta.tables.variation.mathematics">I.B1.2a.29</span></td>
               </tr>
               <tr>
                 <td>Tren porsi di bawah Level 2 &amp; Level 5-6</td>
@@ -2615,6 +2615,31 @@ html.js-ready .reveal-panel.is-pending {
     document.getElementById("tbody-timeline").innerHTML = tbodyHtml.join("");
   }
 
+  function refreshVariationStatic(dom) {
+    var label = DOMAIN_LABELS[dom] || dom;
+    var labels = document.querySelectorAll("#band-variation [data-varlabel]");
+    for (var i = 0; i < labels.length; i++) {
+      labels[i].textContent = labels[i].getAttribute("data-varlabel") === "cap" ? label : label.toLowerCase();
+    }
+    var varTables = ((payload.meta || {}).tables || {}).variation || {};
+    var tableId = varTables[dom] || "";
+    var figs = document.querySelectorAll('#band-variation span[data-fig^="var."], #band-variation span[data-fig^="meta.tables.variation."]');
+    for (var j = 0; j < figs.length; j++) {
+      var key = figs[j].getAttribute("data-fig") || "";
+      var parts = key.split(".");
+      if (parts[0] === "meta") {
+        figs[j].textContent = tableId;
+        continue;
+      }
+      var cid = parts[1];
+      var element = parts[3];
+      var tuple = (payload.variation[cid] || {})[dom] || null;
+      var idx = (payload.variation_keys || []).indexOf(element);
+      var val = (tuple && idx >= 0) ? tuple[idx] : null;
+      figs[j].textContent = (val === null || val === undefined || !Number.isFinite(val)) ? "tidak ada data" : formatPct(val);
+    }
+  }
+
   function renderVariation() {
     var pId = state.primary;
     var cId = state.compare;
@@ -2622,7 +2647,18 @@ html.js-ready .reveal-panel.is-pending {
     if (cId !== pId) ids.push(cId);
     if (pId !== "oecd-average" && cId !== "oecd-average") ids.push("oecd-average");
 
-    var varBlock = payload.variation_science || {};
+    var dom = state.domain || "science";
+    var varAll = payload.variation || {};
+    var varBlock = {};
+    for (var ck in varAll) {
+      if (Object.prototype.hasOwnProperty.call(varAll, ck)) {
+        varBlock[ck] = (varAll[ck] || {})[dom] || null;
+      }
+    }
+    var VK = payload.variation_keys || ["total", "between", "within", "between_pct"];
+    var IDX_BETWEEN = VK.indexOf("between");
+    var IDX_WITHIN = VK.indexOf("within");
+    var IDX_PCT = VK.indexOf("between_pct");
     var barsHtml = [];
     var tbodyHtml = [];
 
@@ -2630,7 +2666,7 @@ html.js-ready .reveal-panel.is-pending {
       var cid = ids[i];
       var name = getCountryName(cid);
       var tuple = varBlock[cid];
-      if (!tuple || tuple[1] === null || tuple[2] === null) {
+      if (!tuple || tuple[IDX_BETWEEN] === null || tuple[IDX_WITHIN] === null) {
         barsHtml.push(
           '<div class="var-item">' +
           '<div class="var-item-head"><span class="var-item-name">' + name + '</span><span class="var-item-nums">tidak ada data sebaran sekolah</span></div>' +
@@ -2642,12 +2678,12 @@ html.js-ready .reveal-panel.is-pending {
         continue;
       }
 
-      var withinRaw = tuple[1];
-      var betweenRaw = tuple[2];
+      var withinRaw = tuple[IDX_WITHIN];
+      var betweenRaw = tuple[IDX_BETWEEN];
       var sumParts = withinRaw + betweenRaw;
       var withinShare = sumParts > 0 ? (withinRaw / sumParts) * 100 : 0;
       var betweenShare = sumParts > 0 ? (betweenRaw / sumParts) * 100 : 0;
-      var oecdNormBetween = tuple[4];
+      var oecdNormBetween = tuple[IDX_PCT];
 
       barsHtml.push(
         '<div class="var-item">' +
@@ -2677,16 +2713,17 @@ html.js-ready .reveal-panel.is-pending {
     var pTuple = varBlock[pId];
     var cTuple = varBlock[cId];
     var sentenceEl = document.getElementById("variation-reader-sentence");
-    if (pTuple && cTuple && pTuple[1] !== null && cTuple[1] !== null) {
-      var pBetween100 = (pTuple[2] / (pTuple[1] + pTuple[2])) * 100;
-      var cBetween100 = (cTuple[2] / (cTuple[1] + cTuple[2])) * 100;
-      sentenceEl.textContent = "Cara membaca (Sains): dari 100% gabungan variansi dalam + antar-sekolah, porsi kesenjangan antar-sekolah di " +
-        getCountryName(pId) + " adalah " + formatPct(pBetween100) + "% (atau " + formatPct(pTuple[4]) + "% terhadap total OECD), sedangkan di " +
-        getCountryName(cId) + " sebesar " + formatPct(cBetween100) + "% (" + formatPct(cTuple[4]) + "% terhadap total OECD).";
+    if (pTuple && cTuple && pTuple[IDX_BETWEEN] !== null && cTuple[IDX_BETWEEN] !== null) {
+      var pBetween100 = (pTuple[IDX_BETWEEN] / (pTuple[IDX_BETWEEN] + pTuple[IDX_WITHIN])) * 100;
+      var cBetween100 = (cTuple[IDX_BETWEEN] / (cTuple[IDX_BETWEEN] + cTuple[IDX_WITHIN])) * 100;
+      sentenceEl.textContent = "Cara membaca (" + (DOMAIN_LABELS[dom] || dom) + "): dari 100% gabungan variansi dalam + antar-sekolah, porsi kesenjangan antar-sekolah di " +
+        getCountryName(pId) + " adalah " + formatPct(pBetween100) + "% (atau " + formatPct(pTuple[IDX_PCT]) + "% terhadap total OECD), sedangkan di " +
+        getCountryName(cId) + " sebesar " + formatPct(cBetween100) + "% (" + formatPct(cTuple[IDX_PCT]) + "% terhadap total OECD).";
     }
 
     document.getElementById("variation-bars").innerHTML = barsHtml.join("");
     document.getElementById("tbody-variation").innerHTML = tbodyHtml.join("");
+    refreshVariationStatic(dom);
   }
 
   function renderPickerOptions() {

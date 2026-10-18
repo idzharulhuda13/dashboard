@@ -43,7 +43,17 @@
     "Table I.B1.2a.25: found 'between_school_variance' at column 8",
     "Table I.B1.2a.25: found 'within_school_variance' at column 10",
     "Table I.B1.2a.25: found 'between_school_pct_of_oecd_average' at column 13",
-    "Table I.B1.2a.25: verified 92 subjects found including Indonesia"
+    "Table I.B1.2a.25: verified 92 subjects found including Indonesia",
+    "Table I.B1.2a.27: found 'total_variance' at column 6",
+    "Table I.B1.2a.27: found 'between_school_variance' at column 8",
+    "Table I.B1.2a.27: found 'within_school_variance' at column 10",
+    "Table I.B1.2a.27: found 'between_school_pct_of_oecd_average' at column 13",
+    "Table I.B1.2a.27: verified 92 subjects found including Indonesia",
+    "Table I.B1.2a.29: found 'total_variance' at column 6",
+    "Table I.B1.2a.29: found 'between_school_variance' at column 8",
+    "Table I.B1.2a.29: found 'within_school_variance' at column 10",
+    "Table I.B1.2a.29: found 'between_school_pct_of_oecd_average' at column 13",
+    "Table I.B1.2a.29: verified 92 subjects found including Indonesia"
   ],
   "provenance": {
     "licence": "CC BY 4.0",
@@ -57,6 +67,8 @@
     "Table I.B1.2a.12": 828,
     "Table I.B1.2a.2": 644,
     "Table I.B1.2a.25": 368,
+    "Table I.B1.2a.27": 364,
+    "Table I.B1.2a.29": 364,
     "Table I.B1.2a.3": 644,
     "Table I.B1.2a.33": 992,
     "Table I.B1.2a.34": 1140,
@@ -87,6 +99,14 @@
     "Table I.B1.2a.25": {
       "c": 0,
       "m": 0
+    },
+    "Table I.B1.2a.27": {
+      "c": 0,
+      "m": 4
+    },
+    "Table I.B1.2a.29": {
+      "c": 0,
+      "m": 4
     },
     "Table I.B1.2a.3": {
       "c": 0,

@@ -99,18 +99,19 @@ def resolve_fig_key(key: str, payload: dict) -> str:
             raise ValueError(f"Null value at {key!r}")
         return fmt_num(val, 1)
 
-    # 3. var.<id>.<element>
+    # 3. var.<id>.<domain>.<element>
     if parts[0] == "var":
-        if len(parts) != 3:
+        if len(parts) != 4:
             raise ValueError(f"Invalid variation key syntax: {key!r}")
-        _, cid, element = parts
-        var_block = payload.get("variation_science", {})
+        _, cid, dom, element = parts
+        var_block = payload.get("variation", {})
+        dom_map = var_block.get(cid)
+        if not isinstance(dom_map, dict) or dom not in dom_map:
+            raise ValueError(f"Unknown country/domain in {key!r}")
         var_keys = payload.get("variation_keys", [])
-        if cid not in var_block:
-            raise ValueError(f"Unknown country id {cid!r} in {key!r}")
         if element not in var_keys:
             raise ValueError(f"Unknown variation element {element!r} in {key!r}")
-        val = var_block[cid][var_keys.index(element)]
+        val = dom_map[dom][var_keys.index(element)]
         if val is None:
             raise ValueError(f"Null value at {key!r}")
         return fmt_num(val, 2)
@@ -260,6 +261,22 @@ def build_and_verify(data_path: Path, template_path: Path) -> tuple[bytes, dict[
     for pid in required_panels:
         if f'id="{pid}"' not in output_str:
             raise AssertionError(f"Missing required panel section id={pid!r}")
+
+    # 7. The variation table must derive its columns from payload.variation_keys, never from bare tuple
+    # positions: the array is [total, between, within, between_pct], so an off-by-one silently relabels
+    # between/within in the shipped table (caught live 2026-10-18).
+    for needle in (
+        'var IDX_BETWEEN = VK.indexOf("between")',
+        'var IDX_WITHIN = VK.indexOf("within")',
+        'var IDX_PCT = VK.indexOf("between_pct")',
+        "tuple[IDX_WITHIN]",
+        "tuple[IDX_BETWEEN]",
+        "tuple[IDX_PCT]",
+    ):
+        if needle not in output_str:
+            raise AssertionError(
+                f"Variation table must map columns via payload.variation_keys (missing {needle!r})"
+            )
 
     output_bytes = output_str.encode("utf-8")
     if len(output_bytes) > MAX_OUTPUT_BYTES:

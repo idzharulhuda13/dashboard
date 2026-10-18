@@ -1,0 +1,365 @@
+table,subject,domain,stat,cycle,value,se
+Table I.B1.2a.29,OECD average,mathematics,total_variance,latest,8742.47163,45.924670000000006
+Table I.B1.2a.29,OECD average,mathematics,between_school_variance,latest,2869.21194,55.33914000000001
+Table I.B1.2a.29,OECD average,mathematics,within_school_variance,latest,5873.7190900000005,25.000570000000003
+Table I.B1.2a.29,OECD average,mathematics,between_school_pct_of_oecd_average,latest,32.819230000000005,
+Table I.B1.2a.29,Albania*,mathematics,total_variance,latest,6502.72273,197.4345
+Table I.B1.2a.29,Albania*,mathematics,between_school_variance,latest,2185.34835,318.07109
+Table I.B1.2a.29,Albania*,mathematics,within_school_variance,latest,4356.59062,118.24013000000001
+Table I.B1.2a.29,Albania*,mathematics,between_school_pct_of_oecd_average,latest,24.996920000000003,
+Table I.B1.2a.29,Argentina,mathematics,total_variance,latest,6379.597040000001,265.66121000000004
+Table I.B1.2a.29,Argentina,mathematics,between_school_variance,latest,2860.4695800000004,298.19268000000005
+Table I.B1.2a.29,Argentina,mathematics,within_school_variance,latest,3559.43249,100.51043000000001
+Table I.B1.2a.29,Argentina,mathematics,between_school_pct_of_oecd_average,latest,32.71923,
+Table I.B1.2a.29,Armenia,mathematics,total_variance,latest,7148.47673,210.50251000000003
+Table I.B1.2a.29,Armenia,mathematics,between_school_variance,latest,1971.8094500000002,362.21255
+Table I.B1.2a.29,Armenia,mathematics,within_school_variance,latest,5269.65454,145.03979
+Table I.B1.2a.29,Armenia,mathematics,between_school_pct_of_oecd_average,latest,22.554370000000002,
+Table I.B1.2a.29,Australia,mathematics,total_variance,latest,9855.495990000001,177.52153
+Table I.B1.2a.29,Australia,mathematics,between_school_variance,latest,2478.4359400000003,196.55216000000001
+Table I.B1.2a.29,Australia,mathematics,within_school_variance,latest,7402.699710000001,126.05374
+Table I.B1.2a.29,Australia,mathematics,between_school_pct_of_oecd_average,latest,28.349370000000004,
+Table I.B1.2a.29,Austria,mathematics,total_variance,latest,7782.34889,201.89294
+Table I.B1.2a.29,Austria,mathematics,between_school_variance,latest,3401.1804100000004,287.93957
+Table I.B1.2a.29,Austria,mathematics,within_school_variance,latest,4394.29665,95.88129
+Table I.B1.2a.29,Austria,mathematics,between_school_pct_of_oecd_average,latest,38.90411,
+Table I.B1.2a.29,Azerbaijan,mathematics,total_variance,latest,10812.19439,493.44026
+Table I.B1.2a.29,Azerbaijan,mathematics,between_school_variance,latest,4095.9848300000003,540.71491
+Table I.B1.2a.29,Azerbaijan,mathematics,within_school_variance,latest,6749.172680000001,151.89258
+Table I.B1.2a.29,Azerbaijan,mathematics,between_school_pct_of_oecd_average,latest,46.85157,
+Table I.B1.2a.29,Belgium,mathematics,total_variance,latest,9216.329070000002,322.46351000000004
+Table I.B1.2a.29,Belgium,mathematics,between_school_variance,latest,3812.37584,333.96911
+Table I.B1.2a.29,Belgium,mathematics,within_school_variance,latest,5425.9627,147.02783000000002
+Table I.B1.2a.29,Belgium,mathematics,between_school_pct_of_oecd_average,latest,43.607530000000004,
+Table I.B1.2a.29,Brazil,mathematics,total_variance,latest,6319.42799,185.71979000000002
+Table I.B1.2a.29,Brazil,mathematics,between_school_variance,latest,2606.36315,212.31599000000003
+Table I.B1.2a.29,Brazil,mathematics,within_school_variance,latest,3706.7689100000002,56.35976
+Table I.B1.2a.29,Brazil,mathematics,between_school_pct_of_oecd_average,latest,29.81266,
+Table I.B1.2a.29,Brunei Darussalam,mathematics,total_variance,latest,6974.712460000001,119.27093
+Table I.B1.2a.29,Brunei Darussalam,mathematics,between_school_variance,latest,2056.0063400000004,480.92690000000005
+Table I.B1.2a.29,Brunei Darussalam,mathematics,within_school_variance,latest,4819.82188,185.8623
+Table I.B1.2a.29,Brunei Darussalam,mathematics,between_school_pct_of_oecd_average,latest,23.51745,
+Table I.B1.2a.29,B-S-J-Z (China),mathematics,total_variance,latest,10150.074620000001,340.49506
+Table I.B1.2a.29,B-S-J-Z (China),mathematics,between_school_variance,latest,4535.03149,411.96056000000004
+Table I.B1.2a.29,B-S-J-Z (China),mathematics,within_school_variance,latest,5596.24912,147.76575000000003
+Table I.B1.2a.29,B-S-J-Z (China),mathematics,between_school_pct_of_oecd_average,latest,51.873560000000005,
+Table I.B1.2a.29,Bulgaria,mathematics,total_variance,latest,10259.886,525.63621
+Table I.B1.2a.29,Bulgaria,mathematics,between_school_variance,latest,5872.1696600000005,589.4503000000001
+Table I.B1.2a.29,Bulgaria,mathematics,within_school_variance,latest,4433.24999,105.16260000000001
+Table I.B1.2a.29,Bulgaria,mathematics,between_school_pct_of_oecd_average,latest,67.1683,
+Table I.B1.2a.29,Cambodia,mathematics,total_variance,latest,3495.7278400000005,130.87967
+Table I.B1.2a.29,Cambodia,mathematics,between_school_variance,latest,751.1980800000001,136.48516
+Table I.B1.2a.29,Cambodia,mathematics,within_school_variance,latest,2735.10433,68.92530000000001
+Table I.B1.2a.29,Cambodia,mathematics,between_school_pct_of_oecd_average,latest,8.59251,
+Table I.B1.2a.29,Canada*,mathematics,total_variance,latest,9690.801230000001,180.06939000000003
+Table I.B1.2a.29,Canada*,mathematics,between_school_variance,latest,1710.4800000000002,151.87369
+Table I.B1.2a.29,Canada*,mathematics,within_school_variance,latest,7977.113370000001,110.3473
+Table I.B1.2a.29,Canada*,mathematics,between_school_pct_of_oecd_average,latest,19.56518,
+Table I.B1.2a.29,Chile,mathematics,total_variance,latest,5924.91708,194.28698000000003
+Table I.B1.2a.29,Chile,mathematics,between_school_variance,latest,1838.9779800000001,172.00587000000002
+Table I.B1.2a.29,Chile,mathematics,within_school_variance,latest,4088.6249300000004,96.72826
+Table I.B1.2a.29,Chile,mathematics,between_school_pct_of_oecd_average,latest,21.03499,
+Table I.B1.2a.29,Colombia,mathematics,total_variance,latest,5629.203810000001,235.66596
+Table I.B1.2a.29,Colombia,mathematics,between_school_variance,latest,2158.7355700000003,237.85333000000003
+Table I.B1.2a.29,Colombia,mathematics,within_school_variance,latest,3453.9294400000003,93.50274
+Table I.B1.2a.29,Colombia,mathematics,between_school_pct_of_oecd_average,latest,24.692510000000002,
+Table I.B1.2a.29,Costa Rica,mathematics,total_variance,latest,4709.7115,155.98797000000002
+Table I.B1.2a.29,Costa Rica,mathematics,between_school_variance,latest,1585.4343900000001,197.04532
+Table I.B1.2a.29,Costa Rica,mathematics,within_school_variance,latest,3099.3901600000004,64.07862
+Table I.B1.2a.29,Costa Rica,mathematics,between_school_pct_of_oecd_average,latest,18.13485,
+Table I.B1.2a.29,Croatia,mathematics,total_variance,latest,8477.190250000001,152.76948000000002
+Table I.B1.2a.29,Croatia,mathematics,between_school_variance,latest,4023.37712,344.76929
+Table I.B1.2a.29,Croatia,mathematics,within_school_variance,latest,4462.788710000001,112.48485000000001
+Table I.B1.2a.29,Croatia,mathematics,between_school_pct_of_oecd_average,latest,46.02105,
+Table I.B1.2a.29,Cyprus,mathematics,total_variance,latest,10245.216320000001,192.82246
+Table I.B1.2a.29,Cyprus,mathematics,between_school_variance,latest,2317.1708200000003,461.97938000000005
+Table I.B1.2a.29,Cyprus,mathematics,within_school_variance,latest,7965.7476400000005,210.80922
+Table I.B1.2a.29,Cyprus,mathematics,between_school_pct_of_oecd_average,latest,26.50476,
+Table I.B1.2a.29,Czechia,mathematics,total_variance,latest,9538.73162,296.18690000000004
+Table I.B1.2a.29,Czechia,mathematics,between_school_variance,latest,4103.31115,357.52072000000004
+Table I.B1.2a.29,Czechia,mathematics,within_school_variance,latest,5252.70366,131.03966
+Table I.B1.2a.29,Czechia,mathematics,between_school_pct_of_oecd_average,latest,46.935370000000006,
+Table I.B1.2a.29,Denmark,mathematics,total_variance,latest,7468.843460000001,190.34367
+Table I.B1.2a.29,Denmark,mathematics,between_school_variance,latest,778.4307100000001,105.92099
+Table I.B1.2a.29,Denmark,mathematics,within_school_variance,latest,6727.620250000001,187.69809
+Table I.B1.2a.29,Denmark,mathematics,between_school_pct_of_oecd_average,latest,8.904010000000001,
+Table I.B1.2a.29,Dominican Republic,mathematics,total_variance,latest,3400.2549700000004,118.84038000000001
+Table I.B1.2a.29,Dominican Republic,mathematics,between_school_variance,latest,1086.05997,114.19044000000001
+Table I.B1.2a.29,Dominican Republic,mathematics,within_school_variance,latest,2299.6273100000003,57.047470000000004
+Table I.B1.2a.29,Dominican Republic,mathematics,between_school_pct_of_oecd_average,latest,12.4228,
+Table I.B1.2a.29,Dushanbe (Tajikistan),mathematics,total_variance,latest,3094.14397,99.68903
+Table I.B1.2a.29,Dushanbe (Tajikistan),mathematics,between_school_variance,latest,619.1072200000001,105.23598000000001
+Table I.B1.2a.29,Dushanbe (Tajikistan),mathematics,within_school_variance,latest,2451.51321,73.80757000000001
+Table I.B1.2a.29,Dushanbe (Tajikistan),mathematics,between_school_pct_of_oecd_average,latest,7.081600000000001,
+Table I.B1.2a.29,Ecuador,mathematics,total_variance,latest,4206.513510000001,142.24756000000002
+Table I.B1.2a.29,Ecuador,mathematics,between_school_variance,latest,1386.8533300000001,193.96445000000003
+Table I.B1.2a.29,Ecuador,mathematics,within_school_variance,latest,2815.1267100000005,60.31304000000001
+Table I.B1.2a.29,Ecuador,mathematics,between_school_pct_of_oecd_average,latest,15.863400000000002,
+Table I.B1.2a.29,El Salvador,mathematics,total_variance,latest,3881.0895600000003,162.11661
+Table I.B1.2a.29,El Salvador,mathematics,between_school_variance,latest,1290.30013,179.03832000000003
+Table I.B1.2a.29,El Salvador,mathematics,within_school_variance,latest,2690.6435800000004,60.05443
+Table I.B1.2a.29,El Salvador,mathematics,between_school_pct_of_oecd_average,latest,14.75899,
+Table I.B1.2a.29,Estonia,mathematics,total_variance,latest,7942.63341,189.53981000000002
+Table I.B1.2a.29,Estonia,mathematics,between_school_variance,latest,1453.8755800000001,241.28557
+Table I.B1.2a.29,Estonia,mathematics,within_school_variance,latest,6459.995190000001,140.41891
+Table I.B1.2a.29,Estonia,mathematics,between_school_pct_of_oecd_average,latest,16.63003,
+Table I.B1.2a.29,Finland,mathematics,total_variance,latest,8675.670460000001,191.58484
+Table I.B1.2a.29,Finland,mathematics,between_school_variance,latest,733.4554,101.94086000000001
+Table I.B1.2a.29,Finland,mathematics,within_school_variance,latest,7983.704200000001,164.34729000000002
+Table I.B1.2a.29,Finland,mathematics,between_school_pct_of_oecd_average,latest,8.38957,
+Table I.B1.2a.29,France,mathematics,total_variance,latest,8312.82826,270.31457
+Table I.B1.2a.29,France,mathematics,between_school_variance,latest,3265.42844,319.74653
+Table I.B1.2a.29,France,mathematics,within_school_variance,latest,5053.47799,129.43917000000002
+Table I.B1.2a.29,France,mathematics,between_school_pct_of_oecd_average,latest,37.35132,
+Table I.B1.2a.29,Georgia,mathematics,total_variance,latest,8152.17813,406.84612000000004
+Table I.B1.2a.29,Georgia,mathematics,between_school_variance,latest,2311.4092600000004,452.57376000000005
+Table I.B1.2a.29,Georgia,mathematics,within_school_variance,latest,5961.618490000001,148.07794
+Table I.B1.2a.29,Georgia,mathematics,between_school_pct_of_oecd_average,latest,26.438850000000002,
+Table I.B1.2a.29,Germany,mathematics,total_variance,latest,9709.802230000001,251.57704
+Table I.B1.2a.29,Germany,mathematics,between_school_variance,latest,4512.029310000001,291.14680000000004
+Table I.B1.2a.29,Germany,mathematics,within_school_variance,latest,5195.99701,127.97561000000002
+Table I.B1.2a.29,Germany,mathematics,between_school_pct_of_oecd_average,latest,51.61045000000001,
+Table I.B1.2a.29,Greece,mathematics,total_variance,latest,7819.403770000001,248.70521000000002
+Table I.B1.2a.29,Greece,mathematics,between_school_variance,latest,2180.59726,254.07085
+Table I.B1.2a.29,Greece,mathematics,within_school_variance,latest,5668.11106,134.05836000000002
+Table I.B1.2a.29,Greece,mathematics,between_school_pct_of_oecd_average,latest,24.942570000000003,
+Table I.B1.2a.29,Guatemala,mathematics,total_variance,latest,3349.34209,161.6809
+Table I.B1.2a.29,Guatemala,mathematics,between_school_variance,latest,1402.4892100000002,157.6935
+Table I.B1.2a.29,Guatemala,mathematics,within_school_variance,latest,1949.37948,45.60719
+Table I.B1.2a.29,Guatemala,mathematics,between_school_pct_of_oecd_average,latest,16.042250000000003,
+Table I.B1.2a.29,Hong Kong (China),mathematics,total_variance,latest,10594.077490000001,359.45232000000004
+Table I.B1.2a.29,Hong Kong (China),mathematics,between_school_variance,latest,3654.0908400000003,346.51479
+Table I.B1.2a.29,Hong Kong (China),mathematics,within_school_variance,latest,6962.43285,168.17561
+Table I.B1.2a.29,Hong Kong (China),mathematics,between_school_pct_of_oecd_average,latest,41.797000000000004,
+Table I.B1.2a.29,Hungary,mathematics,total_variance,latest,7946.057680000001,369.45367000000005
+Table I.B1.2a.29,Hungary,mathematics,between_school_variance,latest,4496.917240000001,485.60916000000003
+Table I.B1.2a.29,Hungary,mathematics,within_school_variance,latest,3471.2325,78.18891
+Table I.B1.2a.29,Hungary,mathematics,between_school_pct_of_oecd_average,latest,51.4376,
+Table I.B1.2a.29,Iceland,mathematics,total_variance,latest,8171.33132,191.8702
+Table I.B1.2a.29,Iceland,mathematics,between_school_variance,latest,615.06047,114.21758000000001
+Table I.B1.2a.29,Iceland,mathematics,within_school_variance,latest,7718.71128,298.59619000000004
+Table I.B1.2a.29,Iceland,mathematics,between_school_pct_of_oecd_average,latest,7.0353200000000005,
+Table I.B1.2a.29,Indonesia,mathematics,total_variance,latest,3533.1721500000003,150.13065
+Table I.B1.2a.29,Indonesia,mathematics,between_school_variance,latest,1204.66065,136.50734
+Table I.B1.2a.29,Indonesia,mathematics,within_school_variance,latest,2326.97114,51.423550000000006
+Table I.B1.2a.29,Indonesia,mathematics,between_school_pct_of_oecd_average,latest,13.77941,
+Table I.B1.2a.29,Ireland,mathematics,total_variance,latest,7007.340410000001,152.41209
+Table I.B1.2a.29,Ireland,mathematics,between_school_variance,latest,884.0371600000001,108.28114000000001
+Table I.B1.2a.29,Ireland,mathematics,within_school_variance,latest,6091.26277,130.90448
+Table I.B1.2a.29,Ireland,mathematics,between_school_pct_of_oecd_average,latest,10.11198,
+Table I.B1.2a.29,Israel,mathematics,total_variance,latest,10658.2306,295.69452
+Table I.B1.2a.29,Israel,mathematics,between_school_variance,latest,3554.81917,356.11331
+Table I.B1.2a.29,Israel,mathematics,within_school_variance,latest,7177.03628,189.32094
+Table I.B1.2a.29,Israel,mathematics,between_school_pct_of_oecd_average,latest,40.66149,
+Table I.B1.2a.29,Italy,mathematics,total_variance,latest,8666.583550000001,245.16359000000003
+Table I.B1.2a.29,Italy,mathematics,between_school_variance,latest,3574.95989,330.52759000000003
+Table I.B1.2a.29,Italy,mathematics,within_school_variance,latest,5108.01277,122.68449000000001
+Table I.B1.2a.29,Italy,mathematics,between_school_pct_of_oecd_average,latest,40.891870000000004,
+Table I.B1.2a.29,Japan,mathematics,total_variance,latest,10808.68295,536.01791
+Table I.B1.2a.29,Japan,mathematics,between_school_variance,latest,5836.174900000001,576.10302
+Table I.B1.2a.29,Japan,mathematics,within_school_variance,latest,4955.54864,148.08621000000002
+Table I.B1.2a.29,Japan,mathematics,between_school_pct_of_oecd_average,latest,66.75658,
+Table I.B1.2a.29,Jordan,mathematics,total_variance,latest,4446.95297,150.45091000000002
+Table I.B1.2a.29,Jordan,mathematics,between_school_variance,latest,1249.4777800000002,135.94214000000002
+Table I.B1.2a.29,Jordan,mathematics,within_school_variance,latest,3198.0775700000004,82.39909
+Table I.B1.2a.29,Jordan,mathematics,between_school_pct_of_oecd_average,latest,14.292040000000002,
+Table I.B1.2a.29,Kazakhstan,mathematics,total_variance,latest,6027.85997,140.35334
+Table I.B1.2a.29,Kazakhstan,mathematics,between_school_variance,latest,1931.56094,159.35852000000003
+Table I.B1.2a.29,Kazakhstan,mathematics,within_school_variance,latest,4152.089940000001,59.828880000000005
+Table I.B1.2a.29,Kazakhstan,mathematics,between_school_pct_of_oecd_average,latest,22.09399,
+Table I.B1.2a.29,Kenya,mathematics,total_variance,latest,4697.891320000001,279.98527
+Table I.B1.2a.29,Kenya,mathematics,between_school_variance,latest,2522.49382,312.58197
+Table I.B1.2a.29,Kenya,mathematics,within_school_variance,latest,2217.9646900000002,58.57233000000001
+Table I.B1.2a.29,Kenya,mathematics,between_school_pct_of_oecd_average,latest,28.853320000000004,
+Table I.B1.2a.29,Korea,mathematics,total_variance,latest,12437.97808,395.39303
+Table I.B1.2a.29,Korea,mathematics,between_school_variance,latest,3642.13689,470.37732000000005
+Table I.B1.2a.29,Korea,mathematics,within_school_variance,latest,8781.62943,191.80603000000002
+Table I.B1.2a.29,Korea,mathematics,between_school_pct_of_oecd_average,latest,41.660270000000004,
+Table I.B1.2a.29,Kosovo,mathematics,total_variance,latest,4443.092500000001,124.41346000000001
+Table I.B1.2a.29,Kosovo,mathematics,between_school_variance,latest,1456.43143,245.93677000000002
+Table I.B1.2a.29,Kosovo,mathematics,within_school_variance,latest,2982.5864800000004,120.63155
+Table I.B1.2a.29,Kosovo,mathematics,between_school_pct_of_oecd_average,latest,16.65926,
+Table I.B1.2a.29,Kurdistan Region (Iraq),mathematics,total_variance,latest,3086.8406800000002,126.31637
+Table I.B1.2a.29,Kurdistan Region (Iraq),mathematics,between_school_variance,latest,1220.81592,118.65332000000001
+Table I.B1.2a.29,Kurdistan Region (Iraq),mathematics,within_school_variance,latest,1869.8002900000001,47.37194
+Table I.B1.2a.29,Kurdistan Region (Iraq),mathematics,between_school_pct_of_oecd_average,latest,13.964200000000002,
+Table I.B1.2a.29,Kyrgyzstan,mathematics,total_variance,latest,4158.271830000001,129.6207
+Table I.B1.2a.29,Kyrgyzstan,mathematics,between_school_variance,latest,1053.09493,137.58987000000002
+Table I.B1.2a.29,Kyrgyzstan,mathematics,within_school_variance,latest,3151.1779100000003,78.68504
+Table I.B1.2a.29,Kyrgyzstan,mathematics,between_school_pct_of_oecd_average,latest,12.04573,
+Table I.B1.2a.29,Latvia,mathematics,total_variance,latest,7565.825180000001,171.63615000000001
+Table I.B1.2a.29,Latvia,mathematics,between_school_variance,latest,2250.0257500000002,341.84471
+Table I.B1.2a.29,Latvia,mathematics,within_school_variance,latest,5278.02184,128.01262
+Table I.B1.2a.29,Latvia,mathematics,between_school_pct_of_oecd_average,latest,25.736720000000002,
+Table I.B1.2a.29,Lebanon,mathematics,total_variance,latest,7485.65771,309.77083000000005
+Table I.B1.2a.29,Lebanon,mathematics,between_school_variance,latest,3481.9703600000003,356.34017000000006
+Table I.B1.2a.29,Lebanon,mathematics,within_school_variance,latest,3982.6772400000004,103.76619000000001
+Table I.B1.2a.29,Lebanon,mathematics,between_school_pct_of_oecd_average,latest,39.828210000000006,
+Table I.B1.2a.29,Lithuania,mathematics,total_variance,latest,7787.116260000001,228.92789000000002
+Table I.B1.2a.29,Lithuania,mathematics,between_school_variance,latest,2462.49998,331.20072000000005
+Table I.B1.2a.29,Lithuania,mathematics,within_school_variance,latest,5174.32427,122.71572
+Table I.B1.2a.29,Lithuania,mathematics,between_school_pct_of_oecd_average,latest,28.16709,
+Table I.B1.2a.29,Luxembourg,mathematics,total_variance,latest,9612.58833,168.88076
+Table I.B1.2a.29,Luxembourg,mathematics,between_school_variance,latest,3228.17185,502.50606000000005
+Table I.B1.2a.29,Luxembourg,mathematics,within_school_variance,latest,6470.019130000001,269.85177000000004
+Table I.B1.2a.29,Luxembourg,mathematics,between_school_pct_of_oecd_average,latest,36.925160000000005,
+Table I.B1.2a.29,Macao (China),mathematics,total_variance,latest,9494.69417,178.197
+Table I.B1.2a.29,Macao (China),mathematics,between_school_variance,latest,3085.5298300000004,607.1641500000001
+Table I.B1.2a.29,Macao (China),mathematics,within_school_variance,latest,6360.856220000001,205.78948000000003
+Table I.B1.2a.29,Macao (China),mathematics,between_school_pct_of_oecd_average,latest,35.29356,
+Table I.B1.2a.29,Malaysia,mathematics,total_variance,latest,5432.439560000001,173.37511
+Table I.B1.2a.29,Malaysia,mathematics,between_school_variance,latest,1707.0298000000003,275.12064000000004
+Table I.B1.2a.29,Malaysia,mathematics,within_school_variance,latest,3704.0433100000005,118.86344000000001
+Table I.B1.2a.29,Malaysia,mathematics,between_school_pct_of_oecd_average,latest,19.52571,
+Table I.B1.2a.29,Malta,mathematics,total_variance,latest,10640.697180000001,236.55983
+Table I.B1.2a.29,Malta,mathematics,between_school_variance,latest,2103.60915,530.23968
+Table I.B1.2a.29,Malta,mathematics,within_school_variance,latest,8620.164350000001,311.04156
+Table I.B1.2a.29,Malta,mathematics,between_school_pct_of_oecd_average,latest,24.061950000000003,
+Table I.B1.2a.29,Mauritius,mathematics,total_variance,latest,7043.8748000000005,394.15747000000005
+Table I.B1.2a.29,Mauritius,mathematics,between_school_variance,latest,3491.4226000000003,515.55695
+Table I.B1.2a.29,Mauritius,mathematics,within_school_variance,latest,3511.8306300000004,111.63838000000001
+Table I.B1.2a.29,Mauritius,mathematics,between_school_pct_of_oecd_average,latest,39.936330000000005,
+Table I.B1.2a.29,Mexico,mathematics,total_variance,latest,4479.96554,165.51865
+Table I.B1.2a.29,Mexico,mathematics,between_school_variance,latest,1361.0737100000001,163.28425000000001
+Table I.B1.2a.29,Mexico,mathematics,within_school_variance,latest,3127.1778600000002,77.41795
+Table I.B1.2a.29,Mexico,mathematics,between_school_pct_of_oecd_average,latest,15.568520000000001,
+Table I.B1.2a.29,Moldova,mathematics,total_variance,latest,6697.52702,185.89252000000002
+Table I.B1.2a.29,Moldova,mathematics,between_school_variance,latest,1634.2511100000002,191.77232
+Table I.B1.2a.29,Moldova,mathematics,within_school_variance,latest,5141.28553,107.32601000000001
+Table I.B1.2a.29,Moldova,mathematics,between_school_pct_of_oecd_average,latest,18.693240000000003,
+Table I.B1.2a.29,Mongolia,mathematics,total_variance,latest,6849.79945,218.94431000000003
+Table I.B1.2a.29,Mongolia,mathematics,between_school_variance,latest,2304.62878,294.08366
+Table I.B1.2a.29,Mongolia,mathematics,within_school_variance,latest,4542.01525,93.23987000000001
+Table I.B1.2a.29,Mongolia,mathematics,between_school_pct_of_oecd_average,latest,26.361300000000004,
+Table I.B1.2a.29,Montenegro,mathematics,total_variance,latest,6621.45671,116.24152000000001
+Table I.B1.2a.29,Montenegro,mathematics,between_school_variance,latest,2311.0036400000004,601.5184800000001
+Table I.B1.2a.29,Montenegro,mathematics,within_school_variance,latest,4278.17352,170.53922
+Table I.B1.2a.29,Montenegro,mathematics,between_school_pct_of_oecd_average,latest,26.434210000000004,
+Table I.B1.2a.29,Morocco,mathematics,total_variance,latest,4395.35981,233.53468
+Table I.B1.2a.29,Morocco,mathematics,between_school_variance,latest,1731.1347300000002,219.24529
+Table I.B1.2a.29,Morocco,mathematics,within_school_variance,latest,2669.36985,76.44722
+Table I.B1.2a.29,Morocco,mathematics,between_school_pct_of_oecd_average,latest,19.80143,
+Table I.B1.2a.29,Netherlands*,mathematics,total_variance,latest,11193.1411,349.88012000000003
+Table I.B1.2a.29,Netherlands*,mathematics,between_school_variance,latest,6776.13709,479.37414
+Table I.B1.2a.29,Netherlands*,mathematics,within_school_variance,latest,4432.779320000001,98.35357
+Table I.B1.2a.29,Netherlands*,mathematics,between_school_pct_of_oecd_average,latest,77.50826,
+Table I.B1.2a.29,New Zealand*,mathematics,total_variance,latest,10509.57213,231.91372
+Table I.B1.2a.29,New Zealand*,mathematics,between_school_variance,latest,1958.3710500000002,257.74397000000005
+Table I.B1.2a.29,New Zealand*,mathematics,within_school_variance,latest,8626.457390000001,242.44159000000002
+Table I.B1.2a.29,New Zealand*,mathematics,between_school_pct_of_oecd_average,latest,22.400660000000002,
+Table I.B1.2a.29,North Macedonia,mathematics,total_variance,latest,7883.949240000001,159.08075000000002
+Table I.B1.2a.29,North Macedonia,mathematics,between_school_variance,latest,2662.28571,474.6738
+Table I.B1.2a.29,North Macedonia,mathematics,within_school_variance,latest,5250.415370000001,179.02560000000003
+Table I.B1.2a.29,North Macedonia,mathematics,between_school_pct_of_oecd_average,latest,30.452320000000004,
+Table I.B1.2a.29,Norway*,mathematics,total_variance,latest,9232.20715,221.26519000000002
+Table I.B1.2a.29,Norway*,mathematics,between_school_variance,latest,924.5684600000001,119.57367
+Table I.B1.2a.29,Norway*,mathematics,within_school_variance,latest,8328.49612,172.35866000000001
+Table I.B1.2a.29,Norway*,mathematics,between_school_pct_of_oecd_average,latest,10.575600000000001,
+Table I.B1.2a.29,Palestinian Authority,mathematics,total_variance,latest,4549.13842,120.68670000000002
+Table I.B1.2a.29,Palestinian Authority,mathematics,between_school_variance,latest,914.3497400000001,104.55921000000001
+Table I.B1.2a.29,Palestinian Authority,mathematics,within_school_variance,latest,3602.25185,85.61591000000001
+Table I.B1.2a.29,Palestinian Authority,mathematics,between_school_pct_of_oecd_average,latest,10.458710000000002,
+Table I.B1.2a.29,Paraguay,mathematics,total_variance,latest,3994.0128200000004,131.61100000000002
+Table I.B1.2a.29,Paraguay,mathematics,between_school_variance,latest,1155.6034100000002,147.67351000000002
+Table I.B1.2a.29,Paraguay,mathematics,within_school_variance,latest,2855.53715,69.28215
+Table I.B1.2a.29,Paraguay,mathematics,between_school_pct_of_oecd_average,latest,13.21827,
+Table I.B1.2a.29,Peru,mathematics,total_variance,latest,6080.216520000001,191.47139
+Table I.B1.2a.29,Peru,mathematics,between_school_variance,latest,1781.24593,202.79707000000002
+Table I.B1.2a.29,Peru,mathematics,within_school_variance,latest,4371.165510000001,102.33892
+Table I.B1.2a.29,Peru,mathematics,between_school_pct_of_oecd_average,latest,20.374630000000003,
+Table I.B1.2a.29,Philippines,mathematics,total_variance,latest,3820.67772,119.70365000000001
+Table I.B1.2a.29,Philippines,mathematics,between_school_variance,latest,867.47158,121.51256000000001
+Table I.B1.2a.29,Philippines,mathematics,within_school_variance,latest,2969.0536700000002,68.35969
+Table I.B1.2a.29,Philippines,mathematics,between_school_pct_of_oecd_average,latest,9.922500000000001,
+Table I.B1.2a.29,Poland,mathematics,total_variance,latest,8866.337440000001,373.49133
+Table I.B1.2a.29,Poland,mathematics,between_school_variance,latest,4276.62362,405.53912
+Table I.B1.2a.29,Poland,mathematics,within_school_variance,latest,4615.8778,112.9937
+Table I.B1.2a.29,Poland,mathematics,between_school_pct_of_oecd_average,latest,48.917790000000004,
+Table I.B1.2a.29,Portugal,mathematics,total_variance,latest,8122.09377,195.67324000000002
+Table I.B1.2a.29,Portugal,mathematics,between_school_variance,latest,1568.4928900000002,194.32026000000002
+Table I.B1.2a.29,Portugal,mathematics,within_school_variance,latest,6520.127530000001,146.38451
+Table I.B1.2a.29,Portugal,mathematics,between_school_pct_of_oecd_average,latest,17.94107,
+Table I.B1.2a.29,Qatar,mathematics,total_variance,latest,8906.940910000001,230.28061000000002
+Table I.B1.2a.29,Qatar,mathematics,between_school_variance,latest,3378.4148800000003,435.58654
+Table I.B1.2a.29,Qatar,mathematics,within_school_variance,latest,5496.67168,200.45224000000002
+Table I.B1.2a.29,Qatar,mathematics,between_school_pct_of_oecd_average,latest,38.6437,
+Table I.B1.2a.29,Romania,mathematics,total_variance,latest,10838.360690000001,581.8388
+Table I.B1.2a.29,Romania,mathematics,between_school_variance,latest,5930.55521,549.58022
+Table I.B1.2a.29,Romania,mathematics,within_school_variance,latest,4908.56004,123.82300000000001
+Table I.B1.2a.29,Romania,mathematics,between_school_pct_of_oecd_average,latest,67.83614,
+Table I.B1.2a.29,Rwanda,mathematics,total_variance,latest,4403.724160000001,308.68349
+Table I.B1.2a.29,Rwanda,mathematics,between_school_variance,latest,2085.6345800000004,320.67118000000005
+Table I.B1.2a.29,Rwanda,mathematics,within_school_variance,latest,2316.5940100000003,53.88313
+Table I.B1.2a.29,Rwanda,mathematics,between_school_pct_of_oecd_average,latest,23.856350000000003,
+Table I.B1.2a.29,Saudi Arabia,mathematics,total_variance,latest,5091.48358,214.25497000000001
+Table I.B1.2a.29,Saudi Arabia,mathematics,between_school_variance,latest,1297.19416,217.94362
+Table I.B1.2a.29,Saudi Arabia,mathematics,within_school_variance,latest,3791.7509000000005,81.14922
+Table I.B1.2a.29,Saudi Arabia,mathematics,between_school_pct_of_oecd_average,latest,14.837840000000002,
+Table I.B1.2a.29,Serbia,mathematics,total_variance,latest,8418.164410000001,280.01679
+Table I.B1.2a.29,Serbia,mathematics,between_school_variance,latest,3662.5864600000004,351.76161
+Table I.B1.2a.29,Serbia,mathematics,within_school_variance,latest,4741.58531,122.55592000000001
+Table I.B1.2a.29,Serbia,mathematics,between_school_pct_of_oecd_average,latest,41.894180000000006,
+Table I.B1.2a.29,Singapore,mathematics,total_variance,latest,11783.80492,224.57797000000002
+Table I.B1.2a.29,Singapore,mathematics,between_school_variance,latest,3542.5950900000003,381.18274
+Table I.B1.2a.29,Singapore,mathematics,within_school_variance,latest,8157.635410000001,233.03348000000003
+Table I.B1.2a.29,Singapore,mathematics,between_school_pct_of_oecd_average,latest,40.521660000000004,
+Table I.B1.2a.29,Slovak Republic,mathematics,total_variance,latest,10780.03165,364.36178
+Table I.B1.2a.29,Slovak Republic,mathematics,between_school_variance,latest,5309.99154,491.34202000000005
+Table I.B1.2a.29,Slovak Republic,mathematics,within_school_variance,latest,5293.22019,140.77739000000003
+Table I.B1.2a.29,Slovak Republic,mathematics,between_school_pct_of_oecd_average,latest,60.737880000000004,
+Table I.B1.2a.29,Slovenia,mathematics,total_variance,latest,8734.41172,188.1801
+Table I.B1.2a.29,Slovenia,mathematics,between_school_variance,latest,4312.139950000001,396.88517
+Table I.B1.2a.29,Slovenia,mathematics,within_school_variance,latest,4425.74523,131.56041000000002
+Table I.B1.2a.29,Slovenia,mathematics,between_school_pct_of_oecd_average,latest,49.324040000000004,
+Table I.B1.2a.29,Spain,mathematics,total_variance,latest,7553.866220000001,140.88948000000002
+Table I.B1.2a.29,Spain,mathematics,between_school_variance,latest,1074.91506,97.62327
+Table I.B1.2a.29,Spain,mathematics,within_school_variance,latest,6467.606180000001,96.57683
+Table I.B1.2a.29,Spain,mathematics,between_school_pct_of_oecd_average,latest,12.29532,
+Table I.B1.2a.29,Sweden,mathematics,total_variance,latest,9590.7144,218.14713
+Table I.B1.2a.29,Sweden,mathematics,between_school_variance,latest,1361.04103,170.40626
+Table I.B1.2a.29,Sweden,mathematics,within_school_variance,latest,8309.319870000001,173.52725
+Table I.B1.2a.29,Sweden,mathematics,between_school_pct_of_oecd_average,latest,15.568150000000001,
+Table I.B1.2a.29,Switzerland,mathematics,total_variance,latest,10221.905630000001,273.16693000000004
+Table I.B1.2a.29,Switzerland,mathematics,between_school_variance,latest,3833.2057700000005,350.19262000000003
+Table I.B1.2a.29,Switzerland,mathematics,within_school_variance,latest,6424.41718,168.01796000000002
+Table I.B1.2a.29,Switzerland,mathematics,between_school_pct_of_oecd_average,latest,43.84579,
+Table I.B1.2a.29,Chinese Taipei,mathematics,total_variance,latest,12787.483150000002,355.15365
+Table I.B1.2a.29,Chinese Taipei,mathematics,between_school_variance,latest,4515.84989,397.13268000000005
+Table I.B1.2a.29,Chinese Taipei,mathematics,within_school_variance,latest,8256.653540000001,207.84243
+Table I.B1.2a.29,Chinese Taipei,mathematics,between_school_pct_of_oecd_average,latest,51.654160000000005,
+Table I.B1.2a.29,Thailand,mathematics,total_variance,latest,5801.90591,201.21528
+Table I.B1.2a.29,Thailand,mathematics,between_school_variance,latest,1879.54833,212.88554000000002
+Table I.B1.2a.29,Thailand,mathematics,within_school_variance,latest,3946.8916400000003,87.99123
+Table I.B1.2a.29,Thailand,mathematics,between_school_pct_of_oecd_average,latest,21.49905,
+Table I.B1.2a.29,Türkiye,mathematics,total_variance,latest,9426.05652,280.86572
+Table I.B1.2a.29,Türkiye,mathematics,between_school_variance,latest,5901.503930000001,584.61671
+Table I.B1.2a.29,Türkiye,mathematics,within_school_variance,latest,3505.1772,83.28339000000001
+Table I.B1.2a.29,Türkiye,mathematics,between_school_pct_of_oecd_average,latest,67.50384000000001,
+Table I.B1.2a.29,Ukrainian regions (17 of 27),mathematics,total_variance,latest,7864.57354,260.00148
+Table I.B1.2a.29,Ukrainian regions (17 of 27),mathematics,between_school_variance,latest,2310.9883400000003,270.67433
+Table I.B1.2a.29,Ukrainian regions (17 of 27),mathematics,within_school_variance,latest,5546.45275,128.81452000000002
+Table I.B1.2a.29,Ukrainian regions (17 of 27),mathematics,between_school_pct_of_oecd_average,latest,26.434040000000003,
+Table I.B1.2a.29,United Arab Emirates,mathematics,total_variance,latest,10444.440530000002,122.95539000000001
+Table I.B1.2a.29,United Arab Emirates,mathematics,between_school_variance,latest,4724.61531,238.40373000000002
+Table I.B1.2a.29,United Arab Emirates,mathematics,within_school_variance,latest,5677.582090000001,92.79927
+Table I.B1.2a.29,United Arab Emirates,mathematics,between_school_pct_of_oecd_average,latest,54.042100000000005,
+Table I.B1.2a.29,United Kingdom,mathematics,total_variance,latest,10343.700900000002,283.72395
+Table I.B1.2a.29,United Kingdom,mathematics,between_school_variance,latest,2668.88194,325.60975
+Table I.B1.2a.29,United Kingdom,mathematics,within_school_variance,latest,7712.0211500000005,167.53278
+Table I.B1.2a.29,United Kingdom,mathematics,between_school_pct_of_oecd_average,latest,30.527770000000004,
+Table I.B1.2a.29,United States*,mathematics,total_variance,latest,10221.4627,725.4858800000001
+Table I.B1.2a.29,United States*,mathematics,between_school_variance,latest,3145.55654,711.0431000000001
+Table I.B1.2a.29,United States*,mathematics,within_school_variance,latest,7003.477350000001,258.43837
+Table I.B1.2a.29,United States*,mathematics,between_school_pct_of_oecd_average,latest,35.980180000000004,
+Table I.B1.2a.29,Uruguay,mathematics,total_variance,latest,7057.464480000001,177.62073
+Table I.B1.2a.29,Uruguay,mathematics,between_school_variance,latest,1844.02024,204.08880000000002
+Table I.B1.2a.29,Uruguay,mathematics,within_school_variance,latest,5212.02324,120.04179
+Table I.B1.2a.29,Uruguay,mathematics,between_school_pct_of_oecd_average,latest,21.092660000000002,
+Table I.B1.2a.29,Viet Nam,mathematics,total_variance,latest,7590.86894,364.60198
+Table I.B1.2a.29,Viet Nam,mathematics,between_school_variance,latest,3468.5174300000003,448.57492
+Table I.B1.2a.29,Viet Nam,mathematics,within_school_variance,latest,4119.917740000001,110.72768
+Table I.B1.2a.29,Viet Nam,mathematics,between_school_pct_of_oecd_average,latest,39.67434,
+Table I.B1.2a.29,Zambia,mathematics,total_variance,latest,8049.396630000001,824.9388700000001
+Table I.B1.2a.29,Zambia,mathematics,between_school_variance,latest,5660.27735,867.0015000000001
+Table I.B1.2a.29,Zambia,mathematics,within_school_variance,latest,2464.59441,123.89095
+Table I.B1.2a.29,Zambia,mathematics,between_school_pct_of_oecd_average,latest,64.74459,

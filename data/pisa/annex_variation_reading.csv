@@ -1,0 +1,365 @@
+table,subject,domain,stat,cycle,value,se
+Table I.B1.2a.27,OECD average,reading,total_variance,latest,10233.341,50.42228
+Table I.B1.2a.27,OECD average,reading,between_school_variance,latest,3078.02705,55.8209
+Table I.B1.2a.27,OECD average,reading,within_school_variance,latest,7154.05893,34.091390000000004
+Table I.B1.2a.27,OECD average,reading,between_school_pct_of_oecd_average,latest,30.07842,
+Table I.B1.2a.27,Albania*,reading,total_variance,latest,5853.236330000001,175.68601
+Table I.B1.2a.27,Albania*,reading,between_school_variance,latest,2033.58218,284.57551
+Table I.B1.2a.27,Albania*,reading,within_school_variance,latest,3827.9969800000003,104.60588000000001
+Table I.B1.2a.27,Albania*,reading,between_school_pct_of_oecd_average,latest,19.872120000000002,
+Table I.B1.2a.27,Argentina,reading,total_variance,latest,8312.907990000002,262.41519
+Table I.B1.2a.27,Argentina,reading,between_school_variance,latest,2637.8602,256.90914000000004
+Table I.B1.2a.27,Argentina,reading,within_school_variance,latest,5708.01684,141.6892
+Table I.B1.2a.27,Argentina,reading,between_school_pct_of_oecd_average,latest,25.777120000000004,
+Table I.B1.2a.27,Armenia,reading,total_variance,latest,4623.987590000001,99.47237000000001
+Table I.B1.2a.27,Armenia,reading,between_school_variance,latest,788.65458,134.19996
+Table I.B1.2a.27,Armenia,reading,within_school_variance,latest,3875.17239,92.44084000000001
+Table I.B1.2a.27,Armenia,reading,between_school_pct_of_oecd_average,latest,7.706720000000001,
+Table I.B1.2a.27,Australia,reading,total_variance,latest,12345.021170000002,189.56900000000002
+Table I.B1.2a.27,Australia,reading,between_school_variance,latest,2281.76337,174.86583000000002
+Table I.B1.2a.27,Australia,reading,within_school_variance,latest,10067.153520000002,173.19174
+Table I.B1.2a.27,Australia,reading,between_school_pct_of_oecd_average,latest,22.29735,
+Table I.B1.2a.27,Austria,reading,total_variance,latest,9058.21291,214.33631000000003
+Table I.B1.2a.27,Austria,reading,between_school_variance,latest,3725.8914000000004,293.98753000000005
+Table I.B1.2a.27,Austria,reading,within_school_variance,latest,5341.27927,139.01186
+Table I.B1.2a.27,Austria,reading,between_school_pct_of_oecd_average,latest,36.40934,
+Table I.B1.2a.27,Azerbaijan,reading,total_variance,latest,6989.871990000001,236.51651
+Table I.B1.2a.27,Azerbaijan,reading,between_school_variance,latest,2105.2311400000003,260.98712
+Table I.B1.2a.27,Azerbaijan,reading,within_school_variance,latest,4885.6041700000005,106.36716000000001
+Table I.B1.2a.27,Azerbaijan,reading,between_school_pct_of_oecd_average,latest,20.572280000000003,
+Table I.B1.2a.27,Belgium,reading,total_variance,latest,10737.54918,372.11409000000003
+Table I.B1.2a.27,Belgium,reading,between_school_variance,latest,4167.9533,366.29569000000004
+Table I.B1.2a.27,Belgium,reading,within_school_variance,latest,6538.605390000001,166.7485
+Table I.B1.2a.27,Belgium,reading,between_school_pct_of_oecd_average,latest,40.72916,
+Table I.B1.2a.27,Brazil,reading,total_variance,latest,9065.847940000001,220.4394
+Table I.B1.2a.27,Brazil,reading,between_school_variance,latest,3312.9894000000004,257.08407
+Table I.B1.2a.27,Brazil,reading,within_school_variance,latest,5750.566250000001,87.45656000000001
+Table I.B1.2a.27,Brazil,reading,between_school_pct_of_oecd_average,latest,32.37447,
+Table I.B1.2a.27,Brunei Darussalam,reading,total_variance,latest,9076.791720000001,145.39394000000001
+Table I.B1.2a.27,Brunei Darussalam,reading,between_school_variance,latest,2593.35613,638.86405
+Table I.B1.2a.27,Brunei Darussalam,reading,within_school_variance,latest,6363.675370000001,314.17518
+Table I.B1.2a.27,Brunei Darussalam,reading,between_school_pct_of_oecd_average,latest,25.34222,
+Table I.B1.2a.27,B-S-J-Z (China),reading,total_variance,latest,6477.397730000001,210.31386
+Table I.B1.2a.27,B-S-J-Z (China),reading,between_school_variance,latest,2634.4137800000003,239.45601000000002
+Table I.B1.2a.27,B-S-J-Z (China),reading,within_school_variance,latest,3827.7710300000003,99.66122000000001
+Table I.B1.2a.27,B-S-J-Z (China),reading,between_school_pct_of_oecd_average,latest,25.743440000000003,
+Table I.B1.2a.27,Bulgaria,reading,total_variance,latest,10915.041420000001,465.29654000000005
+Table I.B1.2a.27,Bulgaria,reading,between_school_variance,latest,6108.7736,547.4115300000001
+Table I.B1.2a.27,Bulgaria,reading,within_school_variance,latest,4844.08406,109.24026
+Table I.B1.2a.27,Bulgaria,reading,between_school_pct_of_oecd_average,latest,59.694810000000004,
+Table I.B1.2a.27,Cambodia,reading,total_variance,latest,3254.5695,99.92554000000001
+Table I.B1.2a.27,Cambodia,reading,between_school_variance,latest,449.95649000000003,74.26076
+Table I.B1.2a.27,Cambodia,reading,within_school_variance,latest,2777.09672,85.28345
+Table I.B1.2a.27,Cambodia,reading,between_school_pct_of_oecd_average,latest,4.3969700000000005,
+Table I.B1.2a.27,Canada*,reading,total_variance,latest,10941.257730000001,199.90924
+Table I.B1.2a.27,Canada*,reading,between_school_variance,latest,1642.50464,139.16779000000002
+Table I.B1.2a.27,Canada*,reading,within_school_variance,latest,9279.964680000001,143.38296000000003
+Table I.B1.2a.27,Canada*,reading,between_school_pct_of_oecd_average,latest,16.050520000000002,
+Table I.B1.2a.27,Chile,reading,total_variance,latest,8732.093840000001,280.53416000000004
+Table I.B1.2a.27,Chile,reading,between_school_variance,latest,2324.31071,225.29358000000002
+Table I.B1.2a.27,Chile,reading,within_school_variance,latest,6434.6508300000005,161.29673000000003
+Table I.B1.2a.27,Chile,reading,between_school_pct_of_oecd_average,latest,22.713120000000004,
+Table I.B1.2a.27,Colombia,reading,total_variance,latest,8214.79814,279.37685000000005
+Table I.B1.2a.27,Colombia,reading,between_school_variance,latest,3067.1484600000003,310.5353
+Table I.B1.2a.27,Colombia,reading,within_school_variance,latest,5116.4645900000005,125.46415
+Table I.B1.2a.27,Colombia,reading,between_school_pct_of_oecd_average,latest,29.97211,
+Table I.B1.2a.27,Costa Rica,reading,total_variance,latest,7143.2983,236.68275000000003
+Table I.B1.2a.27,Costa Rica,reading,between_school_variance,latest,2202.78496,270.17418000000004
+Table I.B1.2a.27,Costa Rica,reading,within_school_variance,latest,4914.1864000000005,117.09874
+Table I.B1.2a.27,Costa Rica,reading,between_school_pct_of_oecd_average,latest,21.525570000000002,
+Table I.B1.2a.27,Croatia,reading,total_variance,latest,9210.919890000001,192.40005000000002
+Table I.B1.2a.27,Croatia,reading,between_school_variance,latest,4328.561830000001,328.65840000000003
+Table I.B1.2a.27,Croatia,reading,within_school_variance,latest,4884.89044,134.82809
+Table I.B1.2a.27,Croatia,reading,between_school_pct_of_oecd_average,latest,42.29862000000001,
+Table I.B1.2a.27,Cyprus,reading,total_variance,latest,11341.676500000001,246.88649
+Table I.B1.2a.27,Cyprus,reading,between_school_variance,latest,2765.8077200000002,568.44393
+Table I.B1.2a.27,Cyprus,reading,within_school_variance,latest,8630.466970000001,268.61548000000005
+Table I.B1.2a.27,Cyprus,reading,between_school_pct_of_oecd_average,latest,27.027420000000003,
+Table I.B1.2a.27,Czechia,reading,total_variance,latest,9550.47549,317.97905000000003
+Table I.B1.2a.27,Czechia,reading,between_school_variance,latest,4023.4107300000005,322.96595
+Table I.B1.2a.27,Czechia,reading,within_school_variance,latest,5404.40332,146.50584
+Table I.B1.2a.27,Czechia,reading,between_school_pct_of_oecd_average,latest,39.31669,
+Table I.B1.2a.27,Denmark,reading,total_variance,latest,9253.74574,258.78747000000004
+Table I.B1.2a.27,Denmark,reading,between_school_variance,latest,1085.15452,152.70596
+Table I.B1.2a.27,Denmark,reading,within_school_variance,latest,8225.962280000002,246.42118000000002
+Table I.B1.2a.27,Denmark,reading,between_school_pct_of_oecd_average,latest,10.60411,
+Table I.B1.2a.27,Dominican Republic,reading,total_variance,latest,6696.686250000001,221.64069
+Table I.B1.2a.27,Dominican Republic,reading,between_school_variance,latest,2210.5509500000003,223.94197000000003
+Table I.B1.2a.27,Dominican Republic,reading,within_school_variance,latest,4457.67105,102.43391000000001
+Table I.B1.2a.27,Dominican Republic,reading,between_school_pct_of_oecd_average,latest,21.601460000000003,
+Table I.B1.2a.27,Dushanbe (Tajikistan),reading,total_variance,latest,2404.605,90.69355
+Table I.B1.2a.27,Dushanbe (Tajikistan),reading,between_school_variance,latest,578.11887,103.39937
+Table I.B1.2a.27,Dushanbe (Tajikistan),reading,within_school_variance,latest,1802.05698,65.68401
+Table I.B1.2a.27,Dushanbe (Tajikistan),reading,between_school_pct_of_oecd_average,latest,5.64937,
+Table I.B1.2a.27,Ecuador,reading,total_variance,latest,6630.5764500000005,222.89757000000003
+Table I.B1.2a.27,Ecuador,reading,between_school_variance,latest,2339.87831,299.47133
+Table I.B1.2a.27,Ecuador,reading,within_school_variance,latest,4291.7439,91.93399000000001
+Table I.B1.2a.27,Ecuador,reading,between_school_pct_of_oecd_average,latest,22.865240000000004,
+Table I.B1.2a.27,El Salvador,reading,total_variance,latest,6422.8342,247.02951000000002
+Table I.B1.2a.27,El Salvador,reading,between_school_variance,latest,2258.99875,288.15922
+Table I.B1.2a.27,El Salvador,reading,within_school_variance,latest,4289.83986,91.27513
+Table I.B1.2a.27,El Salvador,reading,between_school_pct_of_oecd_average,latest,22.074890000000003,
+Table I.B1.2a.27,Estonia,reading,total_variance,latest,8960.900370000001,206.14962000000003
+Table I.B1.2a.27,Estonia,reading,between_school_variance,latest,1606.6495100000002,229.66265
+Table I.B1.2a.27,Estonia,reading,within_school_variance,latest,7381.245400000001,174.61505000000002
+Table I.B1.2a.27,Estonia,reading,between_school_pct_of_oecd_average,latest,15.70015,
+Table I.B1.2a.27,Finland,reading,total_variance,latest,10450.12075,225.58175000000003
+Table I.B1.2a.27,Finland,reading,between_school_variance,latest,788.2276700000001,121.07019000000001
+Table I.B1.2a.27,Finland,reading,within_school_variance,latest,9699.181030000002,202.2127
+Table I.B1.2a.27,Finland,reading,between_school_pct_of_oecd_average,latest,7.702540000000001,
+Table I.B1.2a.27,France,reading,total_variance,latest,10533.30197,316.8104
+Table I.B1.2a.27,France,reading,between_school_variance,latest,3755.5330200000003,367.61242000000004
+Table I.B1.2a.27,France,reading,within_school_variance,latest,6766.123630000001,178.23328
+Table I.B1.2a.27,France,reading,between_school_pct_of_oecd_average,latest,36.69899,
+Table I.B1.2a.27,Georgia,reading,total_variance,latest,7130.821860000001,256.70369
+Table I.B1.2a.27,Georgia,reading,between_school_variance,latest,1564.4104000000002,271.81743
+Table I.B1.2a.27,Georgia,reading,within_school_variance,latest,5660.062800000001,151.12987
+Table I.B1.2a.27,Georgia,reading,between_school_pct_of_oecd_average,latest,15.287390000000002,
+Table I.B1.2a.27,Germany,reading,total_variance,latest,12067.52337,300.61787000000004
+Table I.B1.2a.27,Germany,reading,between_school_variance,latest,5704.7599900000005,373.68963
+Table I.B1.2a.27,Germany,reading,within_school_variance,latest,6326.870360000001,158.42618000000002
+Table I.B1.2a.27,Germany,reading,between_school_pct_of_oecd_average,latest,55.74680000000001,
+Table I.B1.2a.27,Greece,reading,total_variance,latest,8847.90703,340.51337
+Table I.B1.2a.27,Greece,reading,between_school_variance,latest,2576.15662,340.73699000000005
+Table I.B1.2a.27,Greece,reading,within_school_variance,latest,6277.496230000001,150.64203
+Table I.B1.2a.27,Greece,reading,between_school_pct_of_oecd_average,latest,25.17415,
+Table I.B1.2a.27,Guatemala,reading,total_variance,latest,5149.524060000001,251.60859000000002
+Table I.B1.2a.27,Guatemala,reading,between_school_variance,latest,2230.7289100000003,242.81507000000002
+Table I.B1.2a.27,Guatemala,reading,within_school_variance,latest,2942.0588100000004,75.70830000000001
+Table I.B1.2a.27,Guatemala,reading,between_school_pct_of_oecd_average,latest,21.798640000000002,
+Table I.B1.2a.27,Hong Kong (China),reading,total_variance,latest,9219.581970000001,278.00789000000003
+Table I.B1.2a.27,Hong Kong (China),reading,between_school_variance,latest,2602.99481,268.69931
+Table I.B1.2a.27,Hong Kong (China),reading,within_school_variance,latest,6601.222900000001,169.59609
+Table I.B1.2a.27,Hong Kong (China),reading,between_school_pct_of_oecd_average,latest,25.436410000000002,
+Table I.B1.2a.27,Hungary,reading,total_variance,latest,8654.740950000001,345.73127000000005
+Table I.B1.2a.27,Hungary,reading,between_school_variance,latest,4254.279210000001,438.86365000000006
+Table I.B1.2a.27,Hungary,reading,within_school_variance,latest,4431.90393,115.45015000000001
+Table I.B1.2a.27,Hungary,reading,between_school_pct_of_oecd_average,latest,41.57273,
+Table I.B1.2a.27,Iceland,reading,total_variance,latest,10639.39379,238.00296000000003
+Table I.B1.2a.27,Iceland,reading,between_school_variance,latest,655.74892,156.69947000000002
+Table I.B1.2a.27,Iceland,reading,within_school_variance,latest,10249.86881,550.66394
+Table I.B1.2a.27,Iceland,reading,between_school_pct_of_oecd_average,latest,6.407970000000001,
+Table I.B1.2a.27,Indonesia,reading,total_variance,latest,4820.686720000001,182.00728
+Table I.B1.2a.27,Indonesia,reading,between_school_variance,latest,1737.11568,181.46099
+Table I.B1.2a.27,Indonesia,reading,within_school_variance,latest,3083.4293300000004,66.91144
+Table I.B1.2a.27,Indonesia,reading,between_school_pct_of_oecd_average,latest,16.975060000000003,
+Table I.B1.2a.27,Ireland,reading,total_variance,latest,8755.6407,225.94342000000003
+Table I.B1.2a.27,Ireland,reading,between_school_variance,latest,1069.1158,131.09789
+Table I.B1.2a.27,Ireland,reading,within_school_variance,latest,7636.0946,173.71626
+Table I.B1.2a.27,Ireland,reading,between_school_pct_of_oecd_average,latest,10.44738,
+Table I.B1.2a.27,Israel,reading,total_variance,latest,13417.5328,422.21237
+Table I.B1.2a.27,Israel,reading,between_school_variance,latest,4942.844950000001,471.93476000000004
+Table I.B1.2a.27,Israel,reading,within_school_variance,latest,8567.71953,251.18959
+Table I.B1.2a.27,Israel,reading,between_school_pct_of_oecd_average,latest,48.30138,
+Table I.B1.2a.27,Italy,reading,total_variance,latest,8928.06545,259.79568
+Table I.B1.2a.27,Italy,reading,between_school_variance,latest,3785.17248,320.14323
+Table I.B1.2a.27,Italy,reading,within_school_variance,latest,5102.22469,120.31022000000002
+Table I.B1.2a.27,Italy,reading,between_school_pct_of_oecd_average,latest,36.98863,
+Table I.B1.2a.27,Japan,reading,total_variance,latest,10956.576860000001,492.74108000000007
+Table I.B1.2a.27,Japan,reading,between_school_variance,latest,4347.097540000001,456.82522000000006
+Table I.B1.2a.27,Japan,reading,within_school_variance,latest,6550.191100000001,197.31105000000002
+Table I.B1.2a.27,Japan,reading,between_school_pct_of_oecd_average,latest,42.47975,
+Table I.B1.2a.27,Jordan,reading,total_variance,latest,4826.14778,135.38354
+Table I.B1.2a.27,Jordan,reading,between_school_variance,latest,1196.0965600000002,121.15070000000001
+Table I.B1.2a.27,Jordan,reading,within_school_variance,latest,3649.9517,85.13680000000001
+Table I.B1.2a.27,Jordan,reading,between_school_pct_of_oecd_average,latest,11.68823,
+Table I.B1.2a.27,Kazakhstan,reading,total_variance,latest,5904.77221,106.16325
+Table I.B1.2a.27,Kazakhstan,reading,between_school_variance,latest,1950.1719100000003,145.89726000000002
+Table I.B1.2a.27,Kazakhstan,reading,within_school_variance,latest,4014.9858500000005,67.52927000000001
+Table I.B1.2a.27,Kazakhstan,reading,between_school_pct_of_oecd_average,latest,19.05704,
+Table I.B1.2a.27,Kenya,reading,total_variance,latest,4805.889840000001,276.15363
+Table I.B1.2a.27,Kenya,reading,between_school_variance,latest,2610.93244,311.25070000000005
+Table I.B1.2a.27,Kenya,reading,within_school_variance,latest,2248.1292900000003,63.982890000000005
+Table I.B1.2a.27,Kenya,reading,between_school_pct_of_oecd_average,latest,25.513980000000004,
+Table I.B1.2a.27,Korea,reading,total_variance,latest,10595.615810000001,376.12549
+Table I.B1.2a.27,Korea,reading,between_school_variance,latest,2211.87048,312.03819000000004
+Table I.B1.2a.27,Korea,reading,within_school_variance,latest,8345.95687,231.55380000000002
+Table I.B1.2a.27,Korea,reading,between_school_pct_of_oecd_average,latest,21.61435,
+Table I.B1.2a.27,Kosovo,reading,total_variance,latest,4447.94048,109.85309000000001
+Table I.B1.2a.27,Kosovo,reading,between_school_variance,latest,1396.0553300000001,221.33761
+Table I.B1.2a.27,Kosovo,reading,within_school_variance,latest,3049.2280600000004,124.99528000000001
+Table I.B1.2a.27,Kosovo,reading,between_school_pct_of_oecd_average,latest,13.642220000000002,
+Table I.B1.2a.27,Kurdistan Region (Iraq),reading,total_variance,latest,4383.79288,160.28473000000002
+Table I.B1.2a.27,Kurdistan Region (Iraq),reading,between_school_variance,latest,1545.0792600000002,153.42366
+Table I.B1.2a.27,Kurdistan Region (Iraq),reading,within_school_variance,latest,2858.78731,68.79431000000001
+Table I.B1.2a.27,Kurdistan Region (Iraq),reading,between_school_pct_of_oecd_average,latest,15.098480000000002,
+Table I.B1.2a.27,Kyrgyzstan,reading,total_variance,latest,5411.721680000001,172.84
+Table I.B1.2a.27,Kyrgyzstan,reading,between_school_variance,latest,1852.8757100000003,222.35516
+Table I.B1.2a.27,Kyrgyzstan,reading,within_school_variance,latest,3621.23545,97.94103000000001
+Table I.B1.2a.27,Kyrgyzstan,reading,between_school_pct_of_oecd_average,latest,18.106260000000002,
+Table I.B1.2a.27,Latvia,reading,total_variance,latest,10087.401520000001,212.95743000000002
+Table I.B1.2a.27,Latvia,reading,between_school_variance,latest,3746.2494800000004,402.58932000000004
+Table I.B1.2a.27,Latvia,reading,within_school_variance,latest,6305.613310000001,163.71025
+Table I.B1.2a.27,Latvia,reading,between_school_pct_of_oecd_average,latest,36.608270000000005,
+Table I.B1.2a.27,Lebanon,reading,total_variance,latest,9422.105370000001,420.68782000000004
+Table I.B1.2a.27,Lebanon,reading,between_school_variance,latest,4586.36639,469.52341
+Table I.B1.2a.27,Lebanon,reading,within_school_variance,latest,4855.77044,151.50896
+Table I.B1.2a.27,Lebanon,reading,between_school_pct_of_oecd_average,latest,44.81788,
+Table I.B1.2a.27,Lithuania,reading,total_variance,latest,8941.14997,248.39944000000003
+Table I.B1.2a.27,Lithuania,reading,between_school_variance,latest,2843.1978700000004,353.44761000000005
+Table I.B1.2a.27,Lithuania,reading,within_school_variance,latest,5906.317300000001,163.50761
+Table I.B1.2a.27,Lithuania,reading,between_school_pct_of_oecd_average,latest,27.78367,
+Table I.B1.2a.27,Luxembourg,reading,total_variance,latest,11697.92798,191.33919
+Table I.B1.2a.27,Luxembourg,reading,between_school_variance,latest,3493.86866,511.59006000000005
+Table I.B1.2a.27,Luxembourg,reading,within_school_variance,latest,8378.73053,395.85898000000003
+Table I.B1.2a.27,Luxembourg,reading,between_school_pct_of_oecd_average,latest,34.142010000000006,
+Table I.B1.2a.27,Macao (China),reading,total_variance,latest,7990.945140000001,154.17328
+Table I.B1.2a.27,Macao (China),reading,between_school_variance,latest,2285.3580500000003,501.53438000000006
+Table I.B1.2a.27,Macao (China),reading,within_school_variance,latest,5568.908560000001,213.80122000000003
+Table I.B1.2a.27,Macao (China),reading,between_school_pct_of_oecd_average,latest,22.33247,
+Table I.B1.2a.27,Malaysia,reading,total_variance,latest,6581.08945,181.29296000000002
+Table I.B1.2a.27,Malaysia,reading,between_school_variance,latest,1579.98296,253.00239000000002
+Table I.B1.2a.27,Malaysia,reading,within_school_variance,latest,4967.0272700000005,161.75499000000002
+Table I.B1.2a.27,Malaysia,reading,between_school_pct_of_oecd_average,latest,15.439560000000002,
+Table I.B1.2a.27,Malta,reading,total_variance,latest,11800.045810000001,274.2121
+Table I.B1.2a.27,Malta,reading,between_school_variance,latest,2729.2849100000003,699.4555700000001
+Table I.B1.2a.27,Malta,reading,within_school_variance,latest,9297.74971,384.61471000000006
+Table I.B1.2a.27,Malta,reading,between_school_pct_of_oecd_average,latest,26.670520000000003,
+Table I.B1.2a.27,Mauritius,reading,total_variance,latest,7482.5288900000005,323.39084
+Table I.B1.2a.27,Mauritius,reading,between_school_variance,latest,3412.1947000000005,437.49315
+Table I.B1.2a.27,Mauritius,reading,within_school_variance,latest,4060.38945,119.96566000000001
+Table I.B1.2a.27,Mauritius,reading,between_school_pct_of_oecd_average,latest,33.343900000000005,
+Table I.B1.2a.27,Mexico,reading,total_variance,latest,6094.519370000001,219.36824000000001
+Table I.B1.2a.27,Mexico,reading,between_school_variance,latest,1944.5636200000001,214.62273000000002
+Table I.B1.2a.27,Mexico,reading,within_school_variance,latest,4148.54625,96.32145000000001
+Table I.B1.2a.27,Mexico,reading,between_school_pct_of_oecd_average,latest,19.00224,
+Table I.B1.2a.27,Moldova,reading,total_variance,latest,7155.476090000001,220.08318000000003
+Table I.B1.2a.27,Moldova,reading,between_school_variance,latest,2013.55149,222.26316000000003
+Table I.B1.2a.27,Moldova,reading,within_school_variance,latest,5182.779020000001,118.25199
+Table I.B1.2a.27,Moldova,reading,between_school_pct_of_oecd_average,latest,19.67638,
+Table I.B1.2a.27,Mongolia,reading,total_variance,latest,5070.45942,136.79996
+Table I.B1.2a.27,Mongolia,reading,between_school_variance,latest,1618.06777,227.84257000000002
+Table I.B1.2a.27,Mongolia,reading,within_school_variance,latest,3455.6188800000004,72.24677000000001
+Table I.B1.2a.27,Mongolia,reading,between_school_pct_of_oecd_average,latest,15.81173,
+Table I.B1.2a.27,Montenegro,reading,total_variance,latest,7578.87769,131.35731
+Table I.B1.2a.27,Montenegro,reading,between_school_variance,latest,2538.6238000000003,645.37815
+Table I.B1.2a.27,Montenegro,reading,within_school_variance,latest,4961.39177,206.77575000000002
+Table I.B1.2a.27,Montenegro,reading,between_school_pct_of_oecd_average,latest,24.807380000000002,
+Table I.B1.2a.27,Morocco,reading,total_variance,latest,5503.664040000001,275.65218000000004
+Table I.B1.2a.27,Morocco,reading,between_school_variance,latest,2356.3121,251.70838000000003
+Table I.B1.2a.27,Morocco,reading,within_school_variance,latest,3156.3725600000002,95.62235000000001
+Table I.B1.2a.27,Morocco,reading,between_school_pct_of_oecd_average,latest,23.025830000000003,
+Table I.B1.2a.27,Netherlands*,reading,total_variance,latest,12548.01812,365.34444
+Table I.B1.2a.27,Netherlands*,reading,between_school_variance,latest,6700.66092,440.11694000000006
+Table I.B1.2a.27,Netherlands*,reading,within_school_variance,latest,5867.59457,163.39427
+Table I.B1.2a.27,Netherlands*,reading,between_school_pct_of_oecd_average,latest,65.47872000000001,
+Table I.B1.2a.27,New Zealand*,reading,total_variance,latest,13101.324620000001,344.15349000000003
+Table I.B1.2a.27,New Zealand*,reading,between_school_variance,latest,1956.5582000000002,279.54260000000005
+Table I.B1.2a.27,New Zealand*,reading,within_school_variance,latest,11205.60779,330.65122
+Table I.B1.2a.27,New Zealand*,reading,between_school_pct_of_oecd_average,latest,19.11945,
+Table I.B1.2a.27,North Macedonia,reading,total_variance,latest,6153.69131,128.85399
+Table I.B1.2a.27,North Macedonia,reading,between_school_variance,latest,2074.9562100000003,346.31736
+Table I.B1.2a.27,North Macedonia,reading,within_school_variance,latest,4108.51277,124.04821000000001
+Table I.B1.2a.27,North Macedonia,reading,between_school_pct_of_oecd_average,latest,20.27643,
+Table I.B1.2a.27,Norway*,reading,total_variance,latest,11753.62432,232.58061
+Table I.B1.2a.27,Norway*,reading,between_school_variance,latest,1151.8238600000002,137.84375
+Table I.B1.2a.27,Norway*,reading,within_school_variance,latest,10615.06464,234.92157000000003
+Table I.B1.2a.27,Norway*,reading,between_school_pct_of_oecd_average,latest,11.255600000000001,
+Table I.B1.2a.27,Palestinian Authority,reading,total_variance,latest,5623.0973,143.24476
+Table I.B1.2a.27,Palestinian Authority,reading,between_school_variance,latest,1506.6482700000001,142.42871000000002
+Table I.B1.2a.27,Palestinian Authority,reading,within_school_variance,latest,4092.7001900000005,89.20284000000001
+Table I.B1.2a.27,Palestinian Authority,reading,between_school_pct_of_oecd_average,latest,14.722940000000001,
+Table I.B1.2a.27,Paraguay,reading,total_variance,latest,6044.8876900000005,186.87714000000003
+Table I.B1.2a.27,Paraguay,reading,between_school_variance,latest,1816.1393,210.74802000000003
+Table I.B1.2a.27,Paraguay,reading,within_school_variance,latest,4262.04661,101.13035
+Table I.B1.2a.27,Paraguay,reading,between_school_pct_of_oecd_average,latest,17.74728,
+Table I.B1.2a.27,Peru,reading,total_variance,latest,7453.397650000001,228.86392
+Table I.B1.2a.27,Peru,reading,between_school_variance,latest,2304.3893000000003,253.32295000000002
+Table I.B1.2a.27,Peru,reading,within_school_variance,latest,5185.829000000001,105.68181000000001
+Table I.B1.2a.27,Peru,reading,between_school_pct_of_oecd_average,latest,22.51845,
+Table I.B1.2a.27,Philippines,reading,total_variance,latest,6817.88021,212.06465000000003
+Table I.B1.2a.27,Philippines,reading,between_school_variance,latest,1803.0741600000001,249.81816000000003
+Table I.B1.2a.27,Philippines,reading,within_school_variance,latest,5035.57541,107.84898000000001
+Table I.B1.2a.27,Philippines,reading,between_school_pct_of_oecd_average,latest,17.619600000000002,
+Table I.B1.2a.27,Poland,reading,total_variance,latest,10293.56178,403.19406000000004
+Table I.B1.2a.27,Poland,reading,between_school_variance,latest,4888.21308,472.30907
+Table I.B1.2a.27,Poland,reading,within_school_variance,latest,5409.846740000001,120.91532000000001
+Table I.B1.2a.27,Poland,reading,between_school_pct_of_oecd_average,latest,47.767520000000005,
+Table I.B1.2a.27,Portugal,reading,total_variance,latest,8570.25789,197.17597
+Table I.B1.2a.27,Portugal,reading,between_school_variance,latest,1293.5611700000002,165.44178000000002
+Table I.B1.2a.27,Portugal,reading,within_school_variance,latest,7250.98616,168.25528000000003
+Table I.B1.2a.27,Portugal,reading,between_school_pct_of_oecd_average,latest,12.64065,
+Table I.B1.2a.27,Qatar,reading,total_variance,latest,10740.4076,249.93930000000003
+Table I.B1.2a.27,Qatar,reading,between_school_variance,latest,4244.133330000001,527.02542
+Table I.B1.2a.27,Qatar,reading,within_school_variance,latest,6476.7829,207.18936000000002
+Table I.B1.2a.27,Qatar,reading,between_school_pct_of_oecd_average,latest,41.473580000000005,
+Table I.B1.2a.27,Romania,reading,total_variance,latest,9695.425340000002,416.17616000000004
+Table I.B1.2a.27,Romania,reading,between_school_variance,latest,4758.47504,410.79927000000004
+Table I.B1.2a.27,Romania,reading,within_school_variance,latest,4914.85436,132.07292
+Table I.B1.2a.27,Romania,reading,between_school_pct_of_oecd_average,latest,46.49972,
+Table I.B1.2a.27,Rwanda,reading,total_variance,latest,2224.95202,191.75891000000001
+Table I.B1.2a.27,Rwanda,reading,between_school_variance,latest,1109.9620100000002,212.35775
+Table I.B1.2a.27,Rwanda,reading,within_school_variance,latest,1113.2183400000001,37.920280000000005
+Table I.B1.2a.27,Rwanda,reading,between_school_pct_of_oecd_average,latest,10.846530000000001,
+Table I.B1.2a.27,Saudi Arabia,reading,total_variance,latest,5985.6258100000005,181.45191000000003
+Table I.B1.2a.27,Saudi Arabia,reading,between_school_variance,latest,1374.23026,181.54035000000002
+Table I.B1.2a.27,Saudi Arabia,reading,within_school_variance,latest,4598.74575,110.59821000000001
+Table I.B1.2a.27,Saudi Arabia,reading,between_school_pct_of_oecd_average,latest,13.42895,
+Table I.B1.2a.27,Serbia,reading,total_variance,latest,9391.934790000001,283.74998000000005
+Table I.B1.2a.27,Serbia,reading,between_school_variance,latest,4105.50191,372.06022
+Table I.B1.2a.27,Serbia,reading,within_school_variance,latest,5270.831990000001,118.47846000000001
+Table I.B1.2a.27,Serbia,reading,between_school_pct_of_oecd_average,latest,40.118880000000004,
+Table I.B1.2a.27,Singapore,reading,total_variance,latest,13007.66063,314.85191000000003
+Table I.B1.2a.27,Singapore,reading,between_school_variance,latest,3410.1947200000004,413.86118000000005
+Table I.B1.2a.27,Singapore,reading,within_school_variance,latest,9516.232170000001,269.12919
+Table I.B1.2a.27,Singapore,reading,between_school_pct_of_oecd_average,latest,33.32435,
+Table I.B1.2a.27,Slovak Republic,reading,total_variance,latest,10006.41637,344.71650000000005
+Table I.B1.2a.27,Slovak Republic,reading,between_school_variance,latest,4907.31918,428.49545000000006
+Table I.B1.2a.27,Slovak Republic,reading,within_school_variance,latest,4997.94055,117.07363000000001
+Table I.B1.2a.27,Slovak Republic,reading,between_school_pct_of_oecd_average,latest,47.95422000000001,
+Table I.B1.2a.27,Slovenia,reading,total_variance,latest,11012.614490000002,197.32689000000002
+Table I.B1.2a.27,Slovenia,reading,between_school_variance,latest,5564.810240000001,520.2376
+Table I.B1.2a.27,Slovenia,reading,within_school_variance,latest,5426.66705,144.76160000000002
+Table I.B1.2a.27,Slovenia,reading,between_school_pct_of_oecd_average,latest,54.37921000000001,
+Table I.B1.2a.27,Spain,reading,total_variance,latest,8880.9663,200.37587000000002
+Table I.B1.2a.27,Spain,reading,between_school_variance,latest,1412.86913,119.48169000000001
+Table I.B1.2a.27,Spain,reading,within_school_variance,latest,7441.8324600000005,127.84817000000001
+Table I.B1.2a.27,Spain,reading,between_school_pct_of_oecd_average,latest,13.80653,
+Table I.B1.2a.27,Sweden,reading,total_variance,latest,13190.590310000001,306.46645
+Table I.B1.2a.27,Sweden,reading,between_school_variance,latest,2174.9486,278.73400000000004
+Table I.B1.2a.27,Sweden,reading,within_school_variance,latest,11127.628180000002,238.2375
+Table I.B1.2a.27,Sweden,reading,between_school_pct_of_oecd_average,latest,21.25355,
+Table I.B1.2a.27,Switzerland,reading,total_variance,latest,11220.12994,322.01408000000004
+Table I.B1.2a.27,Switzerland,reading,between_school_variance,latest,4627.92501,404.69445
+Table I.B1.2a.27,Switzerland,reading,within_school_variance,latest,6572.7091900000005,179.33201000000003
+Table I.B1.2a.27,Switzerland,reading,between_school_pct_of_oecd_average,latest,45.22399,
+Table I.B1.2a.27,Chinese Taipei,reading,total_variance,latest,11828.682050000001,341.67288
+Table I.B1.2a.27,Chinese Taipei,reading,between_school_variance,latest,3834.7865500000003,344.47921
+Table I.B1.2a.27,Chinese Taipei,reading,within_school_variance,latest,7968.5755500000005,210.75468
+Table I.B1.2a.27,Chinese Taipei,reading,between_school_pct_of_oecd_average,latest,37.47346,
+Table I.B1.2a.27,Thailand,reading,total_variance,latest,5632.539180000001,192.84282000000002
+Table I.B1.2a.27,Thailand,reading,between_school_variance,latest,1839.6899600000002,199.03466
+Table I.B1.2a.27,Thailand,reading,within_school_variance,latest,3801.5797700000003,94.59829
+Table I.B1.2a.27,Thailand,reading,between_school_pct_of_oecd_average,latest,17.977410000000003,
+Table I.B1.2a.27,Türkiye,reading,total_variance,latest,8219.72019,272.17162
+Table I.B1.2a.27,Türkiye,reading,between_school_variance,latest,4257.83334,409.25402
+Table I.B1.2a.27,Türkiye,reading,within_school_variance,latest,3949.4759000000004,99.24727000000001
+Table I.B1.2a.27,Türkiye,reading,between_school_pct_of_oecd_average,latest,41.60746,
+Table I.B1.2a.27,Ukrainian regions (17 of 27),reading,total_variance,latest,7860.26061,208.56284000000002
+Table I.B1.2a.27,Ukrainian regions (17 of 27),reading,between_school_variance,latest,2046.4324100000001,223.17258
+Table I.B1.2a.27,Ukrainian regions (17 of 27),reading,within_school_variance,latest,5808.481390000001,130.69456000000002
+Table I.B1.2a.27,Ukrainian regions (17 of 27),reading,between_school_pct_of_oecd_average,latest,19.997700000000002,
+Table I.B1.2a.27,United Arab Emirates,reading,total_variance,latest,12968.94375,169.39414000000002
+Table I.B1.2a.27,United Arab Emirates,reading,between_school_variance,latest,5871.102750000001,284.43864
+Table I.B1.2a.27,United Arab Emirates,reading,within_school_variance,latest,7069.386840000001,115.80127
+Table I.B1.2a.27,United Arab Emirates,reading,between_school_pct_of_oecd_average,latest,57.3723,
+Table I.B1.2a.27,United Kingdom,reading,total_variance,latest,9879.06811,240.97225000000003
+Table I.B1.2a.27,United Kingdom,reading,between_school_variance,latest,1871.51061,232.99493
+Table I.B1.2a.27,United Kingdom,reading,within_school_variance,latest,8042.893410000001,172.19726
+Table I.B1.2a.27,United Kingdom,reading,between_school_pct_of_oecd_average,latest,18.28836,
+Table I.B1.2a.27,United States*,reading,total_variance,latest,14585.89428,738.80565
+Table I.B1.2a.27,United States*,reading,between_school_variance,latest,3910.7364800000005,699.5322100000001
+Table I.B1.2a.27,United States*,reading,within_school_variance,latest,10549.23882,376.85848000000004
+Table I.B1.2a.27,United States*,reading,between_school_pct_of_oecd_average,latest,38.21564,
+Table I.B1.2a.27,Uruguay,reading,total_variance,latest,9046.65616,205.1174
+Table I.B1.2a.27,Uruguay,reading,between_school_variance,latest,1974.7948000000001,207.9806
+Table I.B1.2a.27,Uruguay,reading,within_school_variance,latest,7062.790940000001,165.86886
+Table I.B1.2a.27,Uruguay,reading,between_school_pct_of_oecd_average,latest,19.29766,
+Table I.B1.2a.27,Viet Nam,reading,total_variance,latest,5723.289940000001,275.62519000000003
+Table I.B1.2a.27,Viet Nam,reading,between_school_variance,latest,2565.4188400000003,344.41585000000003
+Table I.B1.2a.27,Viet Nam,reading,within_school_variance,latest,3156.85548,91.05552
+Table I.B1.2a.27,Viet Nam,reading,between_school_pct_of_oecd_average,latest,25.06922,
+Table I.B1.2a.27,Zambia,reading,total_variance,latest,7048.00226,676.7760900000001
+Table I.B1.2a.27,Zambia,reading,between_school_variance,latest,4359.29983,655.3149500000001
+Table I.B1.2a.27,Zambia,reading,within_school_variance,latest,2803.97836,213.46316000000002
+Table I.B1.2a.27,Zambia,reading,between_school_pct_of_oecd_average,latest,42.59899,

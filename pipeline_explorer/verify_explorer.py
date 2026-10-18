@@ -23,6 +23,8 @@ INPUT_FILES = (
     "annex_proficiency.csv",
     "annex_trend_science.csv",
     "annex_variation_science.csv",
+    "annex_variation_reading.csv",
+    "annex_variation_mathematics.csv",
     "puf_counts.csv",
 )
 
@@ -83,7 +85,7 @@ TOP_KEYS = (
     "levels_se",
     "share",
     "trend_science",
-    "variation_science",
+    "variation",
 )
 TIMESTAMP_KEYS = frozenset({
     "timestamp",
@@ -264,13 +266,16 @@ def check_1_schema(payload: object) -> tuple[bool, str]:
             if not isinstance(s[k], list) or not all(v is None or is_num(v) for v in s[k]):
                 return False, f"trend_science[{cid!r}].{k} must be list of numbers/nulls"
 
-    if not isinstance(payload["variation_science"], dict):
-        return False, "variation_science must be a dict"
-    for cid, arr in payload["variation_science"].items():
-        if not isinstance(arr, list) or len(arr) != len(VARIATION_KEYS):
-            return False, f"variation_science[{cid!r}] must be list of length {len(VARIATION_KEYS)}"
-        if not all(v is None or is_num(v) for v in arr):
-            return False, f"variation_science[{cid!r}] contains non-numeric entry"
+    if not isinstance(payload["variation"], dict):
+        return False, "variation must be a dict"
+    for cid, dom_map in payload["variation"].items():
+        if not isinstance(dom_map, dict) or set(dom_map.keys()) != set(DOMAINS):
+            return False, f"variation[{cid!r}] must be keyed by the three domains"
+        for dom, arr in dom_map.items():
+            if not isinstance(arr, list) or len(arr) != len(VARIATION_KEYS):
+                return False, f"variation[{cid!r}][{dom!r}] must be list of length {len(VARIATION_KEYS)}"
+            if not all(v is None or is_num(v) for v in arr):
+                return False, f"variation[{cid!r}][{dom!r}] contains non-numeric entry"
 
     return True, "all INTERFACE.md keys, types, and key orders match"
 
@@ -284,7 +289,7 @@ def check_2_recompute(payload: dict, bundle: dict[str, object]) -> tuple[bool, s
         return False, "missing levels_se block"
     share = payload.get("share", {})
     trend = payload.get("trend_science", {})
-    variation = payload.get("variation_science", {})
+    variation = payload.get("variation", {})
     checked_rows = 0
 
     for r in rows_by_file["annex_means.csv"]:
@@ -397,29 +402,30 @@ def check_2_recompute(payload: dict, bundle: dict[str, object]) -> tuple[bool, s
                 return False, f"trend_science[{cid!r}].se[{yr}] = {got_se!r}, CSV = {exp_se} (tol 0.0005)"
         checked_rows += 1
 
-    for r in rows_by_file["annex_variation_science.csv"]:
-        sub = r["subject"]
-        if sub in FORBIDDEN_COUNTRY_SOURCES:
-            continue
-        if r["domain"] != "science":
-            continue
-        cid = subject_to_id(sub)
-        stat = r["stat"]
-        if cid not in variation or stat not in VARIATION_CSV_STATS:
-            return False, f"missing variation_science entry for ({sub!r}, {stat!r})"
-        idx = VARIATION_CSV_STATS.index(stat)
-        arr = variation[cid]
-        if idx >= len(arr):
-            return False, f"variation_science[{cid!r}] too short for {stat!r}"
-        raw_val = (r.get("value") or "").strip()
-        if raw_val != "":
-            csv_val = float(raw_val)
-            got = arr[idx]
-            if got is None or not is_num(got) or not math.isfinite(got) or abs(got - csv_val) > 0.005:
-                return False, f"variation_science[{cid!r}][{idx}] = {got!r}, CSV = {csv_val} (tol 0.005)"
-        checked_rows += 1
+    for var_file in ("annex_variation_science.csv", "annex_variation_reading.csv", "annex_variation_mathematics.csv"):
+        for r in rows_by_file[var_file]:
+            sub = r["subject"]
+            if sub in FORBIDDEN_COUNTRY_SOURCES:
+                continue
+            dom = r["domain"]
+            cid = subject_to_id(sub)
+            stat = r["stat"]
+            dom_map = variation.get(cid)
+            if not isinstance(dom_map, dict) or dom not in dom_map or stat not in VARIATION_CSV_STATS:
+                return False, f"missing variation entry for ({sub!r}, {dom!r}, {stat!r})"
+            idx = VARIATION_CSV_STATS.index(stat)
+            arr = dom_map[dom]
+            if idx >= len(arr):
+                return False, f"variation[{cid!r}][{dom!r}] too short for {stat!r}"
+            raw_val = (r.get("value") or "").strip()
+            if raw_val != "":
+                csv_val = round(float(raw_val), 2)
+                got = arr[idx]
+                if got is None or not is_num(got) or not math.isfinite(got) or abs(got - csv_val) > 0.005:
+                    return False, f"variation[{cid!r}][{dom!r}][{idx}] = {got!r}, CSV = {csv_val} (tol 0.005)"
+            checked_rows += 1
 
-    return True, f"recomputed {checked_rows} CSV rows across 5 annex tables within tolerance"
+    return True, f"recomputed {checked_rows} CSV rows across 7 annex tables within tolerance"
 
 
 def check_3_completeness(payload: dict, bundle: dict[str, object]) -> tuple[bool, str]:
@@ -468,8 +474,8 @@ def check_3_completeness(payload: dict, bundle: dict[str, object]) -> tuple[bool
             if set(block[cid].keys()) != set(DOMAINS):
                 return False, f"{block_name}[{cid!r}] does not have all 3 domains"
 
-    if set(payload.get("variation_science", {}).keys()) != expected_ids:
-        return False, "variation_science keys do not match countries list"
+    if set(payload.get("variation", {}).keys()) != expected_ids:
+        return False, "variation keys do not match countries list"
     if set(payload.get("trend_science", {}).keys()) != (expected_ids | {"oecd-23"}):
         return False, "trend_science keys must equal countries + oecd-23"
 
@@ -499,13 +505,12 @@ def check_4_nulls(payload: dict, bundle: dict[str, object]) -> tuple[bool, str]:
             trend_years.setdefault(r["subject"], set()).add(yr)
             trend_idx[(r["subject"], yr)] = r
 
-    var_idx = {
-        (r["subject"], r["stat"]): r
-        for r in rows_by_file["annex_variation_science.csv"]
-        if r["domain"] == "science"
-    }
+    var_idx: dict[tuple[str, str, str], dict[str, str]] = {}
+    for var_file in ("annex_variation_science.csv", "annex_variation_reading.csv", "annex_variation_mathematics.csv"):
+        for r in rows_by_file[var_file]:
+            var_idx[(r["subject"], r["domain"], r["stat"])] = r
 
-    csv_missing = {"scores": 0, "levels": 0, "share": 0, "trend_science": 0, "variation_science": 0}
+    csv_missing = {"scores": 0, "levels": 0, "share": 0, "trend_science": 0, "variation": 0}
     scores = payload.get("scores", {})
     for cid, src in all_country_sources:
         for dom in DOMAINS:
@@ -585,20 +590,22 @@ def check_4_nulls(payload: dict, bundle: dict[str, object]) -> tuple[bool, str]:
                 if not is_blank and val is None:
                     return False, f"null in trend_science[{cid!r}].{field}[{yr}] where CSV has {raw!r}"
 
-    variation = payload.get("variation_science", {})
+    variation = payload.get("variation", {})
     for cid, src in all_country_sources:
-        arr = variation.get(cid, [])
-        for idx, st in enumerate(VARIATION_CSV_STATS):
-            v_row = var_idx.get((src, st))
-            raw = v_row.get("value") if v_row else None
-            is_blank = raw is None or raw.strip() == ""
-            if is_blank:
-                csv_missing["variation_science"] += 1
-            val = arr[idx] if idx < len(arr) else None
-            if is_blank and val is not None:
-                return False, f"non-null value {val!r} for missing CSV cell at variation_science[{cid!r}].{st}"
-            if not is_blank and val is None:
-                return False, f"null in variation_science[{cid!r}].{st} where CSV has {raw!r}"
+        dom_map = variation.get(cid, {})
+        for dom in DOMAINS:
+            arr = dom_map.get(dom, [])
+            for idx, st in enumerate(VARIATION_CSV_STATS):
+                v_row = var_idx.get((src, dom, st))
+                raw = v_row.get("value") if v_row else None
+                is_blank = raw is None or raw.strip() == ""
+                if is_blank:
+                    csv_missing["variation"] += 1
+                val = arr[idx] if idx < len(arr) else None
+                if is_blank and val is not None:
+                    return False, f"non-null value {val!r} for missing CSV cell at variation[{cid!r}][{dom!r}].{st}"
+                if not is_blank and val is None:
+                    return False, f"null in variation[{cid!r}][{dom!r}].{st} where CSV has {raw!r}"
 
     observed_nulls = {
         "scores": sum(1 for dm in scores.values() for a in dm.values() for v in a if v is None),
@@ -614,7 +621,7 @@ def check_4_nulls(payload: dict, bundle: dict[str, object]) -> tuple[bool, str]:
         "trend_science": sum(
             1 for s in trend.values() for k in ("mean", "se") for v in s.get(k, []) if v is None
         ),
-        "variation_science": sum(1 for a in variation.values() for v in a if v is None),
+        "variation": sum(1 for dm in variation.values() for a in dm.values() for v in a if v is None),
     }
     if observed_nulls != csv_missing:
         return False, f"null counts {observed_nulls} != CSV missing counts {csv_missing}"
@@ -716,13 +723,16 @@ def check_6_series(payload: dict, bundle: dict[str, object]) -> tuple[bool, str]
         if len(s.get("mean", [])) != len(yrs) or len(s.get("se", [])) != len(yrs):
             return False, f"trend_science[{cid!r}] mean/se array lengths do not match years"
 
-    variation = payload.get("variation_science", {})
-    for cid, arr in variation.items():
-        if not isinstance(arr, list) or len(arr) != len(VARIATION_KEYS):
-            return False, f"variation_science[{cid!r}] has wrong length"
-        for idx, v in enumerate(arr):
-            if v is not None and (not is_num(v) or not math.isfinite(v)):
-                return False, f"variation_science[{cid!r}][{idx}] is not finite: {v!r}"
+    variation = payload.get("variation", {})
+    for cid, dom_map in variation.items():
+        if not isinstance(dom_map, dict):
+            return False, f"variation[{cid!r}] must be a dict keyed by domain"
+        for dom, arr in dom_map.items():
+            if not isinstance(arr, list) or len(arr) != len(VARIATION_KEYS):
+                return False, f"variation[{cid!r}][{dom!r}] has wrong length"
+            for idx, v in enumerate(arr):
+                if v is not None and (not is_num(v) or not math.isfinite(v)):
+                    return False, f"variation[{cid!r}][{dom!r}][{idx}] is not finite: {v!r}"
 
     return True, "share years, trend_science ascending cycles, and finite variation arrays verified"
 
@@ -758,7 +768,14 @@ def check_7_provenance(payload: dict, bundle: dict[str, object]) -> tuple[bool, 
         "proficiency": {d: prof_tables[d] for d in DOMAINS},
         "share": next(clean_table_id(r["table"]) for r in rows_by_file["annex_lowtop.csv"] if r["domain"] == "science" and r.get("table")),
         "trend": next(clean_table_id(r["table"]) for r in rows_by_file["annex_trend_science.csv"] if r["domain"] == "science" and r.get("table")),
-        "variation": next(clean_table_id(r["table"]) for r in rows_by_file["annex_variation_science.csv"] if r["domain"] == "science" and r.get("table")),
+        "variation": {
+            d: next(
+                clean_table_id(r["table"])
+                for r in rows_by_file[f"annex_variation_{d}.csv"]
+                if r["domain"] == d and r.get("table")
+            )
+            for d in DOMAINS
+        },
     }
     got_tables = meta.get("tables", {})
     if got_tables != expected_tables:

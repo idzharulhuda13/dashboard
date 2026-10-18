@@ -1382,6 +1382,8 @@ def main():
         (os.path.join(csv_dir, "annex_proficiency.csv"), "annex_proficiency.csv"),
         (os.path.join(csv_dir, "annex_lowtop.csv"), "annex_lowtop.csv"),
         (os.path.join(csv_dir, "annex_variation_science.csv"), "annex_variation_science.csv"),
+        (os.path.join(csv_dir, "annex_variation_reading.csv"), "annex_variation_reading.csv"),
+        (os.path.join(csv_dir, "annex_variation_mathematics.csv"), "annex_variation_mathematics.csv"),
         (os.path.join(csv_dir, "puf_quartile_cuts.csv"), "puf_quartile_cuts.csv"),
         (os.path.join(csv_dir, "puf_estimates.csv"), "puf_estimates.csv"),
         (os.path.join(csv_dir, "puf_counts.csv"), "puf_counts.csv"),

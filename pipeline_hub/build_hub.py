@@ -34,6 +34,7 @@ def main():
     annex_prof_path = os.path.join(ROOT, "data", "pisa", "annex_proficiency.csv")
     gempa_data_path = os.path.join(ROOT, "gempa", "data.json")
     pisa_index_path = os.path.join(ROOT, "pisa", "index.html")
+    explorer_payload_path = os.path.join(ROOT, "pisa-explorer", "data.json")
     fonts_dir = os.path.join(ROOT, "fonts")
     font_paths = sorted(glob.glob(os.path.join(fonts_dir, "*.woff2")))
     output_path = os.path.join(ROOT, "index.html")
@@ -44,6 +45,7 @@ def main():
         (annex_prof_path, "data/pisa/annex_proficiency.csv"),
         (gempa_data_path, "gempa/data.json"),
         (pisa_index_path, "pisa/index.html"),
+        (explorer_payload_path, "pisa-explorer/data.json"),
     ]
     for p, name in required_inputs:
         if not os.path.exists(p) or not os.access(p, os.R_OK):
@@ -52,7 +54,7 @@ def main():
     if len(font_paths) != 5:
         raise RuntimeError(f"Expected 5 font files in {fonts_dir}, found {len(font_paths)}")
 
-    input_paths = [annex_prof_path, gempa_data_path, template_path] + font_paths
+    input_paths = [annex_prof_path, gempa_data_path, template_path, explorer_payload_path] + font_paths
 
     stamp_hasher = hashlib.sha256()
     for p in input_paths:
@@ -152,17 +154,87 @@ def main():
 
     root_lastmod = max(gempa_lastmod, pisa_lastmod)
 
+    # Pelat 03 memakai muatan halaman explorer (/pisa-explorer/) apa adanya: dua angka per
+    # domain (bagian siswa yang mencapai Level 4 ke atas, Indonesia dan Vietnam) plus sebaran
+    # per level untuk satu domain di jendela visual. Nggak ada angka yang diketik tangan di sini.
+    with open(explorer_payload_path, "r", encoding="utf-8") as f:
+        explorer_data = json.load(f)
+
+    exp_band_keys = explorer_data["band_keys"]
+    exp_domains = explorer_data["domains"]
+    if exp_domains != ["science", "mathematics", "reading"]:
+        raise RuntimeError(f"Unexpected domain order in explorer payload: {exp_domains}")
+    if exp_band_keys != [
+        "level_below_1c",
+        "level_1c",
+        "level_below_1b",
+        "level_1b",
+        "level_1a",
+        "level_2",
+        "level_3",
+        "level_4",
+        "level_5",
+        "level_6",
+    ]:
+        raise RuntimeError(f"Unexpected band order in explorer payload: {exp_band_keys}")
+    l4_idx = exp_band_keys.index("level_4")
+
+    exp_country_keys = {"idn": "indonesia", "vn": "viet-nam"}
+    for cid in exp_country_keys.values():
+        if cid not in explorer_data["levels"]:
+            raise RuntimeError(f"Missing {cid!r} in explorer payload levels")
+
+    def exp_l4_plus(country_id: str, domain: str):
+        arr = explorer_data["levels"][country_id].get(domain)
+        if arr is None:
+            raise RuntimeError(f"Missing levels for {country_id}/{domain} in explorer payload")
+        tail = arr[l4_idx:]
+        if any(v is None for v in tail):
+            raise RuntimeError(f"Null Level 4+ band for {country_id}/{domain} in explorer payload")
+        return round(sum(tail), 5)
+
+    exp_fig = {}
+    for domain, label in [("mathematics", "math"), ("reading", "read"), ("science", "scie")]:
+        for tag, cid in exp_country_keys.items():
+            val = exp_l4_plus(cid, domain)
+            exp_fig[f"exp_{label}_{tag}"] = {"v": val, "d": fmt_float(val, 2)}
+
+    exp_band_labels = {
+        "level_below_1c": "di bawah 1c",
+        "level_1c": "1c",
+        "level_below_1b": "di bawah 1b",
+        "level_1b": "1b",
+        "level_1a": "1a",
+        "level_2": "Level 2",
+        "level_3": "Level 3",
+        "level_4": "Level 4",
+        "level_5": "Level 5",
+        "level_6": "Level 6",
+    }
+    exp_bands = []
+    for i, key in enumerate(exp_band_keys):
+        idn_v = explorer_data["levels"]["indonesia"]["science"][i]
+        vn_v = explorer_data["levels"]["viet-nam"]["science"][i]
+        if idn_v is None and vn_v is None:
+            continue
+        exp_bands.append({"label": exp_band_labels[key], "idn": idn_v, "vn": vn_v})
+    if not exp_bands:
+        raise RuntimeError("Explorer payload produced no usable science bands for the window")
+    exp_max = max(max(b["idn"] or 0.0, b["vn"] or 0.0) for b in exp_bands)
+    # Skala dibulatkan ke atas ke kelipatan 10 supaya sumbu jendela tetap gampang dibaca.
+    exp_axis_max = float(int(exp_max / 10 + 1) * 10)
+
     prof_math_idn_d = prof_sums["mathematics"]["idn_d"]
 
     CANONICAL = f"{SITE}/"
     SLUG = "hub"
-    TITLE = "Dashboard Data Publik: Katalog Gempa dan PISA 2025"
+    TITLE = "Dashboard Data Publik: Gempa, PISA 2025, dan Explorer"
     DESC = (
-        f"Dua pelat data: katalog gempa M5+ Indonesia sejak {gempa_first_year} "
-        f"dan PISA 2025; {prof_math_idn_d}% siswa di bawah ambang minimum kemahiran. "
-        "Angka dihitung ulang sebelum terbit."
+        f"Tiga pelat data: katalog gempa M5+ Indonesia sejak {gempa_first_year}, "
+        f"PISA 2025, dan explorer interaktifnya; {prof_math_idn_d}% siswa di bawah "
+        "ambang minimum kemahiran."
     )
-    OGALT = "Kartu pratinjau indeks Dashboard Data Publik: pelat katalog gempa M5+ Indonesia dan pelat hasil PISA 2025."
+    OGALT = "Kartu pratinjau indeks Dashboard Data Publik: katalog gempa M5+ Indonesia, hasil PISA 2025, dan halaman explorer interaktifnya."
 
     if len(TITLE) > 60:
         raise RuntimeError(f"TITLE exceeds 60 characters: {len(TITLE)}")
@@ -248,6 +320,7 @@ def main():
         "prof_read_oecd": {"v": prof_sums["reading"]["oecd"], "d": prof_sums["reading"]["oecd_d"]},
         "prof_scie_idn": {"v": prof_sums["science"]["idn"], "d": prof_sums["science"]["idn_d"]},
         "prof_scie_oecd": {"v": prof_sums["science"]["oecd"], "d": prof_sums["science"]["oecd_d"]},
+        **exp_fig,
     }
 
     prof_bars = [
@@ -278,6 +351,12 @@ def main():
         "fig": fig,
         "profBars": prof_bars,
         "field": field_data,
+        "expPyramid": {
+            "domain": "Sains",
+            "axisMax": exp_axis_max,
+            "legend": {"idn": "Indonesia", "vn": "Vietnam"},
+            "bands": exp_bands,
+        },
     }
 
     compact_json = json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=True)

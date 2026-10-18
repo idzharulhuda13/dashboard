@@ -447,6 +447,55 @@ def test_scenario_o(temp_dir: str):
     print(f"PASS: scenario o: the map region of the gempa card is blank exits non-zero (rc={proc.returncode})")
 
 
+def test_scenario_p(temp_dir: str):
+    payload_path = os.path.join(temp_dir, "pisa-explorer", "data.json")
+    with open(payload_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    # Level 5 sains Indonesia digeser: hub harus nolak terbit kalau muatan explorer berubah
+    # tapi halaman indeks belum dibangun ulang.
+    data["levels"]["indonesia"]["science"][8] = 9.99
+
+    with open(payload_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=True)
+
+    proc = run_gate(temp_dir)
+    if proc.returncode == 0:
+        print(f"Scenario P output:\n{proc.stdout}")
+        raise AssertionError("Expected drift in pisa-explorer/data.json to cause non-zero exit")
+    print(f"PASS: scenario p: drift in pisa-explorer/data.json exits non-zero (rc={proc.returncode})")
+
+
+def test_scenario_q(temp_dir: str):
+    index_html = os.path.join(temp_dir, "index.html")
+    with open(index_html, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    prefix = "const DATA = "
+    idx = content.find(prefix)
+    if idx == -1:
+        raise RuntimeError("const DATA not found in index.html")
+    start_json = idx + len(prefix)
+    end_json = content.find(";\n", start_json)
+    if end_json == -1:
+        end_json = content.find(";", start_json)
+
+    data = json.loads(content[start_json:end_json])
+    data["expPyramid"]["bands"][0]["idn"] = 42.0
+
+    mutated_json = json.dumps(data, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+    mutated_content = content[:start_json] + mutated_json + content[end_json:]
+
+    with open(index_html, "w", encoding="utf-8") as f:
+        f.write(mutated_content)
+
+    proc = run_gate(temp_dir)
+    if proc.returncode == 0:
+        print(f"Scenario Q output:\n{proc.stdout}")
+        raise AssertionError("Expected mutated expPyramid band to cause non-zero exit")
+    print(f"PASS: scenario q: mutated expPyramid band exits non-zero (rc={proc.returncode})")
+
+
 def main():
     scenarios = [
         ("scenario a", test_scenario_a),
@@ -464,6 +513,8 @@ def main():
         ("scenario m", test_scenario_m),
         ("scenario n", test_scenario_n),
         ("scenario o", test_scenario_o),
+        ("scenario p", test_scenario_p),
+        ("scenario q", test_scenario_q),
     ]
 
     for name, func in scenarios:

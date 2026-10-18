@@ -63,7 +63,7 @@ def recompute_proficiency_from_csv(csv_path: str) -> dict:
     return results
 
 
-def check_1_stamp(index_path: str, template_path: str, annex_prof_path: str, gempa_data_path: str, fonts_dir: str):
+def check_1_stamp(index_path: str, template_path: str, annex_prof_path: str, gempa_data_path: str, fonts_dir: str, explorer_payload_path: str):
     with open(index_path, "r", encoding="utf-8") as f:
         line1 = f.readline().rstrip("\r\n")
 
@@ -74,7 +74,7 @@ def check_1_stamp(index_path: str, template_path: str, annex_prof_path: str, gem
     act_hex = m.group(1).lower()
 
     font_paths = sorted(glob.glob(os.path.join(fonts_dir, "*.woff2")))
-    input_paths = [annex_prof_path, gempa_data_path, template_path] + font_paths
+    input_paths = [annex_prof_path, gempa_data_path, template_path, explorer_payload_path] + font_paths
 
     stamp_hasher = hashlib.sha256()
     for p in input_paths:
@@ -92,7 +92,7 @@ def check_1_stamp(index_path: str, template_path: str, annex_prof_path: str, gem
     return True, f"stamp matches fresh sha256 over {len(input_paths)} inputs ({act_hex[:12]}...)"
 
 
-def check_2_payload_rebuilt(embedded_data: dict, annex_prof_path: str):
+def check_2_payload_rebuilt(embedded_data: dict, annex_prof_path: str, explorer_payload_path: str):
     recomputed = recompute_proficiency_from_csv(annex_prof_path)
 
     fig = embedded_data.get("fig", {})
@@ -159,7 +159,88 @@ def check_2_payload_rebuilt(embedded_data: dict, annex_prof_path: str):
         if act_oecd_d != exp_oecd_d:
             return False, f"profBars {dom_label} oecd_d mismatch (payload: {act_oecd_d!r}, expected: {exp_oecd_d!r})"
 
-    return True, "rebuilt payload matches annex_proficiency.csv within 0.01 tolerance across all 6 figures and 3 bars"
+    # Pelat 03: angka explorer dihitung ulang dari muatan /pisa-explorer/data.json, bukan dibaca
+    # dari payload halaman ini. Kalau payload explorer berubah tapi hub nggak dibangun ulang,
+    # cek ini gagal.
+    with open(explorer_payload_path, "r", encoding="utf-8") as f:
+        exp_src = json.load(f)
+
+    exp_band_keys = exp_src.get("band_keys")
+    if not isinstance(exp_band_keys, list) or "level_4" not in exp_band_keys:
+        return False, f"explorer payload band_keys missing level_4 (actual: {exp_band_keys!r})"
+    l4_idx = exp_band_keys.index("level_4")
+    exp_levels = exp_src.get("levels") or {}
+
+    def exp_expected(country_id: str, domain: str):
+        arr = (exp_levels.get(country_id) or {}).get(domain)
+        if not isinstance(arr, list):
+            return None
+        tail = arr[l4_idx:]
+        if any(v is None for v in tail):
+            return None
+        return round(sum(tail), 5)
+
+    exp_mapping = {
+        "exp_math_idn": ("indonesia", "mathematics"),
+        "exp_math_vn": ("viet-nam", "mathematics"),
+        "exp_read_idn": ("indonesia", "reading"),
+        "exp_read_vn": ("viet-nam", "reading"),
+        "exp_scie_idn": ("indonesia", "science"),
+        "exp_scie_vn": ("viet-nam", "science"),
+    }
+    for key, (cid, domain) in exp_mapping.items():
+        if key not in fig:
+            return False, f"missing explorer fig key in payload: {key!r}"
+        entry = fig[key]
+        exp_v = exp_expected(cid, domain)
+        if exp_v is None:
+            return False, f"explorer payload has no usable Level 4+ bands for {cid}/{domain}"
+        if not isinstance(entry, dict) or entry.get("v") is None:
+            return False, f"payload fig[{key!r}] is not an object with a numeric value (actual: {entry!r})"
+        if abs(entry["v"] - exp_v) > 0.01:
+            return False, f"{key} mismatch (payload: {entry['v']}, expected: {exp_v:.5f})"
+        exp_d = fmt_float(exp_v, 2)
+        if entry.get("d") != exp_d:
+            return False, f"{key} display mismatch (payload: {entry.get('d')!r}, expected: {exp_d!r})"
+
+    pyramid = embedded_data.get("expPyramid")
+    if not isinstance(pyramid, dict):
+        return False, f"expPyramid missing from payload (actual: {pyramid!r})"
+    idn_sci = (exp_levels.get("indonesia") or {}).get("science")
+    vn_sci = (exp_levels.get("viet-nam") or {}).get("science")
+    if not isinstance(idn_sci, list) or not isinstance(vn_sci, list):
+        return False, "explorer payload science levels missing for indonesia/viet-nam"
+
+    exp_pairs = []
+    for i in range(len(exp_band_keys)):
+        if idn_sci[i] is None and vn_sci[i] is None:
+            continue
+        exp_pairs.append((idn_sci[i], vn_sci[i]))
+
+    act_bands = pyramid.get("bands")
+    if not isinstance(act_bands, list):
+        return False, f"expPyramid bands is not a list (actual: {act_bands!r})"
+    if len(act_bands) != len(exp_pairs):
+        return False, f"expPyramid band count mismatch (payload: {len(act_bands)}, expected: {len(exp_pairs)})"
+    for got, (exp_idn, exp_vn) in zip(act_bands, exp_pairs):
+        label = got.get("label") if isinstance(got, dict) else None
+        for side, exp_val in (("idn", exp_idn), ("vn", exp_vn)):
+            act_val = got.get(side) if isinstance(got, dict) else None
+            if exp_val is None:
+                if act_val is not None:
+                    return False, f"expPyramid band {label!r} {side} should be null (actual: {act_val})"
+            elif act_val is None or abs(act_val - exp_val) > 0.01:
+                return False, f"expPyramid band {label!r} {side} mismatch (actual: {act_val}, expected: {exp_val})"
+
+    exp_max = max(max(v or 0.0 for v in pair) for pair in exp_pairs)
+    exp_axis = float(int(exp_max / 10 + 1) * 10)
+    if abs(float(pyramid.get("axisMax") or 0) - exp_axis) > 0.001:
+        return False, f"expPyramid axisMax mismatch (actual: {pyramid.get('axisMax')}, expected: {exp_axis})"
+
+    return True, (
+        "rebuilt payload matches annex_proficiency.csv (6 figures, 3 bars) and pisa-explorer/data.json "
+        f"(6 figures, {len(exp_pairs)} pyramid bands) within 0.01 tolerance"
+    )
 
 
 def check_3_field_provenance(embedded_data: dict, gempa_data_path: str):
@@ -459,15 +540,15 @@ def check_8_head_and_jsonld(index_path: str, template_path: str, gempa_data_path
     if not prof_math_idn_d:
         return False, "missing fig.prof_math_idn.d in embedded data"
 
-    TITLE = "Dashboard Data Publik: Katalog Gempa dan PISA 2025"
+    TITLE = "Dashboard Data Publik: Gempa, PISA 2025, dan Explorer"
     CANONICAL = f"{SITE}/"
     SLUG = "hub"
     DESC = (
-        f"Dua pelat data: katalog gempa M5+ Indonesia sejak {gempa_first_year} "
-        f"dan PISA 2025; {prof_math_idn_d}% siswa di bawah ambang minimum kemahiran. "
-        "Angka dihitung ulang sebelum terbit."
+        f"Tiga pelat data: katalog gempa M5+ Indonesia sejak {gempa_first_year}, "
+        f"PISA 2025, dan explorer interaktifnya; {prof_math_idn_d}% siswa di bawah "
+        "ambang minimum kemahiran."
     )
-    OGALT = "Kartu pratinjau indeks Dashboard Data Publik: pelat katalog gempa M5+ Indonesia dan pelat hasil PISA 2025."
+    OGALT = "Kartu pratinjau indeks Dashboard Data Publik: katalog gempa M5+ Indonesia, hasil PISA 2025, dan halaman explorer interaktifnya."
 
     if len(TITLE) > 60:
         return False, f"title exceeds 60 characters (actual: {len(TITLE)}, expected: <= 60)"
@@ -847,6 +928,7 @@ def check_11_og_images():
         ("hub", os.path.join(ROOT, "index.html")),
         ("gempa", os.path.join(ROOT, "gempa", "index.html")),
         ("pisa", os.path.join(ROOT, "pisa", "index.html")),
+        ("pisa-explorer", os.path.join(ROOT, "pisa-explorer", "index.html")),
     ]
     og_dir = os.path.join(ROOT, "assets", "og")
     get_spec_line = load_build_og_spec_line()
@@ -916,7 +998,7 @@ def check_11_og_images():
         if slug == "gempa" and gempa_ink_samples < 400:
             return False, f"OG image gempa ink samples on right-hand 60% (x >= 480): {gempa_ink_samples} < 400"
 
-    return True, "all 3 OG images (hub, gempa, pisa) satisfy C8 gate bands and sidecar sha256"
+    return True, "all 4 OG images (hub, gempa, pisa, pisa-explorer) satisfy C8 gate bands and sidecar sha256"
 
 
 def main():
@@ -924,6 +1006,7 @@ def main():
     annex_prof_path = os.path.join(ROOT, "data", "pisa", "annex_proficiency.csv")
     gempa_data_path = os.path.join(ROOT, "gempa", "data.json")
     pisa_index_path = os.path.join(ROOT, "pisa", "index.html")
+    explorer_payload_path = os.path.join(ROOT, "pisa-explorer", "data.json")
     fonts_dir = os.path.join(ROOT, "fonts")
     index_path = os.path.join(ROOT, "index.html")
     sitemap_path = os.path.join(ROOT, "sitemap.xml")
@@ -933,6 +1016,7 @@ def main():
         (annex_prof_path, "data/pisa/annex_proficiency.csv"),
         (gempa_data_path, "gempa/data.json"),
         (pisa_index_path, "pisa/index.html"),
+        (explorer_payload_path, "pisa-explorer/data.json"),
         (template_path, "hub.template.html"),
         (index_path, "index.html"),
         (sitemap_path, "sitemap.xml"),
@@ -972,8 +1056,8 @@ def main():
         sys.exit(1)
 
     checks = [
-        ("stamp", lambda: check_1_stamp(index_path, template_path, annex_prof_path, gempa_data_path, fonts_dir)),
-        ("payload rebuilt", lambda: check_2_payload_rebuilt(embedded_data, annex_prof_path)),
+        ("stamp", lambda: check_1_stamp(index_path, template_path, annex_prof_path, gempa_data_path, fonts_dir, explorer_payload_path)),
+        ("payload rebuilt", lambda: check_2_payload_rebuilt(embedded_data, annex_prof_path, explorer_payload_path)),
         ("field provenance", lambda: check_3_field_provenance(embedded_data, gempa_data_path)),
         ("fallback literals", lambda: check_4_fallback_literals(index_content, embedded_data)),
         ("skeleton", lambda: check_5_skeleton(index_path, template_path)),

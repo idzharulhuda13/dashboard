@@ -32,12 +32,14 @@ TARGETS = [
     ("hub", "index.html"),
     ("gempa", "gempa/index.html"),
     ("pisa", "pisa/index.html"),
+    ("pisa-explorer", "pisa-explorer/index.html"),
 ]
 
 SPECS = {
     "hub": "hub|viewport|1200x630",
     "gempa": "gempa|card|left400|map-right",
     "pisa": "pisa|viewport|1200x630",
+    "pisa-explorer": "pisa-explorer|viewport|1200x630",
 }
 
 
@@ -372,7 +374,7 @@ def render_page(browser, slug: str, html_path: str, png_path: str):
 
 def main():
     parser = argparse.ArgumentParser(description="Open Graph image renderer and gate.")
-    parser.add_argument("--only", choices=["hub", "gempa", "pisa"], help="Only process the given slug")
+    parser.add_argument("--only", choices=["hub", "gempa", "pisa", "pisa-explorer"], help="Only process the given slug")
     args = parser.parse_args()
 
     targets = TARGETS

@@ -20,6 +20,10 @@ DATA_MARKER = "/*__DATA__*/"
 ALLOWED_EXTERNAL_URLS = frozenset({
     "https://www.oecd.org/en/data/datasets/pisa-2025-database.html",
     "https://creativecommons.org/licenses/by/4.0/",
+    # canonical dan og:* harus absolut menurut spesifikasinya; dua URL ini cuma metadata
+    # (nggak ada permintaan jaringan yang dibuat halaman), jadi tetap boleh.
+    "https://dashboard.idzharulhuda.com/pisa-explorer/",
+    "https://dashboard.idzharulhuda.com/assets/og/pisa-explorer.png",
 })
 
 SPAN_RE = re.compile(

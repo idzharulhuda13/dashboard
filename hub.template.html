@@ -16,6 +16,10 @@
   --line: #DCCFB8;
   --accent-gempa: #A83F14;
   --accent-pisa: #2D4ECF;
+  /* Pelat 03 (explorer) pakai teal "mahir" dari palet halaman PISA supaya warnanya nggak
+     kembar dengan biru Indonesia yang dipakai di dalam jendelanya. */
+  --accent-explorer: #0F6E56;
+  --peer: #6E7783;
   --font-display: 'Chakra Petch', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
@@ -137,6 +141,10 @@ body {
   color: var(--accent-pisa);
 }
 
+.plate-explorer {
+  color: var(--accent-explorer);
+}
+
 .entry-name {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.5vw, 2rem);
@@ -159,6 +167,11 @@ body {
 .entry-pisa .entry-link-title:hover {
   color: var(--accent-pisa);
   border-bottom-color: var(--accent-pisa);
+}
+
+.entry-explorer .entry-link-title:hover {
+  color: var(--accent-explorer);
+  border-bottom-color: var(--accent-explorer);
 }
 
 .entry-link-title:focus-visible {
@@ -204,6 +217,11 @@ body {
 .entry-pisa .entry-link-btn:hover {
   color: var(--accent-pisa);
   border-bottom-color: var(--accent-pisa);
+}
+
+.entry-explorer .entry-link-btn:hover {
+  color: var(--accent-explorer);
+  border-bottom-color: var(--accent-explorer);
 }
 
 .entry-link-btn:focus-visible {
@@ -298,6 +316,10 @@ body {
 
 .val-oecd {
   color: var(--muted);
+}
+
+.val-peer {
+  color: var(--peer);
 }
 
 .footer {
@@ -422,6 +444,60 @@ body {
                       <span class="metric-val val-idn"><span data-fig="prof_scie_idn">63,2</span>%</span>
                       <span class="metric-sep">/</span>
                       <span class="metric-val val-oecd"><span data-fig="prof_scie_oecd">25,7</span>%</span>
+                    </span>
+                  </div>
+                </div>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class="entry-row entry-explorer">
+      <div class="container">
+        <div class="entry-grid">
+          <div class="entry-col-left">
+            <p class="plate-label plate-explorer">Pelat 03</p>
+            <h2 class="entry-name">
+              <a href="/pisa-explorer/" class="entry-link-title">Explorer Interaktif PISA 2025</a>
+            </h2>
+            <p class="entry-line">Pendamping pelat 02: pilih sendiri negara, mata pelajaran, dan titik persentilnya, lalu lihat sebaran kemampuannya per level.</p>
+            <p class="entry-fact">Satu halaman mandiri dari tabel lampiran OECD yang sama, tanpa microdata siswa.</p>
+            <p class="entry-nav">
+              <a href="/pisa-explorer/" class="entry-link-btn">Buka pelat /pisa-explorer/</a>
+            </p>
+          </div>
+          <div class="entry-col-right">
+            <figure class="window-frame">
+              <div id="window-pisa-explorer" class="window" role="img" aria-label="Visualisasi sebaran kemampuan sains per level, Indonesia dibanding Vietnam"></div>
+              <figcaption class="window-caption">
+                <div class="caption-head">
+                  <span class="caption-title">Siswa capai Level 4 ke atas</span>
+                  <span class="caption-legend">IDN / VNM</span>
+                </div>
+                <div class="metric-group">
+                  <div class="metric-row">
+                    <span class="metric-name">Sains</span>
+                    <span class="metric-values">
+                      <span class="metric-val val-idn"><span data-fig="exp_scie_idn">0,76</span>%</span>
+                      <span class="metric-sep">/</span>
+                      <span class="metric-val val-peer"><span data-fig="exp_scie_vn">10,96</span>%</span>
+                    </span>
+                  </div>
+                  <div class="metric-row">
+                    <span class="metric-name">Matematika</span>
+                    <span class="metric-values">
+                      <span class="metric-val val-idn"><span data-fig="exp_math_idn">0,33</span>%</span>
+                      <span class="metric-sep">/</span>
+                      <span class="metric-val val-peer"><span data-fig="exp_math_vn">13,13</span>%</span>
+                    </span>
+                  </div>
+                  <div class="metric-row">
+                    <span class="metric-name">Membaca</span>
+                    <span class="metric-values">
+                      <span class="metric-val val-idn"><span data-fig="exp_read_idn">0,35</span>%</span>
+                      <span class="metric-sep">/</span>
+                      <span class="metric-val val-peer"><span data-fig="exp_read_vn">2,18</span>%</span>
                     </span>
                   </div>
                 </div>
@@ -593,10 +669,124 @@ body {
     container.appendChild(svg);
   }
 
+  function renderExplorer() {
+    var container = document.getElementById('window-pisa-explorer');
+    if (!container) return;
+    var P = DATA && DATA.expPyramid;
+    if (!P || !Array.isArray(P.bands) || !P.bands.length) {
+      container.innerHTML = '';
+      return;
+    }
+
+    var totalW = 1000;
+    var totalH = 562.5;
+    var gutterL = 200;
+    var gutterR = 40;
+    var plotTop = 78;
+    var plotBottom = totalH - 42;
+    var trackW = totalW - gutterL - gutterR;
+    var axisMax = Number(P.axisMax) > 0 ? Number(P.axisMax) : 50;
+
+    // Level tertinggi di atas, seperti piramida: urutannya dibalik dari payload (terendah dulu).
+    var bands = P.bands.slice().reverse();
+    var rowH = (plotBottom - plotTop) / bands.length;
+    var barH = Math.max(8, rowH * 0.34);
+    var barGap = Math.max(3, rowH * 0.1);
+
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 ' + totalW + ' ' + totalH);
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.style.display = 'block';
+    svg.style.width = '100%';
+    svg.style.height = '100%';
+
+    function svgText(x, y, str, opts) {
+      var t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      t.setAttribute('x', String(x));
+      t.setAttribute('y', String(y));
+      t.setAttribute('font-family', "'JetBrains Mono', monospace");
+      t.setAttribute('font-size', String((opts && opts.size) || 15));
+      t.setAttribute('fill', (opts && opts.fill) || 'var(--muted)');
+      if (opts && opts.anchor) t.setAttribute('text-anchor', opts.anchor);
+      if (opts && opts.weight) t.setAttribute('font-weight', opts.weight);
+      t.textContent = str;
+      svg.appendChild(t);
+      return t;
+    }
+
+    // Sumbu persen dan garis bantu tipis, skala penuh dari payload (tanpa pembulatan di klien).
+    [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].forEach(function (tick) {
+      if (tick > axisMax) return;
+      var x = gutterL + (tick / axisMax) * trackW;
+      var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', String(x));
+      line.setAttribute('y1', String(plotTop - 8));
+      line.setAttribute('x2', String(x));
+      line.setAttribute('y2', String(plotBottom + 6));
+      line.setAttribute('stroke', 'var(--line)');
+      line.setAttribute('stroke-width', '1');
+      line.setAttribute('stroke-opacity', tick === 0 ? '1' : '0.7');
+      svg.appendChild(line);
+      svgText(x, plotBottom + 30, String(tick), { size: 24, anchor: 'middle' });
+    });
+    // Satuan sumbu ditulis sekali di kolom label, bukan ditempel di ujung tick terakhir.
+    svgText(gutterL - 18, plotBottom + 30, '% siswa', { size: 22, anchor: 'end' });
+
+    // Legenda: warna yang sama dengan batang di bawahnya.
+    var legendY = 40;
+    [
+      ['idn', P.legend && P.legend.idn ? P.legend.idn : 'Indonesia', 'var(--accent-pisa)'],
+      ['vn', P.legend && P.legend.vn ? P.legend.vn : 'Vietnam', 'var(--peer)'],
+    ].forEach(function (item, i) {
+      var lx = gutterL + i * 240;
+      var swatch = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      swatch.setAttribute('x', String(lx));
+      swatch.setAttribute('y', String(legendY - 14));
+      swatch.setAttribute('width', '22');
+      swatch.setAttribute('height', '22');
+      swatch.setAttribute('rx', '4');
+      swatch.setAttribute('fill', item[2]);
+      svg.appendChild(swatch);
+      svgText(lx + 32, legendY + 4, item[1], { size: 26 });
+    });
+
+    bands.forEach(function (band, idx) {
+      var rowTop = plotTop + idx * rowH;
+      var yIdn = rowTop + (rowH - (barH * 2 + barGap)) / 2;
+      var yVn = yIdn + barH + barGap;
+
+      svgText(gutterL - 18, rowTop + rowH / 2 + 8, String(band.label), { size: 24, anchor: 'end' });
+
+      [
+        [band.idn, yIdn, 'var(--accent-pisa)'],
+        [band.vn, yVn, 'var(--peer)'],
+      ].forEach(function (spec) {
+        var v = spec[0];
+        if (v === null || v === undefined) return;
+        var w = Math.max(0, Math.min(trackW, (Number(v) / axisMax) * trackW));
+        var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', String(gutterL));
+        rect.setAttribute('y', String(spec[1]));
+        rect.setAttribute('width', String(Math.max(w, 1.5)));
+        rect.setAttribute('height', String(barH));
+        rect.setAttribute('rx', '4');
+        rect.setAttribute('fill', spec[2]);
+        svg.appendChild(rect);
+      });
+    });
+
+    container.innerHTML = '';
+    container.appendChild(svg);
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     fillDataFigs();
     renderGempa();
     renderPisa();
+    renderExplorer();
   });
   </script>
 </body>

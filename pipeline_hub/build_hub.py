@@ -342,19 +342,29 @@ def main():
     with open(output_path, "w", encoding="utf-8") as out_f:
         out_f.write(final_html)
 
+    # Halaman turunan yang bukan pelat: /pisa-explorer/ dibangun dari data PISA yang sama
+    # dengan /pisa/, jadi lastmod-nya ikut tanggal data itu. Urutan keluaran harus sama
+    # dengan yang diharapkan pipeline_hub/verify.py: root dulu, sisanya berurutan menurut URL.
+    extra_page_lastmod = {
+        f"{SITE}/pisa-explorer/": pisa_lastmod,
+    }
+    plate_lastmod_map = {
+        f"{SITE}/gempa/": gempa_lastmod,
+        f"{SITE}/pisa/": pisa_lastmod,
+    }
+    loc_lastmod = {f"{SITE}/": root_lastmod}
+    for href, _ in plate_entries:
+        loc = f"{SITE}{href}" if href.startswith("/") else href
+        loc_lastmod[loc] = plate_lastmod_map.get(loc, root_lastmod)
+    loc_lastmod.update(extra_page_lastmod)
+
     sitemap_lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
         f'  <url><loc>{SITE}/</loc><lastmod>{root_lastmod}</lastmod></url>',
     ]
-    plate_lastmod_map = {
-        f"{SITE}/gempa/": gempa_lastmod,
-        f"{SITE}/pisa/": pisa_lastmod,
-    }
-    for href, _ in sorted(plate_entries, key=lambda x: x[0]):
-        loc = f"{SITE}{href}" if href.startswith("/") else href
-        lastmod = plate_lastmod_map.get(loc, root_lastmod)
-        sitemap_lines.append(f'  <url><loc>{loc}</loc><lastmod>{lastmod}</lastmod></url>')
+    for loc in sorted(k for k in loc_lastmod if k != f"{SITE}/"):
+        sitemap_lines.append(f'  <url><loc>{loc}</loc><lastmod>{loc_lastmod[loc]}</lastmod></url>')
 
     sitemap_lines.append('</urlset>\n')
     sitemap_content = "\n".join(sitemap_lines)

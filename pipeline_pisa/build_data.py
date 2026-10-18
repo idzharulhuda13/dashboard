@@ -10,6 +10,7 @@ import csv
 import glob
 import hashlib
 import json
+import math
 import os
 import re
 import sys
@@ -362,6 +363,10 @@ def main():
     peers = [peers_map[c] for c in asean_countries]
     peers.sort(key=lambda x: x["value"], reverse=True)
 
+    peers_gap_kh_2se = 2.0 * math.sqrt(
+        peers_map["Indonesia"]["se"] ** 2 + peers_map["Cambodia"]["se"] ** 2
+    )
+
     # Assert Indonesia's rank is 6 (1-indexed)
     idn_rank = None
     for idx, p in enumerate(peers, 1):
@@ -457,8 +462,11 @@ def main():
             "r": round(peers_map["Indonesia"]["value"] - peers_map["Cambodia"]["value"], 5),
         },
         "peers_gap_kh_2se": {
-            "d": "6,34",
-            "r": 6.34,
+            # Galat baku selisih dua rata-rata: 2 x sqrt(SE_idn^2 + SE_kh^2).
+            # Sebelumnya angka ini ditulis tangan (6,34) dan itu keliru: 6,34 adalah
+            # 2xSE terhadap Malaysia, bukan Kamboja. Selalu hitung, jangan tulis tangan.
+            "d": fmt_float(peers_gap_kh_2se, 2),
+            "r": round(peers_gap_kh_2se, 5),
         },
     }
 

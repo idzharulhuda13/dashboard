@@ -45,6 +45,10 @@ def copy_tree(dst_dir: str):
     shutil.copy2(os.path.join(ROOT, "gempa", "data.json"), os.path.join(dst_dir, "gempa", "data.json"))
     shutil.copy2(os.path.join(ROOT, "gempa", "index.html"), os.path.join(dst_dir, "gempa", "index.html"))
     shutil.copy2(os.path.join(ROOT, "pisa", "index.html"), os.path.join(dst_dir, "pisa", "index.html"))
+    # Halaman turunan yang bukan pelat: ikut disalin supaya penemuan URL di salinan bersih
+    # (root + setiap direktori ber-index.html) cocok dengan sitemap.xml yang diuji.
+    if os.path.isdir(os.path.join(ROOT, "pisa-explorer")):
+        shutil.copytree(os.path.join(ROOT, "pisa-explorer"), os.path.join(dst_dir, "pisa-explorer"))
     shutil.copytree(os.path.join(ROOT, "fonts"), os.path.join(dst_dir, "fonts"))
     shutil.copy2(os.path.join(ROOT, "hub.template.html"), os.path.join(dst_dir, "hub.template.html"))
     shutil.copy2(os.path.join(ROOT, "index.html"), os.path.join(dst_dir, "index.html"))

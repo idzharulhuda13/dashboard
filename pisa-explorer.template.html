@@ -1,0 +1,2926 @@
+<!-- dial: ENERGY 2 / RHYTHM 2 / MOTION 2 (pisa-explorer: interaktif, animasi transisi saja) -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PISA 2025 Explorer: Perbandingan Lintas Negara &amp; Distribusi Skor</title>
+<meta name="description" content="Alat eksplorasi interaktif hasil OECD PISA 2025 untuk membandingkan skor sains, matematika, dan membaca di 91 negara peserta, distribusi kemampuan, persentil, tren, dan sebaran sekolah.">
+<link rel="preload" href="../fonts/ChakraPetch-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/JetBrainsMono-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face {
+  font-family: 'Chakra Petch';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/ChakraPetch-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Chakra Petch';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/ChakraPetch-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Chakra Petch';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/ChakraPetch-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/JetBrainsMono-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/JetBrainsMono-500.woff2') format('woff2');
+}
+
+:root {
+  --bg:           #F6F7F9;
+  --surface:      #FFFFFF;
+  --surface-2:    #EEF1F5;
+  --surface-tint: #F1F5FA;
+  --ink:          #0F172A;
+  --ink-2:        #334155;
+  --muted:        #475569;
+  --hairline:     #D8E0EA;
+  --hairline-2:   #B8C4D4;
+
+  /* Warna identitas mengikuti DESIGN.pisa.md: biru institusional = Indonesia (subjek utama),
+     netral abu = OECD. Sebelumnya halaman ini memakai merah untuk Indonesia dan biru untuk OECD,
+     jadi merah bermakna dua hal sekaligus (Indonesia DAN "di bawah Level 2") -> ditukar. */
+  --idn:          #2D4ECF;
+  --idn-fill:     #E9EEFC;
+  --oecd:         #6E7783;
+  --oecd-fill:    #EDEFF2;
+  --peer:         #475569;
+  --peer-fill:    #E2E8F0;
+
+  /* Ramp tingkat kemampuan: lalu lintas tiga warna (merah = di bawah batas, kuning = tepat di batas,
+     hijau = di atas batas). --below-soft = versi lebih muda untuk batang negara pembanding. */
+  --below-l2:     #B82318;
+  --below-soft:   #E08A82;
+  --at-l2:        #8A5300;
+  --top-l56:      #0F6E56;
+  --warn:         #8A5300;
+  --warn-fill:    #FEF5E6;
+
+  --font-display: 'Chakra Petch', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-body:    'Chakra Petch', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --step-hero: clamp(1.85rem, 3.2vw + 0.85rem, 3.1rem);
+  --step-h2:   clamp(1.3rem,  1.6vw + 0.75rem, 1.9rem);
+  --step-h3:   clamp(1.04rem, 0.55vw + 0.88rem, 1.24rem);
+  --step-lead: clamp(1.02rem, 0.35vw + 0.92rem, 1.16rem);
+  --step-body: clamp(0.95rem, 0.2vw  + 0.9rem,  1.04rem);
+  --step-sm:   0.865rem;
+  --step-xs:   0.78rem;
+
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 72px;
+
+  --max-w:   1200px;
+  --measure: 66ch;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 180ms;
+  --dur-med:  260ms;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.62;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--oecd);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--oecd);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -120px;
+  left: var(--s-4);
+  z-index: 200;
+  background: var(--ink);
+  color: var(--surface);
+  padding: var(--s-2) var(--s-4);
+  font-family: var(--font-mono);
+  font-size: var(--step-sm);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: var(--s-2);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 clamp(14px, 3.5vw, 44px);
+}
+
+.fig,
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "zero" 1;
+}
+
+span[data-fig] {
+  font-weight: 500;
+}
+
+/* Masthead */
+.masthead {
+  background: var(--surface);
+  border-bottom: 2px solid var(--ink);
+}
+
+.masthead-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-4);
+  padding-top: var(--s-2);
+  padding-bottom: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  color: var(--ink-2);
+}
+
+.masthead-left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+}
+
+.masthead-home {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s-2);
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  border: 1px solid var(--hairline-2);
+  background: var(--bg);
+}
+
+.masthead-home:hover {
+  background: var(--surface-2);
+}
+
+.masthead-tag {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+/* Bands */
+.band {
+  padding: var(--s-7) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.band--surface {
+  background: var(--surface);
+}
+
+.band--paper {
+  background: var(--bg);
+}
+
+.band--tint {
+  background: var(--surface-tint);
+}
+
+.band-header {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-3);
+  margin-bottom: var(--s-5);
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid var(--hairline-2);
+}
+
+.kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 0;
+}
+
+.kicker-num {
+  color: var(--idn);
+  font-weight: 500;
+}
+
+.band-title {
+  font-family: var(--font-display);
+  font-size: var(--step-h2);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.015em;
+  margin: 0;
+  color: var(--ink);
+  max-width: 34ch;
+}
+
+.band-prose {
+  font-size: var(--step-body);
+  color: var(--ink-2);
+  max-width: var(--measure);
+  margin: 0;
+}
+
+.band-prose strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Hero / Kepala */
+.hero-band {
+  background: var(--surface);
+  padding: var(--s-6) 0 var(--s-6);
+  border-bottom: 1px solid var(--hairline-2);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: var(--s-6);
+  align-items: start;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--idn);
+  margin: 0 0 var(--s-2) 0;
+  font-weight: 500;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: var(--step-hero);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--s-4) 0;
+  color: var(--ink);
+}
+
+.hero-lead {
+  font-size: var(--step-lead);
+  line-height: 1.56;
+  color: var(--ink-2);
+  max-width: var(--measure);
+  margin: 0 0 var(--s-4) 0;
+}
+
+.hero-meta-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  color: var(--muted);
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-3);
+}
+
+.stat-card {
+  background: var(--bg);
+  border: 1px solid var(--hairline-2);
+  border-top: 3px solid var(--ink);
+  padding: var(--s-3) var(--s-3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 132px;
+}
+
+.stat-card--idn {
+  border-top-color: var(--idn);
+  background: var(--idn-fill);
+}
+
+.stat-card--peer {
+  border-top-color: var(--peer);
+}
+
+.stat-card--oecd {
+  border-top-color: var(--oecd);
+  background: var(--oecd-fill);
+}
+
+.stat-role {
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 0 0 var(--s-1) 0;
+}
+
+.stat-country {
+  font-weight: 700;
+  font-size: var(--step-sm);
+  color: var(--ink);
+  margin: 0 0 var(--s-2) 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stat-val {
+  font-family: var(--font-mono);
+  font-size: clamp(1.45rem, 2vw + 0.8rem, 2.05rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--ink);
+  margin: 0 0 var(--s-1) 0;
+}
+
+.stat-card--idn .stat-val {
+  color: var(--idn);
+}
+
+.stat-card--oecd .stat-val {
+  color: var(--oecd);
+}
+
+.stat-sub {
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  color: var(--ink-2);
+  margin: 0;
+}
+
+/* Sticky Control Bar - strictly <= 64px height on mobile and desktop */
+.controls-band {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  height: 58px;
+  max-height: 64px;
+  background: var(--surface);
+  border-bottom: 2px solid var(--ink);
+  display: flex;
+  align-items: center;
+}
+
+.controls-inner {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 clamp(10px, 3vw, 44px);
+}
+
+.controls-rail {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  height: 54px;
+}
+
+.controls-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.ctrl-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+/* Tiap kontrol di rail mempertahankan lebar aslinya; rail yang menggeser,
+   bukan tombol yang terhimpit sampai teksnya terpotong (kasus 390px). */
+.controls-rail > * {
+  flex-shrink: 0;
+}
+
+.ctrl-sep {
+  width: 1px;
+  height: 28px;
+  background: var(--hairline-2);
+  flex-shrink: 0;
+  margin: 0 2px;
+}
+
+.ctrl-btn,
+.picker-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 10px;
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--hairline-2);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+}
+
+.ctrl-btn:hover,
+.picker-trigger:hover {
+  background: var(--surface-2);
+}
+
+.ctrl-btn[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: var(--ink);
+}
+
+.ctrl-btn--domain[aria-pressed="true"] {
+  background: var(--oecd);
+  border-color: var(--oecd);
+  color: var(--surface);
+}
+
+.picker-trigger {
+  font-family: var(--font-body);
+  font-size: var(--step-sm);
+  font-weight: 600;
+  padding: 0 10px;
+}
+
+.picker-trigger--primary {
+  border-left: 4px solid var(--idn);
+}
+
+.picker-trigger--compare {
+  border-left: 4px solid var(--peer);
+}
+
+.picker-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.picker-caret {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+/* Searchable Country Picker Popover */
+.picker-popover {
+  position: absolute;
+  top: 56px;
+  left: clamp(10px, 3vw, 44px);
+  width: min(360px, calc(100vw - 20px));
+  background: var(--surface);
+  border: 2px solid var(--ink);
+  z-index: 120;
+  padding: var(--s-3);
+}
+
+.picker-popover[hidden] {
+  display: none;
+}
+
+.picker-popover-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  margin-bottom: var(--s-2);
+}
+
+.picker-popover-title {
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  margin: 0;
+}
+
+.picker-close {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--hairline-2);
+  cursor: pointer;
+}
+
+.picker-search {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 var(--s-3);
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--hairline-2);
+  margin-bottom: var(--s-2);
+}
+
+.picker-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 264px;
+  overflow-y: auto;
+  border-top: 1px solid var(--hairline);
+}
+
+.picker-option {
+  width: 100%;
+  min-height: 44px;
+  padding: 6px var(--s-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  background: var(--surface);
+  border: 0;
+  border-bottom: 1px solid var(--hairline);
+  font-family: var(--font-body);
+  font-size: var(--step-sm);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.picker-option:hover,
+.picker-option:focus-visible {
+  background: var(--surface-tint);
+}
+
+.picker-option[aria-selected="true"] {
+  background: var(--idn-fill);
+  font-weight: 700;
+}
+
+.picker-option-group {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Error / Empty Banner */
+.status-banner {
+  background: var(--warn-fill);
+  border: 1px solid var(--warn);
+  border-left: 4px solid var(--warn);
+  padding: var(--s-3) var(--s-4);
+  margin-bottom: var(--s-4);
+  font-size: var(--step-sm);
+  color: var(--ink);
+}
+
+.status-banner[hidden] {
+  display: none;
+}
+
+/* Panel Cards & Frames */
+.chart-frame {
+  background: var(--surface);
+  border: 1px solid var(--hairline-2);
+  padding: var(--s-4);
+}
+
+.band--surface .chart-frame {
+  background: var(--bg);
+}
+
+.frame-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-4);
+  margin-bottom: var(--s-3);
+  padding-bottom: var(--s-2);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  color: var(--ink-2);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.swatch {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  border: 1px solid var(--ink);
+}
+
+.swatch--idn {
+  background: var(--idn);
+  border-color: var(--idn);
+}
+
+.swatch--peer {
+  background: var(--peer);
+  border-color: var(--peer);
+}
+
+.swatch--oecd {
+  background: var(--oecd);
+  border-color: var(--oecd);
+}
+
+.swatch--top {
+  background: var(--top-l56);
+  border-color: var(--top-l56);
+}
+
+.callout-line {
+  background: var(--surface-2);
+  border-left: 3px solid var(--ink);
+  padding: var(--s-2) var(--s-3);
+  margin: 0 0 var(--s-3) 0;
+  font-size: var(--step-sm);
+  color: var(--ink);
+}
+
+/* Panel 3: Piramida Kemampuan */
+.pyramid-readout {
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--hairline-2);
+  padding: var(--s-2) var(--s-3);
+  margin-bottom: var(--s-3);
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.pyramid-grid {
+  display: grid;
+  grid-template-columns: 112px 1fr 1fr;
+  gap: 6px var(--s-3);
+  align-items: center;
+}
+
+.pyramid-col-head {
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-2);
+  padding-bottom: var(--s-1);
+  border-bottom: 1px solid var(--hairline-2);
+}
+
+.pyramid-row {
+  display: contents;
+}
+
+.pyramid-row--l2-cut .pyramid-band-label,
+.pyramid-row--l2-cut .pyramid-cell {
+  border-bottom: 2px dashed var(--oecd);
+  padding-bottom: 6px;
+}
+
+.pyramid-band-label {
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  color: var(--ink-2);
+  padding: 4px 0;
+}
+
+.pyramid-cell {
+  position: relative;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 4px 6px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  color: var(--ink);
+}
+
+.band--surface .pyramid-cell {
+  background: var(--bg);
+}
+
+.pyramid-cell:hover,
+.pyramid-cell:focus-visible {
+  border-color: var(--ink);
+}
+
+.pyramid-cell--null {
+  cursor: default;
+  color: var(--muted);
+  border-style: dashed;
+}
+
+.pyramid-track {
+  flex: 1;
+  height: 18px;
+  background: var(--surface-2);
+  position: relative;
+  overflow: hidden;
+}
+
+.pyramid-bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform var(--dur-med) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+}
+
+.pyramid-bar--below {
+  background: var(--below-l2);
+}
+
+.pyramid-bar--mid {
+  background: var(--at-l2);
+}
+
+.pyramid-bar--top {
+  background: var(--top-l56);
+}
+
+.pyramid-bar--peer.pyramid-bar--below {
+  background-color: var(--below-soft);
+}
+
+.pyramid-bar--peer.pyramid-bar--mid {
+  background-color: var(--peer);
+}
+
+.pyramid-bar--peer.pyramid-bar--top {
+  background-color: var(--peer);
+}
+
+/* Negara pembanding dibedakan oleh pola garis, bukan cuma warna, supaya dua batang di satu
+   baris tetap terpisah jelas walau warnanya sama (mis. band Level 5 dan 6 sama-sama hijau).
+   Selector digabung (0,2,0) supaya tidak ditimpa shorthand `background` dari .pyramid-bar--top. */
+.pyramid-bar--peer.pyramid-bar--below,
+.pyramid-bar--peer.pyramid-bar--mid,
+.pyramid-bar--peer.pyramid-bar--top {
+  background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.62) 0 2px, rgba(255, 255, 255, 0) 2px 5px);
+}
+
+.pyramid-val {
+  min-width: 54px;
+  text-align: right;
+  font-weight: 500;
+}
+
+/* Panel 4: Persentil */
+.percentile-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s-2);
+  margin-bottom: var(--s-3);
+  padding: var(--s-3);
+  background: var(--surface);
+  border: 1px solid var(--hairline-2);
+}
+
+.slider-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+}
+
+.slider-label {
+  font-family: var(--font-mono);
+  font-size: var(--step-sm);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.slider-readout {
+  font-family: var(--font-mono);
+  font-size: var(--step-sm);
+  color: var(--ink-2);
+}
+
+.p-range {
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  accent-color: var(--idn);
+  cursor: pointer;
+}
+
+.slider-stops {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--s-1);
+}
+
+.stop-btn {
+  min-height: 44px;
+  min-width: 44px;
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  background: var(--bg);
+  color: var(--ink-2);
+  border: 1px solid var(--hairline-2);
+  cursor: pointer;
+}
+
+.stop-btn[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: var(--ink);
+  font-weight: 500;
+}
+
+.svg-wrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+.chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  font-family: var(--font-mono);
+}
+
+/* Panel 5: Tangga Perbandingan */
+.ladder-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-3);
+  margin-bottom: var(--s-3);
+}
+
+.tie-badge {
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  padding: 6px 10px;
+  border: 1px solid var(--warn);
+  background: var(--warn-fill);
+  color: var(--ink);
+}
+
+.tie-badge[hidden] {
+  display: none;
+}
+
+.ladder-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ladder-row {
+  display: grid;
+  grid-template-columns: 32px minmax(112px, 190px) 1fr 94px;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  padding: 4px var(--s-2);
+  background: var(--surface);
+  border: 1px solid var(--hairline-2);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+.ladder-row:hover,
+.ladder-row:focus-visible {
+  border-color: var(--ink);
+  background: var(--surface-tint);
+}
+
+.ladder-row--primary {
+  border-left: 4px solid var(--idn);
+  background: var(--idn-fill);
+}
+
+.ladder-row--compare {
+  border-left: 4px solid var(--peer);
+  background: var(--peer-fill);
+}
+
+.ladder-row--oecd {
+  border-left: 4px solid var(--oecd);
+  background: var(--oecd-fill);
+}
+
+.ladder-rank {
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  color: var(--muted);
+}
+
+.ladder-name {
+  font-size: var(--step-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ladder-track {
+  position: relative;
+  height: 18px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.ladder-bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--peer);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform var(--dur-med) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+}
+
+.ladder-row--primary .ladder-bar {
+  background: var(--idn);
+}
+
+.ladder-row--oecd .ladder-bar {
+  background: var(--oecd);
+}
+
+.ladder-error {
+  position: absolute;
+  top: 5px;
+  height: 8px;
+  background: var(--ink);
+  opacity: 0;
+  transform-origin: left center;
+  transition: transform var(--dur-med) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+}
+
+.ladder-score {
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  text-align: right;
+  font-weight: 500;
+}
+
+/* Panel 6: Garis Waktu */
+.timeline-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  margin-bottom: var(--s-3);
+}
+
+/* Panel 7: Sebaran Variansi */
+.var-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin-top: var(--s-3);
+}
+
+.var-item {
+  background: var(--surface);
+  border: 1px solid var(--hairline-2);
+  padding: var(--s-3);
+}
+
+.var-item-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-2);
+  margin-bottom: var(--s-2);
+}
+
+.var-item-name {
+  font-weight: 700;
+  font-size: var(--step-sm);
+  color: var(--ink);
+}
+
+.var-item-nums {
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  color: var(--ink-2);
+}
+
+.var-bar-100 {
+  display: flex;
+  width: 100%;
+  height: 24px;
+  background: var(--surface-2);
+  border: 1px solid var(--ink);
+  overflow: hidden;
+}
+
+.var-seg-within {
+  height: 100%;
+  background: var(--oecd);
+  transform-origin: left center;
+  transition: transform var(--dur-med) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+}
+
+.var-seg-between {
+  height: 100%;
+  background: var(--idn);
+  transform-origin: right center;
+  transition: transform var(--dur-med) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+}
+
+/* Data Tables (Toggleable per panel) */
+.data-table-wrap {
+  margin-top: var(--s-4);
+  overflow-x: auto;
+  border-top: 1px solid var(--hairline-2);
+  padding-top: var(--s-3);
+}
+
+.data-table-wrap[hidden] {
+  display: none;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step-sm);
+  background: var(--surface);
+}
+
+.data-table caption {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-bottom: var(--s-2);
+}
+
+.data-table th,
+.data-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--hairline);
+  text-align: left;
+}
+
+.data-table th {
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  color: var(--ink-2);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--hairline-2);
+}
+
+.data-table td.num,
+.data-table th.num {
+  text-align: right;
+  font-family: var(--font-mono);
+}
+
+/* Panel 8: Catatan Metode */
+.method-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: var(--s-5);
+  align-items: start;
+}
+
+.se-ruler-box {
+  background: var(--bg);
+  border: 1px solid var(--hairline-2);
+  padding: var(--s-4);
+}
+
+.se-ruler-title {
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  margin: 0 0 var(--s-2) 0;
+}
+
+.glossary-list {
+  margin: var(--s-3) 0 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-3);
+}
+
+.glossary-item {
+  border-top: 1px solid var(--hairline);
+  padding-top: var(--s-2);
+}
+
+.glossary-item dt {
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.glossary-item dd {
+  margin: 0;
+  font-size: var(--step-sm);
+  color: var(--ink-2);
+}
+
+.note-foot {
+  margin-top: var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--step-xs);
+  color: var(--muted);
+}
+
+/* Scroll Reveal (MOTION 2) */
+.reveal-panel {
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 260ms var(--ease-out), opacity 260ms var(--ease-out);
+}
+
+html.js-ready .reveal-panel.is-pending {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@media (max-width: 900px) {
+  .hero-grid,
+  .method-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .band {
+    padding: var(--s-6) 0;
+  }
+  /* Rail kontrol: scrollbar tipis ditampilkan supaya jelas masih ada kontrol di kanan
+     (sebelumnya tersembunyi total, jadi tombol yang terpotong terlihat seperti rusak). */
+  .controls-rail {
+    height: 60px;
+    scrollbar-width: thin;
+  }
+  .controls-rail::-webkit-scrollbar {
+    display: block;
+    height: 4px;
+  }
+  .controls-rail::-webkit-scrollbar-thumb {
+    background: var(--hairline-2);
+  }
+  /* Gradasi di tepi kanan: isyarat bahwa rail masih bisa digeser, bukan teks terpotong. */
+  .controls-inner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 26px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--surface));
+    pointer-events: none;
+  }
+  .chart-frame {
+    padding: var(--s-3);
+  }
+  .percentile-controls {
+    padding: var(--s-2);
+  }
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
+  .stat-card {
+    min-height: auto;
+  }
+  .ladder-toolbar .ctrl-group,
+  .timeline-toolbar .ctrl-group {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 6px;
+  }
+  .ladder-toolbar .ctrl-btn,
+  .timeline-toolbar .ctrl-btn {
+    flex: 1 1 140px;
+    white-space: normal;
+    text-align: center;
+  }
+  .pyramid-grid {
+    grid-template-columns: 74px 1fr 1fr;
+    gap: 4px 6px;
+  }
+  .pyramid-val {
+    min-width: 42px;
+    font-size: 0.72rem;
+  }
+  .ladder-row {
+    grid-template-columns: 24px minmax(82px, 118px) 1fr 72px;
+    gap: 6px;
+    padding: 4px 6px;
+  }
+  .slider-stops {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3px;
+  }
+  .stop-btn {
+    padding: 0 2px;
+    font-size: 0.72rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  html.js-ready .reveal-panel.is-pending {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#band-controls">Langsung ke panel kontrol</a>
+
+<header class="masthead" role="banner">
+  <div class="wrap masthead-inner">
+    <div class="masthead-left">
+      <a class="masthead-home" href="../pisa/">Laporan Utama /pisa/</a>
+      <span class="masthead-tag">OECD PISA 2025 Volume I &middot; Interactive Explorer</span>
+    </div>
+    <div>
+      <span><span class="fig" data-fig="meta.counts.participants">91</span> negara/ekonomi &middot; <span class="fig" data-fig="meta.counts.domains">3</span> domain &middot; Lisensi <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></span>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+  <!-- 1. KEPALA -->
+  <section id="band-hero" class="hero-band" aria-labelledby="heading-hero">
+    <div class="wrap">
+      <div id="fatal-banner" class="status-banner" role="alert" hidden>
+        Gagal memuat payload interaktif. Angka bawaan untuk Indonesia, Viet Nam, dan Rata-rata OECD tetap dapat dibaca pada halaman ini.
+      </div>
+      <div class="hero-grid">
+        <div>
+          <p class="hero-eyebrow">Eksplorasi Data Resmi &middot; Tabel <span class="fig" data-fig="meta.tables.scores">I.B1.2a.1</span></p>
+          <h1 id="heading-hero" class="hero-title">PISA 2025 Explorer: Skor, Sebaran Kemampuan, dan Posisi Negara</h1>
+          <p class="hero-lead">
+            Di halaman ini Anda dapat memilih mata pelajaran (sains, matematika, atau membaca), mengganti negara utama serta negara pembanding dari <span class="fig" data-fig="meta.counts.participants">91</span> peserta PISA 2025, menggeser titik persentil dari siswa terendah hingga tertinggi, mengurutkan tangga kawasan ASEAN, serta menyalakan error bar (<span class="fig">2xSE</span>) dan tabel data lengkap di bawah setiap grafik.
+          </p>
+          <div class="hero-meta-strip">
+            <span>Sumber: <span data-fig="meta.source_note">tabel annex OECD PISA 2025 + berkas siswa (PUF)</span></span>
+            <span>Sampel global: <span class="fig" data-fig="meta.counts.total_students">755.721</span> siswa di <span class="fig" data-fig="meta.counts.total_schools">24.566</span> sekolah</span>
+            <span>Sampel Indonesia: <span class="fig" data-fig="meta.counts.students_idn">14.168</span> siswa di <span class="fig" data-fig="meta.counts.schools_idn">419</span> sekolah</span>
+          </div>
+        </div>
+
+        <div class="hero-stats" id="hero-stats" aria-label="Tiga angka kunci sains PISA 2025">
+          <article class="stat-card stat-card--idn">
+            <div>
+              <p id="hero-primary-role" class="stat-role">Negara Utama (Sains)</p>
+              <p id="hero-primary-name" class="stat-country">Indonesia</p>
+            </div>
+            <div>
+              <p id="hero-primary-val" class="stat-val"><span class="fig" data-fig="indonesia.science.mean">388,7</span></p>
+              <p id="hero-primary-sub" class="stat-sub">SE <span class="fig" data-fig="indonesia.science.se">2,3</span> &middot; SD <span class="fig" data-fig="indonesia.science.sd">67,0</span></p>
+            </div>
+          </article>
+
+          <article class="stat-card stat-card--peer">
+            <div>
+              <p id="hero-compare-role" class="stat-role">Pembanding (Sains)</p>
+              <p id="hero-compare-name" class="stat-country">Viet Nam</p>
+            </div>
+            <div>
+              <p id="hero-compare-val" class="stat-val"><span class="fig" data-fig="viet-nam.science.mean">457,4</span></p>
+              <p id="hero-compare-sub" class="stat-sub">SE <span class="fig" data-fig="viet-nam.science.se">3,9</span> &middot; SD <span class="fig" data-fig="viet-nam.science.sd">80,4</span></p>
+            </div>
+          </article>
+
+          <article class="stat-card stat-card--oecd">
+            <div>
+              <p class="stat-role">Acuan Internasional</p>
+              <p class="stat-country">Rata-rata OECD</p>
+            </div>
+            <div>
+              <p id="hero-oecd-val" class="stat-val"><span class="fig" data-fig="oecd-average.science.mean">481,9</span></p>
+              <p id="hero-oecd-sub" class="stat-sub">SE <span class="fig" data-fig="oecd-average.science.se">0,4</span> &middot; SD <span class="fig" data-fig="oecd-average.science.sd">98,6</span></p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. BAR KONTROL (Sticky <= 64px) -->
+  <section id="band-controls" class="controls-band" aria-labelledby="heading-controls">
+    <h2 id="heading-controls" class="sr-only">Panel Kontrol Eksplorasi</h2>
+    <div class="controls-inner">
+      <div class="controls-rail" role="toolbar" aria-label="Filter mata pelajaran, negara, error bar, dan tabel data">
+        <div class="ctrl-group" role="group" aria-label="Mata pelajaran">
+          <button type="button" class="ctrl-btn ctrl-btn--domain" data-domain="science" aria-pressed="true">Sains</button>
+          <button type="button" class="ctrl-btn ctrl-btn--domain" data-domain="mathematics" aria-pressed="false">Matematika</button>
+          <button type="button" class="ctrl-btn ctrl-btn--domain" data-domain="reading" aria-pressed="false">Membaca</button>
+        </div>
+
+        <span class="ctrl-sep" aria-hidden="true"></span>
+
+        <button type="button" id="btn-picker-primary" class="picker-trigger picker-trigger--primary" aria-haspopup="listbox" aria-expanded="false">
+          <span class="picker-tag">Negara:</span>
+          <span id="label-picker-primary">Indonesia</span>
+          <span class="picker-caret" aria-hidden="true">&#9662;</span>
+        </button>
+
+        <button type="button" id="btn-picker-compare" class="picker-trigger picker-trigger--compare" aria-haspopup="listbox" aria-expanded="false">
+          <span class="picker-tag">Pembanding:</span>
+          <span id="label-picker-compare">Viet Nam</span>
+          <span class="picker-caret" aria-hidden="true">&#9662;</span>
+        </button>
+
+        <span class="ctrl-sep" aria-hidden="true"></span>
+
+        <button type="button" id="btn-toggle-error" class="ctrl-btn" aria-pressed="false">Error bar (2xSE)</button>
+        <button type="button" id="btn-toggle-tables" class="ctrl-btn" aria-pressed="false">Tabel data</button>
+      </div>
+
+      <!-- Popover pencarian negara (tidak menambah tinggi bar kontrol) -->
+      <div id="country-popover" class="picker-popover" role="dialog" aria-modal="false" aria-labelledby="popover-title" hidden>
+        <div class="picker-popover-head">
+          <p id="popover-title" class="picker-popover-title">Pilih Negara atau Ekonomi</p>
+          <button type="button" id="btn-popover-close" class="picker-close" aria-label="Tutup daftar negara">Tutup (Esc)</button>
+        </div>
+        <label for="input-country-search" class="sr-only">Cari nama negara atau ekonomi</label>
+        <input type="search" id="input-country-search" class="picker-search" placeholder="Ketik nama negara (mis. Indonesia, Jepang)..." autocomplete="off">
+        <ul id="list-country-options" class="picker-list" role="listbox" aria-label="Daftar peserta PISA 2025"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. PIRAMIDA KEMAMPUAN -->
+  <section id="band-pyramid" class="band band--paper reveal-panel" aria-labelledby="heading-pyramid">
+    <div class="wrap">
+      <div class="band-header">
+        <p class="kicker"><span class="kicker-num">01 / Distribusi Tingkat Kemampuan</span> &middot; Tabel <span class="fig" data-fig="meta.tables.proficiency.science">I.B1.2a.10</span>, <span class="fig" data-fig="meta.tables.proficiency.mathematics">I.B1.2a.12</span>, <span class="fig" data-fig="meta.tables.proficiency.reading">I.B1.2a.11</span></p>
+        <h2 id="heading-pyramid" class="band-title">Piramida Kemampuan: Dari Level 1c ke Bawah hingga Level 6</h2>
+        <p class="band-prose">
+          OECD membagi capaian siswa ke dalam sepuluh tingkat (band). <strong>Level 2</strong> adalah ambang kemahiran dasar: siswa di bawah garis ini kesulitan menggunakan konsep ilmiah atau numerik sederhana untuk menyelesaikan masalah sehari-hari. Pada sains 2025, proporsi siswa Indonesia di bawah Level 2 mencapai <span class="fig" data-fig="indonesia.science.share.below_l2.2025">63,19</span>%, sedangkan di Viet Nam sebesar <span class="fig" data-fig="viet-nam.science.share.below_l2.2025">28,66</span>% dan Rata-rata OECD <span class="fig" data-fig="oecd-average.science.share.below_l2.2025">25,70</span>%.
+        </p>
+      </div>
+
+      <div id="pyramid-empty-banner" class="status-banner" role="status" hidden></div>
+
+      <div class="chart-frame">
+        <div class="frame-top">
+          <div class="legend-row">
+            <span class="legend-item"><span class="swatch swatch--idn"></span>Di bawah Level 2 (1a ke bawah)</span>
+            <span class="legend-item"><span class="swatch swatch--oecd"></span>Kemahiran menengah (Level 2 s.d. 4)</span>
+            <span class="legend-item"><span class="swatch swatch--top"></span>Kemahiran tinggi (Level 5 &amp; 6)</span>
+          </div>
+          <span class="note-foot">Band bernilai kosong (tidak ada data) tidak digambar sebagai batang. Panjang batang = persentase siswa (skala 0 sampai 50%); batang bergaris = negara pembanding.</span>
+        </div>
+
+        <p id="pyramid-peak-sentence" class="callout-line">
+          Pada sains, band puncak <strong>Indonesia</strong> berada di <strong>Level 1a</strong> (<span class="fig" data-fig="indonesia.science.band.level_1a">41,29</span>%), sedangkan band puncak <strong>Viet Nam</strong> berada di <strong>Level 2</strong> (<span class="fig" data-fig="viet-nam.science.band.level_2">34,83</span>%).
+        </p>
+
+        <div id="pyramid-hover-readout" class="pyramid-readout" aria-live="polite">
+          Arahkan kursor atau fokuskan tombol tingkat kemampuan untuk melihat persentase dan standard error (SE) asli dari tabel OECD.
+        </div>
+
+        <div id="pyramid-chart" class="pyramid-grid" role="group" aria-label="Perbandingan 10 band kemampuan"></div>
+
+        <div id="table-wrap-pyramid" class="data-table-wrap" role="region" tabindex="0" aria-label="Tabel data, bisa digeser ke samping" hidden>
+          <table class="data-table">
+            <caption id="caption-pyramid">Tabel distribusi 10 tingkat kemampuan (%)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Tingkat Kemampuan</th>
+                <th scope="col" class="num" id="th-pyr-primary">Indonesia (%)</th>
+                <th scope="col" class="num" id="th-pyr-compare">Viet Nam (%)</th>
+                <th scope="col" class="num">Rata-rata OECD (%)</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-pyramid"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. PERSENTIL -->
+  <section id="band-percentile" class="band band--surface reveal-panel" aria-labelledby="heading-percentile">
+    <div class="wrap">
+      <div class="band-header">
+        <p class="kicker"><span class="kicker-num">02 / Kurva Sebaran Skor</span> &middot; Tabel <span class="fig" data-fig="meta.tables.scores">I.B1.2a.1</span></p>
+        <h2 id="heading-percentile" class="band-title">Jarak Skor di Sepanjang Lima Titik Persentil</h2>
+        <p class="band-prose">
+          <strong>Persentil</strong> mengurutkan siswa dari skor terendah ke tertinggi: titik <span class="fig">p10</span> adalah batas 10% siswa terbawah, <span class="fig">p50</span> adalah nilai tengah (median), dan <span class="fig">p90</span> adalah batas 10% siswa teratas. Pada sains, median (<span class="fig">p50</span>) Indonesia adalah <span class="fig" data-fig="indonesia.science.p50">385,9</span> poin (rentang <span class="fig">p10</span> <span class="fig" data-fig="indonesia.science.p10">304,7</span> s.d. <span class="fig">p90</span> <span class="fig" data-fig="indonesia.science.p90">477,6</span>), sedangkan median Viet Nam mencapai <span class="fig" data-fig="viet-nam.science.p50">455,5</span> poin dan Rata-rata OECD <span class="fig" data-fig="oecd-average.science.p50">483,5</span> poin.
+        </p>
+      </div>
+
+      <div id="percentile-empty-banner" class="status-banner" role="status" hidden></div>
+
+      <div class="chart-frame">
+        <div class="percentile-controls">
+          <div class="slider-top">
+            <label for="slider-percentile" id="label-percentile-active" class="slider-label">Titik aktif: p50 (Median / nilai tengah)</label>
+            <span id="readout-percentile-pair" class="slider-readout">Indonesia: <span class="fig" data-fig="indonesia.science.p50">385,9</span> &middot; Viet Nam: <span class="fig" data-fig="viet-nam.science.p50">455,5</span></span>
+          </div>
+          <input
+            type="range"
+            id="slider-percentile"
+            class="p-range"
+            min="0"
+            max="4"
+            step="1"
+            value="2"
+            aria-label="Pilih titik persentil dari p10 sampai p90"
+            aria-valuetext="p50 (Median): Indonesia 385,9 poin, Viet Nam 455,5 poin"
+          >
+          <div class="slider-stops" role="group" aria-label="Pilih langsung titik persentil">
+            <button type="button" class="stop-btn" data-pidx="0" aria-pressed="false" aria-label="Titik p10 (10 persen terbawah)">p10</button>
+            <button type="button" class="stop-btn" data-pidx="1" aria-pressed="false" aria-label="Titik p25 (kuartil bawah)">p25</button>
+            <button type="button" class="stop-btn" data-pidx="2" aria-pressed="true" aria-label="Titik p50 (median atau nilai tengah)">p50</button>
+            <button type="button" class="stop-btn" data-pidx="3" aria-pressed="false" aria-label="Titik p75 (kuartil atas)">p75</button>
+            <button type="button" class="stop-btn" data-pidx="4" aria-pressed="false" aria-label="Titik p90 (10 persen teratas)">p90</button>
+          </div>
+        </div>
+
+        <div class="svg-wrap">
+          <svg id="svg-percentile" class="chart-svg" viewBox="0 0 760 300" role="img" aria-labelledby="svg-percentile-title svg-percentile-desc">
+            <title id="svg-percentile-title">Kurva persentil skor antara negara terpilih dan pembanding</title>
+            <desc id="svg-percentile-desc">Grafik garis lima titik persentil (p10, p25, p50, p75, p90) beserta garis mendatar ambang Level 2.</desc>
+            <g id="svg-percentile-grid"></g>
+            <g id="svg-percentile-series"></g>
+            <g id="svg-percentile-highlight"></g>
+          </svg>
+        </div>
+
+        <div id="table-wrap-percentile" class="data-table-wrap" role="region" tabindex="0" aria-label="Tabel data, bisa digeser ke samping" hidden>
+          <table class="data-table">
+            <caption id="caption-percentile">Tabel distribusi persentil skor (p10 s.d. p90)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Titik Persentil</th>
+                <th scope="col" class="num" id="th-perc-primary">Indonesia</th>
+                <th scope="col" class="num" id="th-perc-compare">Viet Nam</th>
+                <th scope="col" class="num">Selisih (Utama dikurangi Pembanding)</th>
+                <th scope="col" class="num">Rata-rata OECD</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-percentile"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. TANGGA PERBANDINGAN -->
+  <section id="band-ladder" class="band band--paper reveal-panel" aria-labelledby="heading-ladder">
+    <div class="wrap">
+      <div class="band-header">
+        <p class="kicker"><span class="kicker-num">03 / Tangga Kawasan &amp; Acuan</span> &middot; Tabel <span class="fig" data-fig="meta.tables.scores">I.B1.2a.1</span></p>
+        <h2 id="heading-ladder" class="band-title">Tangga Perbandingan ASEAN, Negara Pembanding, dan Rata-rata OECD</h2>
+        <p class="band-prose">
+          Grafik ini menempatkan delapan negara ASEAN peserta PISA 2025 bersama negara terpilih, pembanding, dan Rata-rata OECD. Klik baris negara mana pun untuk menjadikannya pembanding baru. Saat tombol <strong>Error bar (2xSE)</strong> diaktifkan, sistem memeriksa apakah selisih rata-rata antara negara terpilih dan pembanding lebih kecil dari dua kali standard error gabungan (<span class="fig">2xSE</span>).
+        </p>
+      </div>
+
+      <div class="chart-frame">
+        <div class="ladder-toolbar">
+          <div class="ctrl-group" role="group" aria-label="Urutan tangga perbandingan">
+            <button type="button" id="btn-sort-desc" class="ctrl-btn" aria-pressed="true">Urut turun (skor tertinggi)</button>
+            <button type="button" id="btn-sort-asc" class="ctrl-btn" aria-pressed="false">Urut naik (skor terendah)</button>
+          </div>
+          <div id="ladder-tie-notice" class="tie-badge" role="status" aria-live="polite" hidden></div>
+        </div>
+
+        <div id="ladder-list" class="ladder-list" role="group" aria-label="Daftar peringkat skor negara"></div>
+
+        <div id="table-wrap-ladder" class="data-table-wrap" role="region" tabindex="0" aria-label="Tabel data, bisa digeser ke samping" hidden>
+          <table class="data-table">
+            <caption id="caption-ladder">Tabel peringkat skor rata-rata dan standard error (SE)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Peringkat</th>
+                <th scope="col">Negara / Ekonomi</th>
+                <th scope="col">Kelompok</th>
+                <th scope="col" class="num">Skor Rata-rata</th>
+                <th scope="col" class="num">Standard Error (SE)</th>
+                <th scope="col" class="num">Rentang 2xSE</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-ladder"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. GARIS WAKTU -->
+  <section id="band-timeline" class="band band--surface reveal-panel" aria-labelledby="heading-timeline">
+    <div class="wrap">
+      <div class="band-header">
+        <p class="kicker"><span class="kicker-num">04 / Lintasan Antar-Siklus</span> &middot; Tabel <span class="fig" data-fig="meta.tables.share">I.B1.2a.33</span> &amp; <span class="fig" data-fig="meta.tables.trend">I.B1.2a.36</span></p>
+        <h2 id="heading-timeline" class="band-title">Garis Waktu Proporsi Siswa di Bawah Ambang Dasar vs Kemahiran Tinggi</h2>
+        <p class="band-prose">
+          Sejak sains pertama kali menjadi domain utama pada 2006, proporsi siswa Indonesia yang berada di bawah Level 2 bergerak dari <span class="fig" data-fig="indonesia.science.share.below_l2.2006">61,61</span>% (2006) menjadi <span class="fig" data-fig="indonesia.science.share.below_l2.2025">63,19</span>% (2025), sementara proporsi siswa di Level 5 atau 6 pada 2025 adalah <span class="fig" data-fig="indonesia.science.share.above_l4.2025">0,03</span>% (dibandingkan <span class="fig" data-fig="oecd-average.science.share.above_l4.2025">7,21</span>% pada Rata-rata OECD). Pada matematika dan membaca 2025, porsi siswa Indonesia di bawah Level 2 masing-masing sebesar <span class="fig" data-fig="indonesia.mathematics.share.below_l2.2025">83,07</span>% dan <span class="fig" data-fig="indonesia.reading.share.below_l2.2025">72,89</span>%. Siklus yang tidak diikuti oleh suatu negara ditandai secara eksplisit pada sumbu tahun dan tidak disambung diam-diam.
+        </p>
+      </div>
+
+      <div id="timeline-empty-banner" class="status-banner" role="status" hidden></div>
+
+      <div class="chart-frame">
+        <div class="timeline-toolbar">
+          <div class="ctrl-group" role="group" aria-label="Pilih indikator garis waktu">
+            <button type="button" id="btn-share-below" class="ctrl-btn" aria-pressed="true">Di bawah Level 2 (%)</button>
+            <button type="button" id="btn-share-above" class="ctrl-btn" aria-pressed="false">Di atas Level 4 / Level 5-6 (%)</button>
+          </div>
+          <span id="timeline-missing-note" class="note-foot">Titik silang pada sumbu bawah menandakan siklus tanpa data.</span>
+        </div>
+
+        <div class="svg-wrap">
+          <svg id="svg-timeline" class="chart-svg" viewBox="0 0 760 290" role="img" aria-labelledby="svg-timeline-title svg-timeline-desc">
+            <title id="svg-timeline-title">Garis waktu proporsi kemahiran siswa antar siklus PISA</title>
+            <desc id="svg-timeline-desc">Perbandingan persentase siswa antar siklus PISA dengan penanda eksplisit untuk tahun yang tidak memiliki data.</desc>
+            <g id="svg-timeline-grid"></g>
+            <g id="svg-timeline-series"></g>
+          </svg>
+        </div>
+
+        <div id="table-wrap-timeline" class="data-table-wrap" role="region" tabindex="0" aria-label="Tabel data, bisa digeser ke samping" hidden>
+          <table class="data-table">
+            <caption id="caption-timeline">Tabel riwayat persentase kemampuan antar siklus PISA</caption>
+            <thead>
+              <tr>
+                <th scope="col">Tahun Siklus</th>
+                <th scope="col" class="num" id="th-time-primary">Indonesia (%)</th>
+                <th scope="col" class="num" id="th-time-compare">Viet Nam (%)</th>
+                <th scope="col">Catatan Ketersediaan</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-timeline"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. SEBARAN VARIANSI SEKOLAH -->
+  <section id="band-variation" class="band band--paper reveal-panel" aria-labelledby="heading-variation">
+    <div class="wrap">
+      <div class="band-header">
+        <p class="kicker"><span class="kicker-num">05 / Dekomposisi Variansi Sains</span> &middot; Tabel <span class="fig" data-fig="meta.tables.variation">I.B1.2a.25</span></p>
+        <h2 id="heading-variation" class="band-title">Sebaran di Dalam Sekolah vs Antar-Sekolah (Khusus Sains)</h2>
+        <p class="band-prose">
+          Apakah perbedaan nilai siswa terutama terjadi karena jurang mutu antar-sekolah, atau perbedaan capaian murid di dalam sekolah yang sama? Di Indonesia, variansi skor sains di dalam sekolah sebesar <span class="fig" data-fig="var.indonesia.within">3.028,18</span> dan antar-sekolah sebesar <span class="fig" data-fig="var.indonesia.between">1.453,94</span> (total variansi <span class="fig" data-fig="var.indonesia.total">4.495,87</span>). Ketika dinormalisasi terhadap rata-rata variansi total OECD, porsi antar-sekolah Indonesia adalah <span class="fig" data-fig="var.indonesia.between_pct">14,99</span>%, Viet Nam <span class="fig" data-fig="var.viet-nam.between_pct">30,15</span>%, dan Rata-rata OECD <span class="fig" data-fig="var.oecd-average.between_pct">31,27</span>%.
+        </p>
+      </div>
+
+      <div class="chart-frame">
+        <div class="frame-top">
+          <div class="legend-row">
+            <span class="legend-item"><span class="swatch swatch--oecd"></span>Porsi variansi di dalam sekolah (% dari kombinasian dalam + antar)</span>
+            <span class="legend-item"><span class="swatch swatch--idn"></span>Porsi variansi antar-sekolah (% dari kombinasian dalam + antar)</span>
+          </div>
+          <span class="note-foot">Data Tabel <span class="fig" data-fig="meta.tables.variation">I.B1.2a.25</span> hanya dipublikasikan untuk domain utama Sains.</span>
+        </div>
+
+        <p id="variation-reader-sentence" class="callout-line">
+          Cara membaca: dari total variansi gabungan di <strong>Indonesia</strong>, sebagian besar perbedaan nilai siswa berada di dalam sekolah yang sama, sedangkan di <strong>Viet Nam</strong> dan <strong>Rata-rata OECD</strong> pemisahan capaian antar-sekolah mengambil porsi yang lebih lebar.
+        </p>
+
+        <div id="variation-bars" class="var-rows"></div>
+
+        <div id="table-wrap-variation" class="data-table-wrap" role="region" tabindex="0" aria-label="Tabel data, bisa digeser ke samping" hidden>
+          <table class="data-table">
+            <caption>Tabel variansi skor sains di dalam sekolah dan antar-sekolah (Tabel <span class="fig" data-fig="meta.tables.variation">I.B1.2a.25</span>)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Negara / Ekonomi</th>
+                <th scope="col" class="num">Variansi Dalam Sekolah</th>
+                <th scope="col" class="num">Variansi Antar-Sekolah</th>
+                <th scope="col" class="num">Porsi Dalam (100% Bar)</th>
+                <th scope="col" class="num">Porsi Antar (100% Bar)</th>
+                <th scope="col" class="num">Antar thd Total OECD (%)</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-variation"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. CATATAN METODE -->
+  <section id="band-method" class="band band--tint reveal-panel" aria-labelledby="heading-method">
+    <div class="wrap">
+      <div class="band-header">
+        <p class="kicker"><span class="kicker-num">06 / Catatan Metode &amp; Rujukan</span> &middot; Transparansi Pengukuran</p>
+        <h2 id="heading-method" class="band-title">Cara Membaca Error Bar (2xSE), Istilah Statistik, dan Sumber Tabel</h2>
+        <p class="band-prose">
+          Skor PISA dihitung dari sampel berlapis (<span class="fig" data-fig="meta.counts.total_students">755.721</span> siswa global; di Indonesia <span class="fig" data-fig="meta.counts.students_idn">14.168</span> siswa dengan <span class="fig" data-fig="meta.counts.missing_escs_idn">354</span> baris tanpa indeks sosial-ekonomi ESCS dari total global <span class="fig" data-fig="meta.counts.total_missing_escs">74.677</span> baris). Pada seri tren sains jangka panjang (Tabel <span class="fig" data-fig="meta.tables.trend">I.B1.2a.36</span>), rata-rata Indonesia tercatat <span class="fig" data-fig="trend.indonesia.2006">393,5</span> pada 2006 dan <span class="fig" data-fig="trend.indonesia.2025">388,7</span> pada 2025, sedangkan kelompok acuan OECD-23 bergerak dari <span class="fig" data-fig="trend.oecd-23.2006">502,7</span> (2006) menjadi <span class="fig" data-fig="trend.oecd-23.2025">485,9</span> (2025).
+        </p>
+      </div>
+
+      <div class="method-grid">
+        <div class="se-ruler-box">
+          <h3 class="se-ruler-title">Skala Standard Error (Apa Arti 2xSE?)</h3>
+          <p class="band-prose">
+            Setiap rata-rata sampel memiliki ketidakpastian yang diukur dengan <strong>standard error (SE)</strong>. Rentang <span class="fig">&plusmn;2xSE</span> di sekitar rata-rata membentuk selang kepercayaan sekitar 95%. Untuk skor sains Indonesia (<span class="fig" data-fig="indonesia.science.mean">388,7</span> poin, SE <span class="fig" data-fig="indonesia.science.se">2,3</span>), nilai populasi sebenarnya berada di kisaran <span class="fig">384,1</span> hingga <span class="fig">393,3</span> poin. Jika selisih skor dua negara lebih kecil dari <span class="fig">2 &times; &radic;(SE<sub>1</sub><sup>2</sup> + SE<sub>2</sub><sup>2</sup>)</span>, urutan peringkat keduanya secara statistik bisa bertukar.
+          </p>
+          <div class="svg-wrap" style="margin-top: 12px;">
+            <svg class="chart-svg" viewBox="0 0 520 96" role="img" aria-label="Diagram mistar rentang 2xSE sekitar skor sains Indonesia 388,7 poin">
+              <line x1="40" y1="48" x2="480" y2="48" stroke="#B8C4D4" stroke-width="2"></line>
+              <rect x="150" y="34" width="220" height="28" fill="#FDECEC" stroke="#B82318" stroke-width="1.5"></rect>
+              <line x1="260" y1="24" x2="260" y2="72" stroke="#B82318" stroke-width="3"></line>
+              <text x="150" y="24" font-size="11" fill="#334155" text-anchor="middle">-2xSE (384,1)</text>
+              <text x="260" y="20" font-size="12" font-weight="600" fill="#B82318" text-anchor="middle">Rata-rata 388,7</text>
+              <text x="370" y="24" font-size="11" fill="#334155" text-anchor="middle">+2xSE (393,3)</text>
+              <text x="260" y="88" font-size="11" fill="#475569" text-anchor="middle">Selang kepercayaan ~95% (&plusmn;4,6 poin untuk SE = 2,3)</text>
+            </svg>
+          </div>
+
+          <dl class="glossary-list">
+            <div class="glossary-item">
+              <dt>Level 2 (Ambang Kemahiran Dasar)</dt>
+              <dd>Batas kemampuan minimum OECD (skor sains <span class="fig">410</span>, matematika <span class="fig">420</span>, membaca <span class="fig">407</span>) agar siswa dapat berpartisipasi penuh dalam masyarakat modern.</dd>
+            </div>
+            <div class="glossary-item">
+              <dt>Persentil (p10, p25, p50, p75, p90)</dt>
+              <dd>Titik pembagi distribusi siswa setelah diurutkan dari skor terendah ke tertinggi; p50 adalah median atau siswa tepat di tengah distribusi.</dd>
+            </div>
+            <div class="glossary-item">
+              <dt>ESCS (Index of Economic, Social and Cultural Status)</dt>
+              <dd>Indeks status ekonomi, sosial, dan budaya rumah tangga siswa di berkas mikro PISA yang merangkum pendidikan orang tua, pekerjaan orang tua, dan kepemilikan fasilitas belajar di rumah.</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="se-ruler-box">
+          <h3 class="se-ruler-title">Daftar Tabel Sumber &amp; Lisensi</h3>
+          <table class="data-table">
+            <caption>Rujukan tabel annex OECD PISA 2025</caption>
+            <thead>
+              <tr>
+                <th scope="col">Komponen Data</th>
+                <th scope="col">Kode Tabel Annex</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Skor rata-rata, SE, SD, dan persentil</td>
+                <td class="num"><span class="fig" data-fig="meta.tables.scores">I.B1.2a.1</span></td>
+              </tr>
+              <tr>
+                <td>Distribusi tingkat kemampuan Sains</td>
+                <td class="num"><span class="fig" data-fig="meta.tables.proficiency.science">I.B1.2a.10</span></td>
+              </tr>
+              <tr>
+                <td>Distribusi tingkat kemampuan Membaca</td>
+                <td class="num"><span class="fig" data-fig="meta.tables.proficiency.reading">I.B1.2a.11</span></td>
+              </tr>
+              <tr>
+                <td>Distribusi tingkat kemampuan Matematika</td>
+                <td class="num"><span class="fig" data-fig="meta.tables.proficiency.mathematics">I.B1.2a.12</span></td>
+              </tr>
+              <tr>
+                <td>Sebaran variansi dalam vs antar-sekolah</td>
+                <td class="num"><span class="fig" data-fig="meta.tables.variation">I.B1.2a.25</span></td>
+              </tr>
+              <tr>
+                <td>Tren porsi di bawah Level 2 &amp; Level 5-6</td>
+                <td class="num"><span class="fig" data-fig="meta.tables.share">I.B1.2a.33</span></td>
+              </tr>
+              <tr>
+                <td>Tren rata-rata sains lintas siklus</td>
+                <td class="num"><span class="fig" data-fig="meta.tables.trend">I.B1.2a.36</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="note-foot">
+            Lisensi data: <span data-fig="meta.licence">CC BY 4.0</span> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons Attribution 4.0 International</a>). Unduh basis data resmi di <a href="https://www.oecd.org/en/data/datasets/pisa-2025-database.html" target="_blank" rel="noopener">OECD PISA 2025 Database</a> atau kembali ke <a href="../pisa/">halaman laporan naratif /pisa/</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script id="pisa-explorer-data" type="application/json">/*__DATA__*/</script>
+<script>
+(function () {
+  "use strict";
+
+  // Loading state tidak berlaku karena payload data sudah disematkan langsung (inlined) di dalam halaman HTML ini.
+  var payload = null;
+  try {
+    var rawEl = document.getElementById("pisa-explorer-data");
+    payload = JSON.parse(rawEl ? rawEl.textContent : "");
+  } catch (err) {
+    var fatal = document.getElementById("fatal-banner");
+    if (fatal) {
+      fatal.hidden = false;
+    }
+    return;
+  }
+
+  if (!payload || !payload.scores || !payload.countries) {
+    var fatal = document.getElementById("fatal-banner");
+    if (fatal) {
+      fatal.hidden = false;
+    }
+    return;
+  }
+
+  var fmt1 = new Intl.NumberFormat("id-ID", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  var fmt2 = new Intl.NumberFormat("id-ID", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  var fmtInt = new Intl.NumberFormat("id-ID", { maximumFractionDigits: 0 });
+
+  function formatScore(val) {
+    return (val === null || val === undefined || !Number.isFinite(val)) ? "tidak ada data" : fmt1.format(val);
+  }
+
+  function formatPct(val) {
+    return (val === null || val === undefined || !Number.isFinite(val)) ? "tidak ada data" : fmt2.format(val);
+  }
+
+  var DOMAIN_LABELS = {
+    science: "Sains",
+    mathematics: "Matematika",
+    reading: "Membaca"
+  };
+
+  var LEVEL2_CUT = {
+    science: 410,
+    mathematics: 420,
+    reading: 407
+  };
+
+  var BAND_META = [
+    { key: "level_6", label: "Level 6", tier: "top" },
+    { key: "level_5", label: "Level 5", tier: "top" },
+    { key: "level_4", label: "Level 4", tier: "mid" },
+    { key: "level_3", label: "Level 3", tier: "mid" },
+    { key: "level_2", label: "Level 2 (Ambang)", tier: "mid", cutBelow: true },
+    { key: "level_1a", label: "Level 1a", tier: "below" },
+    { key: "level_1b", label: "Level 1b", tier: "below" },
+    { key: "level_1c", label: "Level 1c", tier: "below" },
+    { key: "level_below_1c", label: "Di bawah 1c", tier: "below" },
+    { key: "below_1b", label: "Di bawah 1b", tier: "below" }
+  ];
+
+  var PERCENTILE_STOPS = [
+    { key: "p10", idx: 3, label: "p10 (10% Terbawah)" },
+    { key: "p25", idx: 4, label: "p25 (Kuartil Bawah)" },
+    { key: "p50", idx: 5, label: "p50 (Median / Nilai Tengah)" },
+    { key: "p75", idx: 6, label: "p75 (Kuartil Atas)" },
+    { key: "p90", idx: 7, label: "p90 (10% Teratas)" }
+  ];
+
+  var CANONICAL_YEARS = {
+    science: [2006, 2009, 2012, 2015, 2018, 2022, 2025],
+    mathematics: [2003, 2006, 2009, 2012, 2015, 2018, 2022, 2025],
+    reading: [2000, 2003, 2006, 2009, 2012, 2015, 2018, 2022, 2025]
+  };
+
+  var ASEAN_IDS = [
+    "indonesia",
+    "brunei-darussalam",
+    "philippines",
+    "cambodia",
+    "malaysia",
+    "singapore",
+    "thailand",
+    "viet-nam"
+  ];
+  var aseanSet = {};
+  for (var a = 0; a < ASEAN_IDS.length; a++) {
+    aseanSet[ASEAN_IDS[a]] = true;
+  }
+
+  var countryById = {};
+  var allSelectableCountries = [];
+  for (var i = 0; i < payload.countries.length; i++) {
+    var c = payload.countries[i];
+    countryById[c.id] = c;
+    if (c.id !== "oecd-23") {
+      allSelectableCountries.push(c);
+    }
+  }
+
+  var state = {
+    domain: "science",
+    primary: "indonesia",
+    compare: "viet-nam",
+    showError: false,
+    showTables: false,
+    percentileIndex: 2,
+    ladderSort: "desc",
+    shareKind: "below_l2",
+    activePickerRole: null,
+    searchQuery: ""
+  };
+
+  var rafPending = false;
+  function scheduleRedraw() {
+    if (rafPending) return;
+    rafPending = true;
+    window.requestAnimationFrame(function () {
+      rafPending = false;
+      renderAll();
+    });
+  }
+
+  function getCountryName(cid) {
+    return countryById[cid] ? countryById[cid].name : cid;
+  }
+
+  function getScoreTuple(cid, dom) {
+    if (!payload.scores[cid] || !payload.scores[cid][dom]) return null;
+    var arr = payload.scores[cid][dom];
+    if (!arr || arr[0] === null || arr[0] === undefined) return null;
+    return arr;
+  }
+
+  function getLevelsTuple(cid, dom) {
+    if (!payload.levels[cid] || !payload.levels[cid][dom]) return null;
+    var arr = payload.levels[cid][dom];
+    var hasAny = false;
+    for (var k = 0; k < arr.length; k++) {
+      if (arr[k] !== null && arr[k] !== undefined) {
+        hasAny = true;
+        break;
+      }
+    }
+    return hasAny ? arr : null;
+  }
+
+  // SE band asli dari payload (kolom `se` tabel annex OECD). Tidak ada estimasi di halaman ini.
+  function getBandSeTuple(cid, dom) {
+    var map = payload.levels_se || {};
+    if (!map[cid] || !map[cid][dom]) return null;
+    return map[cid][dom];
+  }
+
+  function renderHeroAndControls() {
+    var dom = state.domain;
+    var pName = getCountryName(state.primary);
+    var cName = getCountryName(state.compare);
+
+    document.getElementById("label-picker-primary").textContent = pName;
+    document.getElementById("label-picker-compare").textContent = cName;
+
+    var domBtns = document.querySelectorAll(".ctrl-btn--domain");
+    for (var i = 0; i < domBtns.length; i++) {
+      var btn = domBtns[i];
+      var isAct = btn.getAttribute("data-domain") === dom;
+      btn.setAttribute("aria-pressed", isAct ? "true" : "false");
+    }
+
+    document.getElementById("btn-toggle-error").setAttribute("aria-pressed", state.showError ? "true" : "false");
+    document.getElementById("btn-toggle-tables").setAttribute("aria-pressed", state.showTables ? "true" : "false");
+
+    // Hero cards stay anchored to Science key figures when on default selection, or reflect selected countries
+    var pSci = getScoreTuple(state.primary, dom);
+    var cSci = getScoreTuple(state.compare, dom);
+    var oSci = getScoreTuple("oecd-average", dom);
+
+    document.getElementById("hero-primary-name").textContent = pName + " (" + DOMAIN_LABELS[dom] + ")";
+    document.getElementById("hero-compare-name").textContent = cName + " (" + DOMAIN_LABELS[dom] + ")";
+    document.getElementById("hero-primary-role").textContent = "Negara Utama (" + DOMAIN_LABELS[dom] + ")";
+    document.getElementById("hero-compare-role").textContent = "Pembanding (" + DOMAIN_LABELS[dom] + ")";
+    var heroStats = document.getElementById("hero-stats");
+    if (heroStats) heroStats.setAttribute("aria-label", "Tiga angka kunci " + DOMAIN_LABELS[dom] + " PISA 2025");
+
+    document.getElementById("hero-primary-val").textContent = pSci ? formatScore(pSci[0]) : "tidak ada data";
+    document.getElementById("hero-primary-sub").textContent = pSci
+      ? ("SE " + formatScore(pSci[1]) + " · SD " + formatScore(pSci[2]))
+      : "Data skor tidak tersedia";
+
+    document.getElementById("hero-compare-val").textContent = cSci ? formatScore(cSci[0]) : "tidak ada data";
+    document.getElementById("hero-compare-sub").textContent = cSci
+      ? ("SE " + formatScore(cSci[1]) + " · SD " + formatScore(cSci[2]))
+      : "Data skor tidak tersedia";
+
+    document.getElementById("hero-oecd-val").textContent = oSci ? formatScore(oSci[0]) : "tidak ada data";
+    document.getElementById("hero-oecd-sub").textContent = oSci
+      ? ("SE " + formatScore(oSci[1]) + " · SD " + formatScore(oSci[2]))
+      : "Data skor tidak tersedia";
+
+    var tableWraps = [
+      "table-wrap-pyramid",
+      "table-wrap-percentile",
+      "table-wrap-ladder",
+      "table-wrap-timeline",
+      "table-wrap-variation"
+    ];
+    for (var t = 0; t < tableWraps.length; t++) {
+      var wrapEl = document.getElementById(tableWraps[t]);
+      if (wrapEl) wrapEl.hidden = !state.showTables;
+    }
+  }
+
+  function renderPyramid() {
+    var dom = state.domain;
+    var pId = state.primary;
+    var cId = state.compare;
+    var pName = getCountryName(pId);
+    var cName = getCountryName(cId);
+    var pLevels = getLevelsTuple(pId, dom);
+    var cLevels = getLevelsTuple(cId, dom);
+    var pSes = getBandSeTuple(pId, dom);
+    var cSes = getBandSeTuple(cId, dom);
+    var oLevels = getLevelsTuple("oecd-average", dom);
+    var bandKeys = payload.band_keys;
+
+    var emptyBanner = document.getElementById("pyramid-empty-banner");
+    if (!pLevels || !cLevels) {
+      var missingNames = [];
+      if (!pLevels) missingNames.push(pName);
+      if (!cLevels) missingNames.push(cName);
+      emptyBanner.textContent = "Data distribusi tingkat kemampuan " + DOMAIN_LABELS[dom] + " tidak ada data untuk: " + missingNames.join(", ") + ".";
+      emptyBanner.hidden = false;
+    } else {
+      emptyBanner.hidden = true;
+    }
+
+    // Find peak bands
+    var pMaxVal = -1, pMaxLabel = "tidak ada data";
+    var cMaxVal = -1, cMaxLabel = "tidak ada data";
+
+    for (var b = 0; b < BAND_META.length; b++) {
+      var bm = BAND_META[b];
+      var kIdx = bandKeys.indexOf(bm.key);
+      var pv = (pLevels && kIdx >= 0) ? pLevels[kIdx] : null;
+      var cv = (cLevels && kIdx >= 0) ? cLevels[kIdx] : null;
+      if (pv !== null && pv !== undefined && pv > pMaxVal) {
+        pMaxVal = pv;
+        pMaxLabel = bm.label;
+      }
+      if (cv !== null && cv !== undefined && cv > cMaxVal) {
+        cMaxVal = cv;
+        cMaxLabel = bm.label;
+      }
+    }
+
+    var peakEl = document.getElementById("pyramid-peak-sentence");
+    peakEl.textContent = "Pada " + DOMAIN_LABELS[dom].toLowerCase() + ", band puncak " + pName + " berada di " + pMaxLabel +
+      (pMaxVal >= 0 ? " (" + formatPct(pMaxVal) + "%)" : " (tidak ada data)") +
+      ", sedangkan band puncak " + cName + " berada di " + cMaxLabel +
+      (cMaxVal >= 0 ? " (" + formatPct(cMaxVal) + "%)." : " (tidak ada data).");
+
+    var gridEl = document.getElementById("pyramid-chart");
+    var html = [];
+    html.push('<div class="pyramid-col-head">Tingkat</div>');
+    html.push('<div class="pyramid-col-head">' + pName + '</div>');
+    html.push('<div class="pyramid-col-head">' + cName + '</div>');
+
+    var maxScale = 50;
+    var tbodyHtml = [];
+
+    for (var r = 0; r < BAND_META.length; r++) {
+      var meta = BAND_META[r];
+      var idx = bandKeys.indexOf(meta.key);
+      var pVal = (pLevels && idx >= 0) ? pLevels[idx] : null;
+      var cVal = (cLevels && idx >= 0) ? cLevels[idx] : null;
+      var oVal = (oLevels && idx >= 0) ? oLevels[idx] : null;
+
+      // Skip rows where both primary and compare are null so unused tail bands do not clutter
+      if (pVal === null && cVal === null) {
+        continue;
+      }
+
+      var rowCls = meta.cutBelow ? "pyramid-row pyramid-row--l2-cut" : "pyramid-row";
+      html.push('<div class="' + rowCls + '">');
+      html.push('<div class="pyramid-band-label">' + meta.label + '</div>');
+
+      // Primary cell
+      if (pVal === null || pVal === undefined) {
+        html.push('<div class="pyramid-cell pyramid-cell--null" tabindex="0" data-band-info="' + pName + ' · ' + meta.label + ': tidak ada data"><span>tidak ada data</span></div>');
+      } else {
+        var pScale = Math.min(1, Math.max(0, pVal / maxScale)).toFixed(4);
+        var pSe = (pSes && idx >= 0) ? pSes[idx] : null;
+        var pInfo = pName + " · " + meta.label + ": " + formatPct(pVal) + "%" +
+          (pSe === null || pSe === undefined
+            ? " (SE tidak ada di tabel OECD)"
+            : " (SE asli " + formatPct(pSe) + "%, 2xSE ±" + formatPct(2 * pSe) + "%)");
+        html.push(
+          '<button type="button" class="pyramid-cell" data-band-info="' + pInfo + '">' +
+          '<span class="pyramid-track"><span class="pyramid-bar pyramid-bar--' + meta.tier + '" style="transform:scaleX(' + pScale + ')"></span></span>' +
+          '<span class="pyramid-val">' + formatPct(pVal) + '%</span>' +
+          '</button>'
+        );
+      }
+
+      // Compare cell
+      if (cVal === null || cVal === undefined) {
+        html.push('<div class="pyramid-cell pyramid-cell--null" tabindex="0" data-band-info="' + cName + ' · ' + meta.label + ': tidak ada data"><span>tidak ada data</span></div>');
+      } else {
+        var cScale = Math.min(1, Math.max(0, cVal / maxScale)).toFixed(4);
+        var cSe = (cSes && idx >= 0) ? cSes[idx] : null;
+        var cInfo = cName + " · " + meta.label + ": " + formatPct(cVal) + "%" +
+          (cSe === null || cSe === undefined
+            ? " (SE tidak ada di tabel OECD)"
+            : " (SE asli " + formatPct(cSe) + "%, 2xSE ±" + formatPct(2 * cSe) + "%)");
+        html.push(
+          '<button type="button" class="pyramid-cell" data-band-info="' + cInfo + '">' +
+          '<span class="pyramid-track"><span class="pyramid-bar pyramid-bar--peer pyramid-bar--' + meta.tier + '" style="transform:scaleX(' + cScale + ')"></span></span>' +
+          '<span class="pyramid-val">' + formatPct(cVal) + '%</span>' +
+          '</button>'
+        );
+      }
+      html.push('</div>');
+
+      tbodyHtml.push(
+        '<tr>' +
+        '<th scope="row">' + meta.label + '</th>' +
+        '<td class="num">' + formatPct(pVal) + '</td>' +
+        '<td class="num">' + formatPct(cVal) + '</td>' +
+        '<td class="num">' + formatPct(oVal) + '</td>' +
+        '</tr>'
+      );
+    }
+
+    gridEl.innerHTML = html.join("");
+    document.getElementById("th-pyr-primary").textContent = pName + " (%)";
+    document.getElementById("th-pyr-compare").textContent = cName + " (%)";
+    document.getElementById("tbody-pyramid").innerHTML = tbodyHtml.join("");
+  }
+
+  function renderPercentile() {
+    var dom = state.domain;
+    var pId = state.primary;
+    var cId = state.compare;
+    var pName = getCountryName(pId);
+    var cName = getCountryName(cId);
+    var pTuple = getScoreTuple(pId, dom);
+    var cTuple = getScoreTuple(cId, dom);
+    var oTuple = getScoreTuple("oecd-average", dom);
+
+    var stopObj = PERCENTILE_STOPS[state.percentileIndex] || PERCENTILE_STOPS[2];
+    var pPoint = pTuple ? pTuple[stopObj.idx] : null;
+    var cPoint = cTuple ? cTuple[stopObj.idx] : null;
+
+    var emptyBanner = document.getElementById("percentile-empty-banner");
+    if (!pTuple || !cTuple) {
+      var missing = [];
+      if (!pTuple) missing.push(pName);
+      if (!cTuple) missing.push(cName);
+      emptyBanner.textContent = "Data persentil " + DOMAIN_LABELS[dom] + " tidak ada data untuk: " + missing.join(", ") + ".";
+      emptyBanner.hidden = false;
+    } else {
+      emptyBanner.hidden = true;
+    }
+
+    document.getElementById("label-percentile-active").textContent = "Titik aktif: " + stopObj.label;
+    var pairText = pName + ": " + formatScore(pPoint) + " · " + cName + ": " + formatScore(cPoint);
+    if (state.showError && pTuple && cTuple) {
+      pairText += " (±2xSE rata-rata: " + formatScore(2 * pTuple[1]) + " / " + formatScore(2 * cTuple[1]) + ")";
+    }
+    document.getElementById("readout-percentile-pair").textContent = pairText;
+
+    var sliderEl = document.getElementById("slider-percentile");
+    sliderEl.value = String(state.percentileIndex);
+    sliderEl.setAttribute(
+      "aria-valuetext",
+      stopObj.label + ": " + pName + " " + formatScore(pPoint) + " poin, " + cName + " " + formatScore(cPoint) + " poin"
+    );
+
+    var stopBtns = document.querySelectorAll(".stop-btn");
+    for (var s = 0; s < stopBtns.length; s++) {
+      var isSel = Number(stopBtns[s].getAttribute("data-pidx")) === state.percentileIndex;
+      stopBtns[s].setAttribute("aria-pressed", isSel ? "true" : "false");
+    }
+
+    // Draw SVG curve
+    var xPositions = [95, 235, 380, 525, 665];
+    var yMin = 220, yMax = 680;
+    var padTop = 28, padBottom = 252;
+
+    function yScale(score) {
+      var clamped = Math.max(yMin, Math.min(yMax, score));
+      var ratio = (clamped - yMin) / (yMax - yMin);
+      return padBottom - ratio * (padBottom - padTop);
+    }
+
+    var gridG = document.getElementById("svg-percentile-grid");
+    var seriesG = document.getElementById("svg-percentile-series");
+    var hiG = document.getElementById("svg-percentile-highlight");
+
+    var gridParts = [];
+    var yTicks = [250, 350, 450, 550, 650];
+    for (var yt = 0; yt < yTicks.length; yt++) {
+      var yVal = yTicks[yt];
+      var py = yScale(yVal).toFixed(1);
+      gridParts.push('<line x1="65" y1="' + py + '" x2="710" y2="' + py + '" stroke="#D8E0EA" stroke-width="1"></line>');
+      gridParts.push('<text x="56" y="' + (Number(py) + 4) + '" font-size="11" fill="#475569" text-anchor="end">' + yVal + '</text>');
+    }
+
+    // Level 2 threshold horizontal line
+    var cutScore = LEVEL2_CUT[dom] || 410;
+    var yCut = yScale(cutScore).toFixed(1);
+    gridParts.push('<line x1="65" y1="' + yCut + '" x2="710" y2="' + yCut + '" stroke="#1E4E8C" stroke-width="1.5" stroke-dasharray="5,4"></line>');
+    gridParts.push('<text x="706" y="' + (Number(yCut) - 6) + '" font-size="11" font-weight="500" fill="#1E4E8C" text-anchor="end">Ambang Level 2 (' + cutScore + ')</text>');
+
+    for (var xp = 0; xp < PERCENTILE_STOPS.length; xp++) {
+      var xCoord = xPositions[xp];
+      gridParts.push('<line x1="' + xCoord + '" y1="' + padTop + '" x2="' + xCoord + '" y2="' + padBottom + '" stroke="#EEF1F5" stroke-width="1"></line>');
+      gridParts.push('<text x="' + xCoord + '" y="276" font-size="12" font-weight="500" fill="#0F172A" text-anchor="middle">' + PERCENTILE_STOPS[xp].key + '</text>');
+    }
+    gridG.innerHTML = gridParts.join("");
+
+    var seriesParts = [];
+    function buildCurve(tuple, strokeColor, fillLabel, isPrimary) {
+      if (!tuple) return;
+      var pts = [];
+      for (var i = 0; i < PERCENTILE_STOPS.length; i++) {
+        var val = tuple[PERCENTILE_STOPS[i].idx];
+        if (val !== null && val !== undefined) {
+          pts.push({ x: xPositions[i], y: yScale(val), val: val, pKey: PERCENTILE_STOPS[i].key });
+        }
+      }
+      if (pts.length > 1) {
+        var poly = pts.map(function (pt) { return pt.x + "," + pt.y.toFixed(1); }).join(" ");
+        seriesParts.push('<polyline fill="none" stroke="' + strokeColor + '" stroke-width="' + (isPrimary ? "3" : "2.5") + '" points="' + poly + '"></polyline>');
+      }
+      for (var j = 0; j < pts.length; j++) {
+        var pt = pts[j];
+        seriesParts.push('<circle cx="' + pt.x + '" cy="' + pt.y.toFixed(1) + '" r="4.5" fill="' + strokeColor + '"></circle>');
+      }
+      if (pts.length > 0) {
+        var last = pts[pts.length - 1];
+        var labelY = isPrimary ? (last.y + 15) : (last.y - 10);
+        seriesParts.push('<text x="' + last.x + '" y="' + labelY.toFixed(1) + '" font-size="11" font-weight="600" fill="' + strokeColor + '" text-anchor="end">' + fillLabel + '</text>');
+      }
+    }
+
+    buildCurve(cTuple, "#475569", cName, false);
+    buildCurve(pTuple, "#B82318", pName, true);
+    seriesG.innerHTML = seriesParts.join("");
+
+    // Active percentile highlight
+    var activeX = xPositions[state.percentileIndex];
+    var hiParts = [];
+    hiParts.push('<line x1="' + activeX + '" y1="' + padTop + '" x2="' + activeX + '" y2="' + padBottom + '" stroke="#0F172A" stroke-width="1.5"></line>');
+
+    if (pPoint !== null && pPoint !== undefined) {
+      var pyActive = yScale(pPoint);
+      hiParts.push('<circle cx="' + activeX + '" cy="' + pyActive.toFixed(1) + '" r="7" fill="#FDECEC" stroke="#B82318" stroke-width="2.5"></circle>');
+      hiParts.push('<text x="' + (activeX + 10) + '" y="' + (pyActive + 14).toFixed(1) + '" font-size="12" font-weight="600" fill="#B82318">' + formatScore(pPoint) + '</text>');
+    }
+    if (cPoint !== null && cPoint !== undefined) {
+      var cyActive = yScale(cPoint);
+      hiParts.push('<circle cx="' + activeX + '" cy="' + cyActive.toFixed(1) + '" r="7" fill="#E2E8F0" stroke="#475569" stroke-width="2.5"></circle>');
+      hiParts.push('<text x="' + (activeX - 10) + '" y="' + (cyActive - 10).toFixed(1) + '" font-size="12" font-weight="600" fill="#334155" text-anchor="end">' + formatScore(cPoint) + '</text>');
+    }
+    hiG.innerHTML = hiParts.join("");
+
+    // Table rows
+    var tbodyHtml = [];
+    for (var m = 0; m < PERCENTILE_STOPS.length; m++) {
+      var st = PERCENTILE_STOPS[m];
+      var pv = pTuple ? pTuple[st.idx] : null;
+      var cv = cTuple ? cTuple[st.idx] : null;
+      var ov = oTuple ? oTuple[st.idx] : null;
+      var diff = (pv !== null && cv !== null) ? fmt1.format(pv - cv) : "tidak ada data";
+      tbodyHtml.push(
+        '<tr>' +
+        '<th scope="row">' + st.label + '</th>' +
+        '<td class="num">' + formatScore(pv) + '</td>' +
+        '<td class="num">' + formatScore(cv) + '</td>' +
+        '<td class="num">' + diff + '</td>' +
+        '<td class="num">' + formatScore(ov) + '</td>' +
+        '</tr>'
+      );
+    }
+    document.getElementById("th-perc-primary").textContent = pName;
+    document.getElementById("th-perc-compare").textContent = cName;
+    document.getElementById("tbody-percentile").innerHTML = tbodyHtml.join("");
+  }
+
+  function renderLadder() {
+    var dom = state.domain;
+    var pId = state.primary;
+    var cId = state.compare;
+    var pName = getCountryName(pId);
+    var cName = getCountryName(cId);
+
+    document.getElementById("btn-sort-desc").setAttribute("aria-pressed", state.ladderSort === "desc" ? "true" : "false");
+    document.getElementById("btn-sort-asc").setAttribute("aria-pressed", state.ladderSort === "asc" ? "true" : "false");
+
+    // Collect ASEAN 8 + primary + compare + OECD Average without duplicates
+    var seen = {};
+    var ids = [];
+    function addId(id) {
+      if (!id || seen[id]) return;
+      seen[id] = true;
+      ids.push(id);
+    }
+
+    for (var i = 0; i < ASEAN_IDS.length; i++) {
+      addId(ASEAN_IDS[i]);
+    }
+    addId(pId);
+    addId(cId);
+    addId("oecd-average");
+
+    var rows = [];
+    for (var j = 0; j < ids.length; j++) {
+      var cid = ids[j];
+      var tuple = getScoreTuple(cid, dom);
+      rows.push({
+        id: cid,
+        name: getCountryName(cid),
+        group: aseanSet[cid] ? "asean" : (cid === "oecd-average" ? "reference" : "peer"),
+        mean: tuple ? tuple[0] : null,
+        se: tuple ? tuple[1] : null
+      });
+    }
+
+    rows.sort(function (a, b) {
+      if (a.mean === null && b.mean === null) return a.name.localeCompare(b.name);
+      if (a.mean === null) return 1;
+      if (b.mean === null) return -1;
+      return state.ladderSort === "asc" ? (a.mean - b.mean) : (b.mean - a.mean);
+    });
+
+    // Check 2xSE overlap strictly for primary vs compare when error band is active
+    var tieNotice = document.getElementById("ladder-tie-notice");
+    var pTuple = getScoreTuple(pId, dom);
+    var cTuple = getScoreTuple(cId, dom);
+    var isSwappable = false;
+    if (state.showError && pTuple && cTuple && pId !== cId) {
+      var diff = Math.abs(pTuple[0] - cTuple[0]);
+      var combined2SE = 2 * Math.sqrt(pTuple[1] * pTuple[1] + cTuple[1] * cTuple[1]);
+      if (diff < combined2SE) {
+        isSwappable = true;
+        tieNotice.textContent = pName + " vs " + cName + ": selisih " + formatScore(diff) + " < 2xSE (" + formatScore(combined2SE) + ") · urutan bisa bertukar";
+        tieNotice.hidden = false;
+      } else {
+        tieNotice.textContent = pName + " vs " + cName + ": selisih " + formatScore(diff) + " poin melampaui ambang 2xSE (" + formatScore(combined2SE) + " poin)";
+        tieNotice.hidden = false;
+      }
+    } else {
+      tieNotice.hidden = true;
+    }
+
+    var maxScore = 620;
+    var listHtml = [];
+    var tbodyHtml = [];
+    var rankNum = 0;
+
+    for (var r = 0; r < rows.length; r++) {
+      var item = rows[r];
+      var hasVal = item.mean !== null && item.mean !== undefined;
+      if (hasVal) rankNum += 1;
+
+      var roleCls = "ladder-row";
+      var roleTag = "";
+      if (item.id === pId) {
+        roleCls += " ladder-row--primary";
+        roleTag = " [Utama]";
+      } else if (item.id === cId) {
+        roleCls += " ladder-row--compare";
+        roleTag = " [Pembanding]";
+      } else if (item.id === "oecd-average") {
+        roleCls += " ladder-row--oecd";
+      }
+
+      if (isSwappable && (item.id === pId || item.id === cId)) {
+        roleTag += " · urutan bisa bertukar";
+      }
+
+      var scaleX = hasVal ? Math.min(1, Math.max(0, item.mean / maxScore)).toFixed(4) : "0";
+      var errStyle = "opacity:0;transform:scaleX(0);";
+      if (state.showError && hasVal && item.se !== null) {
+        var leftRatio = Math.max(0, (item.mean - 2 * item.se) / maxScore) * 100;
+        var widthRatio = Math.min(1, (4 * item.se) / maxScore);
+        errStyle = "left:" + leftRatio.toFixed(2) + "%;width:100%;opacity:0.85;transform:scaleX(" + widthRatio.toFixed(4) + ");";
+      }
+
+      var scoreLabel = hasVal
+        ? (formatScore(item.mean) + (state.showError && item.se !== null ? " ±" + formatScore(2 * item.se) : ""))
+        : "tidak ada data";
+
+      listHtml.push(
+        '<button type="button" class="' + roleCls + '" data-ladder-id="' + item.id + '" aria-label="Jadikan ' + item.name + ' sebagai pembanding (skor ' + scoreLabel + ')">' +
+        '<span class="ladder-rank">' + (hasVal ? rankNum : "-") + '</span>' +
+        '<span class="ladder-name">' + item.name + roleTag + '</span>' +
+        '<span class="ladder-track">' +
+          '<span class="ladder-bar" style="transform:scaleX(' + scaleX + ')"></span>' +
+          '<span class="ladder-error" style="' + errStyle + '"></span>' +
+        '</span>' +
+        '<span class="ladder-score">' + scoreLabel + '</span>' +
+        '</button>'
+      );
+
+      var rangeText = (hasVal && item.se !== null)
+        ? (formatScore(item.mean - 2 * item.se) + " s.d. " + formatScore(item.mean + 2 * item.se))
+        : "tidak ada data";
+
+      tbodyHtml.push(
+        '<tr>' +
+        '<td class="num">' + (hasVal ? rankNum : "tidak ada data") + '</td>' +
+        '<th scope="row">' + item.name + roleTag + '</th>' +
+        '<td>' + (item.group === "asean" ? "ASEAN" : (item.group === "reference" ? "Acuan OECD" : "Pembanding")) + '</td>' +
+        '<td class="num">' + formatScore(item.mean) + '</td>' +
+        '<td class="num">' + formatScore(item.se) + '</td>' +
+        '<td class="num">' + rangeText + '</td>' +
+        '</tr>'
+      );
+    }
+
+    document.getElementById("ladder-list").innerHTML = listHtml.join("");
+    document.getElementById("tbody-ladder").innerHTML = tbodyHtml.join("");
+  }
+
+  function renderTimeline() {
+    var dom = state.domain;
+    var pId = state.primary;
+    var cId = state.compare;
+    var pName = getCountryName(pId);
+    var cName = getCountryName(cId);
+    var kind = state.shareKind;
+
+    document.getElementById("btn-share-below").setAttribute("aria-pressed", kind === "below_l2" ? "true" : "false");
+    document.getElementById("btn-share-above").setAttribute("aria-pressed", kind === "above_l4" ? "true" : "false");
+
+    var pShare = (payload.share[pId] && payload.share[pId][dom]) ? payload.share[pId][dom] : null;
+    var cShare = (payload.share[cId] && payload.share[cId][dom]) ? payload.share[cId][dom] : null;
+
+    var years = CANONICAL_YEARS[dom] || CANONICAL_YEARS.science;
+    var pMap = {};
+    var cMap = {};
+
+    if (pShare && pShare.years) {
+      for (var i = 0; i < pShare.years.length; i++) {
+        pMap[pShare.years[i]] = pShare[kind][i];
+      }
+    }
+    if (cShare && cShare.years) {
+      for (var j = 0; j < cShare.years.length; j++) {
+        cMap[cShare.years[j]] = cShare[kind][j];
+      }
+    }
+
+    var pCount = Object.keys(pMap).length;
+    var cCount = Object.keys(cMap).length;
+    var emptyBanner = document.getElementById("timeline-empty-banner");
+    if (pCount <= 1 || cCount <= 1) {
+      var notes = [];
+      if (pCount === 0) notes.push(pName + " tidak memiliki baris tren pada domain ini");
+      else if (pCount === 1) notes.push(pName + " hanya memiliki 1 titik siklus (2025)");
+      if (cCount === 0) notes.push(cName + " tidak memiliki baris tren pada domain ini");
+      else if (cCount === 1) notes.push(cName + " hanya memiliki 1 titik siklus (2025)");
+      emptyBanner.textContent = "Catatan riwayat siklus: " + notes.join("; ") + ". Titik siklus yang kosong ditandai secara eksplisit.";
+      emptyBanner.hidden = false;
+    } else {
+      emptyBanner.hidden = true;
+    }
+
+    var xLeft = 72, xRight = 710;
+    var padTop = 28, padBottom = 236;
+    var yMax = kind === "below_l2" ? 100 : 40;
+
+    function xForIndex(idx) {
+      if (years.length <= 1) return (xLeft + xRight) / 2;
+      return xLeft + (idx / (years.length - 1)) * (xRight - xLeft);
+    }
+
+    function yForPct(val) {
+      var clamped = Math.max(0, Math.min(yMax, val));
+      return padBottom - (clamped / yMax) * (padBottom - padTop);
+    }
+
+    var gridG = document.getElementById("svg-timeline-grid");
+    var seriesG = document.getElementById("svg-timeline-series");
+    var gridParts = [];
+
+    var ySteps = kind === "below_l2" ? [0, 25, 50, 75, 100] : [0, 10, 20, 30, 40];
+    for (var s = 0; s < ySteps.length; s++) {
+      var yv = ySteps[s];
+      var py = yForPct(yv).toFixed(1);
+      gridParts.push('<line x1="' + xLeft + '" y1="' + py + '" x2="' + xRight + '" y2="' + py + '" stroke="#D8E0EA" stroke-width="1"></line>');
+      gridParts.push('<text x="60" y="' + (Number(py) + 4) + '" font-size="11" fill="#475569" text-anchor="end">' + yv + '%</text>');
+    }
+
+    for (var yIdx = 0; yIdx < years.length; yIdx++) {
+      var yr = years[yIdx];
+      var px = xForIndex(yIdx).toFixed(1);
+      gridParts.push('<line x1="' + px + '" y1="' + padTop + '" x2="' + px + '" y2="' + padBottom + '" stroke="#EEF1F5" stroke-width="1"></line>');
+      gridParts.push('<text x="' + px + '" y="264" font-size="11" font-weight="500" fill="#0F172A" text-anchor="middle">' + yr + '</text>');
+    }
+    gridG.innerHTML = gridParts.join("");
+
+    // Draw segments only between adjacent canonical cycles that both have data
+    var seriesParts = [];
+    function drawTimelineSeries(mapObj, color, name, isPrimary) {
+      var prevPt = null;
+      for (var k = 0; k < years.length; k++) {
+        var yr = years[k];
+        var val = mapObj[yr];
+        var cx = xForIndex(k);
+        if (val !== null && val !== undefined && Number.isFinite(val)) {
+          var cy = yForPct(val);
+          if (prevPt !== null) {
+            seriesParts.push(
+              '<line x1="' + prevPt.x.toFixed(1) + '" y1="' + prevPt.y.toFixed(1) + '" x2="' + cx.toFixed(1) + '" y2="' + cy.toFixed(1) + '" stroke="' + color + '" stroke-width="' + (isPrimary ? "3" : "2.5") + '"></line>'
+            );
+          }
+          seriesParts.push('<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="5" fill="' + color + '"></circle>');
+          var textOffset = isPrimary ? -10 : 16;
+          seriesParts.push('<text x="' + cx.toFixed(1) + '" y="' + (cy + textOffset).toFixed(1) + '" font-size="10.5" font-weight="600" fill="' + color + '" text-anchor="middle">' + formatPct(val) + '%</text>');
+          prevPt = { x: cx, y: cy };
+        } else {
+          // Explicit missing-cycle marker on baseline so gaps are never connected silently
+          var markerY = isPrimary ? (padBottom - 8) : (padBottom - 20);
+          seriesParts.push('<circle cx="' + cx.toFixed(1) + '" cy="' + markerY + '" r="3.5" fill="#FFFFFF" stroke="' + color + '" stroke-width="1.5" stroke-dasharray="2,2"></circle>');
+          prevPt = null;
+        }
+      }
+    }
+
+    drawTimelineSeries(cMap, "#475569", cName, false);
+    drawTimelineSeries(pMap, "#B82318", pName, true);
+    seriesG.innerHTML = seriesParts.join("");
+
+    // Timeline table
+    var tbodyHtml = [];
+    for (var u = 0; u < years.length; u++) {
+      var y = years[u];
+      var pv = pMap[y];
+      var cv = cMap[y];
+      var statusNotes = [];
+      if (pv === null || pv === undefined) statusNotes.push(pName + ": tidak ada data");
+      if (cv === null || cv === undefined) statusNotes.push(cName + ": tidak ada data");
+      tbodyHtml.push(
+        '<tr>' +
+        '<th scope="row">' + y + '</th>' +
+        '<td class="num">' + formatPct(pv) + '</td>' +
+        '<td class="num">' + formatPct(cv) + '</td>' +
+        '<td>' + (statusNotes.length ? statusNotes.join("; ") : "Data tersedia lengkap") + '</td>' +
+        '</tr>'
+      );
+    }
+    document.getElementById("th-time-primary").textContent = pName + " (%)";
+    document.getElementById("th-time-compare").textContent = cName + " (%)";
+    document.getElementById("tbody-timeline").innerHTML = tbodyHtml.join("");
+  }
+
+  function renderVariation() {
+    var pId = state.primary;
+    var cId = state.compare;
+    var ids = [pId];
+    if (cId !== pId) ids.push(cId);
+    if (pId !== "oecd-average" && cId !== "oecd-average") ids.push("oecd-average");
+
+    var varBlock = payload.variation_science || {};
+    var barsHtml = [];
+    var tbodyHtml = [];
+
+    for (var i = 0; i < ids.length; i++) {
+      var cid = ids[i];
+      var name = getCountryName(cid);
+      var tuple = varBlock[cid];
+      if (!tuple || tuple[1] === null || tuple[2] === null) {
+        barsHtml.push(
+          '<div class="var-item">' +
+          '<div class="var-item-head"><span class="var-item-name">' + name + '</span><span class="var-item-nums">tidak ada data sebaran sekolah</span></div>' +
+          '</div>'
+        );
+        tbodyHtml.push(
+          '<tr><th scope="row">' + name + '</th><td class="num">tidak ada data</td><td class="num">tidak ada data</td><td class="num">tidak ada data</td><td class="num">tidak ada data</td><td class="num">tidak ada data</td></tr>'
+        );
+        continue;
+      }
+
+      var withinRaw = tuple[1];
+      var betweenRaw = tuple[2];
+      var sumParts = withinRaw + betweenRaw;
+      var withinShare = sumParts > 0 ? (withinRaw / sumParts) * 100 : 0;
+      var betweenShare = sumParts > 0 ? (betweenRaw / sumParts) * 100 : 0;
+      var oecdNormBetween = tuple[4];
+
+      barsHtml.push(
+        '<div class="var-item">' +
+        '<div class="var-item-head">' +
+          '<span class="var-item-name">' + name + '</span>' +
+          '<span class="var-item-nums">Di dalam sekolah: ' + formatPct(withinShare) + '% (' + formatPct(withinRaw) + ') · Antar-sekolah: ' + formatPct(betweenShare) + '% (' + formatPct(betweenRaw) + ')</span>' +
+        '</div>' +
+        '<div class="var-bar-100" role="img" aria-label="' + name + ': ' + formatPct(withinShare) + '% di dalam sekolah dan ' + formatPct(betweenShare) + '% antar-sekolah">' +
+          '<div class="var-seg-within" style="width:' + withinShare.toFixed(2) + '%"></div>' +
+          '<div class="var-seg-between" style="width:' + betweenShare.toFixed(2) + '%"></div>' +
+        '</div>' +
+        '</div>'
+      );
+
+      tbodyHtml.push(
+        '<tr>' +
+        '<th scope="row">' + name + '</th>' +
+        '<td class="num">' + formatPct(withinRaw) + '</td>' +
+        '<td class="num">' + formatPct(betweenRaw) + '</td>' +
+        '<td class="num">' + formatPct(withinShare) + '%</td>' +
+        '<td class="num">' + formatPct(betweenShare) + '%</td>' +
+        '<td class="num">' + formatPct(oecdNormBetween) + '%</td>' +
+        '</tr>'
+      );
+    }
+
+    var pTuple = varBlock[pId];
+    var cTuple = varBlock[cId];
+    var sentenceEl = document.getElementById("variation-reader-sentence");
+    if (pTuple && cTuple && pTuple[1] !== null && cTuple[1] !== null) {
+      var pBetween100 = (pTuple[2] / (pTuple[1] + pTuple[2])) * 100;
+      var cBetween100 = (cTuple[2] / (cTuple[1] + cTuple[2])) * 100;
+      sentenceEl.textContent = "Cara membaca (Sains): dari 100% gabungan variansi dalam + antar-sekolah, porsi kesenjangan antar-sekolah di " +
+        getCountryName(pId) + " adalah " + formatPct(pBetween100) + "% (atau " + formatPct(pTuple[4]) + "% terhadap total OECD), sedangkan di " +
+        getCountryName(cId) + " sebesar " + formatPct(cBetween100) + "% (" + formatPct(cTuple[4]) + "% terhadap total OECD).";
+    }
+
+    document.getElementById("variation-bars").innerHTML = barsHtml.join("");
+    document.getElementById("tbody-variation").innerHTML = tbodyHtml.join("");
+  }
+
+  function renderPickerOptions() {
+    var role = state.activePickerRole;
+    if (!role) return;
+    var q = state.searchQuery.trim().toLowerCase();
+    var currentId = role === "primary" ? state.primary : state.compare;
+    var otherId = role === "primary" ? state.compare : state.primary;
+
+    var listEl = document.getElementById("list-country-options");
+    var html = [];
+
+    for (var i = 0; i < allSelectableCountries.length; i++) {
+      var c = allSelectableCountries[i];
+      // Prevent duplicate country between primary and comparator
+      if (c.id === otherId) continue;
+      var nameStr = (c.name || "").toLowerCase();
+      var srcStr = (c.source || "").toLowerCase();
+      if (q && nameStr.indexOf(q) === -1 && srcStr.indexOf(q) === -1) {
+        continue;
+      }
+      var isSel = c.id === currentId;
+      var grpLabel = aseanSet[c.id] ? "ASEAN" : (c.kind === "aggregate" ? "Acuan" : "Peserta");
+      html.push(
+        '<li>' +
+        '<button type="button" class="picker-option" role="option" data-pick-id="' + c.id + '" aria-selected="' + (isSel ? "true" : "false") + '">' +
+        '<span>' + c.name + '</span>' +
+        '<span class="picker-option-group">' + grpLabel + '</span>' +
+        '</button>' +
+        '</li>'
+      );
+    }
+
+    if (html.length === 0) {
+      html.push('<li style="padding:10px;font-size:0.86rem;color:#475569;">Tidak ada negara yang cocok dengan pencarian.</li>');
+    }
+    listEl.innerHTML = html.join("");
+  }
+
+  function openPicker(role) {
+    var popover = document.getElementById("country-popover");
+    var btnPri = document.getElementById("btn-picker-primary");
+    var btnCmp = document.getElementById("btn-picker-compare");
+
+    if (state.activePickerRole === role && !popover.hidden) {
+      closePicker();
+      return;
+    }
+
+    state.activePickerRole = role;
+    state.searchQuery = "";
+    var searchInput = document.getElementById("input-country-search");
+    searchInput.value = "";
+    document.getElementById("popover-title").textContent = role === "primary"
+      ? "Pilih Negara Utama"
+      : "Pilih Negara Pembanding (Tanpa Duplikat)";
+
+    btnPri.setAttribute("aria-expanded", role === "primary" ? "true" : "false");
+    btnCmp.setAttribute("aria-expanded", role === "compare" ? "true" : "false");
+    popover.hidden = false;
+    renderPickerOptions();
+    searchInput.focus();
+  }
+
+  function closePicker() {
+    var popover = document.getElementById("country-popover");
+    if (popover.hidden) return;
+    var prevRole = state.activePickerRole;
+    state.activePickerRole = null;
+    popover.hidden = true;
+    document.getElementById("btn-picker-primary").setAttribute("aria-expanded", "false");
+    document.getElementById("btn-picker-compare").setAttribute("aria-expanded", "false");
+    if (prevRole === "primary") {
+      document.getElementById("btn-picker-primary").focus();
+    } else if (prevRole === "compare") {
+      document.getElementById("btn-picker-compare").focus();
+    }
+  }
+
+  function renderAll() {
+    renderHeroAndControls();
+    renderPyramid();
+    renderPercentile();
+    renderLadder();
+    renderTimeline();
+    renderVariation();
+  }
+
+  // Event bindings
+  document.addEventListener("click", function (ev) {
+    var target = ev.target;
+
+    var domBtn = target.closest(".ctrl-btn--domain");
+    if (domBtn) {
+      state.domain = domBtn.getAttribute("data-domain") || "science";
+      scheduleRedraw();
+      return;
+    }
+
+    if (target.closest("#btn-picker-primary")) {
+      openPicker("primary");
+      return;
+    }
+
+    if (target.closest("#btn-picker-compare")) {
+      openPicker("compare");
+      return;
+    }
+
+    if (target.closest("#btn-popover-close")) {
+      closePicker();
+      return;
+    }
+
+    var pickOpt = target.closest("[data-pick-id]");
+    if (pickOpt) {
+      var chosenId = pickOpt.getAttribute("data-pick-id");
+      if (state.activePickerRole === "primary") {
+        if (chosenId === state.compare) {
+          state.compare = state.primary;
+        }
+        state.primary = chosenId;
+      } else if (state.activePickerRole === "compare") {
+        if (chosenId !== state.primary) {
+          state.compare = chosenId;
+        }
+      }
+      closePicker();
+      scheduleRedraw();
+      return;
+    }
+
+    if (target.closest("#btn-toggle-error")) {
+      state.showError = !state.showError;
+      scheduleRedraw();
+      return;
+    }
+
+    if (target.closest("#btn-toggle-tables")) {
+      state.showTables = !state.showTables;
+      scheduleRedraw();
+      return;
+    }
+
+    var stopBtn = target.closest(".stop-btn");
+    if (stopBtn) {
+      state.percentileIndex = Number(stopBtn.getAttribute("data-pidx")) || 0;
+      scheduleRedraw();
+      return;
+    }
+
+    if (target.closest("#btn-sort-desc")) {
+      state.ladderSort = "desc";
+      scheduleRedraw();
+      return;
+    }
+
+    if (target.closest("#btn-sort-asc")) {
+      state.ladderSort = "asc";
+      scheduleRedraw();
+      return;
+    }
+
+    var ladderRow = target.closest("[data-ladder-id]");
+    if (ladderRow) {
+      var clickedId = ladderRow.getAttribute("data-ladder-id");
+      if (clickedId && clickedId !== state.primary) {
+        state.compare = clickedId;
+        scheduleRedraw();
+      }
+      return;
+    }
+
+    if (target.closest("#btn-share-below")) {
+      state.shareKind = "below_l2";
+      scheduleRedraw();
+      return;
+    }
+
+    if (target.closest("#btn-share-above")) {
+      state.shareKind = "above_l4";
+      scheduleRedraw();
+      return;
+    }
+
+    var pyrCell = target.closest("[data-band-info]");
+    if (pyrCell) {
+      document.getElementById("pyramid-hover-readout").textContent = pyrCell.getAttribute("data-band-info");
+      return;
+    }
+
+    // Close picker when clicking outside
+    var popover = document.getElementById("country-popover");
+    if (!popover.hidden && !target.closest("#country-popover")) {
+      closePicker();
+    }
+  });
+
+  document.getElementById("slider-percentile").addEventListener("input", function (ev) {
+    state.percentileIndex = Number(ev.target.value) || 0;
+    scheduleRedraw();
+  });
+
+  document.getElementById("input-country-search").addEventListener("input", function (ev) {
+    state.searchQuery = ev.target.value || "";
+    renderPickerOptions();
+  });
+
+  document.getElementById("pyramid-chart").addEventListener("mouseover", function (ev) {
+    var cell = ev.target.closest("[data-band-info]");
+    if (cell) {
+      document.getElementById("pyramid-hover-readout").textContent = cell.getAttribute("data-band-info");
+    }
+  });
+
+  document.getElementById("pyramid-chart").addEventListener("focusin", function (ev) {
+    var cell = ev.target.closest("[data-band-info]");
+    if (cell) {
+      document.getElementById("pyramid-hover-readout").textContent = cell.getAttribute("data-band-info");
+    }
+  });
+
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape") {
+      closePicker();
+    }
+  });
+
+  // One-pass initial render
+  renderAll();
+
+  // MOTION 2 IntersectionObserver reveal (once only, stagger <= 60ms, skipped if reduced motion)
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    document.documentElement.classList.add("js-ready");
+    var panels = document.querySelectorAll(".reveal-panel");
+    for (var p = 0; p < panels.length; p++) {
+      panels[p].classList.add("is-pending");
+    }
+    var obs = new IntersectionObserver(function (entries, observer) {
+      for (var e = 0; e < entries.length; e++) {
+        if (entries[e].isIntersecting) {
+          var el = entries[e].target;
+          el.style.transitionDelay = Math.min(e * 45, 60) + "ms";
+          el.classList.remove("is-pending");
+          observer.unobserve(el);
+        }
+      }
+    }, { threshold: 0.08 });
+    for (var q = 0; q < panels.length; q++) {
+      obs.observe(panels[q]);
+    }
+  }
+})();
+</script>
+</body>
+</html>

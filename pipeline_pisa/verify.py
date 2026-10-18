@@ -295,8 +295,21 @@ def rebuild_payload_from_csv(csv_dir: str, template_path: str) -> dict:
             "r": round(peers_map["Indonesia"]["value"] - peers_map["Cambodia"]["value"], 5),
         },
         "peers_gap_kh_2se": {
-            "d": "6,34",
-            "r": 6.34,
+            # Dihitung ulang dari CSV yang sama: 2 x sqrt(SE_idn^2 + SE_kh^2).
+            "d": fmt_float(
+                2.0
+                * math.sqrt(
+                    peers_map["Indonesia"]["se"] ** 2 + peers_map["Cambodia"]["se"] ** 2
+                ),
+                2,
+            ),
+            "r": round(
+                2.0
+                * math.sqrt(
+                    peers_map["Indonesia"]["se"] ** 2 + peers_map["Cambodia"]["se"] ** 2
+                ),
+                5,
+            ),
         },
     }
     fig = {k: fig_resolvers[k] for k in set(data_fig_matches)}
@@ -932,6 +945,9 @@ def check_15_peers_caveat(embedded_data: dict, csv_dir: str):
         return False, "failed to read Indonesia or Cambodia science mean/se from annex_means.csv"
 
     recomputed_gap = idn_val - khm_val
+    # Galat baku selisih dua rata-rata: 2 x sqrt(SE_idn^2 + SE_kh^2).
+    recomputed_2se = 2.0 * math.sqrt(idn_se**2 + khm_se**2)
+    recomputed_2se_d = f"{recomputed_2se:.2f}".replace(".", ",")
 
     fig = embedded_data.get("fig", {})
     gap_entry = fig.get("peers_gap_kh")
@@ -958,11 +974,11 @@ def check_15_peers_caveat(embedded_data: dict, csv_dir: str):
     if gap_d != "6,73":
         return False, f"peers_gap_kh display string mismatch (payload: {gap_d!r}, expected: '6,73')"
 
-    if abs(se_r - 6.34) > 0.01:
-        return False, f"peers_gap_kh_2se numeric value mismatch (payload: {se_r}, expected: 6.34)"
+    if abs(se_r - recomputed_2se) > 0.01:
+        return False, f"peers_gap_kh_2se numeric value mismatch (payload: {se_r}, recomputed: {recomputed_2se:.5f})"
 
-    if se_d != "6,34":
-        return False, f"peers_gap_kh_2se display string mismatch (payload: {se_d!r}, expected: '6,34')"
+    if se_d != recomputed_2se_d:
+        return False, f"peers_gap_kh_2se display string mismatch (payload: {se_d!r}, recomputed: {recomputed_2se_d!r})"
 
     return True, f"peers caveat figures match annex_means.csv within 0.01: gap {gap_r:.2f} ({gap_d}) diff {abs(gap_r - recomputed_gap):.5f}, 2se {se_r:.2f} ({se_d})"
 

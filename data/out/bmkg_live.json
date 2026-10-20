@@ -183,6 +183,54 @@
  ],
  "felt": [
   {
+   "waktu_wib": "20:46:11 WIB",
+   "tanggal": "19 Okt 2026",
+   "datetime_utc": "2026-10-19T13:46:11+00:00",
+   "lat": 4.16,
+   "lon": 97.51,
+   "mag": 4.2,
+   "depth_km": 5.0,
+   "wilayah": "Pusat gempa berada di darat 26 km Timur Laut Kab. Gayo Lues",
+   "potensi": "",
+   "dirasakan": "III Kab. Gayo Lues, II Aceh Timur"
+  },
+  {
+   "waktu_wib": "19:06:02 WIB",
+   "tanggal": "19 Okt 2026",
+   "datetime_utc": "2026-10-19T12:06:02+00:00",
+   "lat": -7.99,
+   "lon": 120.09,
+   "mag": 4.5,
+   "depth_km": 6.0,
+   "wilayah": "Pusat gempa berada di laut 60 km Utara Labuanbajo",
+   "potensi": "",
+   "dirasakan": "II Kab. Manggarai"
+  },
+  {
+   "waktu_wib": "17:10:56 WIB",
+   "tanggal": "19 Okt 2026",
+   "datetime_utc": "2026-10-19T10:10:56+00:00",
+   "lat": -7.97,
+   "lon": 120.06,
+   "mag": 4.7,
+   "depth_km": 5.0,
+   "wilayah": "Pusat gempa berada di laut 61 km utara Labuan Bajo",
+   "potensi": "",
+   "dirasakan": "II Kab. Manggarai"
+  },
+  {
+   "waktu_wib": "16:45:57 WIB",
+   "tanggal": "19 Okt 2026",
+   "datetime_utc": "2026-10-19T09:45:57+00:00",
+   "lat": -8.12,
+   "lon": 120.05,
+   "mag": 4.8,
+   "depth_km": 19.0,
+   "wilayah": "Pusat gempa berada di laut 45 km timur laut Labuan Bajo",
+   "potensi": "",
+   "dirasakan": "I-II Kab. Manggarai"
+  },
+  {
    "waktu_wib": "15:02:46 WIB",
    "tanggal": "18 Okt 2026",
    "datetime_utc": "2026-10-18T08:02:46+00:00",
@@ -313,54 +361,6 @@
    "wilayah": "Pusat gempa berada di laut 53 km utara Ruteng, Manggarai",
    "potensi": "",
    "dirasakan": "II - III Kab. Manggarai"
-  },
-  {
-   "waktu_wib": "17:22:02 WIB",
-   "tanggal": "13 Okt 2026",
-   "datetime_utc": "2026-10-13T10:22:02+00:00",
-   "lat": -9.06,
-   "lon": 111.37,
-   "mag": 4.5,
-   "depth_km": 10.0,
-   "wilayah": "Pusat gempa berada di laut 103 km selatan Pacitan",
-   "potensi": "",
-   "dirasakan": "III Trenggalek"
-  },
-  {
-   "waktu_wib": "16:48:27 WIB",
-   "tanggal": "13 Okt 2026",
-   "datetime_utc": "2026-10-13T09:48:27+00:00",
-   "lat": -9.83,
-   "lon": 118.98,
-   "mag": 4.3,
-   "depth_km": 9.0,
-   "wilayah": "Pusat gempa berada di laut 27 km selatan Kodi, Sumba Barat Daya",
-   "potensi": "",
-   "dirasakan": "III Kab. Sumba Barat Daya"
-  },
-  {
-   "waktu_wib": "13:42:28 WIB",
-   "tanggal": "13 Okt 2026",
-   "datetime_utc": "2026-10-13T06:42:28+00:00",
-   "lat": -9.75,
-   "lon": 119.0,
-   "mag": 4.6,
-   "depth_km": 16.0,
-   "wilayah": "Pusat gempa berada di laut 15 km selatan Kodi-Sumba Barat Daya",
-   "potensi": "",
-   "dirasakan": "III Kab. Sumba Barat Daya"
-  },
-  {
-   "waktu_wib": "11:00:21 WIB",
-   "tanggal": "13 Okt 2026",
-   "datetime_utc": "2026-10-13T04:00:21+00:00",
-   "lat": -9.45,
-   "lon": 113.95,
-   "mag": 4.9,
-   "depth_km": 12.0,
-   "wilayah": "Pusat gempa berada di laut 141 km barat daya Jembrana",
-   "potensi": "",
-   "dirasakan": "III Jember, II - III Kuta Selatan, II - III Denpasar, II - III Karangasem, II Lumajang, II Malang, II Blitar, II Bondowoso"
   }
  ]
 }

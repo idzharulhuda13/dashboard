@@ -133,6 +133,7 @@ def main():
             "bca_weight_pct": {"r": bca_weight, "d": f"{fmt_num(bca_weight, 2)}%"},
             "bca_name": {"d": constituents_raw[0]["name"]},
             "non_bca_weight_pct": {"r": non_bca_weight, "d": f"{fmt_num(non_bca_weight, 2)}%"},
+            "nonbank_weight_pct": {"r": round(100 - bank_weight, 2), "d": fmt_num(100 - bank_weight, 2)},
             "top5_weight_pct": {"r": top5_weight, "d": f"{fmt_num(top5_weight, 2)}%"},
             "top5_weight_pct_plain": {"r": top5_weight, "d": fmt_num(top5_weight, 2)},
             "weights_sum_pct": {"r": weights_sum, "d": f"{fmt_num(weights_sum, 2)}%"},

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PASAR · 01: Sembilan Saham Menguasai Pasar</title>
-  <meta name="description" content="MSCI Indonesia Index, 30 September 2026. Sembilan saham, empat bank memegang 71,71 persen.">
+  <title>PASAR · 01: Indeks Ini Bukan Pasar, Ini Empat Bank</title>
+  <meta name="description" content="MSCI Indonesia Index, 30 September 2026. Empat bank memegang 71,71 persen dari sembilan saham yang mewakili 85 persen pasar.">
   <style>
 :root {
   --ground: #F7F1E6;
@@ -405,6 +405,35 @@ body {
   line-height: 1.4;
 }
 
+.consequence-title {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+.consequence-list {
+  list-style: none;
+  max-width: 720px;
+}
+
+.consequence-list li {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  color: var(--ink);
+  line-height: 1.45;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.consequence-list li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
 /* Band 5: Table (56-72px) */
 .band-table {
   padding: 68px 0;
@@ -681,9 +710,9 @@ body {
     <div class="container hero-grid">
       <div class="hero-main">
         <span class="micro-label">PASAR · 01</span>
-        <h1 id="hero-heading" class="hero-title">SEMBILAN SAHAM MENGUASAI PASAR</h1>
+        <h1 id="hero-heading" class="hero-title">INDEKS INI BUKAN PASAR. INI EMPAT BANK.</h1>
         <p class="hero-subtitle">
-          <em>MSCI Indonesia Index, <span data-fig="as_of_formatted"></span>. <span data-fig="constituents_count"></span> saham, <span data-fig="coverage_pct"></span> persen nilai pasar.</em>
+          <em>MSCI Indonesia Index, <span data-fig="as_of_formatted"></span>. <span data-fig="constituents_count"></span> saham mewakili <span data-fig="coverage_pct"></span> persen nilai pasar, dan <span data-fig="bank_weight_pct"></span> persennya empat bank.</em>
         </p>
 
         <!-- motif strip 1: a weight ruler 0 to 35 persen with ticks and caption -->
@@ -691,10 +720,10 @@ body {
       </div>
 
       <!-- one callout block OFF the grid -->
-      <aside class="hero-callout" aria-label="Fokus saham terbesar">
-        <span class="callout-num" data-fig="bca_weight_pct"></span>
-        <span class="callout-label"><span data-fig="bca_name"></span>, porsi terbesar</span>
-        <span class="callout-context">8 saham lainnya berbagi <span data-fig="non_bca_weight_pct"></span></span>
+      <aside class="hero-callout" aria-label="Porsi empat bank">
+        <span class="callout-num" data-fig="bank_weight_pct_str"></span>
+        <span class="callout-label">dari sembilan saham, empat bank</span>
+        <span class="callout-context">BBCA sendirian <span data-fig="bca_weight_pct"></span></span>
       </aside>
     </div>
   </section>
@@ -703,7 +732,7 @@ body {
   <section class="sheet sheet-plane band-ranked" aria-labelledby="ranked-heading">
     <div class="container">
       <h2 id="ranked-heading" class="band-title">EMPAT BANK MEMEGANG <span data-fig="bank_weight_pct"></span> PERSEN</h2>
-      <p class="band-lead">Lima saham teratas sudah mencakup <span data-fig="top5_weight_pct"></span> indeks, dan empat di antaranya bank.</p>
+      <p class="band-lead">Lima saham teratas sudah mencakup <span data-fig="top5_weight_pct"></span> indeks, dan empat di antaranya bank. Delapan saham lain berbagi <span data-fig="nonbank_weight_pct"></span> persen.</p>
 
       <div class="ranked-chart" id="ranked-bars" role="region" aria-label="Grafik peringkat porsi saham">
         <!-- populated from DATA -->
@@ -714,7 +743,7 @@ body {
   <!-- Band 3: Proportion, not donut (sheet ground) -->
   <section class="sheet sheet-ground band-proportion" aria-labelledby="proportion-heading">
     <div class="container">
-      <h2 id="proportion-heading" class="band-title">SEKTOR KEUANGAN <span data-fig="bank_weight_pct"></span> PERSEN DARI INDEKS</h2>
+      <h2 id="proportion-heading" class="band-title">SEMUA SEKTOR LAIN BERSAMA CUMA <span data-fig="nonbank_weight_pct"></span> PERSEN</h2>
       <p class="band-lead">Porsi tiap sektor dihitung dari sembilan saham itu, bukan dari seluruh bursa.</p>
 
       <div class="stacked-track" id="stacked-bar" role="img" aria-label="Porsi tiap sektor dalam indeks">
@@ -735,10 +764,17 @@ body {
       <p id="arithmetic-heading" class="arithmetic-headline">
         Kalau empat bank turun <span data-fig="sim_drop_pct"></span> persen, indeks turun <strong><span data-fig="sim_index_drop_pct"></span></strong> persen.
       </p>
-      <p class="arithmetic-note">angkanya hasil hitungan dari porsi gabungan empat bank</p>
+      <p class="arithmetic-note">aritmetika porsi, bukan ramalan</p>
       <p class="arithmetic-formula">
         Hitungan: <span data-fig="bank_weight_pct_str"></span> × <span data-fig="sim_drop_pct"></span>% = 7,171% ≈ <span data-fig="sim_index_drop_pct"></span>%
       </p>
+
+      <h3 class="consequence-title">Jadi apa artinya</h3>
+      <ul class="consequence-list">
+        <li>Kabar &ldquo;pasar turun&rdquo; hampir selalu kabar empat bank.</li>
+        <li>Satu bank kena masalah, seluruh indeks ikut terhitung.</li>
+        <li>Indeks ini juga acuan banyak dana asing yang memegang pasar kita.</li>
+      </ul>
     </div>
   </section>
 

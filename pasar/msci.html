@@ -1,26 +1,26 @@
-<!--BUILD sha256:505f40f90fd132455a18e43966661ece26297bf698d5ec9ebe2c1def230b1e02-->
+<!--BUILD sha256:aae5ee330949deaeaabe576273ddffed1d1743d3d863540585454c4d4e4795eb-->
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PASAR · 01: Sembilan Saham Menguasai Pasar</title>
-  <meta name="description" content="MSCI Indonesia Index, 30 September 2026. Sembilan konstituen, empat bank memegang 71,71 persen.">
+  <meta name="description" content="MSCI Indonesia Index, 30 September 2026. Sembilan saham, empat bank memegang 71,71 persen.">
   <style>
 :root {
-  --ground: #080D1E;
-  --plane: #111834;
-  --plane-2: #1A2242;
-  --ink: #F3F6FF;
-  --muted: #A6B1CE;
-  --line: #26304F;
-  --control: #7B88AD;
-  --accent: #56D9E8;
-  --cat-1: #6FE3EF;
-  --cat-2: #8FB8F5;
-  --cat-3: #A99BF2;
-  --cat-4: #C6A0EE;
-  --cat-5: #7FE0D0;
+  --ground: #F7F1E6;
+  --plane: #FFFBF3;
+  --plane-2: #F0E6D4;
+  --ink: #1A1410;
+  --muted: #6B5B4A;
+  --line: #DCCFB8;
+  --control: #8C7A62;
+  --accent: #2D4ECF;
+  --cat-1: #2D4ECF;
+  --cat-2: #1F7A8C;
+  --cat-3: #A15C1E;
+  --cat-4: #6B7A3A;
+  --cat-5: #8C3B4A;
   --font-sans: 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: 'Archivo Black', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
@@ -718,17 +718,17 @@ body {
         <span class="micro-label">PASAR · 01</span>
         <h1 id="hero-heading" class="hero-title">SEMBILAN SAHAM MENGUASAI PASAR</h1>
         <p class="hero-subtitle">
-          <em>MSCI Indonesia Index, <span data-fig="as_of_formatted">30 September 2026</span>. <span data-fig="constituents_count">9</span> konstituen, <span data-fig="coverage_pct">85</span> persen kapitalisasi pasar.</em>
+          <em>MSCI Indonesia Index, <span data-fig="as_of_formatted">30 September 2026</span>. <span data-fig="constituents_count">9</span> saham, <span data-fig="coverage_pct">85</span> persen nilai pasar.</em>
         </p>
 
         <!-- motif strip 1: a weight ruler 0 to 35 persen with ticks and caption -->
-        <div class="motif-strip" id="motif-ruler"><span class="ruler-fallback">Cakupan kapitalisasi pasar 85 persen, skala 0 sampai 100 persen.</span></div>
+        <div class="motif-strip" id="motif-ruler"><span class="ruler-fallback">Cakupan nilai pasar 85 persen, skala 0 sampai 100 persen.</span></div>
       </div>
 
       <!-- one callout block OFF the grid -->
-      <aside class="hero-callout" aria-label="Fokus konstituen terbesar">
+      <aside class="hero-callout" aria-label="Fokus saham terbesar">
         <span class="callout-num" data-fig="bca_weight_pct">31,41%</span>
-        <span class="callout-label"><span data-fig="bca_name">Bank Central Asia</span>, bobot terbesar</span>
+        <span class="callout-label"><span data-fig="bca_name">Bank Central Asia</span>, porsi terbesar</span>
         <span class="callout-context">8 saham lainnya berbagi <span data-fig="non_bca_weight_pct">68,59%</span></span>
       </aside>
     </div>
@@ -738,9 +738,9 @@ body {
   <section class="sheet sheet-plane band-ranked" aria-labelledby="ranked-heading">
     <div class="container">
       <h2 id="ranked-heading" class="band-title">EMPAT BANK MEMEGANG <span data-fig="bank_weight_pct">71,71</span> PERSEN</h2>
-      <p class="band-lead">Lima konstituen teratas mencakup <span data-fig="top5_weight_pct">85,58%</span> bobot indeks, didominasi oleh perbankan besar.</p>
+      <p class="band-lead">Lima saham teratas sudah mencakup <span data-fig="top5_weight_pct">85,58%</span> indeks, dan empat di antaranya bank.</p>
 
-      <div class="ranked-chart" id="ranked-bars" role="region" aria-label="Grafik peringkat bobot konstituen">
+      <div class="ranked-chart" id="ranked-bars" role="region" aria-label="Grafik peringkat porsi saham">
         <!-- populated from DATA -->
       </div>
     </div>
@@ -750,9 +750,9 @@ body {
   <section class="sheet sheet-ground band-proportion" aria-labelledby="proportion-heading">
     <div class="container">
       <h2 id="proportion-heading" class="band-title">SEKTOR KEUANGAN <span data-fig="bank_weight_pct">71,71</span> PERSEN DARI INDEKS</h2>
-      <p class="band-lead">Satu indeks terpusat pada lima sektor industri, diukur berdasarkan pembobotan pasar mengambang.</p>
+      <p class="band-lead">Porsi tiap sektor dihitung dari sembilan saham itu, bukan dari seluruh bursa.</p>
 
-      <div class="stacked-track" id="stacked-bar" role="img" aria-label="Distribusi bobot per sektor industri">
+      <div class="stacked-track" id="stacked-bar" role="img" aria-label="Porsi tiap sektor dalam indeks">
         <!-- populated from DATA -->
       </div>
 
@@ -760,7 +760,7 @@ body {
         <!-- populated from DATA -->
       </div>
 
-      <p class="band-note">jumlah bobot sektor <span data-fig="sectors_sum_pct">100,00 persen</span></p>
+      <p class="band-note">jumlah porsi sektor <span data-fig="sectors_sum_pct">100,00 persen</span></p>
     </div>
   </section>
 
@@ -770,7 +770,7 @@ body {
       <p id="arithmetic-heading" class="arithmetic-headline">
         Kalau empat bank turun <span data-fig="sim_drop_pct">10</span> persen, indeks turun <strong><span data-fig="sim_index_drop_pct">7,2</span></strong> persen.
       </p>
-      <p class="arithmetic-note">dihitung dari bobot gabungan empat bank, bukan perkiraan</p>
+      <p class="arithmetic-note">angkanya hasil hitungan dari porsi gabungan empat bank</p>
       <p class="arithmetic-formula">
         Hitungan: <span data-fig="bank_weight_pct_str">71,71%</span> × <span data-fig="sim_drop_pct">10</span>% = 7,171% ≈ <span data-fig="sim_index_drop_pct">7,2</span>%
       </p>
@@ -781,13 +781,13 @@ body {
   <section class="sheet sheet-plane band-table" aria-labelledby="table-caption">
     <div class="container">
       <table class="data-table">
-        <caption id="table-caption">Sembilan konstituen MSCI Indonesia Index, <span data-fig="as_of_formatted">30 September 2026</span></caption>
+        <caption id="table-caption">Sembilan saham MSCI Indonesia Index, <span data-fig="as_of_formatted">30 September 2026</span></caption>
         <thead>
           <tr>
-            <th scope="col">Konstituen</th>
+            <th scope="col">Saham</th>
             <th scope="col">Sektor</th>
-            <th scope="col" class="th-num">Float cap (USD miliar)</th>
-            <th scope="col" class="th-num">Bobot (persen)</th>
+            <th scope="col" class="th-num">Nilai pasar (USD miliar)</th>
+            <th scope="col" class="th-num">Porsi (persen)</th>
           </tr>
         </thead>
         <tbody id="table-body">
@@ -795,15 +795,15 @@ body {
         </tbody>
         <tfoot>
           <tr>
-            <th scope="row">Total</th>
-            <td class="col-sector" data-label="Jumlah">9 konstituen</td>
-            <td class="col-cap" data-label="Float cap (USD miliar)"><span data-fig="total_float_cap_factsheet">53,36</span>*</td>
-            <td class="col-weight" data-label="Bobot (persen)"><span data-fig="weights_sum_pct">100,00%</span></td>
+            <th scope="row">Total 9 saham</th>
+            <td class="col-sector" data-label="Jumlah"></td>
+            <td class="col-cap" data-label="Nilai pasar (USD miliar)"><span data-fig="total_float_cap_factsheet">53,36</span>*</td>
+            <td class="col-weight" data-label="Porsi (persen)"><span data-fig="weights_sum_pct">100,00%</span></td>
           </tr>
         </tfoot>
       </table>
       <p class="table-footnote">
-        * Factsheet mencatat total kapitalisasi pasar mengambang <span data-fig="total_float_cap_factsheet">53,36</span> miliar USD; penjumlahan langsung dari sembilan konstituen menghasilkan <span data-fig="total_float_cap_sum">53,37</span> miliar USD karena pembulatan.
+        * Factsheet mencatat nilai pasar saham yang beredar bebas <span data-fig="total_float_cap_factsheet">53,36</span> miliar USD; penjumlahan langsung dari sembilan saham menghasilkan <span data-fig="total_float_cap_sum">53,37</span> miliar USD karena pembulatan.
       </p>
     </div>
   </section>
@@ -814,7 +814,7 @@ body {
       <div class="footer-brand">PASAR</div>
       <div class="footer-content">
         <p class="footer-line">Sumber: <span data-fig="source_pdf">MSCI Indonesia Index Factsheet, 30 September 2026</span></p>
-        <p class="footer-line">Metode: <span data-fig="method_note">bobot dan kapitalisasi dibaca langsung dari factsheet; total sektor dihitung dari lima baris sektor</span></p>
+        <p class="footer-line">Metode: <span data-fig="method_note">porsi dan nilai pasar diambil dari factsheet; total sektor dijumlah dari lima baris sektor</span></p>
         <p class="footer-hash">SHA256: <span data-fig="source_sha256">8b3d84bcbd7671486abfce5fc94ed85a932e965686d666016a944f9b7d0178aa</span></p>
         <p class="footer-scope"><span data-fig="scope_note">MSCI Indonesia Index (USD, net), bukan IHSG.</span></p>
       </div>
@@ -822,7 +822,7 @@ body {
   </footer>
 
   <script>
-const DATA = {"meta": {"index": "MSCI Indonesia Index (USD, net)", "as_of": "2026-09-30", "as_of_formatted": "30 September 2026", "constituents_count": 9, "coverage_pct": 85, "index_float_cap_bn": 53.36, "source_pdf": "MSCI Indonesia Index Factsheet, 30 September 2026", "source_sha256": "8b3d84bcbd7671486abfce5fc94ed85a932e965686d666016a944f9b7d0178aa", "scope_note": "MSCI Indonesia Index (USD, net), bukan IHSG.", "method_note": "bobot dan kapitalisasi dibaca langsung dari factsheet; total sektor dihitung dari lima baris sektor"}, "fig": {"bank_weight_pct": {"r": 71.71, "d": "71,71"}, "bank_weight_pct_str": {"r": 71.71, "d": "71,71%"}, "bca_weight_pct": {"r": 31.41, "d": "31,41%"}, "bca_name": {"d": "Bank Central Asia"}, "non_bca_weight_pct": {"r": 68.59, "d": "68,59%"}, "top5_weight_pct": {"r": 85.58, "d": "85,58%"}, "top5_weight_pct_plain": {"r": 85.58, "d": "85,58"}, "weights_sum_pct": {"r": 100.0, "d": "100,00%"}, "sectors_sum_pct": {"r": 100.0, "d": "100,00 persen"}, "sim_drop_pct": {"r": 10, "d": "10"}, "sim_index_drop_pct": {"r": 7.2, "d": "7,2"}, "total_float_cap_factsheet": {"r": 53.36, "d": "53,36"}, "total_float_cap_sum": {"r": 53.37, "d": "53,37"}, "constituents_count": {"r": 9, "d": "9"}, "coverage_pct": {"r": 85, "d": "85"}, "as_of_formatted": {"d": "30 September 2026"}}, "constituents": [{"rank": 1, "rank_str": "01", "name": "Bank Central Asia", "ticker": "BBCA", "sector": "Financials", "sector_short": "FINANCIALS", "float_cap_bn": 16.76, "float_cap_bn_d": "16,76", "weight_pct": 31.41, "weight_pct_d": "31,41%", "is_bank": true}, {"rank": 2, "rank_str": "02", "name": "Bank Rakyat Indonesia", "ticker": "BBRI", "sector": "Financials", "sector_short": "FINANCIALS", "float_cap_bn": 10.65, "float_cap_bn_d": "10,65", "weight_pct": 19.96, "weight_pct_d": "19,96%", "is_bank": true}, {"rank": 3, "rank_str": "03", "name": "Bank Mandiri", "ticker": "BMRI", "sector": "Financials", "sector_short": "FINANCIALS", "float_cap_bn": 8.38, "float_cap_bn_d": "8,38", "weight_pct": 15.7, "weight_pct_d": "15,70%", "is_bank": true}, {"rank": 4, "rank_str": "04", "name": "Telkom Indonesia", "ticker": "TLKM", "sector": "Comm Srvcs", "sector_short": "COMM SRVCS", "float_cap_bn": 5.71, "float_cap_bn_d": "5,71", "weight_pct": 10.7, "weight_pct_d": "10,70%", "is_bank": false}, {"rank": 5, "rank_str": "05", "name": "Astra International", "ticker": "ASII", "sector": "Industrials", "sector_short": "INDUSTRIALS", "float_cap_bn": 4.17, "float_cap_bn_d": "4,17", "weight_pct": 7.81, "weight_pct_d": "7,81%", "is_bank": false}, {"rank": 6, "rank_str": "06", "name": "Bank Negara Indonesia", "ticker": "BBNI", "sector": "Financials", "sector_short": "FINANCIALS", "float_cap_bn": 2.48, "float_cap_bn_d": "2,48", "weight_pct": 4.64, "weight_pct_d": "4,64%", "is_bank": true}, {"rank": 7, "rank_str": "07", "name": "Bumi Resources Minerals", "ticker": "BRMS", "sector": "Materials", "sector_short": "MATERIALS", "float_cap_bn": 1.87, "float_cap_bn_d": "1,87", "weight_pct": 3.51, "weight_pct_d": "3,51%", "is_bank": false}, {"rank": 8, "rank_str": "08", "name": "United Tractors", "ticker": "UNTR", "sector": "Energy", "sector_short": "ENERGY", "float_cap_bn": 1.84, "float_cap_bn_d": "1,84", "weight_pct": 3.44, "weight_pct_d": "3,44%", "is_bank": false}, {"rank": 9, "rank_str": "09", "name": "Barito Pacific", "ticker": "BRPT", "sector": "Materials", "sector_short": "MATERIALS", "float_cap_bn": 1.51, "float_cap_bn_d": "1,51", "weight_pct": 2.83, "weight_pct_d": "2,83%", "is_bank": false}], "sectors": [{"sector": "Financials", "sector_display": "Keuangan (Financials)", "weight_pct": 71.71, "weight_pct_d": "71,71%"}, {"sector": "Comm Srvcs", "sector_display": "Layanan Komunikasi (Comm Srvcs)", "weight_pct": 10.7, "weight_pct_d": "10,70%"}, {"sector": "Industrials", "sector_display": "Barang Industri (Industrials)", "weight_pct": 7.81, "weight_pct_d": "7,81%"}, {"sector": "Materials", "sector_display": "Bahan Baku (Materials)", "weight_pct": 6.34, "weight_pct_d": "6,34%"}, {"sector": "Energy", "sector_display": "Energi (Energy)", "weight_pct": 3.44, "weight_pct_d": "3,44%"}]};
+const DATA = {"meta": {"index": "MSCI Indonesia Index (USD, net)", "as_of": "2026-09-30", "as_of_formatted": "30 September 2026", "constituents_count": 9, "coverage_pct": 85, "index_float_cap_bn": 53.36, "source_pdf": "MSCI Indonesia Index Factsheet, 30 September 2026", "source_sha256": "8b3d84bcbd7671486abfce5fc94ed85a932e965686d666016a944f9b7d0178aa", "scope_note": "MSCI Indonesia Index (USD, net), bukan IHSG.", "method_note": "porsi dan nilai pasar diambil dari factsheet; total sektor dijumlah dari lima baris sektor"}, "fig": {"bank_weight_pct": {"r": 71.71, "d": "71,71"}, "bank_weight_pct_str": {"r": 71.71, "d": "71,71%"}, "bca_weight_pct": {"r": 31.41, "d": "31,41%"}, "bca_name": {"d": "Bank Central Asia"}, "non_bca_weight_pct": {"r": 68.59, "d": "68,59%"}, "top5_weight_pct": {"r": 85.58, "d": "85,58%"}, "top5_weight_pct_plain": {"r": 85.58, "d": "85,58"}, "weights_sum_pct": {"r": 100.0, "d": "100,00%"}, "sectors_sum_pct": {"r": 100.0, "d": "100,00 persen"}, "sim_drop_pct": {"r": 10, "d": "10"}, "sim_index_drop_pct": {"r": 7.2, "d": "7,2"}, "total_float_cap_factsheet": {"r": 53.36, "d": "53,36"}, "total_float_cap_sum": {"r": 53.37, "d": "53,37"}, "constituents_count": {"r": 9, "d": "9"}, "coverage_pct": {"r": 85, "d": "85"}, "as_of_formatted": {"d": "30 September 2026"}}, "constituents": [{"rank": 1, "rank_str": "01", "name": "Bank Central Asia", "ticker": "BBCA", "sector": "Keuangan", "sector_short": "KEUANGAN", "float_cap_bn": 16.76, "float_cap_bn_d": "16,76", "weight_pct": 31.41, "weight_pct_d": "31,41%", "is_bank": true}, {"rank": 2, "rank_str": "02", "name": "Bank Rakyat Indonesia", "ticker": "BBRI", "sector": "Keuangan", "sector_short": "KEUANGAN", "float_cap_bn": 10.65, "float_cap_bn_d": "10,65", "weight_pct": 19.96, "weight_pct_d": "19,96%", "is_bank": true}, {"rank": 3, "rank_str": "03", "name": "Bank Mandiri", "ticker": "BMRI", "sector": "Keuangan", "sector_short": "KEUANGAN", "float_cap_bn": 8.38, "float_cap_bn_d": "8,38", "weight_pct": 15.7, "weight_pct_d": "15,70%", "is_bank": true}, {"rank": 4, "rank_str": "04", "name": "Telkom Indonesia", "ticker": "TLKM", "sector": "Komunikasi", "sector_short": "KOMUNIKASI", "float_cap_bn": 5.71, "float_cap_bn_d": "5,71", "weight_pct": 10.7, "weight_pct_d": "10,70%", "is_bank": false}, {"rank": 5, "rank_str": "05", "name": "Astra International", "ticker": "ASII", "sector": "Barang industri", "sector_short": "BARANG INDUSTRI", "float_cap_bn": 4.17, "float_cap_bn_d": "4,17", "weight_pct": 7.81, "weight_pct_d": "7,81%", "is_bank": false}, {"rank": 6, "rank_str": "06", "name": "Bank Negara Indonesia", "ticker": "BBNI", "sector": "Keuangan", "sector_short": "KEUANGAN", "float_cap_bn": 2.48, "float_cap_bn_d": "2,48", "weight_pct": 4.64, "weight_pct_d": "4,64%", "is_bank": true}, {"rank": 7, "rank_str": "07", "name": "Bumi Resources Minerals", "ticker": "BRMS", "sector": "Bahan baku", "sector_short": "BAHAN BAKU", "float_cap_bn": 1.87, "float_cap_bn_d": "1,87", "weight_pct": 3.51, "weight_pct_d": "3,51%", "is_bank": false}, {"rank": 8, "rank_str": "08", "name": "United Tractors", "ticker": "UNTR", "sector": "Energi", "sector_short": "ENERGI", "float_cap_bn": 1.84, "float_cap_bn_d": "1,84", "weight_pct": 3.44, "weight_pct_d": "3,44%", "is_bank": false}, {"rank": 9, "rank_str": "09", "name": "Barito Pacific", "ticker": "BRPT", "sector": "Bahan baku", "sector_short": "BAHAN BAKU", "float_cap_bn": 1.51, "float_cap_bn_d": "1,51", "weight_pct": 2.83, "weight_pct_d": "2,83%", "is_bank": false}], "sectors": [{"sector": "Financials", "sector_display": "Keuangan", "weight_pct": 71.71, "weight_pct_d": "71,71%"}, {"sector": "Comm Srvcs", "sector_display": "Komunikasi", "weight_pct": 10.7, "weight_pct_d": "10,70%"}, {"sector": "Industrials", "sector_display": "Barang industri", "weight_pct": 7.81, "weight_pct_d": "7,81%"}, {"sector": "Materials", "sector_display": "Bahan baku", "weight_pct": 6.34, "weight_pct_d": "6,34%"}, {"sector": "Energy", "sector_display": "Energi", "weight_pct": 3.44, "weight_pct_d": "3,44%"}]};
 
 function initDataStory() {
   if (!DATA || !DATA.constituents || !DATA.sectors) return;
@@ -871,7 +871,7 @@ function initDataStory() {
     svgInner += `<line x1="${coverX}" y1="${lineY - 12}" x2="${coverX}" y2="${lineY + 8}" stroke="var(--accent)" stroke-width="2" />`;
 
     // Caption below carries the number, so the strip never reads as a bare axis
-    svgInner += `<text x="${startX}" y="48" fill="var(--muted)" font-family="var(--font-sans)" font-size="12">cakupan kapitalisasi pasar: ${DATA.fig.coverage_pct.d}, skala 0 sampai ${maxVal.toFixed(0)} persen</text>`;
+    svgInner += `<text x="${startX}" y="48" fill="var(--muted)" font-family="var(--font-sans)" font-size="12">cakupan nilai pasar: ${DATA.fig.coverage_pct.d}, skala 0 sampai ${maxVal.toFixed(0)} persen</text>`;
 
     rulerContainer.innerHTML = `<svg viewBox="0 0 ${width} ${height}" class="ruler-svg" role="presentation">${svgInner}</svg>`;
   }
@@ -944,8 +944,8 @@ function initDataStory() {
         <tr>
           <th scope="row">${c.name} (${c.ticker})</th>
           <td class="col-sector" data-label="Sektor">${c.sector}</td>
-          <td class="col-cap" data-label="Float cap (USD miliar)">${c.float_cap_bn_d}</td>
-          <td class="col-weight" data-label="Bobot (persen)">${c.weight_pct_d}</td>
+          <td class="col-cap" data-label="Nilai pasar (USD miliar)">${c.float_cap_bn_d}</td>
+          <td class="col-weight" data-label="Porsi (persen)">${c.weight_pct_d}</td>
         </tr>
       `;
     });

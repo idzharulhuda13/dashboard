@@ -28,11 +28,11 @@ TICKER_MAP = {
 }
 
 SECTOR_DISPLAY_MAP = {
-    "Financials": "Keuangan (Financials)",
-    "Comm Srvcs": "Layanan Komunikasi (Comm Srvcs)",
-    "Industrials": "Barang Industri (Industrials)",
-    "Materials": "Bahan Baku (Materials)",
-    "Energy": "Energi (Energy)"
+    "Financials": "Keuangan",
+    "Comm Srvcs": "Komunikasi",
+    "Industrials": "Barang industri",
+    "Materials": "Bahan baku",
+    "Energy": "Energi"
 }
 
 def fmt_num(val, decimals=2):
@@ -92,8 +92,8 @@ def main():
             "rank_str": f"{idx + 1:02d}",
             "name": name,
             "ticker": ticker,
-            "sector": c["sector"],
-            "sector_short": c["sector"].upper(),
+            "sector": SECTOR_DISPLAY_MAP.get(c["sector"], c["sector"]),
+            "sector_short": SECTOR_DISPLAY_MAP.get(c["sector"], c["sector"]).upper(),
             "float_cap_bn": c["float_cap_bn"],
             "float_cap_bn_d": fmt_num(c["float_cap_bn"], 2),
             "weight_pct": c["weight_pct"],
@@ -125,7 +125,7 @@ def main():
             "source_pdf": "MSCI Indonesia Index Factsheet, 30 September 2026",
             "source_sha256": meta_raw.get("source_sha256", ""),
             "scope_note": "MSCI Indonesia Index (USD, net), bukan IHSG.",
-            "method_note": "bobot dan kapitalisasi dibaca langsung dari factsheet; total sektor dihitung dari lima baris sektor"
+            "method_note": "porsi dan nilai pasar diambil dari factsheet; total sektor dijumlah dari lima baris sektor"
         },
         "fig": {
             "bank_weight_pct": {"r": bank_weight, "d": fmt_num(bank_weight, 2)},

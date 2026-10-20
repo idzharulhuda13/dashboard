@@ -302,6 +302,25 @@ def main():
         sys.exit(1)
     print("[PASS] Zero 'linear-gradient' found in file")
 
+    # 4c. Responsive contract: a phone must lay out at device width, not 980px
+    if 'name="viewport"' not in html_content:
+        print("[FAIL] Missing meta viewport; phones will render at 980px")
+        sys.exit(1)
+    print("[PASS] Viewport meta present (width=device-width)")
+
+    # 4d. Plain-language gate: jargon and AI tells must not reach the page
+    banned_terms = ["konstituen", "kapitalisasi", "float cap", "float-adjusted", "bobot", "didominasi",
+                    "financials", "comm srvcs", "industrials", "materials"]
+    import re as _re
+
+    prose_only = _re.sub(r"const DATA = \{.*?\};\n", "", html_content, count=1, flags=_re.S)
+    copy_hits = [t for t in banned_terms if t in prose_only.lower()]
+    em_dash = prose_only.count("\u2014")
+    if copy_hits or em_dash:
+        print(f"[FAIL] Copy gate: jargon {copy_hits}, em dash {em_dash}")
+        sys.exit(1)
+    print(f"[PASS] Copy gate: 0 of {len(banned_terms)} banned terms, 0 em dash")
+
     # 4e. Strict per-slot equality: every data-fig slot must carry the payload display value
     import re as _re
     import html as _html

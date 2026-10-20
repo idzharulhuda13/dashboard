@@ -17,15 +17,19 @@ Tiga halaman, satu arah, satu ground. Tiap halaman satu cerita:
 
 ## Token (diwarisi apa adanya dari DESIGN.data-story.md)
 
-Ground `#080D1E` · plane `#111834` · plane-2 `#1A2242` · ink `#F3F6FF` · muted `#A6B1CE` ·
-line `#26304F` · control `#7B88AD` · accent `#56D9E8` · fit `#5FD39A` · warn `#F0C36B` ·
-misfit `#FF8080` · cat-1..5 `#6FE3EF #8FB8F5 #A99BF2 #C6A0EE #7FE0D0`.
+Ground `#F7F1E6` · plane `#FFFBF3` · plane-2 `#F0E6D4` · ink `#1A1410` · muted `#6B5B4A` ·
+line `#DCCFB8` · control `#8C7A62` · accent `#2D4ECF` · cat-1..5 `#2D4ECF #1F7A8C #A15C1E #6B7A3A #8C3B4A`.
+
+Palet navy + cyan dari `DESIGN.data-story.md` **ditolak pemilik** (20 Okt 2026, "aku gasuka warnanya").
+Yang dipakai palet rumah dari hub: kertas krem, tinta cokelat-hitam, satu aksen biru. Peran warna tetap:
+aksen untuk bank, lima warna kategorikal untuk lima sektor, semuanya >= 4:1 terhadap ground.
 
 **Peran diturunkan ulang, bukan disalin:**
 
 - `--accent` = bank (empat konstituen terbesar) dan angka yang jadi fokus band. Bukan "bar terpilih".
-- `--cat-1..5` = lima sektor, dipakai berurutan menurut bobot: keuangan, komunikasi, industri,
-  material, energi. Kategorinya tidak berurut, jadi ramp kategorikal sah.
+- `--cat-1..5` = lima sektor, urut menurut porsi: keuangan, komunikasi, barang industri, bahan baku,
+  energi. Kategorinya tidak berurut, jadi lima rona terpisah (bukan ramp kecerahan) supaya segmen kecil
+  tetap terbaca di atas kertas krem.
 - `--misfit` **tidak boleh** muncul di seri ini. Tidak ada status baik/buruk di data pasar; memakai
   merah untuk "saham turun" berarti mengarang penilaian. Penurunan digambar dengan panjang bar dan angka.
 - `--fit` dan `--warn` tidak dipakai.

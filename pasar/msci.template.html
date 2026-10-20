@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PASAR · 01: Sembilan Saham Menguasai Pasar</title>
+  <meta name="description" content="MSCI Indonesia Index, 30 September 2026. Sembilan konstituen, empat bank memegang 71,71 persen.">
+  <style>
+:root {
+  --ground: #080D1E;
+  --plane: #111834;
+  --plane-2: #1A2242;
+  --ink: #F3F6FF;
+  --muted: #A6B1CE;
+  --line: #26304F;
+  --control: #7B88AD;
+  --accent: #56D9E8;
+  --cat-1: #6FE3EF;
+  --cat-2: #8FB8F5;
+  --cat-3: #A99BF2;
+  --cat-4: #C6A0EE;
+  --cat-5: #7FE0D0;
+  --font-sans: 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Archivo Black', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+/*__FONTS__*/
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow-x: clip;
+  background-color: var(--ground);
+  color: var(--ink);
+}
+
+body {
+  background-color: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.sheet {
+  width: 100%;
+}
+
+.sheet-ground {
+  background-color: var(--ground);
+}
+
+.sheet-plane {
+  background-color: var(--plane);
+}
+
+.sheet-plane-2 {
+  background-color: var(--plane-2);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Band 1: Hero (most air: 96px+) */
+.band-hero {
+  padding: 104px 0 96px 0;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 56px;
+  align-items: start;
+}
+
+.hero-main {
+  min-width: 0;
+}
+
+.micro-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.hero-subtitle {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 48px;
+  max-width: 640px;
+}
+
+.motif-strip {
+  width: 100%;
+  max-width: 580px;
+  margin-top: 12px;
+}
+
+.ruler-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.ruler-fallback {
+  display: block;
+  padding: 8px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.hero-callout {
+  margin-top: 36px;
+  padding: 24px 0 24px 28px;
+  border-left: 2px solid var(--accent);
+}
+
+.callout-num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 52px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.callout-label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+
+.callout-context {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* Band Typography */
+.band-title {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.band-lead {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 36px;
+}
+
+/* Band 2: Ranked Bar (56-72px) */
+.band-ranked {
+  padding: 68px 0;
+}
+
+.ranked-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.ranked-row {
+  display: grid;
+  grid-template-columns: 32px 64px 210px 100px 1fr 70px;
+  gap: 16px;
+  align-items: center;
+  min-height: 28px;
+}
+
+.row-rank {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  text-align: right;
+}
+
+.row-ticker {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+}
+
+.row-name {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row-sector {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.row-bar-zone {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.gridline-track {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.gridline-mark {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: var(--line);
+}
+
+.bar-rect {
+  position: relative;
+  height: 18px;
+  z-index: 2;
+}
+
+.bar-bank {
+  background-color: var(--accent);
+}
+
+.bar-other {
+  background-color: rgba(166, 177, 206, 0.45);
+}
+
+.row-value {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: right;
+}
+
+.row-value.val-bank {
+  color: var(--accent);
+}
+
+.row-value.val-other {
+  color: var(--muted);
+}
+
+/* Band 3: Proportion (56-72px) */
+.band-proportion {
+  padding: 68px 0;
+}
+
+.stacked-track {
+  width: 100%;
+  height: 38px;
+  display: flex;
+  background-color: var(--plane);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.stacked-seg {
+  height: 100%;
+}
+
+.seg-cat-1 { background-color: var(--cat-1); }
+.seg-cat-2 { background-color: var(--cat-2); }
+.seg-cat-3 { background-color: var(--cat-3); }
+.seg-cat-4 { background-color: var(--cat-4); }
+.seg-cat-5 { background-color: var(--cat-5); }
+
+.legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 32px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legend-chip {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.legend-label {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.legend-pct {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.band-note {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Band 4: Arithmetic Callout (56-72px) */
+.band-arithmetic {
+  padding: 60px 0;
+}
+
+.arithmetic-headline {
+  font-family: var(--font-sans);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+.arithmetic-headline strong {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.arithmetic-note {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.arithmetic-formula {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* Band 5: Table (56-72px) */
+.band-table {
+  padding: 68px 0;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.data-table caption {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.data-table thead th {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.data-table thead th.th-num {
+  text-align: right;
+}
+
+.data-table tbody td,
+.data-table tbody th {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.data-table tbody th[scope="row"] {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.data-table tbody td.col-sector {
+  font-family: var(--font-sans);
+  color: var(--muted);
+}
+
+.data-table tbody td.col-cap,
+.data-table tbody td.col-weight {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-align: right;
+  color: var(--ink);
+}
+
+.data-table tfoot td,
+.data-table tfoot th {
+  padding: 16px 16px;
+  font-size: 14px;
+  border-top: 1px solid var(--line);
+  font-weight: 600;
+}
+
+.data-table tfoot th[scope="row"] {
+  font-family: var(--font-sans);
+  color: var(--ink);
+}
+
+.data-table tfoot td.col-sector {
+  color: var(--muted);
+  font-family: var(--font-sans);
+}
+
+.data-table tfoot td.col-cap,
+.data-table tfoot td.col-weight {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: right;
+  color: var(--ink);
+}
+
+.table-footnote {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-top: 16px;
+}
+
+/* Band 6: Footer (40px) */
+.band-footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--line);
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-line {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.footer-hash {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  word-break: break-all;
+}
+
+.footer-scope {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 6px;
+}
+
+/* Responsiveness: 719px and 639px breakpoints */
+@media (max-width: 719px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .hero-callout {
+    margin-top: 0;
+    padding: 16px 0 16px 20px;
+  }
+  .hero-title {
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 639.98px) {
+  .container {
+    padding: 0 20px;
+  }
+  .band-hero {
+    padding: 64px 0 52px 0;
+  }
+  .band-ranked, .band-proportion, .band-table {
+    padding: 52px 0;
+  }
+  .band-arithmetic {
+    padding: 44px 0;
+  }
+  .band-footer {
+    padding: 36px 0;
+  }
+  .hero-title {
+    font-size: 34px;
+    line-height: 1.1;
+  }
+  .band-title {
+    font-size: 24px;
+  }
+  .arithmetic-headline {
+    font-size: 22px;
+  }
+
+  /* Band 2 Ranked Bar Mobile Layout */
+  .ranked-row {
+    display: grid;
+    grid-template-columns: 28px 56px 1fr auto;
+    grid-template-areas:
+      "rank ticker name value"
+      "bar bar bar bar";
+    gap: 6px 10px;
+    align-items: center;
+    padding: 6px 0;
+  }
+  .row-rank { grid-area: rank; }
+  .row-ticker { grid-area: ticker; }
+  .row-name { grid-area: name; }
+  .row-sector { display: none; }
+  .row-value { grid-area: value; text-align: right; }
+  .row-bar-zone { grid-area: bar; margin-top: 2px; height: 16px; }
+  .bar-rect { height: 16px; }
+
+  /* Band 5 Stacked Table Rows */
+  .data-table,
+  .data-table tbody,
+  .data-table tfoot,
+  .data-table tr {
+    display: block;
+    width: 100%;
+  }
+  .data-table thead {
+    display: none;
+  }
+  .data-table tbody tr {
+    margin-bottom: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .data-table tfoot tr {
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+  }
+  .data-table td,
+  .data-table th {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border: none;
+    text-align: right;
+  }
+  .data-table td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 400;
+    text-align: left;
+    margin-right: 12px;
+  }
+  .data-table tfoot th::before {
+    content: "Keterangan";
+    color: var(--muted);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 400;
+    text-align: left;
+  }
+
+  /* Band 6 Footer Mobile */
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- Band 1: Hero (most air, dark ground) -->
+  <section class="sheet sheet-ground band-hero" aria-labelledby="hero-heading">
+    <div class="container hero-grid">
+      <div class="hero-main">
+        <span class="micro-label">PASAR · 01</span>
+        <h1 id="hero-heading" class="hero-title">SEMBILAN SAHAM MENGUASAI PASAR</h1>
+        <p class="hero-subtitle">
+          <em>MSCI Indonesia Index, <span data-fig="as_of_formatted"></span>. <span data-fig="constituents_count"></span> konstituen, <span data-fig="coverage_pct"></span> persen kapitalisasi pasar.</em>
+        </p>
+
+        <!-- motif strip 1: a weight ruler 0 to 35 persen with ticks and caption -->
+        <div class="motif-strip" id="motif-ruler"><span class="ruler-fallback">Cakupan kapitalisasi pasar 85 persen, skala 0 sampai 100 persen.</span></div>
+      </div>
+
+      <!-- one callout block OFF the grid -->
+      <aside class="hero-callout" aria-label="Fokus konstituen terbesar">
+        <span class="callout-num" data-fig="bca_weight_pct"></span>
+        <span class="callout-label"><span data-fig="bca_name"></span>, bobot terbesar</span>
+        <span class="callout-context">8 saham lainnya berbagi <span data-fig="non_bca_weight_pct"></span></span>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Band 2: Ranked bar (the focal chart, sheet plane) -->
+  <section class="sheet sheet-plane band-ranked" aria-labelledby="ranked-heading">
+    <div class="container">
+      <h2 id="ranked-heading" class="band-title">EMPAT BANK MEMEGANG <span data-fig="bank_weight_pct"></span> PERSEN</h2>
+      <p class="band-lead">Lima konstituen teratas mencakup <span data-fig="top5_weight_pct"></span> bobot indeks, didominasi oleh perbankan besar.</p>
+
+      <div class="ranked-chart" id="ranked-bars" role="region" aria-label="Grafik peringkat bobot konstituen">
+        <!-- populated from DATA -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Band 3: Proportion, not donut (sheet ground) -->
+  <section class="sheet sheet-ground band-proportion" aria-labelledby="proportion-heading">
+    <div class="container">
+      <h2 id="proportion-heading" class="band-title">SEKTOR KEUANGAN <span data-fig="bank_weight_pct"></span> PERSEN DARI INDEKS</h2>
+      <p class="band-lead">Satu indeks terpusat pada lima sektor industri, diukur berdasarkan pembobotan pasar mengambang.</p>
+
+      <div class="stacked-track" id="stacked-bar" role="img" aria-label="Distribusi bobot per sektor industri">
+        <!-- populated from DATA -->
+      </div>
+
+      <div class="legend-row" id="sector-legend">
+        <!-- populated from DATA -->
+      </div>
+
+      <p class="band-note">jumlah bobot sektor <span data-fig="sectors_sum_pct"></span></p>
+    </div>
+  </section>
+
+  <!-- Band 4: Arithmetic callout (plane-2 panel) -->
+  <section class="sheet sheet-plane-2 band-arithmetic" aria-labelledby="arithmetic-heading">
+    <div class="container">
+      <p id="arithmetic-heading" class="arithmetic-headline">
+        Kalau empat bank turun <span data-fig="sim_drop_pct"></span> persen, indeks turun <strong><span data-fig="sim_index_drop_pct"></span></strong> persen.
+      </p>
+      <p class="arithmetic-note">dihitung dari bobot gabungan empat bank, bukan perkiraan</p>
+      <p class="arithmetic-formula">
+        Hitungan: <span data-fig="bank_weight_pct_str"></span> × <span data-fig="sim_drop_pct"></span>% = 7,171% ≈ <span data-fig="sim_index_drop_pct"></span>%
+      </p>
+    </div>
+  </section>
+
+  <!-- Band 5: Table (sheet plane) -->
+  <section class="sheet sheet-plane band-table" aria-labelledby="table-caption">
+    <div class="container">
+      <table class="data-table">
+        <caption id="table-caption">Sembilan konstituen MSCI Indonesia Index, <span data-fig="as_of_formatted"></span></caption>
+        <thead>
+          <tr>
+            <th scope="col">Konstituen</th>
+            <th scope="col">Sektor</th>
+            <th scope="col" class="th-num">Float cap (USD miliar)</th>
+            <th scope="col" class="th-num">Bobot (persen)</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- populated from DATA -->
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row">Total</th>
+            <td class="col-sector" data-label="Jumlah">9 konstituen</td>
+            <td class="col-cap" data-label="Float cap (USD miliar)"><span data-fig="total_float_cap_factsheet"></span>*</td>
+            <td class="col-weight" data-label="Bobot (persen)"><span data-fig="weights_sum_pct"></span></td>
+          </tr>
+        </tfoot>
+      </table>
+      <p class="table-footnote">
+        * Factsheet mencatat total kapitalisasi pasar mengambang <span data-fig="total_float_cap_factsheet"></span> miliar USD; penjumlahan langsung dari sembilan konstituen menghasilkan <span data-fig="total_float_cap_sum"></span> miliar USD karena pembulatan.
+      </p>
+    </div>
+  </section>
+
+  <!-- Band 6: Footer (stays on the ground, no separate bar) -->
+  <footer class="sheet sheet-ground band-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">PASAR</div>
+      <div class="footer-content">
+        <p class="footer-line">Sumber: <span data-fig="source_pdf"></span></p>
+        <p class="footer-line">Metode: <span data-fig="method_note"></span></p>
+        <p class="footer-hash">SHA256: <span data-fig="source_sha256"></span></p>
+        <p class="footer-scope"><span data-fig="scope_note"></span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+const DATA = /*__DATA__*/ {};
+
+function initDataStory() {
+  if (!DATA || !DATA.constituents || !DATA.sectors) return;
+
+  // 1. Populate data-fig elements
+  const figEls = document.querySelectorAll('[data-fig]');
+  figEls.forEach(el => {
+    const key = el.getAttribute('data-fig');
+    if (DATA.fig && DATA.fig[key] && DATA.fig[key].d !== undefined) {
+      el.textContent = DATA.fig[key].d;
+    } else if (DATA.meta && DATA.meta[key] !== undefined) {
+      el.textContent = DATA.meta[key];
+    }
+  });
+
+  // 2. Render Motif Ruler (0 to 100 percent of market cap)
+  const rulerContainer = document.getElementById('motif-ruler');
+  if (rulerContainer) {
+    const width = 560;
+    const height = 56;
+    const maxVal = 100;
+    const startX = 20;
+    const endX = 540;
+    const spanX = endX - startX;
+    const lineY = 22;
+
+    let svgInner = '';
+    // Base axis line
+    svgInner += `<line x1="${startX}" y1="${lineY}" x2="${endX}" y2="${lineY}" stroke="var(--line)" stroke-width="1.5" />`;
+
+    // Ticks: 0 to 100, labelled every 20
+    for (let v = 0; v <= maxVal; v++) {
+      const x = startX + (v / maxVal) * spanX;
+      if (v % 20 === 0) {
+        svgInner += `<line x1="${x}" y1="${lineY - 7}" x2="${x}" y2="${lineY}" stroke="var(--control)" stroke-width="1.5" />`;
+        svgInner += `<text x="${x}" y="${lineY - 10}" fill="var(--muted)" font-family="var(--font-mono)" font-size="12" text-anchor="middle">${v}%</text>`;
+      } else {
+        svgInner += `<line x1="${x}" y1="${lineY - 4}" x2="${x}" y2="${lineY}" stroke="var(--line)" stroke-width="1" />`;
+      }
+    }
+
+    // Coverage marker: 9 names cover this share of the whole market. Real value, own unit.
+    const coverVal = DATA.fig.coverage_pct.r;
+    const coverX = startX + (coverVal / maxVal) * spanX;
+    svgInner += `<rect x="${startX}" y="${lineY - 3}" width="${coverX - startX}" height="6" fill="var(--accent)" opacity="0.55" />`;
+    svgInner += `<line x1="${coverX}" y1="${lineY - 12}" x2="${coverX}" y2="${lineY + 8}" stroke="var(--accent)" stroke-width="2" />`;
+
+    // Caption below carries the number, so the strip never reads as a bare axis
+    svgInner += `<text x="${startX}" y="48" fill="var(--muted)" font-family="var(--font-sans)" font-size="12">cakupan kapitalisasi pasar: ${DATA.fig.coverage_pct.d}, skala 0 sampai ${maxVal.toFixed(0)} persen</text>`;
+
+    rulerContainer.innerHTML = `<svg viewBox="0 0 ${width} ${height}" class="ruler-svg" role="presentation">${svgInner}</svg>`;
+  }
+
+  // 3. Render Ranked Bars
+  const rankedContainer = document.getElementById('ranked-bars');
+  if (rankedContainer) {
+    const maxScale = 35.0;
+    let rowsHtml = '';
+    DATA.constituents.forEach(c => {
+      const pctVal = c.weight_pct;
+      const barWidth = Math.min((pctVal / maxScale) * 100, 100).toFixed(2);
+      const isBank = c.is_bank;
+      const barClass = isBank ? 'bar-bank' : 'bar-other';
+      const valClass = isBank ? 'val-bank' : 'val-other';
+
+      rowsHtml += `
+        <div class="ranked-row">
+          <span class="row-rank">${c.rank_str}</span>
+          <span class="row-ticker">${c.ticker}</span>
+          <span class="row-name" title="${c.name}">${c.name}</span>
+          <span class="row-sector">${c.sector_short}</span>
+          <div class="row-bar-zone">
+            <div class="gridline-track" aria-hidden="true">
+              <span class="gridline-mark" style="left: 28.57%;"></span>
+              <span class="gridline-mark" style="left: 57.14%;"></span>
+              <span class="gridline-mark" style="left: 85.71%;"></span>
+            </div>
+            <div class="bar-rect ${barClass}" style="width: ${barWidth}%;"></div>
+          </div>
+          <span class="row-value ${valClass}">${c.weight_pct_d}</span>
+        </div>
+      `;
+    });
+    rankedContainer.innerHTML = rowsHtml;
+  }
+
+  // 4. Render Proportion Stacked Bar and Legend
+  const stackedContainer = document.getElementById('stacked-bar');
+  const legendContainer = document.getElementById('sector-legend');
+  if (stackedContainer && legendContainer) {
+    let segHtml = '';
+    let legHtml = '';
+
+    DATA.sectors.forEach((s, idx) => {
+      const segWidth = s.weight_pct.toFixed(2);
+      const catClass = `seg-cat-${idx + 1}`;
+
+      segHtml += `<div class="stacked-seg ${catClass}" style="width: ${segWidth}%;" title="${s.sector}: ${s.weight_pct_d}"></div>`;
+
+      legHtml += `
+        <div class="legend-item">
+          <span class="legend-chip ${catClass}" aria-hidden="true"></span>
+          <span class="legend-label">${s.sector_display}</span>
+          <span class="legend-pct">${s.weight_pct_d}</span>
+        </div>
+      `;
+    });
+
+    stackedContainer.innerHTML = segHtml;
+    legendContainer.innerHTML = legHtml;
+  }
+
+  // 5. Render Constituents Table Body
+  const tableBody = document.getElementById('table-body');
+  if (tableBody) {
+    let tableRows = '';
+    DATA.constituents.forEach(c => {
+      tableRows += `
+        <tr>
+          <th scope="row">${c.name} (${c.ticker})</th>
+          <td class="col-sector" data-label="Sektor">${c.sector}</td>
+          <td class="col-cap" data-label="Float cap (USD miliar)">${c.float_cap_bn_d}</td>
+          <td class="col-weight" data-label="Bobot (persen)">${c.weight_pct_d}</td>
+        </tr>
+      `;
+    });
+    tableBody.innerHTML = tableRows;
+  }
+}
+
+// Synchronous execution on parse
+initDataStory();
+  </script>
+</body>
+</html>

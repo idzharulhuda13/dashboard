@@ -1,6 +1,18 @@
 {
  "latest": [
   {
+   "waktu_wib": "23:29:35 WIB",
+   "tanggal": "20 Okt 2026",
+   "datetime_utc": "2026-10-20T16:29:35+00:00",
+   "lat": 3.79,
+   "lon": 95.72,
+   "mag": 5.4,
+   "depth_km": 74.0,
+   "wilayah": "59 km BaratDaya MEULABOH-ACEHBARAT",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
    "waktu_wib": "15:00:08 WIB",
    "tanggal": "18 Okt 2026",
    "datetime_utc": "2026-10-18T08:00:08+00:00",
@@ -167,21 +179,45 @@
    "wilayah": "33 km TimurLaut SARMI-PAPUA",
    "potensi": "Tidak berpotensi tsunami",
    "dirasakan": ""
-  },
-  {
-   "waktu_wib": "21:36:17 WIB",
-   "tanggal": "18 Sep 2026",
-   "datetime_utc": "2026-09-18T14:36:17+00:00",
-   "lat": -8.64,
-   "lon": 105.74,
-   "mag": 5.2,
-   "depth_km": 10.0,
-   "wilayah": "198 km BaratDaya BAYAH-BANTEN",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
   }
  ],
  "felt": [
+  {
+   "waktu_wib": "23:29:35 WIB",
+   "tanggal": "20 Okt 2026",
+   "datetime_utc": "2026-10-20T16:29:35+00:00",
+   "lat": 3.79,
+   "lon": 95.72,
+   "mag": 5.4,
+   "depth_km": 74.0,
+   "wilayah": "Pusat gempa berada di laut 59 km barat daya Meulaboh",
+   "potensi": "",
+   "dirasakan": "III Kab. Aceh Selatan, III Kab. Simeulue, III-IV Kab. Aceh Barat, III-IV Kab. Aceh Barat Daya, II Kab. Bener Meriah, II-III Kota Banda Aceh, II-III Kab. Aceh Besar , III-IV Kab. Nagan Raya"
+  },
+  {
+   "waktu_wib": "18:28:11 WIB",
+   "tanggal": "20 Okt 2026",
+   "datetime_utc": "2026-10-20T11:28:11+00:00",
+   "lat": -8.37,
+   "lon": 116.99,
+   "mag": 3.7,
+   "depth_km": 15.0,
+   "wilayah": "Pusat gempa berada di laut 6 km Barat Laut Pulau Saringi",
+   "potensi": "",
+   "dirasakan": "III Kab. Sumbawa"
+  },
+  {
+   "waktu_wib": "16:56:38 WIB",
+   "tanggal": "20 Okt 2026",
+   "datetime_utc": "2026-10-20T09:56:38+00:00",
+   "lat": -10.19,
+   "lon": 123.71,
+   "mag": 3.4,
+   "depth_km": 4.0,
+   "wilayah": "Pusat gempa berada di darat 30km Barat Daya Kab. Kupang",
+   "potensi": "",
+   "dirasakan": "III Kab. Kupang, III Kota Kupang"
+  },
   {
    "waktu_wib": "20:46:11 WIB",
    "tanggal": "19 Okt 2026",
@@ -325,42 +361,6 @@
    "wilayah": "Pusat gempa berada di darat 21 km barat Kab. Garut",
    "potensi": "",
    "dirasakan": "III Darajat, III Pasirwangi"
-  },
-  {
-   "waktu_wib": "17:58:23 WIB",
-   "tanggal": "15 Okt 2026",
-   "datetime_utc": "2026-10-15T10:58:23+00:00",
-   "lat": -6.73,
-   "lon": 106.61,
-   "mag": 4.1,
-   "depth_km": 5.0,
-   "wilayah": "Pusat gempa berada di darat 26 km barat daya kota Bogor",
-   "potensi": "",
-   "dirasakan": "IV Pamijahan, IV Kabandungan"
-  },
-  {
-   "waktu_wib": "17:49:43 WIB",
-   "tanggal": "15 Okt 2026",
-   "datetime_utc": "2026-10-15T10:49:43+00:00",
-   "lat": -6.77,
-   "lon": 106.6,
-   "mag": 3.5,
-   "depth_km": 10.0,
-   "wilayah": "Pusat gempa berada di darat 25 km utara Kab. Sukabumi",
-   "potensi": "",
-   "dirasakan": "III Kalapanunggal, III Leuwiliang, III Cipeuteuy"
-  },
-  {
-   "waktu_wib": "17:30:57 WIB",
-   "tanggal": "14 Okt 2026",
-   "datetime_utc": "2026-10-14T10:30:57+00:00",
-   "lat": -8.14,
-   "lon": 120.56,
-   "mag": 3.8,
-   "depth_km": 10.0,
-   "wilayah": "Pusat gempa berada di laut 53 km utara Ruteng, Manggarai",
-   "potensi": "",
-   "dirasakan": "II - III Kab. Manggarai"
   }
  ]
 }

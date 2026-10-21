@@ -1,0 +1,42 @@
+{
+  "as_of": "2026-10-21",
+  "catatan": "Konteks penyebab, bukan angka harga. Tiap butir wajib punya sumber. Angka di dalam teks tidak dihitung dari payload karena berasal dari luar dataset harga; yang dihitung payload hanya lompatan 20 Oktober ({jump}).",
+  "items": [
+    {
+      "k": "Pemicu",
+      "t": "MSCI membekukan indeks Indonesia",
+      "b": "27 Januari 2026 MSCI menghentikan semua perubahan indeks untuk Indonesia. Alasannya, struktur kepemilikan saham tidak transparan dan ada dugaan perdagangan terkoordinasi.",
+      "src": "MSCI, CNBC Indonesia"
+    },
+    {
+      "k": "Arus dana",
+      "t": "Asing keluar dari saham dan obligasi",
+      "b": "Net sell asing di saham Rp84,99 triliun sampai 9 Oktober, tertinggi lima tahun. Porsi asing di SBN tinggal 12,58 persen, terendah sejak 2006.",
+      "src": "Katadata/BEI, CNBC Indonesia/DJPPR"
+    },
+    {
+      "k": "Nilai tukar",
+      "t": "Rupiah tembus 18.000",
+      "b": "16 Oktober rupiah menyentuh Rp18.027 per dolar. BI menaikkan suku bunga acuan ke 5,75 persen pada Juni untuk menahan pelemahan, jadi biaya modal ikut naik.",
+      "src": "Kontan, Bank Indonesia"
+    },
+    {
+      "k": "Bank",
+      "t": "Laba tumbuh, harga dipotong",
+      "b": "Laba empat bank besar kuartal II Rp101,6 triliun, naik 13 persen. Bank sekitar seperlima indeks, jadi IHSG turun walau labanya tidak rusak.",
+      "src": "Kontan/Indo Premier Sekuritas"
+    },
+    {
+      "k": "Status indeks",
+      "t": "Konsultasi turun kelas, final 2027",
+      "b": "15 Oktober MSCI membuka konsultasi reklasifikasi Indonesia ke Standalone Market. Keputusan final Juni 2027, jadi premi risiko bertahan sampai ada kejelasan.",
+      "src": "MSCI"
+    },
+    {
+      "k": "20 Oktober",
+      "t": "Naik karena pembeli domestik",
+      "b": "Indeks naik {jump} persen, tapi asing masih jual Rp2,21 triliun hari itu. Pengangkatnya buyback emiten dan sinyal kebijakan, bukan kembalinya dana asing.",
+      "src": "Kontan, BEI"
+    }
+  ]
+}

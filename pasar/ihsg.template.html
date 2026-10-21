@@ -346,6 +346,16 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
   color: var(--muted);
 }
 
+/* Sebab */
+.sebab-grid { display: grid; grid-template-columns: repeat(2, 1fr); margin-top: 30px; border-top: 1px solid var(--line); }
+.sebab-card { padding: 26px 28px 26px 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; }
+.sebab-card:nth-child(even) { padding-left: 28px; border-left: 1px solid var(--line); }
+.sebab-card:last-child { border-bottom: 0; }
+.sebab-k { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+.sebab-t { font-size: 21px; font-weight: 600; line-height: 1.25; margin-top: 10px; letter-spacing: -0.2px; }
+.sebab-b { font-size: 15px; line-height: 1.62; color: var(--muted); margin-top: 10px; }
+.sebab-src { font-family: var(--font-mono); font-size: 12px; line-height: 1.5; color: var(--control); margin-top: auto; padding-top: 12px; }
+
 /* Footer */
 .band-footer { padding: 40px 0 56px; border-top: 1px solid var(--line); }
 .footer-line { font-family: var(--font-mono); font-size: 13px; line-height: 1.8; color: var(--muted); margin-top: 10px; }
@@ -353,6 +363,9 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
 .footer-hash { word-break: break-all; }
 
 @media (max-width: 900px) {
+  .sebab-grid { grid-template-columns: 1fr; }
+  .sebab-card { padding: 22px 0; }
+  .sebab-card:nth-child(even) { padding-left: 0; border-left: 0; }
   .container { padding: 0 20px; }
   .hero-grid { grid-template-columns: 1fr; gap: 32px; }
   .hero-title { font-size: 40px; }
@@ -532,6 +545,7 @@ const DATA = /*__DATA__*/ {};
     </div>
   </section>
 
+<!--__SEBAB__-->
   <footer class="sheet sheet-ground band-footer">
     <div class="container">
       <p class="footer-line">Sumber: <b>Refinitiv via Datawrapper 5srr7</b> (2 Januari sampai <span data-fig="source_primary_until"></span>) sesi <span data-fig="appended_from"></span> dan sesudahnya dari <b>BEI dan TradingView IDX:COMPOSITE</b>. Penutupan 19 Oktober memakai angka resmi BEI (4.996,61); baris terakhir dataset Datawrapper tertangkap intraday.</p>

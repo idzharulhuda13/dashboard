@@ -21,6 +21,7 @@ FONTS = ROOT / "fonts" / "pasar"
 TEMPLATE = PASAR / "ihsg.template.html"
 OUT = PASAR / "ihsg.html"
 DATA = ROOT / "data" / "pasar" / "ihsg.json"
+SEBAB = ROOT / "data" / "pasar" / "sebab.json"
 
 FONT_DEFS = [
     ("ArchivoBlack.ttf", "Archivo Black", "900", "truetype", "font/ttf"),
@@ -51,6 +52,49 @@ def fonts_css() -> str:
     return "\n".join(rules)
 
 
+def sebab_html(payload: dict) -> str:
+    """Blok 'Sebabnya' dari data/pasar/sebab.json (konteks bersitasi, bukan angka harga)."""
+    if not SEBAB.exists():
+        sys.exit(f"FATAL: berkas tidak ada: {SEBAB}")
+    doc = json.loads(SEBAB.read_text())
+    items = doc["items"]
+    if len(items) < 4:
+        sys.exit("FATAL: butir sebab kurang dari 4")
+
+    # satu-satunya angka yang dihitung payload: lompatan 20 Oktober
+    series = payload["series"]
+    idx = next((i for i, r in enumerate(series) if r["date"] == "2026-10-20"), None)
+    jump = "5,65"
+    if idx and idx > 0:
+        jump = f"{(series[idx]['close'] / series[idx - 1]['close'] - 1) * 100:.2f}".replace(".", ",")
+
+    cards = []
+    for i, it in enumerate(items, 1):
+        body = it["b"].replace("{jump}", jump)
+        if "{" in body:
+            sys.exit(f"FATAL: placeholder tersisa di butir sebab {i}")
+        cards.append(
+            '      <article class="sebab-card">\n'
+            f'        <div class="sebab-k">{i:02d} · {_html.escape(it["k"])}</div>\n'
+            f'        <h3 class="sebab-t">{_html.escape(it["t"])}</h3>\n'
+            f'        <p class="sebab-b">{_html.escape(body)}</p>\n'
+            f'        <p class="sebab-src">Sumber: {_html.escape(it["src"])}</p>\n'
+            '      </article>'
+        )
+    return (
+        '  <section class="sheet sheet-plane-2 band" aria-labelledby="sebab-heading">\n'
+        '    <div class="container">\n'
+        '      <h2 id="sebab-heading" class="band-title">Sebabnya</h2>\n'
+        '      <p class="band-lead">Turun setahun bukan karena laba emiten jatuh. Pemicunya kepercayaan dan arus dana, '
+        'lalu diperbesar oleh bank yang jadi bagian terbesar indeks. Kenaikan 20 Oktober juga bukan karena asing kembali.</p>\n'
+        '      <div class="sebab-grid">\n'
+        + "\n".join(cards) + "\n"
+        '      </div>\n'
+        '    </div>\n'
+        '  </section>\n'
+    )
+
+
 def main() -> int:
     for path in (TEMPLATE, DATA):
         if not path.exists():
@@ -68,6 +112,9 @@ def main() -> int:
 
     rendered = template.replace(placeholders[0], json.dumps(payload, ensure_ascii=False))
     rendered = rendered.replace(placeholders[1], fonts_css())
+    if "<!--__SEBAB__-->" not in rendered:
+        sys.exit("FATAL: placeholder '<!--__SEBAB__-->' tidak ditemukan di template")
+    rendered = rendered.replace("<!--__SEBAB__-->", sebab_html(payload))
 
     fig = payload["fig"]
     meta = payload["meta"]

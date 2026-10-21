@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PASAR · 02: Setahun Turun, Satu Hari Naik</title>
+  <meta name="description" content="IHSG 2026: 190 sesi, 42,21 persen di bawah puncak Januari, lalu naik 7,33 persen dalam satu hari. Data diperbarui tiap hari bursa.">
+  <style>
+:root {
+  --ground: #F7F1E6;
+  --plane: #FFFBF3;
+  --plane-2: #F0E6D4;
+  --ink: #1A1410;
+  --muted: #6B5B4A;
+  --line: #DCCFB8;
+  --control: #8C7A62;
+  --accent: #2D4ECF;
+  --down: #8C3B4A;
+  --up: #44571F;
+  --font-sans: 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Archivo Black', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+/*__FONTS__*/
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { overflow-x: clip; background-color: var(--ground); color: var(--ink); }
+
+body {
+  background-color: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.sheet { width: 100%; }
+.sheet-ground { background-color: var(--ground); }
+.sheet-plane { background-color: var(--plane); }
+.sheet-plane-2 { background-color: var(--plane-2); }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+/* Hero */
+.band-hero { padding: 96px 0 80px; }
+.hero-grid { display: grid; grid-template-columns: 1fr 300px; gap: 56px; align-items: start; }
+.hero-main { min-width: 0; }
+
+.micro-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1.03;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.hero-subtitle {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.55;
+  max-width: 620px;
+}
+
+.hero-subtitle strong { font-style: normal; font-weight: 600; color: var(--ink); }
+
+.callout {
+  border-top: 3px solid var(--ink);
+  padding-top: 16px;
+  margin-top: 8px;
+}
+
+.callout-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 52px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--down);
+  margin-bottom: 8px;
+}
+
+.callout-context {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  flex: none;
+}
+
+/* KPI */
+.band-kpi { padding: 56px 0 64px; }
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background-color: var(--line);
+  border: 1px solid var(--line);
+}
+
+.kpi {
+  background-color: var(--plane);
+  padding: 22px 20px 20px;
+}
+
+.kpi-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.kpi-num {
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  display: block;
+}
+
+.kpi-num.is-down { color: var(--down); }
+.kpi-num.is-up { color: var(--up); }
+
+.kpi-note {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Band generic */
+.band { padding: 72px 0; }
+.band-title {
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  max-width: 900px;
+}
+
+.band-lead {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 720px;
+  margin-bottom: 34px;
+}
+
+.band-lead strong { color: var(--ink); font-weight: 600; }
+
+/* Chart */
+.chart-card {
+  border: 1px solid var(--line);
+  background-color: var(--plane);
+  padding: 22px 22px 16px;
+}
+
+.chart-row { display: grid; grid-template-columns: 56px 1fr; gap: 0; }
+
+.y-axis {
+  position: relative;
+  height: 300px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.y-tick {
+  position: absolute;
+  right: 8px;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+.plot { position: relative; min-width: 0; }
+
+.plot svg { display: block; width: 100%; height: 300px; }
+
+.x-axis {
+  position: relative;
+  height: 18px;
+  margin-left: 56px;
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.x-axis span {
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+}
+
+.annotations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  margin-left: 56px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.annotations span { display: inline-flex; align-items: center; gap: 8px; }
+.swatch { width: 0; height: 14px; flex: none; border-left: 2px dashed var(--down); }
+.swatch-up { border-left-color: var(--up); }
+.annotations b { color: var(--ink); font-weight: 500; }
+
+/* Monthly bars */
+/* Bagan bulanan: batang mendatar, poros nol di tengah */
+.bars { display: block; border-top: 1px solid var(--line); }
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 46px 1fr 70px;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.bar-month {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.bar-track { position: relative; height: 16px; }
+
+.bar-track::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  bottom: -3px;
+  width: 1px;
+  background-color: var(--ink);
+  opacity: 0.35;
+}
+
+.bar {
+  position: absolute;
+  top: 0;
+  height: 16px;
+  min-width: 2px;
+  background-color: var(--down);
+}
+
+.bar.is-neg { right: 50%; }
+.bar.is-pos { left: 50%; background-color: var(--up); }
+
+.bar-val {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-align: right;
+  color: var(--muted);
+}
+
+.bar-val.is-down { color: var(--down); }
+.bar-val.is-up { color: var(--up); }
+
+/* Tables */
+.table-wrap { border: 1px solid var(--line); background-color: var(--plane); }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+
+caption {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+th, td { padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--line); }
+thead th {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+tbody th { font-weight: 500; font-family: var(--font-mono); font-size: 13px; }
+td.num, th.num { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+.val-down { color: var(--down); }
+.val-up { color: var(--up); }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+.table-note {
+  padding: 12px 16px 16px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* Footer */
+.band-footer { padding: 40px 0 56px; border-top: 1px solid var(--line); }
+.footer-line { font-family: var(--font-mono); font-size: 13px; line-height: 1.8; color: var(--muted); margin-top: 10px; }
+.footer-line b { color: var(--ink); font-weight: 500; }
+.footer-hash { word-break: break-all; }
+
+@media (max-width: 900px) {
+  .container { padding: 0 20px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  .hero-title { font-size: 40px; }
+  .callout-num { font-size: 44px; }
+  .band-hero { padding: 64px 0 56px; }
+  .band-kpi { padding: 40px 0 48px; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .band { padding: 56px 0; }
+  .band-title { font-size: 24px; }
+  .chart-row { grid-template-columns: 44px 1fr; }
+  .x-axis, .annotations { margin-left: 44px; }
+  .annotations { flex-direction: column; gap: 10px; }
+  .x-hide-sm { display: none; }
+  .bars, .bar-months { gap: 6px; }
+  .split { grid-template-columns: 1fr; }
+  .chart-card { padding: 16px 14px 12px; }
+}
+
+@media (max-width: 520px) {
+  .hero-title { font-size: 34px; }
+  .band-title { font-size: 21px; }
+  .kpi-num { font-size: 24px; }
+  .callout-num { font-size: 40px; }
+  th, td { padding: 9px 10px; }
+  table { font-size: 13px; }
+
+  /* tabel bulanan: dua kolom saja di ponsel */
+  #months-body td:nth-child(2),
+  #months-body td:nth-child(3),
+  #months-table thead th:nth-child(2),
+  #months-table thead th:nth-child(3) { display: none; }
+
+  .bar-row { grid-template-columns: 38px 1fr 62px; gap: 10px; }
+}
+  </style>
+</head>
+<body>
+<script>
+const DATA = /*__DATA__*/ {};
+</script>
+
+<main>
+  <section class="sheet sheet-ground band-hero" aria-labelledby="hero-heading">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-main">
+          <span class="micro-label">Pasar · 02 · IHSG</span>
+          <h1 id="hero-heading" class="hero-title">Jalan turun 2026,<br>satu hari naik</h1>
+          <p class="hero-subtitle">
+            IHSG menutup di <strong><span data-fig="last_value"></span></strong> pada <span data-fig="last_date_long"></span>,
+            <strong><span data-fig="drawdown_abs"></span></strong> di bawah puncak <span data-fig="peak_date_long"></span>.
+            Titik terendahnya <span data-fig="trough_value"></span> pada <span data-fig="trough_date_long"></span>;
+            sejak itu indeks sudah naik <strong><span data-fig="since_trough_pct"></span></strong>.
+          </p>
+          <p class="status"><span class="dot" aria-hidden="true"></span><span>Data per <span data-fig="as_of_formatted"></span>, diperbarui otomatis tiap hari bursa pukul 16.20 WIB</span></p>
+        </div>
+        <aside class="callout" aria-label="Penurunan dari puncak">
+          <span class="kpi-label">Turun dari puncak</span>
+          <span class="callout-num" data-fig="drawdown_pct"></span>
+          <span class="callout-context">dari puncak <span data-fig="peak_value"></span><br><span data-fig="peak_date_long"></span>, <span data-fig="sessions"></span> sesi</span>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet sheet-plane band-kpi" aria-labelledby="kpi-heading">
+    <div class="container">
+      <h2 id="kpi-heading" class="micro-label" style="color: var(--muted);">Empat angka yang menjelaskan 2026</h2>
+      <div class="kpi-grid">
+        <div class="kpi">
+          <span class="kpi-label">Puncak</span>
+          <span class="kpi-num"><span data-fig="peak_value"></span></span>
+          <span class="kpi-note"><span data-fig="peak_date_long"></span>, sesi ke-<span data-fig="peak_session_no"></span> tahun ini</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-label">Titik terendah</span>
+          <span class="kpi-num is-down"><span data-fig="trough_value"></span></span>
+          <span class="kpi-note"><span data-fig="trough_date_long"></span>, <span data-fig="trough_drawdown_pct"></span> dari puncak</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-label">Hari turun</span>
+          <span class="kpi-num"><span data-fig="down_days"></span></span>
+          <span class="kpi-note">dari <span data-fig="sessions_with_change"></span> pergerakan harian, <span data-fig="down_days_pct"></span></span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-label">Bulan merah</span>
+          <span class="kpi-num is-down"><span data-fig="neg_months"></span></span>
+          <span class="kpi-note">dari <span data-fig="total_months"></span> bulan, cuma Juli dan Agustus yang hijau</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet sheet-plane-2 band" aria-labelledby="chart-heading">
+    <div class="container">
+      <h2 id="chart-heading" class="band-title">Satu garis, <span data-fig="sessions"></span> sesi</h2>
+      <p class="band-lead">Harga penutupan harian IHSG sepanjang 2026. Garis putus-putus menandai puncak dan titik terendah.</p>
+      <div class="chart-card">
+        <div class="chart-row">
+          <div class="y-axis" id="y-axis" aria-hidden="true"></div>
+          <div class="plot">
+            <svg id="line-chart" viewBox="0 0 1000 300" preserveAspectRatio="none" role="img"
+                 aria-label="Garis harga penutupan IHSG dari Januari sampai Oktober 2026, turun dari puncak 9.134,70 ke titik terendah 4.918,39 lalu naik.">
+              <g id="grid-lines"></g>
+              <path id="area-path" d="" fill="#2D4ECF" fill-opacity="0.07"></path>
+              <line id="peak-line" x1="0" y1="0" x2="0" y2="300" stroke="#8C3B4A" stroke-width="1" stroke-dasharray="3 4"></line>
+              <line id="trough-line" x1="0" y1="0" x2="0" y2="300" stroke="#8C3B4A" stroke-width="1" stroke-dasharray="3 4"></line>
+              <path id="line-path" d="" fill="none" stroke="#2D4ECF" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+              <g id="markers"></g>
+            </svg>
+          </div>
+        </div>
+        <div class="x-axis" id="x-axis"></div>
+        <div class="annotations">
+          <span><i class="swatch swatch-down"></i>Puncak <b><span data-fig="peak_value"></span></b> (<span data-fig="peak_date_long"></span>)</span>
+          <span><i class="swatch swatch-down"></i>Terendah <b><span data-fig="trough_value"></span></b> (<span data-fig="trough_date_long"></span>)</span>
+          <span>Turun <b><span data-fig="drawdown_abs"></span></b> dari puncak, lalu naik <b><span data-fig="since_trough_pct"></span></b> dari titik terendah</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet sheet-ground band" aria-labelledby="bars-heading">
+    <div class="container">
+      <h2 id="bars-heading" class="band-title"><span data-fig="neg_months"></span> dari <span data-fig="total_months"></span> bulan merah</h2>
+      <p class="band-lead">Perubahan tiap bulan. Januari diukur dari sesi pertama 2 Januari, bulan lain dari penutupan bulan sebelumnya.</p>
+      <div class="bars" id="bars" role="img" aria-label="Batang mendatar perubahan IHSG tiap bulan 2026, poros nol di tengah"></div>
+      <div class="table-wrap" style="margin-top: 32px;">
+        <table id="months-table">
+          <caption>Angka tiap bulan, IHSG 2026</caption>
+          <thead>
+            <tr>
+              <th scope="col">Bulan</th>
+              <th scope="col" class="num">Sesi</th>
+              <th scope="col" class="num">Penutupan</th>
+              <th scope="col" class="num">Perubahan</th>
+            </tr>
+          </thead>
+          <tbody id="months-body"></tbody>
+        </table>
+        <p class="table-note">Bulan berjalan: <span data-fig="cur_month_label"></span>, <span data-fig="cur_ret_pct"></span> dalam <span data-fig="cur_sessions"></span> sesi. Angka berubah tiap hari bursa.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet sheet-plane band" aria-labelledby="days-heading">
+    <div class="container">
+      <h2 id="days-heading" class="band-title">Hari terburuk, hari terbaik</h2>
+      <p class="band-lead">Hari terburuk tahun ini <strong><span data-fig="worst_day_date_long"></span></strong> (<span data-fig="worst_day_ret"></span>),
+      hari terbaik <strong><span data-fig="best_day_date_long"></span></strong> (<span data-fig="best_day_ret"></span>).</p>
+      <div class="split">
+        <div class="table-wrap">
+          <table>
+            <caption>Lima hari terburuk</caption>
+            <thead>
+              <tr>
+                <th scope="col">Tanggal</th>
+                <th scope="col" class="num">Perubahan</th>
+              </tr>
+            </thead>
+            <tbody id="worst-body"></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption>Lima hari terbaik</caption>
+            <thead>
+              <tr>
+                <th scope="col">Tanggal</th>
+                <th scope="col" class="num">Perubahan</th>
+              </tr>
+            </thead>
+            <tbody id="best-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="sheet sheet-ground band-footer">
+    <div class="container">
+      <p class="footer-line">Sumber: <b>Refinitiv via Datawrapper 5srr7</b> (2 Januari sampai <span data-fig="source_primary_until"></span>) dan <b>TradingView IDX:COMPOSITE</b> untuk <span data-fig="appended_from"></span> dan sesudahnya.</p>
+      <p class="footer-line">Metode: <b>harga penutupan harian</b>. Return harian = penutupan dibagi penutupan sebelumnya. Return bulanan = penutupan terakhir bulan dibagi penutupan terakhir bulan sebelumnya. Sesi pertama 2 Januari belum punya pembanding, jadi pergerakan harian dihitung dari <span data-fig="sessions_with_change"></span> pasangan sesi.</p>
+      <p class="footer-line">Data per <span data-fig="as_of_formatted"></span>, <span data-fig="sessions"></span> sesi. Diperbarui otomatis tiap hari bursa pukul 16.20 WIB.</p>
+      <p class="footer-line footer-hash">Sidik data sumber (SHA256, 16 karakter pertama): <span data-fig="source_sha_short"></span></p>
+      <p class="footer-line"><span data-fig="scope_note"></span></p>
+    </div>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var D = typeof DATA !== 'undefined' ? DATA : {};
+  var fig = D.fig || {};
+  var meta = D.meta || {};
+  var series = D.series || [];
+  var monthly = D.monthly || [];
+  var worst = D.worst || [];
+  var best = D.best || [];
+
+  function id(v) {
+    var s = Number(v).toFixed(2);
+    var parts = s.split('.');
+    return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + parts[1];
+  }
+  function pct(v) {
+    var s = Number(v).toFixed(2).replace('.', ',');
+    return (v > 0 ? '+' : '') + s + '%';
+  }
+  function shortDate(d) {
+    var B = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'];
+    var p = d.split('-');
+    return Number(p[2]) + ' ' + B[Number(p[1]) - 1];
+  }
+
+  // 1. Figure slots
+  var slots = document.querySelectorAll('[data-fig]');
+  for (var i = 0; i < slots.length; i++) {
+    var k = slots[i].getAttribute('data-fig');
+    var v = fig[k] ? fig[k].d : meta[k];
+    if (v !== undefined && v !== null) slots[i].textContent = String(v);
+  }
+
+  if (!series.length) return;
+
+  // 2. Line chart
+  var W = 1000, H = 300, pad = 10;
+  var vals = series.map(function (r) { return r.close; });
+  var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
+  var steps = [250, 500, 1000, 2000];
+  var step = steps[steps.length - 1];
+  for (var si = 0; si < steps.length; si++) {
+    if ((hi - lo) / steps[si] <= 5) { step = steps[si]; break; }
+  }
+  var yMin = Math.floor(lo / step) * step;
+  var yMax = Math.ceil(hi / step) * step;
+  var span = yMax - yMin || 1;
+  function px(i) { return (i / (series.length - 1)) * W; }
+  function py(v) { return pad + (1 - (v - yMin) / span) * (H - pad * 2); }
+
+  // garis bantu pada angka bulat
+  var gridHtml = '';
+  for (var g = yMin; g <= yMax; g += step) {
+    var gy = py(g).toFixed(1);
+    gridHtml += '<line x1="0" x2="' + W + '" y1="' + gy + '" y2="' + gy + '" stroke="#DCCFB8" stroke-width="1"></line>';
+  }
+  document.getElementById('grid-lines').innerHTML = gridHtml;
+
+  var dLine = series.map(function (r, i) { return (i ? 'L' : 'M') + px(i).toFixed(1) + ' ' + py(r.close).toFixed(1); }).join(' ');
+  document.getElementById('line-path').setAttribute('d', dLine);
+  document.getElementById('area-path').setAttribute('d', dLine + ' L' + W + ' ' + H + ' L0 ' + H + ' Z');
+
+  var peakIdx = vals.indexOf(hi), troughIdx = vals.indexOf(lo);
+  var pLine = document.getElementById('peak-line');
+  pLine.setAttribute('x1', px(peakIdx)); pLine.setAttribute('x2', px(peakIdx));
+  var tLine = document.getElementById('trough-line');
+  tLine.setAttribute('x1', px(troughIdx)); tLine.setAttribute('x2', px(troughIdx));
+
+  // penanda puncak dan dasar
+  var markHtml = '';
+  [[peakIdx, hi], [troughIdx, lo]].forEach(function (pair) {
+    markHtml += '<rect x="' + (px(pair[0]) - 4).toFixed(1) + '" y="' + (py(pair[1]) - 4).toFixed(1) +
+      '" width="8" height="8" fill="#1A1410"></rect>';
+  });
+  document.getElementById('markers').innerHTML = markHtml;
+
+  // 3. Y axis ticks
+  var axis = document.getElementById('y-axis');
+  for (var v = yMin; v <= yMax; v += step) {
+    var el = document.createElement('span');
+    el.className = 'y-tick';
+    el.textContent = id(v).replace(',00', '');
+    el.style.top = ((py(v) / H) * 100).toFixed(2) + '%';
+    axis.appendChild(el);
+  }
+
+  // 4. X axis labels
+  var xAxis = document.getElementById('x-axis');
+  var B = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'];
+  var monthStarts = [];
+  series.forEach(function (r, i) {
+    var m = r.date.slice(0, 7);
+    if (!monthStarts.length || monthStarts[monthStarts.length - 1].m !== m) monthStarts.push({ m: m, i: i });
+  });
+  monthStarts.forEach(function (ms, k) {
+    var el = document.createElement('span');
+    var at = (ms.i / (series.length - 1)) * 100;
+    el.textContent = B[Number(ms.m.slice(5, 7)) - 1];
+    el.style.left = at.toFixed(2) + '%';
+    if (at < 3) el.style.transform = 'translateX(0)';
+    else if (at > 92) el.style.transform = 'translateX(-100%)';
+    else el.style.transform = 'translateX(-50%)';
+    if (k % 2 === 1 && k !== monthStarts.length - 1) el.className = 'x-hide-sm';
+    xAxis.appendChild(el);
+  });
+
+  // 5. Monthly bars
+  var bars = document.getElementById('bars');
+  var maxAbs = Math.max.apply(null, monthly.map(function (m) { return Math.abs(m.ret); }));
+  monthly.forEach(function (m) {
+    var row = document.createElement('div');
+    row.className = 'bar-row';
+
+    var lab = document.createElement('span');
+    lab.className = 'bar-month';
+    lab.textContent = m.label;
+
+    var track = document.createElement('div');
+    track.className = 'bar-track';
+    var bar = document.createElement('div');
+    var neg = m.ret < 0;
+    bar.className = 'bar ' + (neg ? 'is-neg' : 'is-pos');
+    bar.style.width = Math.max(1.2, (Math.abs(m.ret) / maxAbs) * 48).toFixed(2) + '%';
+    bar.setAttribute('title', m.label_long + ': ' + pct(m.ret));
+    track.appendChild(bar);
+
+    var val = document.createElement('span');
+    val.className = 'bar-val ' + (neg ? 'is-down' : 'is-up');
+    val.textContent = pct(m.ret);
+
+    row.appendChild(lab);
+    row.appendChild(track);
+    row.appendChild(val);
+    bars.appendChild(row);
+  });
+
+  // 6. Monthly table (menggantikan baris contoh)
+  var mb = document.getElementById('months-body');
+  mb.innerHTML = '';
+  monthly.forEach(function (m) {
+    var tr = document.createElement('tr');
+    var th = document.createElement('th');
+    th.setAttribute('scope', 'row');
+    th.textContent = m.label_long;
+    tr.appendChild(th);
+    [String(m.sessions), id(m.end)].forEach(function (txt) {
+      var td = document.createElement('td');
+      td.className = 'num';
+      td.textContent = txt;
+      tr.appendChild(td);
+    });
+    var td3 = document.createElement('td');
+    td3.className = 'num ' + (m.ret < 0 ? 'val-down' : 'val-up');
+    td3.textContent = pct(m.ret);
+    tr.appendChild(td3);
+    mb.appendChild(tr);
+  });
+
+  // 7. Extreme days
+  function fillDays(tbody, rows) {
+    tbody.innerHTML = '';
+    rows.forEach(function (r) {
+      var tr = document.createElement('tr');
+      var th = document.createElement('th');
+      th.setAttribute('scope', 'row');
+      th.textContent = shortDate(r.date);
+      tr.appendChild(th);
+      var td = document.createElement('td');
+      td.className = 'num ' + (r.ret < 0 ? 'val-down' : 'val-up');
+      td.textContent = pct(r.ret);
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+    });
+  }
+  fillDays(document.getElementById('worst-body'), worst);
+  fillDays(document.getElementById('best-body'), best);
+})();
+</script>
+</body>
+</html>

@@ -26,6 +26,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SRC_CSV = ROOT / "data" / "pasar" / "source" / "ihsg-daily.csv"
 SRC_APPEND = ROOT / "data" / "pasar" / "source" / "ihsg-appended.jsonl"
+SRC_FIX = ROOT / "data" / "pasar" / "source" / "ihsg-corrections.jsonl"
 PAYLOAD = ROOT / "data" / "pasar" / "ihsg.json"
 TEMPLATE = ROOT / "pasar" / "ihsg.template.html"
 PAGE = ROOT / "pasar" / "ihsg.html"
@@ -59,6 +60,13 @@ def load_series() -> list[tuple[str, float]]:
             if line.strip():
                 rec = json.loads(line)
                 rows.append((rec["date"], float(rec["close"])))
+    if SRC_FIX.exists():
+        fixes = {}
+        for line in SRC_FIX.read_text().splitlines():
+            if line.strip():
+                rec = json.loads(line)
+                fixes[rec["date"]] = float(rec["close"])
+        rows = [(d, fixes.get(d, c)) for d, c in rows]
     rows.sort()
     return rows
 

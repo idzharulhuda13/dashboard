@@ -22,6 +22,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SRC_CSV = ROOT / "data" / "pasar" / "source" / "ihsg-daily.csv"
 SRC_APPEND = ROOT / "data" / "pasar" / "source" / "ihsg-appended.jsonl"
+SRC_FIX = ROOT / "data" / "pasar" / "source" / "ihsg-corrections.jsonl"
 OUT = ROOT / "data" / "pasar" / "ihsg.json"
 
 BULAN = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
@@ -52,6 +53,23 @@ def load() -> list[dict]:
             rec = json.loads(line)
             series.append({"date": rec["date"], "close": float(rec["close"]), "src": "append"})
     series.sort(key=lambda r: r["date"])
+
+    # Koreksi penutupan yang salah di sumber (mis. baris terakhir Datawrapper
+    # tertangkap intraday). Setiap koreksi wajib punya bukti + URL di berkasnya.
+    if SRC_FIX.exists():
+        fixes = {}
+        for line in SRC_FIX.read_text().splitlines():
+            if line.strip():
+                rec = json.loads(line)
+                fixes[rec["date"]] = float(rec["close"])
+        seen = set()
+        for row in series:
+            if row["date"] in fixes:
+                row["close"] = fixes[row["date"]]
+                row["src"] = "correction"
+                seen.add(row["date"])
+        missing = set(fixes) - seen
+        assert not missing, f"koreksi untuk tanggal yang tidak ada di sumber: {sorted(missing)}"
 
     # integritas: tanggal unik dan naik ketat
     dates = [r["date"] for r in series]

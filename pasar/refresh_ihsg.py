@@ -113,6 +113,17 @@ def main() -> int:
     q = fetch_quote()
     log(f"quote   : close {q['close']} prev {q['prev_close']} ({q['change_pct']:+.2f}%) mode {q['update_mode']}")
 
+    # idempotensi: kalau sesi ini sudah tercatat, jangan validasi prev_close
+    # (prev_close quote = close sesi sebelumnya, sementara last_close = sesi terakhir)
+    session_date = now.date().isoformat()
+    if last_date >= session_date:
+        if abs(q["close"] - last_close) < 0.005:
+            log("sesi terakhir sudah tercatat, tidak ada yang ditulis")
+            return 0
+        log(f"TOLAK: payload sudah memuat {last_date} close {last_close}, "
+            f"tapi quote {session_date} close {q['close']}. Cek manual.")
+        return 2
+
     # validasi: perubahan harian harus dihitung dari close yang kita punya
     drift = abs(q["prev_close"] - last_close)
     scale = max(abs(last_close), 1.0)
@@ -125,11 +136,6 @@ def main() -> int:
         if abs(implied - q["change_pct"]) > 0.05:
             log(f"TOLAK: change {q['change_pct']:.2f}% tidak konsisten dengan close/prev ({implied:.2f}%)")
             return 2
-
-    session_date = now.date().isoformat()
-    if last_date >= session_date:
-        log("sesi terakhir sudah tercatat, tidak ada yang ditulis")
-        return 0
 
     if q["change_abs"] == 0 and abs(q["close"] - last_close) < 1e-9:
         log("quote datar dan sama dengan close tersimpan: kemungkinan libur bursa, tidak menulis")
@@ -179,9 +185,13 @@ def main() -> int:
     if args.push:
         update_sitemap(session_date)
         msg = f"IHSG harian: tambah sesi {session_date} ({q['change_pct']:+.2f}%)"
-        for cmd in (["git", "add", "data/pasar", "pasar/ihsg.html", "sitemap.xml"],
-                    ["git", "commit", "-m", msg],
-                    ["git", "push", "origin", "HEAD"]):
+        subprocess.run(["git", "add", "data/pasar", "pasar/ihsg.html", "sitemap.xml"], cwd=ROOT)
+        staged = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=ROOT)
+        cmds = [["git", "push", "origin", "HEAD"]] if staged.returncode == 0 else \
+               [["git", "commit", "-m", msg], ["git", "push", "origin", "HEAD"]]
+        if staged.returncode == 0:
+            log("tidak ada perubahan untuk di-commit")
+        for cmd in cmds:
             r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
             if r.returncode != 0:
                 print(r.stdout, r.stderr, file=sys.stderr)

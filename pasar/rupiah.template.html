@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PASAR · 03: Rupiah dan IHSG, Arah yang Sama-sama Jatuh</title>
+  <meta name="description" content="USD/IDR 2026: 16.716 ke 18.043, naik 7,94 persen dalam sepuluh bulan. Korelasi return harian dengan IHSG -0,410 dari 189 hari beririsan.">
+  <link rel="canonical" href="https://dashboard.idzharulhuda.com/pasar/rupiah.html">
+  <style>
+:root {
+  --ground: #F7F1E6;
+  --plane: #FFFBF3;
+  --plane-2: #F0E6D4;
+  --ink: #1A1410;
+  --muted: #6B5B4A;
+  --line: #DCCFB8;
+  --control: #8C7A62;
+  --accent: #2D4ECF;
+  --font-sans: 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Archivo Black', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+/*__FONTS__*/
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { overflow-x: clip; background-color: var(--ground); color: var(--ink); }
+
+body {
+  background-color: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.sheet { width: 100%; }
+.sheet-ground { background-color: var(--ground); }
+.sheet-plane { background-color: var(--plane); }
+.sheet-plane-2 { background-color: var(--plane-2); }
+
+.container { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+
+/* Hero */
+.band-hero { padding: 88px 0 72px; }
+.hero-grid { display: grid; grid-template-columns: 1fr 280px; gap: 48px; align-items: start; }
+.hero-main { min-width: 0; }
+
+.micro-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--control);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 56px;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 20px 0 0;
+  max-width: 15ch;
+}
+
+.hero-lead { font-size: 19px; line-height: 1.5; margin-top: 24px; max-width: 56ch; color: var(--ink); }
+.hero-lead strong { font-weight: 600; }
+
+.hero-note {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-top: 28px;
+  text-transform: uppercase;
+}
+
+/* Pita skala */
+.scale-strip { border-left: 1px solid var(--line); padding-left: 24px; }
+.scale-item + .scale-item { margin-top: 26px; }
+.scale-k {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--control);
+}
+.scale-v {
+  font-family: var(--font-mono);
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-top: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.scale-v.accent { color: var(--accent); }
+.scale-n { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+/* Band umum */
+.band { padding: 76px 0; }
+.band-tight { padding: 56px 0; }
+.band-title {
+  font-family: var(--font-display);
+  font-size: 34px;
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  max-width: 26ch;
+}
+.band-lead { font-size: 17px; line-height: 1.55; margin-top: 16px; max-width: 68ch; color: var(--ink); }
+.band-lead em { font-style: italic; color: var(--muted); }
+
+/* Chart level */
+.chart-wrap { margin-top: 40px; }
+.chart-svg { display: block; width: 100%; height: auto; }
+.chart-lab {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-top: 10px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Bar bulanan */
+.bars { margin-top: 36px; border-top: 1px solid var(--line); }
+.bar-row {
+  display: grid;
+  grid-template-columns: 56px 1fr 96px;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.bar-m { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.bar-track { position: relative; height: 18px; }
+.bar-track::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -6px;
+  bottom: -6px;
+  width: 1px;
+  background: var(--ink);
+  opacity: 0.45;
+}
+.bar-fill { position: absolute; top: 0; height: 18px; background: var(--accent); }
+.bar-fill.pos { left: 50%; }
+.bar-fill.neg { right: 50%; background: var(--control); }
+.bar-v {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--ink);
+}
+.bar-v.neg { color: var(--muted); }
+
+/* Scatter */
+.scatter-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; margin-top: 40px; align-items: start; }
+.scatter-svg { display: block; width: 100%; height: auto; }
+.fig-big {
+  font-family: var(--font-mono);
+  font-size: 64px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.fig-cap { font-size: 15px; color: var(--muted); margin-top: 10px; max-width: 34ch; }
+
+.dir-list { margin-top: 32px; border-top: 1px solid var(--line); }
+.dir-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+}
+.dir-row b { font-family: var(--font-mono); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+/* Tabel bulan bareng */
+.pair-table { width: 100%; border-collapse: collapse; margin-top: 32px; }
+.pair-table th, .pair-table td {
+  text-align: right;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.pair-table th:first-child, .pair-table td:first-child { text-align: left; font-family: var(--font-sans); font-size: 15px; }
+.pair-table th { font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--control); border-bottom-color: var(--ink); }
+.pair-table td.muted { color: var(--muted); }
+
+/* Callout */
+.note-box { border-left: 3px solid var(--accent); padding: 6px 0 6px 22px; margin-top: 36px; max-width: 72ch; }
+.note-box .note-k { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.note-box p { font-size: 17px; line-height: 1.55; margin-top: 8px; }
+
+/* Footer */
+.foot { padding: 56px 0 72px; }
+.foot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 24px; }
+.foot h2 { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--control); }
+.foot p { font-size: 14px; line-height: 1.6; color: var(--muted); margin-top: 10px; }
+.foot code { font-family: var(--font-mono); font-size: 12px; word-break: break-all; color: var(--muted); }
+
+.nav-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+.nav-back:hover { color: var(--ink); }
+
+@media (max-width: 900px) {
+  .container { padding: 0 20px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  .scale-strip { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: 24px; display: flex; gap: 32px; flex-wrap: wrap; }
+  .scale-item + .scale-item { margin-top: 0; }
+  .hero-title { font-size: 38px; }
+  .band-title { font-size: 26px; }
+  .scatter-grid { grid-template-columns: 1fr; gap: 32px; }
+  .fig-big { font-size: 48px; }
+  .foot-grid { grid-template-columns: 1fr; }
+  .bar-row { grid-template-columns: 44px 1fr 84px; gap: 10px; }
+  .pair-table th, .pair-table td { font-size: 12px; }
+}
+  </style>
+</head>
+<body>
+  <div class="dateline-strip" data-dateline data-cadence="daily" data-as-of="2026-10-21" style="font:500 12px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;opacity:.62;padding:10px 20px;text-align:center;border-bottom:1px solid currentColor"><span data-dateline-text>Data per 21 Oktober 2026</span></div>
+  <script src="/assets/dateline.js" defer></script>
+  <main class="sheet">
+
+    <section class="sheet sheet-ground band-hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <a class="nav-back" href="../index.html">Data by Arc</a>
+        <div class="hero-grid" style="margin-top:32px">
+          <div class="hero-main">
+            <span class="micro-label">PASAR · 03 · USD/IDR dan IHSG</span>
+            <h1 id="hero-heading" class="hero-title">Rupiah jatuh, saham ikut jatuh</h1>
+            <p class="hero-lead">Sejak akhir 2025 sampai <span data-fig="as_of_long">21 Oktober 2026</span>, satu dollar bergerak dari
+              <strong><span data-fig="first">16.716</span></strong> ke <strong><span data-fig="last">18.043</span></strong> rupiah.
+              Dalam rentang yang sama, IHSG kehilangan sepertiga nilainya. Yang jarang dibahas: dua-duanya bergerak di hari yang sama,
+              dengan arah yang sebagian besar berlawanan.</p>
+            <p class="hero-note">Data harian, bukan prediksi. Halaman ini bagian ketiga dari seri Pasar.</p>
+          </div>
+          <aside class="scale-strip" aria-label="Angka kunci">
+            <div class="scale-item">
+              <div class="scale-k">31 Des 2025</div>
+              <div class="scale-v"><span data-fig="first">16.716</span></div>
+              <div class="scale-n">kurs tengah USD/IDR</div>
+            </div>
+            <div class="scale-item">
+              <div class="scale-k">21 Okt 2026</div>
+              <div class="scale-v accent"><span data-fig="last">18.043</span></div>
+              <div class="scale-n">naik <span data-fig="change_pct">+7,94%</span> sepanjang tahun</div>
+            </div>
+            <div class="scale-item">
+              <div class="scale-k">Korelasi harian</div>
+              <div class="scale-v"><span data-fig="corr">-0,410</span></div>
+              <div class="scale-n">terhadap IHSG, <span data-fig="n_obs">189</span> hari</div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="sheet sheet-plane band" aria-labelledby="level-heading">
+      <div class="container">
+        <h2 id="level-heading" class="band-title">Pitanya sempit, arahnya satu</h2>
+        <p class="band-lead">Kurs bergerak di pita <span data-fig="band_width">1.435</span> rupiah sepanjang tahun: terendah
+          <span data-fig="trough">16.716</span> pada <span data-fig="trough_date">31 Desember 2025</span>, tertinggi
+          <span data-fig="peak">18.151</span> pada <span data-fig="peak_date">8 Juni 2026</span>. <em>Tidak ada satu pun bulan
+          yang membawa kurs kembali ke bawah level awal tahun.</em></p>
+        <div class="chart-wrap">
+          <!--__CHART__-->
+          <div class="chart-lab">
+            <span><span data-fig="first_date_short">31 Des</span> · <span data-fig="first">16.716</span></span>
+            <span><span data-fig="last_date_short">21 Okt</span> · <span data-fig="last">18.043</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sheet sheet-plane-2 band" aria-labelledby="bulan-heading">
+      <div class="container">
+        <h2 id="bulan-heading" class="band-title">Sembilan dari sepuluh bulan melemah</h2>
+        <p class="band-lead">Perubahan bulanan kurs tengah. Hanya Agustus yang menguat, dan itu pun balik lagi di bulan berikutnya.
+          Bar ke kanan berarti rupiah melemah, ke kiri berarti rupiah menguat.</p>
+        <!--__BARS__-->
+      </div>
+    </section>
+
+    <section class="sheet sheet-plane band" aria-labelledby="bareng-heading">
+      <div class="container">
+        <h2 id="bareng-heading" class="band-title">Bergerak bareng, tapi tidak sesimetris itu</h2>
+        <p class="band-lead">Tiap titik satu hari bursa: sumbu datar perubahan kurs, sumbu tegak perubahan IHSG. Kalau dua-duanya
+          selalu bergerak berlawanan, titiknya akan membentuk garis turun rapi. Yang terjadi: awan titik yang miring ke bawah,
+          dengan sebaran lebar.</p>
+        <div class="scatter-grid">
+          <div>
+            <!--__SCATTER__-->
+          </div>
+          <div>
+            <div class="fig-big" data-fig="corr">-0,410</div>
+            <p class="fig-cap">koefisien korelasi Pearson dari return harian, <span data-fig="n_obs">189</span> hari beririsan
+              antara data kurs dan data IHSG.</p>
+            <div class="dir-list">
+              <div class="dir-row"><span>Bulan arah berlawanan</span><b data-fig="n_diff">9</b></div>
+              <div class="dir-row"><span>Bulan arah sama</span><b data-fig="n_same">1</b></div>
+              <div class="dir-row"><span>Oktober: kurs</span><b data-fig="oct_fx">+0,85%</b></div>
+              <div class="dir-row"><span>Oktober: IHSG</span><b data-fig="oct_ihsg">-12,23%</b></div>
+            </div>
+          </div>
+        </div>
+        <!--__TABLE__-->
+        <div class="note-box">
+          <div class="note-k">Cara membaca</div>
+          <p>Korelasi -1 berarti dua seri selalu bergerak berlawanan, 0 berarti tidak berhubungan. Angka di halaman ini
+            dihitung dari masa lalu, dan bisa berubah kalau pemicunya berubah. Ini bukan ramalan arah.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sheet sheet-plane-2 band band-tight" aria-labelledby="batas-heading">
+      <div class="container">
+        <h2 id="batas-heading" class="band-title">Batas dari angka ini</h2>
+        <p class="band-lead">Korelasi mengukur kebersamaan gerak, bukan sebab. Dua seri bisa bergerak berlawanan karena satu pemicu
+          yang sama (arus dana asing keluar), tanpa salah satu menyebabkan yang lain. Selain itu kurs di halaman ini kurs tengah
+          harian dari data ECB, bukan JISDOR Bank Indonesia, jadi levelnya bisa beda beberapa poin dari rilis resmi.</p>
+      </div>
+    </section>
+
+    <footer class="sheet sheet-ground foot">
+      <div class="container">
+        <a class="nav-back" href="ihsg.html">Baca juga: PASAR · 02, setahun turun satu hari naik</a>
+        <div class="foot-grid">
+          <div>
+            <h2>Sumber</h2>
+            <p>Kurs USD/IDR harian: Frankfurter, referensi kurs ECB. IHSG harian: Refinitiv via Datawrapper untuk Januari sampai
+              19 Oktober 2026, sesi setelahnya dari job harian 16.20 WIB. Data sampai <span data-fig="as_of_long">21 Oktober 2026</span>.</p>
+            <p>sha256 payload: <code data-fig="payload_sha">-</code></p>
+          </div>
+          <div>
+            <h2>Metode</h2>
+            <p>Korelasi dihitung dari return harian pada hari yang ada di dua sumber sekaligus, bukan dari level. Bulan dihitung
+              dari penutupan terakhir tiap bulan terhadap penutupan bulan sebelumnya. Semua angka di halaman ini lahir dari
+              <code>data/pasar/rupiah.json</code> lewat generator, tidak ada angka yang diketik di template.</p>
+            <p>Data by Arc, <span data-fig="as_of_long">21 Oktober 2026</span>.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+  <script>const DATA = /*__DATA__*/ {};</script>
+</body>
+</html>

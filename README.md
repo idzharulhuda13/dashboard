@@ -101,6 +101,18 @@ naively it yields rows with no `place` field, every one of them is classified as
 the job reports success having harvested nothing. A harvest that cannot tell "no new earthquakes" from "the
 request was not understood" is worse than no harvest.
 
+## Data as of when
+
+Every page carries a strip at the top that says `Data per <tanggal>`: the last date the data actually reaches,
+not the build date. The strip is static HTML written at build time, so it reads correctly without JavaScript;
+`assets/dateline.js` then re-derives it from the payload embedded in the page so a stale build cannot keep
+claiming an old date. The page never editorialises about staleness: readers see the date, and freshness is
+watched outside the page.
+
+`tools/check_freshness.py` is the gate. It fails when a page has no strip, when the strip disagrees with its
+payload (a build that fell behind), or when the data has stopped moving. The daily cron job runs it with no
+LLM and stays quiet unless something is stale.
+
 ## Build
 
     python3 pipeline/build_source.py

@@ -373,6 +373,11 @@ def check_5_skeleton(index_path: str, template_path: str):
     # inline, jadi keduanya dikuncikan ke sentinel yang sama sebelum dibandingkan baris demi baris.
     reconstructed = re.sub(r'<svg class="window-fig".*?</svg>', '<!--__FIG__-->', reconstructed, flags=re.DOTALL)
     template_skeleton = re.sub(r'<!--FIG:pasar_[a-z]+-->', '<!--__FIG__-->', template_skeleton)
+
+    # Isi span[data-fig] ditulis ulang builder dari payload, jadi teksnya dinormalkan dulu;
+    # check_4 yang memastikan nilai di halaman benar-benar sama dengan payload.
+    reconstructed = re.sub(r'(data-fig="[^"]+"[^>]*>)[^<]*(<)', r'\1__FIGVAL__\2', reconstructed)
+    template_skeleton = re.sub(r'(data-fig="[^"]+"[^>]*>)[^<]*(<)', r'\1__FIGVAL__\2', template_skeleton)
     if reconstructed == template_skeleton:
         return True, "page skeleton matches hub.template.html byte for byte after collapsing injected regions"
 

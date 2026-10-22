@@ -1,4 +1,4 @@
-/* dateline.js — satu definisi untuk "Data per <tanggal>" di semua dashboard.
+/* dateline.js: satu definisi untuk "Data per <tanggal>" di semua dashboard.
  *
  * Aturan: strip statis di HTML sudah menuliskan tanggal terakhir yang diketahui saat build.
  * Skrip ini hanya memperbaikinya dari payload yang benar-benar tertanam di halaman.

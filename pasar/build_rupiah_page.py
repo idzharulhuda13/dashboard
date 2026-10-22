@@ -13,6 +13,8 @@ import hashlib
 import html as _html
 import json
 import re
+
+from dateline import stamp as dateline_stamp
 import sys
 from pathlib import Path
 
@@ -282,6 +284,8 @@ def main() -> int:
     for bad in ("—", "–"):
         if bad in rendered.split("<script>")[0]:
             sys.exit(f"FATAL: em/en dash di markup: {bad}")
+
+    rendered = dateline_stamp(rendered, as_of)
 
     final = f"<!--BUILD sha256:{template_sha}-->\n" + rendered
     OUT.write_text(final, encoding="utf-8")

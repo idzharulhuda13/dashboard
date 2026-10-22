@@ -422,6 +422,22 @@ def main():
         flags=re.DOTALL,
     )
 
+    def fill_fig(match: "re.Match[str]") -> str:
+        key = match.group("key")
+        entry = fig.get(key)
+        if entry is None:
+            raise RuntimeError(f"data-fig tanpa entri payload: {key}")
+        return match.group("open") + html_esc(str(entry["d"])) + match.group("close")
+
+    html_rendered, n_fig = re.subn(
+        r'(?P<open><(?P<tag>\w+)[^>]*data-fig="(?P<key>[^"]+)"[^>]*>)(?P<inner>[^<]*)(?P<close></(?P=tag)>)',
+        fill_fig,
+        html_rendered,
+    )
+
+    if n_fig != html_rendered.count('data-fig="'):
+        raise RuntimeError(f"{html_rendered.count('data-fig=')} slot data-fig tapi {n_fig} terisi")
+
     html_rendered = pasar["inject"](html_rendered)
 
     final_html = stamp_line + html_rendered

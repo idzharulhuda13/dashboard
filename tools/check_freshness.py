@@ -6,6 +6,8 @@ Yang dicek per halaman:
 2. Angka di strip sama dengan payload sumber (kalau payload dan halaman beda, berarti build
    ketinggalan dan pembaca melihat tanggal lama).
 3. Umur data terhadap hari ini masih di bawah cadence halaman itu.
+4. Skrip dateline ditanam di halaman, bukan dirujuk dari luar: halaman yang memanggil
+   /assets/dateline.js gagal saat dibuka lewat file://, dan itu mematikan gate halaman.
 
 Exit 0 kalau semua sehat, exit 1 kalau ada yang berhenti atau tidak sinkron (cron memakai kode
 keluar ini untuk memicu notifikasi). Tanpa LLM, tanpa jaringan: cuma baca berkas lokal.
@@ -59,6 +61,11 @@ def main() -> int:
             continue
         html = page.read_text()
 
+        if "/assets/dateline.js" in html:
+            problems.append(
+                f"{page_rel}: masih merujuk /assets/dateline.js dari luar, harus ditanam inline"
+            )
+
         m = re.search(r'data-dateline[^>]*data-cadence="([^"]+)"[^>]*data-as-of="([^"]*)"', html)
         if not m:
             m2 = re.search(r'data-dateline[\s\S]{0,400}?data-as-of="([^"]*)"', html)
@@ -88,6 +95,16 @@ def main() -> int:
         if age > limit:
             problems.append(f"{page_rel}: data per {source}, sudah {age} hari (batas {limit})")
         rows.append(f"{page_rel:26} {source}  umur {age:>4} hari  {cadence:8} batas {limit:>3}  {status}")
+
+    canonical = (ROOT / "assets" / "dateline.js").read_text()
+    canonical_norm = "".join(line.strip() for line in canonical.splitlines())
+    for page_rel, _, _, _, _ in PAGES:
+        page = ROOT / page_rel
+        if not page.exists():
+            continue
+        page_norm = "".join(line.strip() for line in page.read_text().splitlines())
+        if canonical_norm not in page_norm:
+            problems.append(f"{page_rel}: salinan skrip dateline inline berbeda dengan assets/dateline.js")
 
     print("Dashboard freshness, data per tanggal terakhir:")
     for row in rows:

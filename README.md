@@ -1,11 +1,12 @@
 # dashboard
 
-Static data stories published at **https://dashboard.idzharulhuda.com**. An index at the root
-links to `gempa/` and `pisa/`, each plate still one self-contained page for one dataset. No runtime
-dependencies: every figure is generated from stored source files at build time and then re-checked by two
-acceptance gates. No network access at runtime, no API keys, no build step for the pages themselves.
+Static data stories published at **https://dashboard.idzharulhuda.com**. An index at the root lists six
+plates: `gempa/`, `pisa/`, `pisa-explorer/`, and the market plates `pasar/ihsg.html`, `pasar/rupiah.html`,
+`pasar/msci.html`. Each plate is one self-contained page for one dataset. No runtime dependencies: every
+figure is generated from stored source files at build time and then re-checked by acceptance gates. No
+network access at runtime, no API keys, no build step for the pages themselves.
 
-Plate 01 and plate 02 shipped.
+Plates 01 to 06 shipped.
 
 ## Plate 01: Setengah Abad Gempa Indonesia
 
@@ -61,14 +62,39 @@ The build for plate 02 needs no third-party package at run time: `build_data.py`
 `test_verify.py` use the standard library only. Only the two extraction scripts need `pyreadstat`, `pandas`,
 and `openpyxl`, and they are run by hand.
 
+## Plates 04 to 06: Pasar
+
+Three market plates generated from stored payloads under `data/pasar/`: the Jakarta Composite Index across
+191 sessions of 2026, USD/IDR across 207 daily reference rates, and the MSCI Indonesia Index factsheet.
+
+Each plate is produced by a generator plus a gate: `pasar/gen_ihsg.py` or `pasar/gen_rupiah.py` write the
+payload, `pasar/build_*.py` render `pasar/*.template.html` into a page with the payload embedded, and
+`pasar/verify_*.py` re-derive every published figure from that payload. The rupiah plate argues the
+correlation between the currency and the index from 180 consecutive daily return pairs, not from
+date-interpolated overlap.
+
+The hub shows the three plates as plates 04, 05 and 06. `pipeline_hub/pasar_hub.py` reads the same payloads
+and produces both the display figures and three static SVG figures, so the hub needs no JavaScript to show
+them: coordinates are computed from the series, and no number on the hub is typed by hand. A single accent
+token (`--accent-pasar`) marks the plates, and maroon is used only where it carries the same meaning it
+carries on the currency plate: the rupiah weakening.
+
+`pipeline_hub/verify.py` treats `pasar/*.html` as part of the site: it discovers them for the sitemap and
+derives their `lastmod` from each payload's `meta.as_of`.
+
 ## Layout
 
-    index.html              the hub linking to gempa/ and pisa/
+    index.html              the hub linking to the six plates
     gempa/index.html          plate 01 published page, generated
     gempa.template.html       plate 01 page source, with data and fonts injected at build time
     gempa/data.json           the data payload for plate 01
     pisa/index.html          plate 02 published page, generated (payload embedded in page)
     pisa.template.html       plate 02 page source, with data and fonts injected at build time
+    pisa-explorer/           plate 03, the interactive PISA explorer
+    pasar/                   plates 04 to 06: ihsg, rupiah, msci (templates, builders, gates)
+    data/pasar/              payloads for the three market plates, with meta.as_of per payload
+    pipeline_hub/            hub build, pasar_hub.py (plate 04-06 figures), verify.py, sitemap and OG cards
+    tools/check_freshness.py gate: strip date present, equal to payload, and inside its cadence
     pipeline/               harvest, build, gate, push. The daily job for plate 01.
     pipeline_pisa/          derive_from_puf.py, extract_annex.py, build_data.py, verify.py,
                             test_verify.py, probe_browser.py

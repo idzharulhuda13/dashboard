@@ -19,6 +19,9 @@
   /* Pelat 03 (explorer) pakai teal "mahir" dari palet halaman PISA supaya warnanya nggak
      kembar dengan biru Indonesia yang dipakai di dalam jendelanya. */
   --accent-explorer: #0F6E56;
+  /* Pelat pasar (04-06) satu warna: maroon yang sama dengan arti "melemah" di halaman rupiah,
+     jadi label pelat, garis grafik, dan angka di caption bicara satu bahasa. */
+  --accent-pasar: #8C2F39;
   --peer: #6E7783;
   --font-display: 'Chakra Petch', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -145,6 +148,10 @@ body {
   color: var(--accent-explorer);
 }
 
+.plate-pasar {
+  color: var(--accent-pasar);
+}
+
 .entry-name {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.5vw, 2rem);
@@ -172,6 +179,11 @@ body {
 .entry-explorer .entry-link-title:hover {
   color: var(--accent-explorer);
   border-bottom-color: var(--accent-explorer);
+}
+
+.entry-pasar .entry-link-title:hover {
+  color: var(--accent-pasar);
+  border-bottom-color: var(--accent-pasar);
 }
 
 .entry-link-title:focus-visible {
@@ -224,6 +236,11 @@ body {
   border-bottom-color: var(--accent-explorer);
 }
 
+.entry-pasar .entry-link-btn:hover {
+  color: var(--accent-pasar);
+  border-bottom-color: var(--accent-pasar);
+}
+
 .entry-link-btn:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 3px;
@@ -246,6 +263,18 @@ body {
   border: 1px solid var(--line);
   position: relative;
   overflow: hidden;
+}
+
+.window-fig {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.window-fig .fig-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  fill: var(--muted);
 }
 
 .window-caption {
@@ -307,6 +336,11 @@ body {
 
 .val-idn {
   color: var(--accent-pisa);
+  font-weight: 500;
+}
+
+.val-pasar {
+  color: var(--accent-pasar);
   font-weight: 500;
 }
 
@@ -502,6 +536,105 @@ body {
                       <span class="metric-val val-peer"><span data-fig="exp_read_vn">2,18</span>%</span>
                     </span>
                   </div>
+                </div>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry-row entry-pasar">
+      <div class="container">
+        <div class="entry-grid">
+          <div class="entry-col-left">
+            <p class="plate-label plate-pasar">Pelat 04</p>
+            <h2 class="entry-name">
+              <a href="/pasar/ihsg.html" class="entry-link-title">IHSG 2026: Turun Sepanjang Tahun</a>
+            </h2>
+            <p class="entry-line">Titik terendah 19 Oktober di <span data-fig="pasar_ihsg_trough">4.996,61</span>: <span data-fig="pasar_ihsg_trough_dd">-45,30%</span> dari puncak 20 Januari dalam 177 hari, lalu naik <span data-fig="pasar_ihsg_rebound">6,64%</span> di dua sesi terakhir.</p>
+            <p class="entry-fact">Harga penutupan harian, Refinitiv sampai 16 Oktober 2026 lalu job harian IDX:COMPOSITE. <span style="white-space:nowrap">Data per 21 Oktober 2026.</span></p>
+            <p class="entry-nav">
+              <a href="/pasar/ihsg.html" class="entry-link-btn">Buka pelat /pasar/ihsg.html</a>
+            </p>
+          </div>
+          <div class="entry-col-right">
+            <figure class="window-frame">
+              <div class="window" role="img" aria-label="Garis IHSG 2026 dari puncak Januari ke titik terendah Oktober"><!--FIG:pasar_ihsg--></div>
+              <figcaption class="window-caption">
+                <div class="caption-head">
+                  <span class="caption-title">IHSG, 191 sesi</span>
+                  <span class="caption-legend">harga penutupan</span>
+                </div>
+                <div class="metric-group">
+                  <div class="metric-row"><span class="metric-name">Puncak 20 Jan</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_ihsg_peak">9.134,70</span></span></div>
+                  <div class="metric-row"><span class="metric-name">Terakhir 21 Okt</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_ihsg_last">5.328,36</span></span></div>
+                </div>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry-row entry-pasar">
+      <div class="container">
+        <div class="entry-grid">
+          <div class="entry-col-left">
+            <p class="plate-label plate-pasar">Pelat 05</p>
+            <h2 class="entry-name">
+              <a href="/pasar/rupiah.html" class="entry-link-title">Rupiah: Sembilan dari Sepuluh Bulan Melemah</a>
+            </h2>
+            <p class="entry-line">USD/IDR naik dari <span data-fig="pasar_rupiah_first">16.716</span> ke <span data-fig="pasar_rupiah_last">18.043</span>, dan bergerak berlawanan dengan IHSG: korelasi <span data-fig="pasar_rupiah_corr">-0,417</span> dari 180 hari return.</p>
+            <p class="entry-fact">Kurs referensi ECB lewat Frankfurter, 207 titik harian. <span style="white-space:nowrap">Data per 21 Oktober 2026.</span></p>
+            <p class="entry-nav">
+              <a href="/pasar/rupiah.html" class="entry-link-btn">Buka pelat /pasar/rupiah.html</a>
+            </p>
+          </div>
+          <div class="entry-col-right">
+            <figure class="window-frame">
+              <div class="window" role="img" aria-label="Garis USD/IDR sepanjang 2026 yang naik, artinya rupiah melemah"><!--FIG:pasar_rupiah--></div>
+              <figcaption class="window-caption">
+                <div class="caption-head">
+                  <span class="caption-title">USD/IDR, 207 titik</span>
+                  <span class="caption-legend">naik = rupiah melemah</span>
+                </div>
+                <div class="metric-group">
+                  <div class="metric-row"><span class="metric-name">Puncak 8 Jun</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_rupiah_peak">18.151</span></span></div>
+                  <div class="metric-row"><span class="metric-name">Korelasi IHSG</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_rupiah_corr">-0,417</span></span></div>
+                </div>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry-row entry-pasar">
+      <div class="container">
+        <div class="entry-grid">
+          <div class="entry-col-left">
+            <p class="plate-label plate-pasar">Pelat 06</p>
+            <h2 class="entry-name">
+              <a href="/pasar/msci.html" class="entry-link-title">MSCI Indonesia: Lima Nama, 85,58% Bobot</a>
+            </h2>
+            <p class="entry-line">Lima saham teratas mengisi <span data-fig="pasar_msci_top5">85,58%</span> bobot indeks versi USD: Bank Central Asia sendirian <span data-fig="pasar_msci_bca">31,41%</span>, perbankan <span data-fig="pasar_msci_fin">71,71%</span>.</p>
+            <p class="entry-fact">Factsheet MSCI Indonesia Index (USD, net): 9 konstituen, bobot penuh 100%. <span style="white-space:nowrap">Data per 30 September 2026.</span></p>
+            <p class="entry-nav">
+              <a href="/pasar/msci.html" class="entry-link-btn">Buka pelat /pasar/msci.html</a>
+            </p>
+          </div>
+          <div class="entry-col-right">
+            <figure class="window-frame">
+              <div class="window" role="img" aria-label="Lima bobot terbesar di MSCI Indonesia Index"><!--FIG:pasar_msci--></div>
+              <figcaption class="window-caption">
+                <div class="caption-head">
+                  <span class="caption-title">Bobot lima terbesar</span>
+                  <span class="caption-legend">% indeks</span>
+                </div>
+                <div class="metric-group">
+                  <div class="metric-row"><span class="metric-name">Konstituen</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_msci_names">9</span></span></div>
+                  <div class="metric-row"><span class="metric-name">Float cap</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_msci_float">53,36</span><span class="val-sep">/</span><span class="val-oecd">miliar USD</span></span></div>
                 </div>
               </figcaption>
             </figure>

@@ -14,6 +14,9 @@ import os
 import re
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import pasar_hub  # noqa: E402  (pelat 04-06 dihitung di modul sebelah)
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://dashboard.idzharulhuda.com"
 
@@ -39,6 +42,7 @@ def main():
     font_paths = sorted(glob.glob(os.path.join(fonts_dir, "*.woff2")))
     output_path = os.path.join(ROOT, "index.html")
     sitemap_path = os.path.join(ROOT, "sitemap.xml")
+    pasar_paths = [os.path.join(ROOT, "data", "pasar", f"{name}.json") for name in ("ihsg", "rupiah", "msci")]
 
     required_inputs = [
         (template_path, "hub.template.html"),
@@ -46,15 +50,18 @@ def main():
         (gempa_data_path, "gempa/data.json"),
         (pisa_index_path, "pisa/index.html"),
         (explorer_payload_path, "pisa-explorer/data.json"),
-    ]
+    ] + [(p, os.path.relpath(p, ROOT)) for p in pasar_paths]
     for p, name in required_inputs:
         if not os.path.exists(p) or not os.access(p, os.R_OK):
             raise RuntimeError(f"Missing or unreadable input file: {name} ({p})")
 
+    pasar = pasar_hub.load(ROOT)
+    pasar_asof_long = {"ihsg": "21 Oktober 2026", "rupiah": "21 Oktober 2026", "msci": "30 September 2026"}
+
     if len(font_paths) != 5:
         raise RuntimeError(f"Expected 5 font files in {fonts_dir}, found {len(font_paths)}")
 
-    input_paths = [annex_prof_path, gempa_data_path, template_path, explorer_payload_path] + font_paths
+    input_paths = [annex_prof_path, gempa_data_path, template_path, explorer_payload_path] + pasar_paths + font_paths
 
     stamp_hasher = hashlib.sha256()
     for p in input_paths:
@@ -89,7 +96,7 @@ def main():
         raise RuntimeError("Failed to parse body H1 text from hub.template.html")
     h1_text = m_h1.group(1).strip()
 
-    plate_entries = re.findall(r'<a href="(/[^"]*/)" class="entry-link-title">([^<]+)</a>', template_str)
+    plate_entries = re.findall(r'<a href="(/[^"]+)" class="entry-link-title">([^<]+)</a>', template_str)
     if len(plate_entries) < 2:
         raise RuntimeError(f"Anchor parse found fewer than 2 plates in template (found: {len(plate_entries)})")
 
@@ -228,13 +235,12 @@ def main():
 
     CANONICAL = f"{SITE}/"
     SLUG = "hub"
-    TITLE = "Dashboard Data Publik: Gempa, PISA 2025, dan Explorer"
+    TITLE = "Dashboard Data Publik: Gempa, PISA 2025, dan Pasar"
     DESC = (
-        f"Tiga pelat data: katalog gempa M5+ Indonesia sejak {gempa_first_year}, "
-        f"PISA 2025, dan explorer interaktifnya; {prof_math_idn_d}% siswa di bawah "
-        "ambang minimum kemahiran."
+        f"Enam pelat: katalog gempa M5+ sejak {gempa_first_year}, PISA 2025, explorer, "
+        f"IHSG, rupiah, dan MSCI Indonesia; {prof_math_idn_d}% siswa di bawah ambang minimum."
     )
-    OGALT = "Kartu pratinjau indeks Dashboard Data Publik: katalog gempa M5+ Indonesia, hasil PISA 2025, dan halaman explorer interaktifnya."
+    OGALT = "Kartu pratinjau indeks Dashboard Data Publik: katalog gempa, PISA 2025, dan tiga pelat pasar (IHSG, rupiah, MSCI Indonesia)."
 
     if len(TITLE) > 60:
         raise RuntimeError(f"TITLE exceeds 60 characters: {len(TITLE)}")
@@ -313,6 +319,12 @@ def main():
     ]
     seo_block = "\n".join(seo_lines)
 
+    for key, long_form in pasar_asof_long.items():
+        as_of = pasar["as_of"][key]
+        expected_long = {"2026-10-21": "21 Oktober 2026", "2026-09-30": "30 September 2026"}.get(as_of)
+        if expected_long and expected_long != long_form:
+            raise RuntimeError(f"tanggal pelat pasar {key} tidak cocok: payload {as_of}, template {long_form}")
+
     fig = {
         "prof_math_idn": {"v": prof_sums["mathematics"]["idn"], "d": prof_sums["mathematics"]["idn_d"]},
         "prof_math_oecd": {"v": prof_sums["mathematics"]["oecd"], "d": prof_sums["mathematics"]["oecd_d"]},
@@ -321,6 +333,7 @@ def main():
         "prof_scie_idn": {"v": prof_sums["science"]["idn"], "d": prof_sums["science"]["idn_d"]},
         "prof_scie_oecd": {"v": prof_sums["science"]["oecd"], "d": prof_sums["science"]["oecd_d"]},
         **exp_fig,
+        **pasar["fig"],
     }
 
     prof_bars = [
@@ -409,6 +422,8 @@ def main():
         flags=re.DOTALL,
     )
 
+    html_rendered = pasar["inject"](html_rendered)
+
     final_html = stamp_line + html_rendered
 
     page_begin = final_html.count("<!--SEO:BEGIN-->")
@@ -436,6 +451,7 @@ def main():
         loc = f"{SITE}{href}" if href.startswith("/") else href
         loc_lastmod[loc] = plate_lastmod_map.get(loc, root_lastmod)
     loc_lastmod.update(extra_page_lastmod)
+    loc_lastmod.update(pasar["lastmod"])
 
     sitemap_lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',

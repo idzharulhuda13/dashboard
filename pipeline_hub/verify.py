@@ -74,7 +74,8 @@ def check_1_stamp(index_path: str, template_path: str, annex_prof_path: str, gem
     act_hex = m.group(1).lower()
 
     font_paths = sorted(glob.glob(os.path.join(fonts_dir, "*.woff2")))
-    input_paths = [annex_prof_path, gempa_data_path, template_path, explorer_payload_path] + font_paths
+    pasar_paths = [os.path.join(ROOT, "data", "pasar", f"{name}.json") for name in ("ihsg", "rupiah", "msci")]
+    input_paths = [annex_prof_path, gempa_data_path, template_path, explorer_payload_path] + pasar_paths + font_paths
 
     stamp_hasher = hashlib.sha256()
     for p in input_paths:
@@ -273,7 +274,16 @@ def check_4_fallback_literals(index_content: str, embedded_data: dict):
         if literal != disp:
             return False, f"data-fig fallback literal mismatch in page for {key!r} (actual: {literal!r}, expected: {disp!r})"
 
-    return True, f"all {len(spans)} span[data-fig] fallback literals equal payload display values"
+    if "<!--FIG:" in index_content:
+        return False, "index.html masih memuat placeholder <!--FIG:...--> yang belum terisi"
+    svg_count = index_content.count('class="window-fig"')
+    if svg_count != 3:
+        return False, f"jumlah gambar pasar statis di index.html bukan 3 (actual: {svg_count})"
+
+    return True, (
+        f"all {len(spans)} span[data-fig] fallback literals equal payload display values, "
+        f"{svg_count} gambar pasar statis terisi"
+    )
 
 
 def check_5_skeleton(index_path: str, template_path: str):
@@ -358,6 +368,11 @@ def check_5_skeleton(index_path: str, template_path: str):
         return False, f"font markers missing (begin: {fonts_begin_found}, end: {fonts_end_found})"
 
     reconstructed = "".join(skeleton_lines)
+
+    # Gambar pasar disuntikkan saat build: satu placeholder di template diganti satu <svg>
+    # inline, jadi keduanya dikuncikan ke sentinel yang sama sebelum dibandingkan baris demi baris.
+    reconstructed = re.sub(r'<svg class="window-fig".*?</svg>', '<!--__FIG__-->', reconstructed, flags=re.DOTALL)
+    template_skeleton = re.sub(r'<!--FIG:pasar_[a-z]+-->', '<!--__FIG__-->', template_skeleton)
     if reconstructed == template_skeleton:
         return True, "page skeleton matches hub.template.html byte for byte after collapsing injected regions"
 
@@ -525,7 +540,7 @@ def check_8_head_and_jsonld(index_path: str, template_path: str, gempa_data_path
         return False, "hub.template.html missing body H1 text"
     h1_text = m_h1.group(1).strip()
 
-    plate_entries = re.findall(r'<a href="(/[^"]*/)" class="entry-link-title">([^<]+)</a>', template_content)
+    plate_entries = re.findall(r'<a href="(/[^"]+)" class="entry-link-title">([^<]+)</a>', template_content)
     if len(plate_entries) < 2:
         return False, f"hub.template.html plate entries count < 2 (actual: {len(plate_entries)})"
 
@@ -540,15 +555,14 @@ def check_8_head_and_jsonld(index_path: str, template_path: str, gempa_data_path
     if not prof_math_idn_d:
         return False, "missing fig.prof_math_idn.d in embedded data"
 
-    TITLE = "Dashboard Data Publik: Gempa, PISA 2025, dan Explorer"
+    TITLE = "Dashboard Data Publik: Gempa, PISA 2025, dan Pasar"
     CANONICAL = f"{SITE}/"
     SLUG = "hub"
     DESC = (
-        f"Tiga pelat data: katalog gempa M5+ Indonesia sejak {gempa_first_year}, "
-        f"PISA 2025, dan explorer interaktifnya; {prof_math_idn_d}% siswa di bawah "
-        "ambang minimum kemahiran."
+        f"Enam pelat: katalog gempa M5+ sejak {gempa_first_year}, PISA 2025, explorer, "
+        f"IHSG, rupiah, dan MSCI Indonesia; {prof_math_idn_d}% siswa di bawah ambang minimum."
     )
-    OGALT = "Kartu pratinjau indeks Dashboard Data Publik: katalog gempa M5+ Indonesia, hasil PISA 2025, dan halaman explorer interaktifnya."
+    OGALT = "Kartu pratinjau indeks Dashboard Data Publik: katalog gempa, PISA 2025, dan tiga pelat pasar (IHSG, rupiah, MSCI Indonesia)."
 
     if len(TITLE) > 60:
         return False, f"title exceeds 60 characters (actual: {len(TITLE)}, expected: <= 60)"
@@ -712,8 +726,14 @@ def check_9_sitemap(sitemap_path: str, gempa_data_path: str, pisa_index_path: st
         if entry.startswith(".") or entry.startswith("_"):
             continue
         dir_path = os.path.join(ROOT, entry)
-        if os.path.isdir(dir_path) and os.path.isfile(os.path.join(dir_path, "index.html")):
+        if not os.path.isdir(dir_path):
+            continue
+        if os.path.isfile(os.path.join(dir_path, "index.html")):
             discovered_locs.add(f"{SITE}/{entry}/")
+        for page in sorted(os.listdir(dir_path)):
+            if not page.endswith(".html") or page.endswith(".template.html") or page == "index.html":
+                continue
+            discovered_locs.add(f"{SITE}/{entry}/{page}")
 
     url_elems = [e for e in root if (e.tag.split("}")[-1] if "}" in e.tag else e.tag) == "url"]
     if not url_elems:
@@ -770,11 +790,24 @@ def check_9_sitemap(sitemap_path: str, gempa_data_path: str, pisa_index_path: st
 
     root_lastmod = max(gempa_lastmod, pisa_lastmod)
 
+    pasar_lastmods = {}
+    for name in ("ihsg", "rupiah", "msci"):
+        payload_path = os.path.join(ROOT, "data", "pasar", f"{name}.json")
+        if not os.path.isfile(payload_path):
+            return False, f"data/pasar/{name}.json tidak ada untuk menurunkan lastmod"
+        with open(payload_path, "r", encoding="utf-8") as pf:
+            pasar_payload = json.load(pf)
+        as_of = (pasar_payload.get("meta") or {}).get("as_of", "")
+        if not re.match(r"^\d{4}-\d{2}-\d{2}$", as_of):
+            return False, f"data/pasar/{name}.json meta.as_of tidak sah: {as_of!r}"
+        pasar_lastmods[f"{SITE}/pasar/{name}.html"] = as_of
+
     expected_lastmods = {
         f"{SITE}/": root_lastmod,
         f"{SITE}/gempa/": gempa_lastmod,
         f"{SITE}/pisa/": pisa_lastmod,
     }
+    expected_lastmods.update(pasar_lastmods)
 
     for loc, exp_lm in expected_lastmods.items():
         if loc in sitemap_map and sitemap_map[loc] != exp_lm:

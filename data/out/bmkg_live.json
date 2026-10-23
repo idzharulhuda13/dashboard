@@ -1,6 +1,18 @@
 {
  "latest": [
   {
+   "waktu_wib": "17:57:49 WIB",
+   "tanggal": "22 Okt 2026",
+   "datetime_utc": "2026-10-22T10:57:49+00:00",
+   "lat": -3.11,
+   "lon": 102.14,
+   "mag": 5.2,
+   "depth_km": 120.0,
+   "wilayah": "6 km BaratLaut LEBONG-BENGKULU",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
    "waktu_wib": "14:44:15 WIB",
    "tanggal": "21 Okt 2026",
    "datetime_utc": "2026-10-21T07:44:15+00:00",
@@ -167,21 +179,21 @@
    "wilayah": "26 km BaratDaya PULAUPUAH-SULTENG",
    "potensi": "Tidak berpotensi tsunami",
    "dirasakan": ""
-  },
-  {
-   "waktu_wib": "08:41:37 WIB",
-   "tanggal": "21 Sep 2026",
-   "datetime_utc": "2026-09-21T01:41:37+00:00",
-   "lat": -8.33,
-   "lon": 120.59,
-   "mag": 5.3,
-   "depth_km": 10.0,
-   "wilayah": "34 km TimurLaut RUTENG-MANGGARAI-NTT",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
   }
  ],
  "felt": [
+  {
+   "waktu_wib": "17:57:49 WIB",
+   "tanggal": "22 Okt 2026",
+   "datetime_utc": "2026-10-22T10:57:49+00:00",
+   "lat": -3.11,
+   "lon": 102.14,
+   "mag": 5.2,
+   "depth_km": 120.0,
+   "wilayah": "Pusat gempa berada di darat 6 km BaratLaut Lebong",
+   "potensi": "",
+   "dirasakan": "III Kota Bengkulu, II - III Curup, III Arga Makmur"
+  },
   {
    "waktu_wib": "18:58:36 WIB",
    "tanggal": "21 Okt 2026",
@@ -349,18 +361,6 @@
    "wilayah": "Pusat gempa berada di Laut 11 km TimurLaut Kota Sorong",
    "potensi": "",
    "dirasakan": "III Sorong"
-  },
-  {
-   "waktu_wib": "21:22:04 WIB",
-   "tanggal": "16 Okt 2026",
-   "datetime_utc": "2026-10-16T14:22:04+00:00",
-   "lat": -6.76,
-   "lon": 106.63,
-   "mag": 2.3,
-   "depth_km": 18.0,
-   "wilayah": "Pusat gempa berada di darat 26 km Barat Daya Kota Bogor",
-   "potensi": "",
-   "dirasakan": "II Leuwiliang"
   }
  ]
 }

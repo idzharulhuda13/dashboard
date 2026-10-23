@@ -1034,10 +1034,10 @@
    "month": "2026-10",
    "label": "Okt",
    "label_long": "Oktober 2026",
-   "sessions": 15,
+   "sessions": 16,
    "open_ref": 6009.502,
-   "end": 5328.36,
-   "ret": -12.234576120654816,
+   "end": 5387.905,
+   "ret": -11.253788004818865,
    "base": 6071.138,
    "base_label": "bulan sebelumnya"
   }

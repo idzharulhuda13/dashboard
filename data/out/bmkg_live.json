@@ -183,6 +183,30 @@
  ],
  "felt": [
   {
+   "waktu_wib": "19:47:26 WIB",
+   "tanggal": "25 Okt 2026",
+   "datetime_utc": "2026-10-25T12:47:26+00:00",
+   "lat": -0.73,
+   "lon": 131.39,
+   "mag": 3.8,
+   "depth_km": 6.0,
+   "wilayah": "Pusat gempa berada di laut 13 km timur laut Kota Sorong",
+   "potensi": "",
+   "dirasakan": "II Kota Sorong"
+  },
+  {
+   "waktu_wib": "14:40:01 WIB",
+   "tanggal": "25 Okt 2026",
+   "datetime_utc": "2026-10-25T07:40:01+00:00",
+   "lat": 4.24,
+   "lon": 97.65,
+   "mag": 4.7,
+   "depth_km": 10.0,
+   "wilayah": "Pusat gempa berada di darat 44 km barat Kab. Aceh Tamiang",
+   "potensi": "",
+   "dirasakan": "IV Gayo Lues"
+  },
+  {
    "waktu_wib": "17:57:49 WIB",
    "tanggal": "22 Okt 2026",
    "datetime_utc": "2026-10-22T10:57:49+00:00",
@@ -337,30 +361,6 @@
    "wilayah": "Pusat gempa berada di darat 39 km selatan Morowali Utara",
    "potensi": "",
    "dirasakan": "II - III Kolonodale"
-  },
-  {
-   "waktu_wib": "19:46:17 WIB",
-   "tanggal": "17 Okt 2026",
-   "datetime_utc": "2026-10-17T12:46:17+00:00",
-   "lat": -9.52,
-   "lon": 118.54,
-   "mag": 4.6,
-   "depth_km": 10.0,
-   "wilayah": "Pusat gempa berada di laut 49 km Barat KODI-SUMBABARATDAYA",
-   "potensi": "",
-   "dirasakan": "III Sumba Barat Daya, III Kota Bima, III Kab. Bima, III Sumbawa, III Sumba Barat"
-  },
-  {
-   "waktu_wib": "15:20:52 WIB",
-   "tanggal": "17 Okt 2026",
-   "datetime_utc": "2026-10-17T08:20:52+00:00",
-   "lat": -0.75,
-   "lon": 131.38,
-   "mag": 4.2,
-   "depth_km": 3.0,
-   "wilayah": "Pusat gempa berada di Laut 11 km TimurLaut Kota Sorong",
-   "potensi": "",
-   "dirasakan": "III Sorong"
   }
  ]
 }

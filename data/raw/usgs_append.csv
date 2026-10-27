@@ -2,3 +2,4 @@ time,latitude,longitude,depth,mag,magType,nst,gap,dmin,rms,net,id,updated,place,
 2026-10-13T04:00:15.768Z,-9.4473,113.8887,10,5.1,mb,40,59,7.295,0.76,us,us6000u1ye,2026-10-13T04:15:46.040Z,"119 km SSW of Gambiran Satu, Indonesia",earthquake,9.72,1.854,0.106,29,reviewed,us,us
 2026-10-18T08:00:06.054Z,-8.1449,120.2734,10,5.2,mb,48,61,3.153,0.7,us,us6000u34e,2026-10-18T08:14:46.040Z,"55 km NNW of Ruteng, Indonesia",earthquake,11.4,1.877,0.086,45,reviewed,us,us
 2026-10-20T16:29:38.818Z,4.0005,95.993,75.876,5,mww,110,67,4.814,0.81,us,us6000u3nc,2026-10-20T16:44:55.040Z,"21 km SW of Meulaboh, Indonesia",earthquake,8.48,6.671,0.093,11,reviewed,us,us
+2026-10-26T04:53:40.479Z,-8.443,121.5729,10,5,mb,34,112,3.857,0.82,us,us6000u4y1,2026-10-26T05:10:35.040Z,"45 km NNW of Ende, Indonesia",earthquake,11.32,1.884,0.103,30,reviewed,us,us

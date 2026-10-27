@@ -183,6 +183,18 @@
  ],
  "felt": [
   {
+   "waktu_wib": "11:53:42 WIB",
+   "tanggal": "26 Okt 2026",
+   "datetime_utc": "2026-10-26T04:53:42+00:00",
+   "lat": -8.45,
+   "lon": 121.45,
+   "mag": 4.9,
+   "depth_km": 13.0,
+   "wilayah": "Pusat gempa berada di laut 30 km timur laut Mbay, Nagekeo",
+   "potensi": "",
+   "dirasakan": "III Bajawa, III Maumere, II - III Ruteng"
+  },
+  {
    "waktu_wib": "19:47:26 WIB",
    "tanggal": "25 Okt 2026",
    "datetime_utc": "2026-10-25T12:47:26+00:00",
@@ -349,18 +361,6 @@
    "wilayah": "Pusat gempa berada di laut 60 km timur laut Labuan Bajo",
    "potensi": "",
    "dirasakan": "IV-V Kab. Manggarai, III Kab. Manggarai Barat, II-III Kab. Bima, II-III Kota Bima, I-II Kab. Nagekeo"
-  },
-  {
-   "waktu_wib": "22:45:27 WIB",
-   "tanggal": "17 Okt 2026",
-   "datetime_utc": "2026-10-17T15:45:27+00:00",
-   "lat": -1.98,
-   "lon": 121.33,
-   "mag": 2.6,
-   "depth_km": 5.0,
-   "wilayah": "Pusat gempa berada di darat 39 km selatan Morowali Utara",
-   "potensi": "",
-   "dirasakan": "II - III Kolonodale"
   }
  ]
 }

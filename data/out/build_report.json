@@ -1,11 +1,11 @@
 {
- "raw_events": 12693,
- "kept_events": 10520,
+ "raw_events": 12694,
+ "kept_events": 10521,
  "dropped_outside_indonesia": 2173,
  "accounting_ok": true,
  "rows_by_file": {
   "usgs_idn_m5plus_1976_2026.csv": 12689,
-  "usgs_append.csv": 4
+  "usgs_append.csv": 5
  },
  "dropped_breakdown": {
   "Philippines": 1232,
@@ -21,7 +21,7 @@
   "Brunei": 1
  },
  "kept_breakdown": {
-  "Indonesia": 10178,
+  "Indonesia": 10179,
   "Banda Sea": 297,
   "Molucca Sea": 30,
   "Flores Sea": 4,
@@ -33,6 +33,6 @@
   "Arafura Sea": 1
  },
  "first_event": "1976-01-04T03:56:55Z",
- "last_event": "2026-10-26T04:53:40Z",
+ "last_event": "2026-10-27T14:44:00Z",
  "provinces": 38
 }

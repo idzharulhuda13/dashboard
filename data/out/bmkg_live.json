@@ -1,6 +1,30 @@
 {
  "latest": [
   {
+   "waktu_wib": "08:11:54 WIB",
+   "tanggal": "28 Okt 2026",
+   "datetime_utc": "2026-10-28T01:11:54+00:00",
+   "lat": 5.59,
+   "lon": 125.27,
+   "mag": 5.4,
+   "depth_km": 10.0,
+   "wilayah": "221 km BaratLaut PULAUKARATUNG-SULUT",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
+   "waktu_wib": "21:43:13 WIB",
+   "tanggal": "27 Okt 2026",
+   "datetime_utc": "2026-10-27T14:43:13+00:00",
+   "lat": -9.2,
+   "lon": 110.39,
+   "mag": 5.4,
+   "depth_km": 10.0,
+   "wilayah": "136 km BaratDaya GUNUNGKIDUL-DIY",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
    "waktu_wib": "17:57:49 WIB",
    "tanggal": "22 Okt 2026",
    "datetime_utc": "2026-10-22T10:57:49+00:00",
@@ -155,33 +179,21 @@
    "wilayah": "111 km Tenggara SELAYAR-SULSEL",
    "potensi": "Tidak berpotensi tsunami",
    "dirasakan": ""
-  },
-  {
-   "waktu_wib": "06:48:13 WIB",
-   "tanggal": "22 Sep 2026",
-   "datetime_utc": "2026-09-21T23:48:13+00:00",
-   "lat": 4.74,
-   "lon": 125.3,
-   "mag": 5.2,
-   "depth_km": 10.0,
-   "wilayah": "127 km BaratLaut TAHUNA-KEP.SANGIHE-SULUT",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
-  },
-  {
-   "waktu_wib": "14:31:07 WIB",
-   "tanggal": "21 Sep 2026",
-   "datetime_utc": "2026-09-21T07:31:07+00:00",
-   "lat": -0.7,
-   "lon": 122.45,
-   "mag": 5.3,
-   "depth_km": 10.0,
-   "wilayah": "26 km BaratDaya PULAUPUAH-SULTENG",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
   }
  ],
  "felt": [
+  {
+   "waktu_wib": "21:43:13 WIB",
+   "tanggal": "27 Okt 2026",
+   "datetime_utc": "2026-10-27T14:43:13+00:00",
+   "lat": -9.2,
+   "lon": 110.39,
+   "mag": 5.4,
+   "depth_km": 10.0,
+   "wilayah": "Pusat gempa berada di laut 137 km Selatan Gunungkidul",
+   "potensi": "",
+   "dirasakan": "II Bantul, II Sleman, II Wonogiri, II Kulon Progo, II Sukoharjo, II Trenggalek, II Nganjuk, II Pacitan, II Klaten, II Kediri, II Ponorogo, II Banjarnegara, II Lumajang, II Blitar"
+  },
   {
    "waktu_wib": "11:53:42 WIB",
    "tanggal": "26 Okt 2026",
@@ -349,18 +361,6 @@
    "wilayah": "Pusat gempa berada di laut 56 km utara Ruteng",
    "potensi": "",
    "dirasakan": "II-III Kab. Manggarai"
-  },
-  {
-   "waktu_wib": "15:00:08 WIB",
-   "tanggal": "18 Okt 2026",
-   "datetime_utc": "2026-10-18T08:00:08+00:00",
-   "lat": -8.09,
-   "lon": 120.26,
-   "mag": 5.3,
-   "depth_km": 10.0,
-   "wilayah": "Pusat gempa berada di laut 60 km timur laut Labuan Bajo",
-   "potensi": "",
-   "dirasakan": "IV-V Kab. Manggarai, III Kab. Manggarai Barat, II-III Kab. Bima, II-III Kota Bima, I-II Kab. Nagekeo"
   }
  ]
 }

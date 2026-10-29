@@ -1,6 +1,30 @@
 {
  "latest": [
   {
+   "waktu_wib": "05:06:47 WIB",
+   "tanggal": "29 Okt 2026",
+   "datetime_utc": "2026-10-28T22:06:47+00:00",
+   "lat": -6.34,
+   "lon": 130.52,
+   "mag": 6.4,
+   "depth_km": 160.0,
+   "wilayah": "201 km BaratLaut TANIMBAR",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
+   "waktu_wib": "16:32:49 WIB",
+   "tanggal": "28 Okt 2026",
+   "datetime_utc": "2026-10-28T09:32:49+00:00",
+   "lat": 5.3,
+   "lon": 125.42,
+   "mag": 5.0,
+   "depth_km": 10.0,
+   "wilayah": "187 km BaratLaut TAHUNA-KEP.SANGIHE-SULUT",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
    "waktu_wib": "08:11:54 WIB",
    "tanggal": "28 Okt 2026",
    "datetime_utc": "2026-10-28T01:11:54+00:00",
@@ -155,33 +179,45 @@
    "wilayah": "68 km BaratDaya CALANG-ACEHJAYA",
    "potensi": "Tidak berpotensi tsunami",
    "dirasakan": ""
-  },
-  {
-   "waktu_wib": "05:55:52 WIB",
-   "tanggal": "04 Okt 2026",
-   "datetime_utc": "2026-10-03T22:55:52+00:00",
-   "lat": -9.7,
-   "lon": 118.92,
-   "mag": 6.1,
-   "depth_km": 10.0,
-   "wilayah": "14 km BaratDaya KODI-SUMBABARATDAYA-NTT",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
-  },
-  {
-   "waktu_wib": "21:20:00 WIB",
-   "tanggal": "01 Okt 2026",
-   "datetime_utc": "2026-10-01T14:20:00+00:00",
-   "lat": -7.07,
-   "lon": 120.8,
-   "mag": 5.1,
-   "depth_km": 10.0,
-   "wilayah": "111 km Tenggara SELAYAR-SULSEL",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
   }
  ],
  "felt": [
+  {
+   "waktu_wib": "05:06:47 WIB",
+   "tanggal": "29 Okt 2026",
+   "datetime_utc": "2026-10-28T22:06:47+00:00",
+   "lat": -6.34,
+   "lon": 130.52,
+   "mag": 6.4,
+   "depth_km": 160.0,
+   "wilayah": "Pusat gempa berada di laut 60 km Baratlaut Larat-Kep.Tanimbar",
+   "potensi": "",
+   "dirasakan": "II - III Banda Naira, II - III Tanimbar, II - III Kaimana, II - III Sorong"
+  },
+  {
+   "waktu_wib": "18:59:15 WIB",
+   "tanggal": "28 Okt 2026",
+   "datetime_utc": "2026-10-28T11:59:15+00:00",
+   "lat": -5.4,
+   "lon": 104.66,
+   "mag": 3.4,
+   "depth_km": 4.0,
+   "wilayah": "Pusat gempa berada di darat 10 km Utara Tanggamus",
+   "potensi": "",
+   "dirasakan": "II Kotaagung, II Sumberejo, II Ulu Belu, II Talang Padang, II Pulau Panggung, II Sukoharjo"
+  },
+  {
+   "waktu_wib": "15:23:46 WIB",
+   "tanggal": "28 Okt 2026",
+   "datetime_utc": "2026-10-28T08:23:46+00:00",
+   "lat": -5.45,
+   "lon": 104.62,
+   "mag": 4.7,
+   "depth_km": 10.0,
+   "wilayah": "Pusat gempa berada di darat 8 km Barat Laut Tanggamus",
+   "potensi": "",
+   "dirasakan": "III Kotaagung, II Kotabumi, II Pringsewu, II Ulu Belu, II Gisting, II Sumberejo, II Kotaagung Timur"
+  },
   {
    "waktu_wib": "21:43:13 WIB",
    "tanggal": "27 Okt 2026",
@@ -325,42 +361,6 @@
    "wilayah": "Pusat gempa berada di laut 60 km Utara Labuanbajo",
    "potensi": "",
    "dirasakan": "II Kab. Manggarai"
-  },
-  {
-   "waktu_wib": "17:10:56 WIB",
-   "tanggal": "19 Okt 2026",
-   "datetime_utc": "2026-10-19T10:10:56+00:00",
-   "lat": -7.97,
-   "lon": 120.06,
-   "mag": 4.7,
-   "depth_km": 5.0,
-   "wilayah": "Pusat gempa berada di laut 61 km utara Labuan Bajo",
-   "potensi": "",
-   "dirasakan": "II Kab. Manggarai"
-  },
-  {
-   "waktu_wib": "16:45:57 WIB",
-   "tanggal": "19 Okt 2026",
-   "datetime_utc": "2026-10-19T09:45:57+00:00",
-   "lat": -8.12,
-   "lon": 120.05,
-   "mag": 4.8,
-   "depth_km": 19.0,
-   "wilayah": "Pusat gempa berada di laut 45 km timur laut Labuan Bajo",
-   "potensi": "",
-   "dirasakan": "I-II Kab. Manggarai"
-  },
-  {
-   "waktu_wib": "15:02:46 WIB",
-   "tanggal": "18 Okt 2026",
-   "datetime_utc": "2026-10-18T08:02:46+00:00",
-   "lat": -8.14,
-   "lon": 120.29,
-   "mag": 4.1,
-   "depth_km": 5.0,
-   "wilayah": "Pusat gempa berada di laut 56 km utara Ruteng",
-   "potensi": "",
-   "dirasakan": "II-III Kab. Manggarai"
   }
  ]
 }

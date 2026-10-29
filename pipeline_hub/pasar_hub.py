@@ -13,8 +13,25 @@ angka atau koordinat yang diketik tangan.
 
 from __future__ import annotations
 
+import importlib.util
 import json
 import os
+
+# Satu sumber format tanggal: pasar/dateline.py dipakai halaman pasar, hub, dan builder gempa.
+_spec = importlib.util.spec_from_file_location(
+    "pasar_dateline",
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "pasar", "dateline.py"),
+)
+assert _spec and _spec.loader, "pasar/dateline.py tidak bisa dimuat"
+_dateline = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_dateline)
+long_date = _dateline.long_date
+short_date = _dateline.short_date
+
+
+def stamp(html: str, iso: str) -> str:
+    """Selaraskan strip "Data per <tanggal>" dengan tanggal data yang ditampilkan."""
+    return _dateline.stamp(html, iso)
 
 PAGES = (
     ("pasar_ihsg", "pasar/ihsg.html", "data/pasar/ihsg.json"),
@@ -141,6 +158,7 @@ def load(root: str) -> dict:
 
     ihsg_fig = ihsg["fig"]
     rupiah_fig = rupiah["fig"]
+    ihsg_as_of, rupiah_as_of, msci_as_of = ihsg["meta"]["as_of"], rupiah["meta"]["as_of"], msci["meta"]["as_of"]
 
     sectors = msci.get("sectors") or []
     fin = next((s for s in sectors if s.get("sector") == "Financials"), None)
@@ -170,6 +188,15 @@ def load(root: str) -> dict:
         "pasar_msci_top5": {"r": round(sum(c["weight_pct"] for c in constituents[:5]), 2),
                             "d": fmt_id(sum(c["weight_pct"] for c in constituents[:5]), 2) + "%"},
         "pasar_msci_bca": {"r": constituents[0]["weight_pct"], "d": fmt_id(constituents[0]["weight_pct"], 2) + "%"},
+        # Tanggal dan jumlah yang tampil di kartu hub. Dulu semuanya ditulis mati di template,
+        # jadi kartu mengaku "Terakhir 21 Okt" sambil menampilkan angka 29 Okt.
+        "pasar_ihsg_asof_short": {"r": ihsg_as_of, "d": short_date(ihsg_as_of)},
+        "pasar_ihsg_asof_long": {"r": ihsg_as_of, "d": long_date(ihsg_as_of)},
+        "pasar_ihsg_sessions": {"r": len(ihsg["series"]), "d": str(len(ihsg["series"]))},
+        "pasar_rupiah_asof_long": {"r": rupiah_as_of, "d": long_date(rupiah_as_of)},
+        "pasar_rupiah_points": {"r": len(rupiah["series"]), "d": str(len(rupiah["series"]))},
+        "pasar_rupiah_obs": {"r": int(rupiah_fig["n_obs"]), "d": str(int(rupiah_fig["n_obs"]))},
+        "pasar_msci_asof_long": {"r": msci_as_of, "d": long_date(msci_as_of)},
     }
 
     ihsg_series = [row["close"] for row in ihsg["series"]]
@@ -183,7 +210,7 @@ def load(root: str) -> dict:
             label_hi=ihsg_fig["peak_value"]["d"],
             label_lo=ihsg_fig["last_value"]["d"],
             tick_left="2 Jan",
-            tick_right="21 Okt",
+            tick_right=short_date(ihsg_as_of),
             mark_hi=peak_idx,
         ),
         "pasar_rupiah": _line_svg(
@@ -191,7 +218,7 @@ def load(root: str) -> dict:
             label_hi=rupiah_fig["last"]["d"],
             label_lo=rupiah_fig["first"]["d"],
             tick_left="31 Des",
-            tick_right="21 Okt",
+            tick_right=short_date(rupiah_as_of),
             mark_hi=rupiah_peak_idx,
         ),
         "pasar_msci": _bar_svg(

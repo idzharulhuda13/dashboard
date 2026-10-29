@@ -249,6 +249,7 @@ def main() -> int:
         "n_same": str(len(payload["same_dir"])),
         "oct_fx": pct(fig["oct_fx_pct"]),
         "oct_ihsg": pct(fig["oct_ihsg_pct"]),
+        "oct_month_label": fig.get("month_label", "Oktober"),
         "payload_sha": payload_sha,
     }
 

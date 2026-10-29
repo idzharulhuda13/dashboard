@@ -56,7 +56,6 @@ def main():
             raise RuntimeError(f"Missing or unreadable input file: {name} ({p})")
 
     pasar = pasar_hub.load(ROOT)
-    pasar_asof_long = {"ihsg": "21 Oktober 2026", "rupiah": "21 Oktober 2026", "msci": "30 September 2026"}
 
     if len(font_paths) != 5:
         raise RuntimeError(f"Expected 5 font files in {fonts_dir}, found {len(font_paths)}")
@@ -319,12 +318,6 @@ def main():
     ]
     seo_block = "\n".join(seo_lines)
 
-    for key, long_form in pasar_asof_long.items():
-        as_of = pasar["as_of"][key]
-        expected_long = {"2026-10-21": "21 Oktober 2026", "2026-09-30": "30 September 2026"}.get(as_of)
-        if expected_long and expected_long != long_form:
-            raise RuntimeError(f"tanggal pelat pasar {key} tidak cocok: payload {as_of}, template {long_form}")
-
     fig = {
         "prof_math_idn": {"v": prof_sums["mathematics"]["idn"], "d": prof_sums["mathematics"]["idn_d"]},
         "prof_math_oecd": {"v": prof_sums["mathematics"]["oecd"], "d": prof_sums["mathematics"]["oecd_d"]},
@@ -334,6 +327,7 @@ def main():
         "prof_scie_oecd": {"v": prof_sums["science"]["oecd"], "d": prof_sums["science"]["oecd_d"]},
         **exp_fig,
         **pasar["fig"],
+        "gempa_asof_long": {"v": span_last_wib, "d": pasar_hub.long_date(span_last_wib[:10])},
     }
 
     prof_bars = [
@@ -439,6 +433,11 @@ def main():
         raise RuntimeError(f"{html_rendered.count('data-fig=')} slot data-fig tapi {n_fig} terisi")
 
     html_rendered = pasar["inject"](html_rendered)
+
+    # Strip hub memakai tanggal data terbaru yang benar-benar tampil di kartu-kartunya,
+    # bukan tanggal snapshot yang dibekukan di template.
+    hub_as_of = max([gempa_lastmod] + list(pasar["as_of"].values()))
+    html_rendered = pasar_hub.stamp(html_rendered, hub_as_of)
 
     final_html = stamp_line + html_rendered
 

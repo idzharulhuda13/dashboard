@@ -378,6 +378,15 @@ def check_5_skeleton(index_path: str, template_path: str):
     # check_4 yang memastikan nilai di halaman benar-benar sama dengan payload.
     reconstructed = re.sub(r'(data-fig="[^"]+"[^>]*>)[^<]*(<)', r'\1__FIGVAL__\2', reconstructed)
     template_skeleton = re.sub(r'(data-fig="[^"]+"[^>]*>)[^<]*(<)', r'\1__FIGVAL__\2', template_skeleton)
+
+    # Strip "Data per" ikut ditulis ulang builder dari tanggal data terbaru, jadi nilai
+    # data-as-of tidak dibandingkan di sini; check_1 yang mengunci kesegarannya.
+    as_of_norm = r'(data-dateline[\s\S]{0,300}?data-as-of=")[^"]*(")'
+    reconstructed = re.sub(as_of_norm, r'\1__ASOF__\2', reconstructed)
+    template_skeleton = re.sub(as_of_norm, r'\1__ASOF__\2', template_skeleton)
+    text_norm = r'(<span data-dateline-text>)[^<]*(</span>)'
+    reconstructed = re.sub(text_norm, r'\1__DATELINE__\2', reconstructed)
+    template_skeleton = re.sub(text_norm, r'\1__DATELINE__\2', template_skeleton)
     if reconstructed == template_skeleton:
         return True, "page skeleton matches hub.template.html byte for byte after collapsing injected regions"
 

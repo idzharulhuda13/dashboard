@@ -399,7 +399,7 @@ body {
   </style>
 </head>
 <body>
-  <div class="dateline-strip" data-dateline data-cadence="daily" data-as-of="2026-10-20" data-fixed="1" style="font:500 12px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;opacity:.62;padding:10px 20px;text-align:center;border-bottom:1px solid currentColor"><span data-dateline-text>Data per 20 Oktober 2026</span></div>
+  <div class="dateline-strip" data-dateline data-cadence="daily" data-as-of="2026-10-20" style="font:500 12px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;opacity:.62;padding:10px 20px;text-align:center;border-bottom:1px solid currentColor"><span data-dateline-text>Data per 20 Oktober 2026</span></div>
   <script>
   /* dateline.js: satu definisi untuk "Data per <tanggal>" di semua dashboard.
    *
@@ -539,7 +539,7 @@ body {
               <a href="/gempa/" class="entry-link-title">Setengah Abad Gempa Indonesia</a>
             </h2>
             <p class="entry-line">Gempa berkekuatan 5 atau lebih yang tercatat di wilayah Indonesia sejak 1976, dari katalog USGS.</p>
-            <p class="entry-fact">Datanya append-only, dan halamannya dibangun ulang setiap hari. <span style="white-space:nowrap">Data per 20 Oktober 2026.</span></p>
+            <p class="entry-fact">Datanya append-only, dan halamannya dibangun ulang setiap hari. <span style="white-space:nowrap">Data per <span data-fig="gempa_asof_long">20 Oktober 2026</span>.</span></p>
             <p class="entry-nav">
               <a href="/gempa/" class="entry-link-btn">Buka pelat /gempa/</a>
             </p>
@@ -671,7 +671,7 @@ body {
               <a href="/pasar/ihsg.html" class="entry-link-title">IHSG 2026: Turun Sepanjang Tahun</a>
             </h2>
             <p class="entry-line">Titik terendah 19 Oktober di <span data-fig="pasar_ihsg_trough">4.996,61</span>: <span data-fig="pasar_ihsg_trough_dd">-45,30%</span> dari puncak 20 Januari dalam 177 hari, lalu naik <span data-fig="pasar_ihsg_rebound">6,64%</span> di dua sesi terakhir.</p>
-            <p class="entry-fact">Harga penutupan harian, Refinitiv sampai 16 Oktober 2026 lalu job harian IDX:COMPOSITE. <span style="white-space:nowrap">Data per 21 Oktober 2026.</span></p>
+            <p class="entry-fact">Harga penutupan harian, Refinitiv sampai 16 Oktober 2026 lalu job harian IDX:COMPOSITE. <span style="white-space:nowrap">Data per <span data-fig="pasar_ihsg_asof_long">21 Oktober 2026</span>.</span></p>
             <p class="entry-nav">
               <a href="/pasar/ihsg.html" class="entry-link-btn">Buka pelat /pasar/ihsg.html</a>
             </p>
@@ -681,12 +681,12 @@ body {
               <div class="window" role="img" aria-label="Garis IHSG 2026 dari puncak Januari ke titik terendah Oktober"><!--FIG:pasar_ihsg--></div>
               <figcaption class="window-caption">
                 <div class="caption-head">
-                  <span class="caption-title">IHSG, 191 sesi</span>
+                  <span class="caption-title">IHSG, <span data-fig="pasar_ihsg_sessions">191</span> sesi</span>
                   <span class="caption-legend">harga penutupan</span>
                 </div>
                 <div class="metric-group">
                   <div class="metric-row"><span class="metric-name">Puncak 20 Jan</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_ihsg_peak">9.134,70</span></span></div>
-                  <div class="metric-row"><span class="metric-name">Terakhir 21 Okt</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_ihsg_last">5.328,36</span></span></div>
+                  <div class="metric-row"><span class="metric-name">Terakhir <span data-fig="pasar_ihsg_asof_short">21 Okt</span></span><span class="metric-values"><span class="val-pasar" data-fig="pasar_ihsg_last">5.328,36</span></span></div>
                 </div>
               </figcaption>
             </figure>
@@ -703,8 +703,8 @@ body {
             <h2 class="entry-name">
               <a href="/pasar/rupiah.html" class="entry-link-title">Rupiah: Sembilan dari Sepuluh Bulan Melemah</a>
             </h2>
-            <p class="entry-line">USD/IDR naik dari <span data-fig="pasar_rupiah_first">16.716</span> ke <span data-fig="pasar_rupiah_last">18.043</span>, dan bergerak berlawanan dengan IHSG: korelasi <span data-fig="pasar_rupiah_corr">-0,417</span> dari 180 hari return.</p>
-            <p class="entry-fact">Kurs referensi ECB lewat Frankfurter, 207 titik harian. <span style="white-space:nowrap">Data per 21 Oktober 2026.</span></p>
+            <p class="entry-line">USD/IDR naik dari <span data-fig="pasar_rupiah_first">16.716</span> ke <span data-fig="pasar_rupiah_last">18.043</span>, dan bergerak berlawanan dengan IHSG: korelasi <span data-fig="pasar_rupiah_corr">-0,417</span> dari <span data-fig="pasar_rupiah_obs">180</span> hari return.</p>
+            <p class="entry-fact">Kurs referensi ECB lewat Frankfurter, <span data-fig="pasar_rupiah_points">207</span> titik harian. <span style="white-space:nowrap">Data per <span data-fig="pasar_rupiah_asof_long">21 Oktober 2026</span>.</span></p>
             <p class="entry-nav">
               <a href="/pasar/rupiah.html" class="entry-link-btn">Buka pelat /pasar/rupiah.html</a>
             </p>
@@ -714,7 +714,7 @@ body {
               <div class="window" role="img" aria-label="Garis USD/IDR sepanjang 2026 yang naik, artinya rupiah melemah"><!--FIG:pasar_rupiah--></div>
               <figcaption class="window-caption">
                 <div class="caption-head">
-                  <span class="caption-title">USD/IDR, 207 titik</span>
+                  <span class="caption-title">USD/IDR, <span data-fig="pasar_rupiah_points">207</span> titik</span>
                   <span class="caption-legend">naik = rupiah melemah</span>
                 </div>
                 <div class="metric-group">
@@ -737,7 +737,7 @@ body {
               <a href="/pasar/msci.html" class="entry-link-title">MSCI Indonesia: Lima Nama, 85,58% Bobot</a>
             </h2>
             <p class="entry-line">Lima saham teratas mengisi <span data-fig="pasar_msci_top5">85,58%</span> bobot indeks versi USD: Bank Central Asia sendirian <span data-fig="pasar_msci_bca">31,41%</span>, perbankan <span data-fig="pasar_msci_fin">71,71%</span>.</p>
-            <p class="entry-fact">Factsheet MSCI Indonesia Index (USD, net): 9 konstituen, bobot penuh 100%. <span style="white-space:nowrap">Data per 30 September 2026.</span></p>
+            <p class="entry-fact">Factsheet MSCI Indonesia Index (USD, net): 9 konstituen, bobot penuh 100%. <span style="white-space:nowrap">Data per <span data-fig="pasar_msci_asof_long">30 September 2026</span>.</span></p>
             <p class="entry-nav">
               <a href="/pasar/msci.html" class="entry-link-btn">Buka pelat /pasar/msci.html</a>
             </p>

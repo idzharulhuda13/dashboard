@@ -52,6 +52,7 @@ def iso_from(text: str | None) -> str | None:
 def main() -> int:
     today = dt.date.today()
     problems: list[str] = []
+    notes: list[str] = []
     rows: list[str] = []
 
     for page_rel, payload_rel, keys, cadence, limit in PAGES:
@@ -66,15 +67,17 @@ def main() -> int:
                 f"{page_rel}: masih merujuk /assets/dateline.js dari luar, harus ditanam inline"
             )
 
-        m = re.search(r'data-dateline[^>]*data-cadence="([^"]+)"[^>]*data-as-of="([^"]*)"', html)
+        m = re.search(r"<div[^>]*data-dateline[^>]*>", html)
         if not m:
-            m2 = re.search(r'data-dateline[\s\S]{0,400}?data-as-of="([^"]*)"', html)
-            if not m2:
-                problems.append(f"{page_rel}: strip dateline tidak ada")
-                continue
-            shown = iso_from(m2.group(1))
-        else:
-            shown = iso_from(m.group(2))
+            problems.append(f"{page_rel}: strip dateline tidak ada")
+            continue
+        tag = m.group(0)
+        attrs = dict(re.findall(r'data-([a-z-]+)="([^"]*)"', tag))
+        shown = iso_from(attrs.get("as-of"))
+        # data-fixed = tanggal sengaja dibekukan (mis. hub: tanggal snapshot cerita, bukan data
+        # yang menua). Halaman seperti itu tidak pernah "berhenti" umurnya; yang tetap dicek
+        # adalah keberadaan strip dan konsistensi dengan payload kalau ada.
+        frozen = 'data-fixed' in tag
 
         source = shown
         if payload_rel and keys:
@@ -88,6 +91,11 @@ def main() -> int:
 
         if not source:
             problems.append(f"{page_rel}: tanggal data tidak diketahui")
+            continue
+
+        if frozen:
+            notes.append(f"{page_rel}: dateline dikunci di {source} (data-fixed=1)")
+            rows.append(f"{page_rel:26} {source}  {'dikunci':>10}  {cadence:8} batas   -  DIKUNCI")
             continue
 
         age = (today - dt.date.fromisoformat(source)).days
@@ -109,6 +117,9 @@ def main() -> int:
     print("Dashboard freshness, data per tanggal terakhir:")
     for row in rows:
         print("  " + row)
+
+    for note in notes:
+        print("  catatan: " + note)
 
     if problems:
         print(f"\n{len(problems)} masalah:")

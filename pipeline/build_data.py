@@ -8,7 +8,8 @@ no network, no randomness.
 import base64
 from collections import Counter
 import csv
-from datetime import date, datetime
+import importlib.util
+from datetime import date, datetime, timedelta
 import hashlib
 import json
 import os
@@ -693,6 +694,18 @@ def main():
             raise RuntimeError(f"data-fig key '{k}' is not in payload fig data")
 
     # Prepend BUILD stamp on line 1
+    # Strip "Data per <tanggal>" ditulis ulang dari tanggal gempa terakhir (WIB), bukan dibiarkan
+    # seperti di template: template statis membuat halaman mengaku "data per 20 Oktober" selamanya
+    # padahal harvest menambah gempa tiap hari.
+    spec = importlib.util.spec_from_file_location(
+        "pasar_dateline", os.path.join(ROOT, "pasar", "dateline.py"))
+    assert spec and spec.loader, "pasar/dateline.py tidak bisa dimuat"
+    dateline = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(dateline)
+
+    as_of_wib = (t_last + timedelta(hours=7)).date().isoformat()
+    html_rendered = dateline.stamp(html_rendered, as_of_wib)
+
     stamp_line = f"<!--BUILD sha256:{template_sha256}-->\n"
     final_html = stamp_line + html_rendered
 

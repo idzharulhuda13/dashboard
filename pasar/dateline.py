@@ -18,6 +18,11 @@ def long_date(iso: str) -> str:
     return f"{int(iso[8:10])} {MONTHS[int(iso[5:7]) - 1]} {iso[:4]}"
 
 
+def short_date(iso: str) -> str:
+    """Tanggal ringkas untuk label sumbu: '29 Okt'."""
+    return f"{int(iso[8:10])} {MONTHS[int(iso[5:7]) - 1][:3]}"
+
+
 def stamp(html: str, iso: str) -> str:
     """Selaraskan data-as-of dan teks strip di HTML dengan tanggal payload."""
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", iso or ""):

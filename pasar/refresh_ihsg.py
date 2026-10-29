@@ -41,22 +41,39 @@ TV_BODY = json.dumps({
 MARKET_CLOSE = dtime(16, 0)
 
 
-def update_sitemap(date_str: str) -> None:
-    """Perbarui lastmod entri pasar/ihsg.html di sitemap."""
-    path = ROOT / "sitemap.xml"
-    if not path.exists():
-        return
-    text = path.read_text(encoding="utf-8")
-    entry = f"https://dashboard.idzharulhuda.com/pasar/ihsg.html"
-    if entry not in text:
-        return
-    text = re.sub(
-        r"(<loc>" + re.escape(entry) + r"</loc><lastmod>)[^<]*(</lastmod>)",
-        r"\g<1>" + date_str + r"\g<2>",
-        text,
-    )
-    path.write_text(text, encoding="utf-8")
-    log(f"sitemap lastmod -> {date_str}")
+def refresh_hub() -> int:
+    """Bangun ulang hub index.html + sitemap.xml + gambar OG supaya stamp dan lastmod ikut data
+    terbaru.
+
+    sitemap.xml dan gambar OG di-generate oleh pipeline_hub/build_hub.py + pipeline/build_og.py;
+    menambal satu baris lastmod di sini akan bentrok tiap kali rebase dan bikin lastmod basi untuk
+    halaman lain.
+    """
+    build = subprocess.run([sys.executable, str(ROOT / "pipeline_hub" / "build_hub.py")],
+                           cwd=ROOT, capture_output=True, text=True)
+    if build.returncode != 0:
+        print(build.stdout, build.stderr, file=sys.stderr)
+        log("FATAL: build_hub gagal; hub + sitemap tidak diperbarui")
+        return 7
+    og = subprocess.run([sys.executable, str(ROOT / "pipeline" / "build_og.py")],
+                        cwd=ROOT, capture_output=True, text=True)
+    if og.returncode != 0:
+        print(og.stdout[-2000:], og.stderr[-2000:], file=sys.stderr)
+        log(f"FATAL: build_og gagal (exit {og.returncode}); gambar OG basi")
+        return 7
+    ver = subprocess.run([sys.executable, str(ROOT / "pipeline_hub" / "verify.py")],
+                         cwd=ROOT, capture_output=True, text=True)
+    tail = [l for l in ver.stdout.splitlines() if l.startswith(("FAIL", "TOTAL"))]
+    log("hub: " + (" | ".join(tail) if tail else f"verify exit {ver.returncode}"))
+    if ver.returncode != 0:
+        print("\n".join(tail), file=sys.stderr)
+        log("FATAL: verify hub gagal setelah build")
+        return 7
+    return 0
+
+
+def git(*args: str) -> subprocess.CompletedProcess:
+    return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True)
 
 
 def log(msg: str) -> None:
@@ -183,21 +200,37 @@ def main() -> int:
             return 5
 
     if args.push:
-        update_sitemap(session_date)
+        # Ada penulis lain di repo yang sama (GitHub Actions publish gempa tiap 06.30 WIB).
+        # Majukan dulu, jangan pernah menimpa riwayat orang; konflik = manusia yang lihat.
+        pull = git("pull", "--rebase", "--autostash", "origin", "main")
+        if pull.returncode != 0:
+            print(pull.stdout, pull.stderr, file=sys.stderr)
+            log("FATAL: git pull --rebase gagal; tidak push")
+            return 6
+
+        rc_hub = refresh_hub()
+
         msg = f"IHSG harian: tambah sesi {session_date} ({q['change_pct']:+.2f}%)"
-        subprocess.run(["git", "add", "data/pasar", "pasar/ihsg.html", "sitemap.xml"], cwd=ROOT)
-        staged = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=ROOT)
-        cmds = [["git", "push", "origin", "HEAD"]] if staged.returncode == 0 else \
-               [["git", "commit", "-m", msg], ["git", "push", "origin", "HEAD"]]
+        git("add", "data/pasar/ihsg.json", "data/pasar/source/ihsg-appended.jsonl",
+            "pasar/ihsg.html", "index.html", "sitemap.xml")
+        staged = git("diff", "--cached", "--quiet")
         if staged.returncode == 0:
             log("tidak ada perubahan untuk di-commit")
-        for cmd in cmds:
-            r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
-            if r.returncode != 0:
-                print(r.stdout, r.stderr, file=sys.stderr)
-                log(f"FATAL: {' '.join(cmd)} gagal")
+        else:
+            c = git("commit", "-m", msg)
+            if c.returncode != 0:
+                print(c.stdout, c.stderr, file=sys.stderr)
+                log("FATAL: git commit gagal")
                 return 6
+            log(f"commit: {msg}")
+        p = git("push", "origin", "HEAD:main")
+        if p.returncode != 0:
+            print(p.stdout, p.stderr, file=sys.stderr)
+            log("FATAL: git push gagal")
+            return 6
         log("push selesai")
+        if rc_hub != 0:
+            return rc_hub
 
     log("selesai")
     return 0

@@ -1,6 +1,30 @@
 {
  "latest": [
   {
+   "waktu_wib": "03:32:13 WIB",
+   "tanggal": "30 Okt 2026",
+   "datetime_utc": "2026-10-29T20:32:13+00:00",
+   "lat": -4.4,
+   "lon": 132.49,
+   "mag": 5.3,
+   "depth_km": 10.0,
+   "wilayah": "139 km BaratLaut TUAL-MALUKU",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
+   "waktu_wib": "10:26:49 WIB",
+   "tanggal": "29 Okt 2026",
+   "datetime_utc": "2026-10-29T03:26:49+00:00",
+   "lat": -5.45,
+   "lon": 141.9,
+   "mag": 6.0,
+   "depth_km": 120.0,
+   "wilayah": "153 km Tenggara OKSIBIL-PAPUAPGNGN",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
    "waktu_wib": "05:06:47 WIB",
    "tanggal": "29 Okt 2026",
    "datetime_utc": "2026-10-28T22:06:47+00:00",
@@ -155,33 +179,33 @@
    "wilayah": "9 km Tenggara LOMBOKBARAT-NTB",
    "potensi": "Tidak berpotensi tsunami",
    "dirasakan": ""
-  },
-  {
-   "waktu_wib": "20:11:23 WIB",
-   "tanggal": "06 Okt 2026",
-   "datetime_utc": "2026-10-06T13:11:23+00:00",
-   "lat": 4.94,
-   "lon": 118.77,
-   "mag": 5.3,
-   "depth_km": 10.0,
-   "wilayah": "219 km TimurLaut TARAKAN-KALTARA",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
-  },
-  {
-   "waktu_wib": "06:37:31 WIB",
-   "tanggal": "04 Okt 2026",
-   "datetime_utc": "2026-10-03T23:37:31+00:00",
-   "lat": 4.56,
-   "lon": 94.97,
-   "mag": 5.9,
-   "depth_km": 26.0,
-   "wilayah": "68 km BaratDaya CALANG-ACEHJAYA",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
   }
  ],
  "felt": [
+  {
+   "waktu_wib": "01:58:30 WIB",
+   "tanggal": "30 Okt 2026",
+   "datetime_utc": "2026-10-29T18:58:30+00:00",
+   "lat": 4.18,
+   "lon": 97.55,
+   "mag": 4.3,
+   "depth_km": 5.0,
+   "wilayah": "Pusat gempa berada di darat 31 km Timur Laut Kabupaten Gayolues",
+   "potensi": "",
+   "dirasakan": "III Takengon"
+  },
+  {
+   "waktu_wib": "10:26:49 WIB",
+   "tanggal": "29 Okt 2026",
+   "datetime_utc": "2026-10-29T03:26:49+00:00",
+   "lat": -5.45,
+   "lon": 141.9,
+   "mag": 6.0,
+   "depth_km": 120.0,
+   "wilayah": "Pusat gempa berada di darat 153 km tenggara Oksibil",
+   "potensi": "",
+   "dirasakan": "III Boven Digoel, II Jayapura, II Merauke"
+  },
   {
    "waktu_wib": "05:06:47 WIB",
    "tanggal": "29 Okt 2026",
@@ -337,30 +361,6 @@
    "wilayah": "Pusat gempa berada di darat 30km Barat Daya Kab. Kupang",
    "potensi": "",
    "dirasakan": "III Kab. Kupang, III Kota Kupang"
-  },
-  {
-   "waktu_wib": "20:46:11 WIB",
-   "tanggal": "19 Okt 2026",
-   "datetime_utc": "2026-10-19T13:46:11+00:00",
-   "lat": 4.16,
-   "lon": 97.51,
-   "mag": 4.2,
-   "depth_km": 5.0,
-   "wilayah": "Pusat gempa berada di darat 26 km Timur Laut Kab. Gayo Lues",
-   "potensi": "",
-   "dirasakan": "III Kab. Gayo Lues, II Aceh Timur"
-  },
-  {
-   "waktu_wib": "19:06:02 WIB",
-   "tanggal": "19 Okt 2026",
-   "datetime_utc": "2026-10-19T12:06:02+00:00",
-   "lat": -7.99,
-   "lon": 120.09,
-   "mag": 4.5,
-   "depth_km": 6.0,
-   "wilayah": "Pusat gempa berada di laut 60 km Utara Labuanbajo",
-   "potensi": "",
-   "dirasakan": "II Kab. Manggarai"
   }
  ]
 }

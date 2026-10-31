@@ -183,6 +183,30 @@
  ],
  "felt": [
   {
+   "waktu_wib": "17:29:39 WIB",
+   "tanggal": "30 Okt 2026",
+   "datetime_utc": "2026-10-30T10:29:39+00:00",
+   "lat": 2.57,
+   "lon": 98.66,
+   "mag": 3.5,
+   "depth_km": 3.0,
+   "wilayah": "Pusat gempa berada di darat 7 km barat daya Samosir",
+   "potensi": "",
+   "dirasakan": "II Pangururan, II Kec. Ronggur Nihuta"
+  },
+  {
+   "waktu_wib": "13:03:45 WIB",
+   "tanggal": "30 Okt 2026",
+   "datetime_utc": "2026-10-30T06:03:45+00:00",
+   "lat": -0.72,
+   "lon": 131.38,
+   "mag": 3.7,
+   "depth_km": 10.0,
+   "wilayah": "Pusat gempa berada di 20 km Timur Laut Kota Sorong",
+   "potensi": "",
+   "dirasakan": "II-III Sorong"
+  },
+  {
    "waktu_wib": "01:58:30 WIB",
    "tanggal": "30 Okt 2026",
    "datetime_utc": "2026-10-29T18:58:30+00:00",
@@ -337,30 +361,6 @@
    "wilayah": "Pusat gempa berada di laut 59 km barat daya Meulaboh",
    "potensi": "",
    "dirasakan": "III Kab. Aceh Selatan, III Kab. Simeulue, III-IV Kab. Aceh Barat, III-IV Kab. Aceh Barat Daya, II Kab. Bener Meriah, II-III Kota Banda Aceh, II-III Kab. Aceh Besar , III-IV Kab. Nagan Raya"
-  },
-  {
-   "waktu_wib": "18:28:11 WIB",
-   "tanggal": "20 Okt 2026",
-   "datetime_utc": "2026-10-20T11:28:11+00:00",
-   "lat": -8.37,
-   "lon": 116.99,
-   "mag": 3.7,
-   "depth_km": 15.0,
-   "wilayah": "Pusat gempa berada di laut 6 km Barat Laut Pulau Saringi",
-   "potensi": "",
-   "dirasakan": "III Kab. Sumbawa"
-  },
-  {
-   "waktu_wib": "16:56:38 WIB",
-   "tanggal": "20 Okt 2026",
-   "datetime_utc": "2026-10-20T09:56:38+00:00",
-   "lat": -10.19,
-   "lon": 123.71,
-   "mag": 3.4,
-   "depth_km": 4.0,
-   "wilayah": "Pusat gempa berada di darat 30km Barat Daya Kab. Kupang",
-   "potensi": "",
-   "dirasakan": "III Kab. Kupang, III Kota Kupang"
   }
  ]
 }

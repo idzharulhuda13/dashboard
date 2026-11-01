@@ -183,6 +183,42 @@
  ],
  "felt": [
   {
+   "waktu_wib": "03:48:49 WIB",
+   "tanggal": "01 Nov 2026",
+   "datetime_utc": "2026-10-31T20:48:49+00:00",
+   "lat": -3.92,
+   "lon": 122.63,
+   "mag": 2.8,
+   "depth_km": 10.0,
+   "wilayah": "Pusat gempa berada di darat 14 km Timur Laut Kendari",
+   "potensi": "",
+   "dirasakan": "II - III Kota Kendari"
+  },
+  {
+   "waktu_wib": "15:23:13 WIB",
+   "tanggal": "31 Okt 2026",
+   "datetime_utc": "2026-10-31T08:23:13+00:00",
+   "lat": -2.87,
+   "lon": 122.21,
+   "mag": 3.5,
+   "depth_km": 4.0,
+   "wilayah": "Pusat gempa berada di laut 13 km tenggara Bahodopi",
+   "potensi": "",
+   "dirasakan": "II - III Morowali"
+  },
+  {
+   "waktu_wib": "12:39:20 WIB",
+   "tanggal": "31 Okt 2026",
+   "datetime_utc": "2026-10-31T05:39:20+00:00",
+   "lat": -9.45,
+   "lon": 118.11,
+   "mag": 4.8,
+   "depth_km": 28.0,
+   "wilayah": "Pusat gempa berada di laut 97 km barat Kodi, Sumba Barat Daya",
+   "potensi": "",
+   "dirasakan": "III Sumbawa"
+  },
+  {
    "waktu_wib": "17:29:39 WIB",
    "tanggal": "30 Okt 2026",
    "datetime_utc": "2026-10-30T10:29:39+00:00",
@@ -325,42 +361,6 @@
    "wilayah": "Pusat gempa berada di darat 6 km BaratLaut Lebong",
    "potensi": "",
    "dirasakan": "III Kota Bengkulu, II - III Curup, III Arga Makmur"
-  },
-  {
-   "waktu_wib": "18:58:36 WIB",
-   "tanggal": "21 Okt 2026",
-   "datetime_utc": "2026-10-21T11:58:36+00:00",
-   "lat": -5.4,
-   "lon": 104.68,
-   "mag": 2.5,
-   "depth_km": 3.0,
-   "wilayah": "Pusat gempa berada di darat 9 km utara Tanggamus",
-   "potensi": "",
-   "dirasakan": "II Tanggamus"
-  },
-  {
-   "waktu_wib": "18:03:28 WIB",
-   "tanggal": "21 Okt 2026",
-   "datetime_utc": "2026-10-21T11:03:28+00:00",
-   "lat": -5.39,
-   "lon": 104.68,
-   "mag": 3.9,
-   "depth_km": 10.0,
-   "wilayah": "Pusat gempa berada di darat 10 km utara Tanggamus",
-   "potensi": "",
-   "dirasakan": "III Ulu Belu, Tanggamus, III Pulau Panggung, Tanggamus"
-  },
-  {
-   "waktu_wib": "23:29:35 WIB",
-   "tanggal": "20 Okt 2026",
-   "datetime_utc": "2026-10-20T16:29:35+00:00",
-   "lat": 3.79,
-   "lon": 95.72,
-   "mag": 5.4,
-   "depth_km": 74.0,
-   "wilayah": "Pusat gempa berada di laut 59 km barat daya Meulaboh",
-   "potensi": "",
-   "dirasakan": "III Kab. Aceh Selatan, III Kab. Simeulue, III-IV Kab. Aceh Barat, III-IV Kab. Aceh Barat Daya, II Kab. Bener Meriah, II-III Kota Banda Aceh, II-III Kab. Aceh Besar , III-IV Kab. Nagan Raya"
   }
  ]
 }

@@ -1,6 +1,18 @@
 {
  "latest": [
   {
+   "waktu_wib": "07:53:11 WIB",
+   "tanggal": "02 Nov 2026",
+   "datetime_utc": "2026-11-02T00:53:11+00:00",
+   "lat": -7.08,
+   "lon": 130.07,
+   "mag": 5.5,
+   "depth_km": 130.0,
+   "wilayah": "169 km BaratLaut TANIMBAR",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
    "waktu_wib": "03:32:13 WIB",
    "tanggal": "30 Okt 2026",
    "datetime_utc": "2026-10-29T20:32:13+00:00",
@@ -167,21 +179,33 @@
    "wilayah": "230 km BaratLaut TAHUNA-KEP.SANGIHE-SULUT",
    "potensi": "Tidak berpotensi tsunami",
    "dirasakan": ""
-  },
-  {
-   "waktu_wib": "03:15:26 WIB",
-   "tanggal": "07 Okt 2026",
-   "datetime_utc": "2026-10-06T20:15:26+00:00",
-   "lat": -8.77,
-   "lon": 116.14,
-   "mag": 5.2,
-   "depth_km": 92.0,
-   "wilayah": "9 km Tenggara LOMBOKBARAT-NTB",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
   }
  ],
  "felt": [
+  {
+   "waktu_wib": "07:53:11 WIB",
+   "tanggal": "02 Nov 2026",
+   "datetime_utc": "2026-11-02T00:53:11+00:00",
+   "lat": -7.08,
+   "lon": 130.07,
+   "mag": 5.5,
+   "depth_km": 130.0,
+   "wilayah": "Pusat gempa berada di laut 169 km BaratLaut Tanimbar",
+   "potensi": "",
+   "dirasakan": "II Saumlaki"
+  },
+  {
+   "waktu_wib": "12:38:59 WIB",
+   "tanggal": "01 Nov 2026",
+   "datetime_utc": "2026-11-01T05:38:59+00:00",
+   "lat": 4.79,
+   "lon": 96.2,
+   "mag": 4.1,
+   "depth_km": 6.0,
+   "wilayah": "Pusat gempa berada di darat 24 km Barat Daya Kab. Pidie Jaya-Aceh",
+   "potensi": "",
+   "dirasakan": ""
+  },
   {
    "waktu_wib": "03:48:49 WIB",
    "tanggal": "01 Nov 2026",
@@ -337,30 +361,6 @@
    "wilayah": "Pusat gempa berada di laut 13 km timur laut Kota Sorong",
    "potensi": "",
    "dirasakan": "II Kota Sorong"
-  },
-  {
-   "waktu_wib": "14:40:01 WIB",
-   "tanggal": "25 Okt 2026",
-   "datetime_utc": "2026-10-25T07:40:01+00:00",
-   "lat": 4.24,
-   "lon": 97.65,
-   "mag": 4.7,
-   "depth_km": 10.0,
-   "wilayah": "Pusat gempa berada di darat 44 km barat Kab. Aceh Tamiang",
-   "potensi": "",
-   "dirasakan": "IV Gayo Lues"
-  },
-  {
-   "waktu_wib": "17:57:49 WIB",
-   "tanggal": "22 Okt 2026",
-   "datetime_utc": "2026-10-22T10:57:49+00:00",
-   "lat": -3.11,
-   "lon": 102.14,
-   "mag": 5.2,
-   "depth_km": 120.0,
-   "wilayah": "Pusat gempa berada di darat 6 km BaratLaut Lebong",
-   "potensi": "",
-   "dirasakan": "III Kota Bengkulu, II - III Curup, III Arga Makmur"
   }
  ]
 }

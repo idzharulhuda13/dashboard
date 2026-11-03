@@ -8,3 +8,4 @@ time,latitude,longitude,depth,mag,magType,nst,gap,dmin,rms,net,id,updated,place,
 2026-10-28T22:06:45.820Z,-6.3231,130.3957,142,5.7,mww,120,21,6.52,0.69,us,us7000ttua,2026-10-29T00:11:48.072Z,"271 km WSW of Tual, Indonesia",earthquake,9.51,1.851,0.065,23,reviewed,us,us
 2026-10-29T20:32:11.667Z,-4.4698,132.4922,10,5,mb,61,44,8.422,0.76,us,us7000tu3u,2026-10-29T20:54:46.040Z,"131 km NNW of Tual, Indonesia",earthquake,8.53,1.828,0.083,46,reviewed,us,us
 2026-11-02T00:53:10.555Z,-6.9205,129.9514,93.548,5.1,mb,88,50,5.999,0.62,us,us7000tusv,2026-11-02T01:29:38.040Z,Banda Sea,earthquake,9.54,4.621,0.066,73,reviewed,us,us
+2026-11-02T08:13:14.014Z,1.392,124.6476,196.646,5.1,mb,77,59,5.716,0.94,us,us7000tuuy,2026-11-02T08:27:49.040Z,"19 km WNW of Tomohon, Indonesia",earthquake,9.58,7.333,0.061,89,reviewed,us,us

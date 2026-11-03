@@ -1,6 +1,18 @@
 {
  "latest": [
   {
+   "waktu_wib": "15:13:10 WIB",
+   "tanggal": "02 Nov 2026",
+   "datetime_utc": "2026-11-02T08:13:10+00:00",
+   "lat": 1.31,
+   "lon": 124.83,
+   "mag": 5.3,
+   "depth_km": 148.0,
+   "wilayah": "1 km BaratDaya TOMOHON-SULUT",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
    "waktu_wib": "07:53:11 WIB",
    "tanggal": "02 Nov 2026",
    "datetime_utc": "2026-11-02T00:53:11+00:00",
@@ -167,21 +179,33 @@
    "wilayah": "125 km Tenggara BITUNG-SULUT",
    "potensi": "Tidak berpotensi tsunami",
    "dirasakan": ""
-  },
-  {
-   "waktu_wib": "15:07:56 WIB",
-   "tanggal": "08 Okt 2026",
-   "datetime_utc": "2026-10-08T08:07:56+00:00",
-   "lat": 5.66,
-   "lon": 125.19,
-   "mag": 5.8,
-   "depth_km": 10.0,
-   "wilayah": "230 km BaratLaut TAHUNA-KEP.SANGIHE-SULUT",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
   }
  ],
  "felt": [
+  {
+   "waktu_wib": "16:58:58 WIB",
+   "tanggal": "02 Nov 2026",
+   "datetime_utc": "2026-11-02T09:58:58+00:00",
+   "lat": -2.49,
+   "lon": 140.66,
+   "mag": 2.6,
+   "depth_km": 8.0,
+   "wilayah": "Pusat gempa berada di darat 9 km Utara Kota Jayapura",
+   "potensi": "",
+   "dirasakan": "III Jayapura"
+  },
+  {
+   "waktu_wib": "15:13:10 WIB",
+   "tanggal": "02 Nov 2026",
+   "datetime_utc": "2026-11-02T08:13:10+00:00",
+   "lat": 1.31,
+   "lon": 124.83,
+   "mag": 5.3,
+   "depth_km": 148.0,
+   "wilayah": "Pusat gempa berada di darat 1 km Barat Daya Tomohon",
+   "potensi": "",
+   "dirasakan": "II - III Ternate, II Minahasa"
+  },
   {
    "waktu_wib": "07:53:11 WIB",
    "tanggal": "02 Nov 2026",
@@ -337,30 +361,6 @@
    "wilayah": "Pusat gempa berada di laut 137 km Selatan Gunungkidul",
    "potensi": "",
    "dirasakan": "II Bantul, II Sleman, II Wonogiri, II Kulon Progo, II Sukoharjo, II Trenggalek, II Nganjuk, II Pacitan, II Klaten, II Kediri, II Ponorogo, II Banjarnegara, II Lumajang, II Blitar"
-  },
-  {
-   "waktu_wib": "11:53:42 WIB",
-   "tanggal": "26 Okt 2026",
-   "datetime_utc": "2026-10-26T04:53:42+00:00",
-   "lat": -8.45,
-   "lon": 121.45,
-   "mag": 4.9,
-   "depth_km": 13.0,
-   "wilayah": "Pusat gempa berada di laut 30 km timur laut Mbay, Nagekeo",
-   "potensi": "",
-   "dirasakan": "III Bajawa, III Maumere, II - III Ruteng"
-  },
-  {
-   "waktu_wib": "19:47:26 WIB",
-   "tanggal": "25 Okt 2026",
-   "datetime_utc": "2026-10-25T12:47:26+00:00",
-   "lat": -0.73,
-   "lon": 131.39,
-   "mag": 3.8,
-   "depth_km": 6.0,
-   "wilayah": "Pusat gempa berada di laut 13 km timur laut Kota Sorong",
-   "potensi": "",
-   "dirasakan": "II Kota Sorong"
   }
  ]
 }

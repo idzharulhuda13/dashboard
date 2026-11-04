@@ -183,6 +183,66 @@
  ],
  "felt": [
   {
+   "waktu_wib": "07:50:34 WIB",
+   "tanggal": "04 Nov 2026",
+   "datetime_utc": "2026-11-04T00:50:34+00:00",
+   "lat": -7.94,
+   "lon": 120.89,
+   "mag": 4.4,
+   "depth_km": 15.0,
+   "wilayah": "Pusat gempa berada di laut 88 km timur laut Ruteng, Manggarai",
+   "potensi": "",
+   "dirasakan": "III Kab. Manggarai"
+  },
+  {
+   "waktu_wib": "07:46:08 WIB",
+   "tanggal": "04 Nov 2026",
+   "datetime_utc": "2026-11-04T00:46:08+00:00",
+   "lat": -3.22,
+   "lon": 135.53,
+   "mag": 4.6,
+   "depth_km": 23.0,
+   "wilayah": "Pusat gempa berada di laut 16 km utara Nabire",
+   "potensi": "",
+   "dirasakan": "II - III Nabire"
+  },
+  {
+   "waktu_wib": "03:28:35 WIB",
+   "tanggal": "04 Nov 2026",
+   "datetime_utc": "2026-11-03T20:28:35+00:00",
+   "lat": -2.08,
+   "lon": 121.02,
+   "mag": 4.1,
+   "depth_km": 6.0,
+   "wilayah": "Pusat gempa berada di darat 61 km utara Luwu Timur",
+   "potensi": "",
+   "dirasakan": "II - III Morowali Utara"
+  },
+  {
+   "waktu_wib": "22:37:50 WIB",
+   "tanggal": "03 Nov 2026",
+   "datetime_utc": "2026-11-03T15:37:50+00:00",
+   "lat": -0.2,
+   "lon": 123.32,
+   "mag": 4.8,
+   "depth_km": 87.0,
+   "wilayah": "Pusat gempa berada di laut 86 km Selatan Kota Gorontalo",
+   "potensi": "",
+   "dirasakan": "III Kab. Gorontalo, II - III Kab. Bone Bolango, II - III Kab. Gorontalo Utara, II - III Kota Gorontalo, II - III Kab. Banggai, II - III Kab. Banggai Kepulauan"
+  },
+  {
+   "waktu_wib": "18:43:49 WIB",
+   "tanggal": "03 Nov 2026",
+   "datetime_utc": "2026-11-03T11:43:49+00:00",
+   "lat": -8.27,
+   "lon": 120.63,
+   "mag": 4.2,
+   "depth_km": 10.0,
+   "wilayah": "Pusat gempa berada di laut 42 km Timur Laut Ruteng, Manggarai",
+   "potensi": "",
+   "dirasakan": "II - III Kab. Nagekeo, II - III Kab. Manggarai"
+  },
+  {
    "waktu_wib": "16:58:58 WIB",
    "tanggal": "02 Nov 2026",
    "datetime_utc": "2026-11-02T09:58:58+00:00",
@@ -301,66 +361,6 @@
    "wilayah": "Pusat gempa berada di darat 31 km Timur Laut Kabupaten Gayolues",
    "potensi": "",
    "dirasakan": "III Takengon"
-  },
-  {
-   "waktu_wib": "10:26:49 WIB",
-   "tanggal": "29 Okt 2026",
-   "datetime_utc": "2026-10-29T03:26:49+00:00",
-   "lat": -5.45,
-   "lon": 141.9,
-   "mag": 6.0,
-   "depth_km": 120.0,
-   "wilayah": "Pusat gempa berada di darat 153 km tenggara Oksibil",
-   "potensi": "",
-   "dirasakan": "III Boven Digoel, II Jayapura, II Merauke"
-  },
-  {
-   "waktu_wib": "05:06:47 WIB",
-   "tanggal": "29 Okt 2026",
-   "datetime_utc": "2026-10-28T22:06:47+00:00",
-   "lat": -6.34,
-   "lon": 130.52,
-   "mag": 6.4,
-   "depth_km": 160.0,
-   "wilayah": "Pusat gempa berada di laut 60 km Baratlaut Larat-Kep.Tanimbar",
-   "potensi": "",
-   "dirasakan": "II - III Banda Naira, II - III Tanimbar, II - III Kaimana, II - III Sorong"
-  },
-  {
-   "waktu_wib": "18:59:15 WIB",
-   "tanggal": "28 Okt 2026",
-   "datetime_utc": "2026-10-28T11:59:15+00:00",
-   "lat": -5.4,
-   "lon": 104.66,
-   "mag": 3.4,
-   "depth_km": 4.0,
-   "wilayah": "Pusat gempa berada di darat 10 km Utara Tanggamus",
-   "potensi": "",
-   "dirasakan": "II Kotaagung, II Sumberejo, II Ulu Belu, II Talang Padang, II Pulau Panggung, II Sukoharjo"
-  },
-  {
-   "waktu_wib": "15:23:46 WIB",
-   "tanggal": "28 Okt 2026",
-   "datetime_utc": "2026-10-28T08:23:46+00:00",
-   "lat": -5.45,
-   "lon": 104.62,
-   "mag": 4.7,
-   "depth_km": 10.0,
-   "wilayah": "Pusat gempa berada di darat 8 km Barat Laut Tanggamus",
-   "potensi": "",
-   "dirasakan": "III Kotaagung, II Kotabumi, II Pringsewu, II Ulu Belu, II Gisting, II Sumberejo, II Kotaagung Timur"
-  },
-  {
-   "waktu_wib": "21:43:13 WIB",
-   "tanggal": "27 Okt 2026",
-   "datetime_utc": "2026-10-27T14:43:13+00:00",
-   "lat": -9.2,
-   "lon": 110.39,
-   "mag": 5.4,
-   "depth_km": 10.0,
-   "wilayah": "Pusat gempa berada di laut 137 km Selatan Gunungkidul",
-   "potensi": "",
-   "dirasakan": "II Bantul, II Sleman, II Wonogiri, II Kulon Progo, II Sukoharjo, II Trenggalek, II Nganjuk, II Pacitan, II Klaten, II Kediri, II Ponorogo, II Banjarnegara, II Lumajang, II Blitar"
   }
  ]
 }

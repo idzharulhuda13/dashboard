@@ -542,7 +542,17 @@ def rebase_links(html: str, id_path: str, problems: list[str]) -> str:
         absu = "/" + rel + (("?" + query) if query else "") + (("#" + frag) if frag else "")
         return f"{attr}={q}{absu}{q}"
 
-    return re.sub(r'\b(href|src)=(["\'])([^"\']*)\2', fix, html)
+    html = re.sub(r'\b(href|src)=(["\'])([^"\']*)\2', fix, html)
+
+    # url(...) di CSS (mis. @font-face '../fonts/x.woff2') juga harus absolut
+    def fix_css(m: re.Match) -> str:
+        q, url = m.group(1), m.group(2)
+        if re.match(r"^(?:[a-z]+:|//|#|/|data:)", url) or not url:
+            return m.group(0)
+        out = fix(re.match(r'(src)=(["\'])(.*)\2$', f"src={q or chr(34)}{url}{q or chr(34)}"))
+        return "url(" + (q or "") + out.split("=", 1)[1][1:-1] + (q or "") + ")"
+
+    return re.sub(r"url\((['\"]?)([^'\")]+)\1\)", fix_css, html)
 
 
 # ---------------------------------------------------------------------------------------------

@@ -298,16 +298,18 @@ async def playwright_checks(expected_figures: list[str]) -> list[str]:
                     rowTh: document.querySelectorAll('table tbody th[scope=row]').length
                 };
             }""")
-            expected_series = payload_sessions = len(json.loads(PAYLOAD.read_text())["series"])
+            _pl = json.loads(PAYLOAD.read_text())
+            expected_series = payload_sessions = len(_pl["series"])
+            expected_months = len(_pl["monthly"])
             if chart["d"] != expected_series:
                 out.append(f"{w}: garis chart {chart['d']} titik, harusnya {expected_series}")
-            if chart["bars"] != 10:
-                out.append(f"{w}: batang bulanan {chart['bars']}, harusnya 10")
-            if chart["months"] != 10 or chart["worst"] != 5 or chart["best"] != 5:
+            if chart["bars"] != expected_months:
+                out.append(f"{w}: batang bulanan {chart['bars']}, harusnya {expected_months}")
+            if chart["months"] != expected_months or chart["worst"] != 5 or chart["best"] != 5:
                 out.append(f"{w}: baris tabel bulan/terburuk/terbaik {chart['months']}/{chart['worst']}/{chart['best']}")
             if not chart["caption"] or chart["colTh"] < 2 or chart["rowTh"] < 20:
                 out.append(f"{w}: semantik tabel kurang: {chart}")
-            if not out or (chart["d"] == expected_series and chart["bars"] == 10 and chart["months"] == 10):
+            if not out or (chart["d"] == expected_series and chart["bars"] == expected_months and chart["months"] == expected_months):
                 print(f"[PASS] {w}: chart {chart['d']} titik, bar {chart['bars']}, tabel {chart['months']}/{chart['worst']}/{chart['best']}, th {chart['colTh']}/{chart['rowTh']}")
 
             if w == 1440:

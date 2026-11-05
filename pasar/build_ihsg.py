@@ -142,8 +142,19 @@ def main() -> int:
             "base_label": base_label,
         })
         prev_end = end
-    assert len(monthly) == 10, f"bulan terkumpul {len(monthly)}, harusnya 10"
+    # bulan harus berurutan tanpa lubang mulai Januari; jumlahnya ikut data (bukan angka mati)
+    keys = [m["month"] for m in monthly]
+    yr = int(keys[0][:4])
+    expect = [f"{yr + (i // 12)}-{i % 12 + 1:02d}" for i in range(len(keys))]
+    assert keys[0].endswith("-01") and keys == expect, f"bulan tidak berurutan: {keys}"
     neg_months = [m for m in monthly if m["ret"] < 0]
+    pos_names = [BULAN[int(m["month"][5:7]) - 1] for m in monthly if m["ret"] > 0]
+    if not pos_names:
+        green_note = "tidak ada yang hijau"
+    elif len(pos_names) == 1:
+        green_note = f"cuma {pos_names[0]} yang hijau"
+    else:
+        green_note = "cuma " + ", ".join(pos_names[:-1]) + " dan " + pos_names[-1] + " yang hijau"
 
     # Bulan berjalan (bulan terakhir di payload)
     cur_row = monthly[-1]
@@ -192,6 +203,7 @@ def main() -> int:
         "flat_days": {"r": len(flat), "d": str(len(flat))},
         "neg_months": {"r": len(neg_months), "d": str(len(neg_months))},
         "total_months": {"r": len(monthly), "d": str(len(monthly))},
+        "green_months_note": {"d": green_note},
         "cur_month_label": {"d": cur_row["label_long"]},
         "cur_ret_pct": {"r": cur_row["ret"], "d": pct(cur_row["ret"])},
         "cur_abs_pct": {"r": abs(cur_row["ret"]), "d": pct(abs(cur_row["ret"]))},

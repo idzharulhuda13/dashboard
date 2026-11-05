@@ -72,6 +72,22 @@ def refresh_hub() -> int:
     return 0
 
 
+def refresh_en() -> None:
+    """Turunkan ulang halaman /en/ dari halaman Indonesia yang barusan lolos gate.
+
+    Tidak memblokir publish versi Indonesia: kalau katalog i18n/en.json ketinggalan (ada prosa
+    baru), halaman EN tetap ditulis dan sisa teks Indonesia dicatat di log supaya katalog ditambah.
+    """
+    r = subprocess.run([sys.executable, str(ROOT / "i18n" / "localize.py")],
+                       cwd=ROOT, capture_output=True, text=True)
+    bad = [l for l in r.stdout.splitlines() if "MASALAH" in l or ("sisa Indonesia" in l and "sisa Indonesia 0" not in l)]
+    if r.returncode != 0 or bad:
+        log(f"PERINGATAN: i18n/localize.py exit {r.returncode}; katalog EN perlu ditambah: " + " | ".join(bad[:5])
+            + (" " + r.stderr[-300:] if r.stderr else ""))
+    else:
+        log("en: 7 halaman EN diperbarui, sisa Indonesia 0")
+
+
 def git(*args: str) -> subprocess.CompletedProcess:
     return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True)
 
@@ -211,8 +227,9 @@ def main() -> int:
         rc_hub = refresh_hub()
 
         msg = f"IHSG harian: tambah sesi {session_date} ({q['change_pct']:+.2f}%)"
+        refresh_en()
         git("add", "data/pasar/ihsg.json", "data/pasar/source/ihsg-appended.jsonl",
-            "pasar/ihsg.html", "index.html", "sitemap.xml")
+            "pasar/ihsg.html", "index.html", "sitemap.xml", "en")
         staged = git("diff", "--cached", "--quiet")
         if staged.returncode == 0:
             log("tidak ada perubahan untuk di-commit")

@@ -1,0 +1,924 @@
+{
+ "_note": "Katalog terjemahan EN. Kunci = teks Indonesia setelah angka/tanggal diganti {0},{1},... dan isi span data-fig dikosongkan. Dibangun ulang lewat: python3 i18n/localize.py --missing",
+ "strings": {
+  "<a href=\"/gempa/\" class=\"entry-link-btn\">Buka pelat /gempa/</a>": "<a href=\"/gempa/\" class=\"entry-link-btn\">Open plate /gempa/</a>",
+  "<a href=\"/gempa/\" class=\"entry-link-title\">Setengah Abad Gempa Indonesia</a>": "<a href=\"/gempa/\" class=\"entry-link-title\">Half a Century of Indonesian Earthquakes</a>",
+  "<a href=\"/pasar/ihsg.html\" class=\"entry-link-btn\">Buka pelat /pasar/ihsg.html</a>": "<a href=\"/pasar/ihsg.html\" class=\"entry-link-btn\">Open plate /pasar/ihsg.html</a>",
+  "<a href=\"/pasar/ihsg.html\" class=\"entry-link-title\">IHSG {0}: Turun Sepanjang Tahun</a>": "<a href=\"/pasar/ihsg.html\" class=\"entry-link-title\">JCI {0}: Down All Year</a>",
+  "<a href=\"/pasar/msci.html\" class=\"entry-link-btn\">Buka pelat /pasar/msci.html</a>": "<a href=\"/pasar/msci.html\" class=\"entry-link-btn\">Open plate /pasar/msci.html</a>",
+  "<a href=\"/pasar/msci.html\" class=\"entry-link-title\">MSCI Indonesia: Lima Nama, {0}% Bobot</a>": "<a href=\"/pasar/msci.html\" class=\"entry-link-title\">MSCI Indonesia: Five Names, {0}% of the Weight</a>",
+  "<a href=\"/pasar/rupiah.html\" class=\"entry-link-btn\">Buka pelat /pasar/rupiah.html</a>": "<a href=\"/pasar/rupiah.html\" class=\"entry-link-btn\">Open plate /pasar/rupiah.html</a>",
+  "<a href=\"/pasar/rupiah.html\" class=\"entry-link-title\">Rupiah: Sembilan dari Sepuluh Bulan Melemah</a>": "<a href=\"/pasar/rupiah.html\" class=\"entry-link-title\">Rupiah: Weaker in Nine of Ten Months</a>",
+  "<a href=\"/pisa-explorer/\" class=\"entry-link-btn\">Buka pelat /pisa-explorer/</a>": "<a href=\"/pisa-explorer/\" class=\"entry-link-btn\">Open plate /pisa-explorer/</a>",
+  "<a href=\"/pisa/\" class=\"entry-link-btn\">Buka pelat /pisa/</a>": "<a href=\"/pisa/\" class=\"entry-link-btn\">Open plate /pisa/</a>",
+  "<div class=\"caption-head\"> <span class=\"caption-title\">Bobot lima terbesar</span> <span class=\"caption-legend\">% indeks</span> </div> <div class=\"metric-group\"> <div class=\"metric-row\"><span class=\"metric-name\">Konstituen</span><span class=\"metric-values\"><span class=\"val-pasar\" data-fig=\"pasar_msci_names\"></span></span></div> <div class=\"metric-row\"><span class=\"metric-name\">Float cap</span><span class=\"metric-values\"><span class=\"val-pasar\" data-fig=\"pasar_msci_float\"></span><span class=\"val-sep\">/</span><span class=\"val-oecd\">miliar USD</span></span></div> </div>": "<div class=\"caption-head\"> <span class=\"caption-title\">Five largest weights</span> <span class=\"caption-legend\">% of index</span> </div> <div class=\"metric-group\"> <div class=\"metric-row\"><span class=\"metric-name\">Constituents</span><span class=\"metric-values\"><span class=\"val-pasar\" data-fig=\"pasar_msci_names\"></span></span></div> <div class=\"metric-row\"><span class=\"metric-name\">Float cap</span><span class=\"metric-values\"><span class=\"val-pasar\" data-fig=\"pasar_msci_float\"></span><span class=\"val-sep\">/</span><span class=\"val-oecd\">USD billion</span></span></div> </div>",
+  "<div class=\"caption-head\"> <span class=\"caption-title\">Di bawah ambang minimum kemahiran</span> <span class=\"caption-legend\">IDN / OECD</span> </div> <div class=\"metric-group\"> <div class=\"metric-row\"> <span class=\"metric-name\">Matematika</span> <span class=\"metric-values\"> <span class=\"metric-val val-idn\"><span data-fig=\"prof_math_idn\"></span>%</span> <span class=\"metric-sep\">/</span> <span class=\"metric-val val-oecd\"><span data-fig=\"prof_math_oecd\"></span>%</span> </span> </div> <div class=\"metric-row\"> <span class=\"metric-name\">Membaca</span> <span class=\"metric-values\"> <span class=\"metric-val val-idn\"><span data-fig=\"prof_read_idn\"></span>%</span> <span class=\"metric-sep\">/</span> <span class=\"metric-val val-oecd\"><span data-fig=\"prof_read_oecd\"></span>%</span> </span> </div> <div class=\"metric-row\"> <span class=\"metric-name\">Sains</span> <span class=\"metric-values\"> <span class=\"metric-val val-idn\"><span data-fig=\"prof_scie_idn\"></span>%</span> <span class=\"metric-sep\">/</span> <span class=\"metric-val val-oecd\"><span data-fig=\"prof_scie_oecd\"></span>%</span> </span> </div> </div>": "<div class=\"caption-head\"> <span class=\"caption-title\">Below the minimum proficiency line</span> <span class=\"caption-legend\">IDN / OECD</span> </div> <div class=\"metric-group\"> <div class=\"metric-row\"> <span class=\"metric-name\">Mathematics</span> <span class=\"metric-values\"> <span class=\"metric-val val-idn\"><span data-fig=\"prof_math_idn\"></span>%</span> <span class=\"metric-sep\">/</span> <span class=\"metric-val val-oecd\"><span data-fig=\"prof_math_oecd\"></span>%</span> </span> </div> <div class=\"metric-row\"> <span class=\"metric-name\">Reading</span> <span class=\"metric-values\"> <span class=\"metric-val val-idn\"><span data-fig=\"prof_read_idn\"></span>%</span> <span class=\"metric-sep\">/</span> <span class=\"metric-val val-oecd\"><span data-fig=\"prof_read_oecd\"></span>%</span> </span> </div> <div class=\"metric-row\"> <span class=\"metric-name\">Science</span> <span class=\"metric-values\"> <span class=\"metric-val val-idn\"><span data-fig=\"prof_scie_idn\"></span>%</span> <span class=\"metric-sep\">/</span> <span class=\"metric-val val-oecd\"><span data-fig=\"prof_scie_oecd\"></span>%</span> </span> </div> </div>",
+  "<div class=\"caption-head\"> <span class=\"caption-title\">IHSG, <span data-fig=\"pasar_ihsg_sessions\"></span> sesi</span> <span class=\"caption-legend\">harga penutupan</span> </div> <div class=\"metric-group\"> <div class=\"metric-row\"><span class=\"metric-name\">Puncak {0}</span><span class=\"metric-values\"><span class=\"val-pasar\" data-fig=\"pasar_ihsg_peak\"></span></span></div> <div class=\"metric-row\"><span class=\"metric-name\">Terakhir <span data-fig=\"pasar_ihsg_asof_short\"></span></span><span class=\"metric-values\"><span class=\"val-pasar\" data-fig=\"pasar_ihsg_last\"></span></span></div> </div>": "<div class=\"caption-head\"> <span class=\"caption-title\">JCI, <span data-fig=\"pasar_ihsg_sessions\"></span> sessions</span> <span class=\"caption-legend\">closing price</span> </div> <div class=\"metric-group\"> <div class=\"metric-row\"><span class=\"metric-name\">Peak {0}</span><span class=\"metric-values\"><span class=\"val-pasar\" data-fig=\"pasar_ihsg_peak\"></span></span></div> <div class=\"metric-row\"><span class=\"metric-name\">Latest <span data-fig=\"pasar_ihsg_asof_short\"></span></span><span class=\"metric-values\"><span class=\"val-pasar\" data-fig=\"pasar_ihsg_last\"></span></span></div> </div>",
+  "<div class=\"caption-head\"> <span class=\"caption-title\">Siswa capai Level {0} ke atas</span> <span class=\"caption-legend\">IDN / VNM</span> </div> <div class=\"metric-group\"> <div class=\"metric-row\"> <span class=\"metric-name\">Sains</span> <span class=\"metric-values\"> <span class=\"metric-val val-idn\"><span data-fig=\"exp_scie_idn\"></span>%</span> <span class=\"metric-sep\">/</span> <span class=\"metric-val val-peer\"><span data-fig=\"exp_scie_vn\"></span>%</span> </span> </div> <div class=\"metric-row\"> <span class=\"metric-name\">Matematika</span> <span class=\"metric-values\"> <span class=\"metric-val val-idn\"><span data-fig=\"exp_math_idn\"></span>%</span> <span class=\"metric-sep\">/</span> <span class=\"metric-val val-peer\"><span data-fig=\"exp_math_vn\"></span>%</span> </span> </div> <div class=\"metric-row\"> <span class=\"metric-name\">Membaca</span> <span class=\"metric-values\"> <span class=\"metric-val val-idn\"><span data-fig=\"exp_read_idn\"></span>%</span> <span class=\"metric-sep\">/</span> <span class=\"metric-val val-peer\"><span data-fig=\"exp_read_vn\"></span>%</span> </span> </div> </div>": "<div class=\"caption-head\"> <span class=\"caption-title\">Students at Level {0} or above</span> <span class=\"caption-legend\">IDN / VNM</span> </div> <div class=\"metric-group\"> <div class=\"metric-row\"> <span class=\"metric-name\">Science</span> <span class=\"metric-values\"> <span class=\"metric-val val-idn\"><span data-fig=\"exp_scie_idn\"></span>%</span> <span class=\"metric-sep\">/</span> <span class=\"metric-val val-peer\"><span data-fig=\"exp_scie_vn\"></span>%</span> </span> </div> <div class=\"metric-row\"> <span class=\"metric-name\">Mathematics</span> <span class=\"metric-values\"> <span class=\"metric-val val-idn\"><span data-fig=\"exp_math_idn\"></span>%</span> <span class=\"metric-sep\">/</span> <span class=\"metric-val val-peer\"><span data-fig=\"exp_math_vn\"></span>%</span> </span> </div> <div class=\"metric-row\"> <span class=\"metric-name\">Reading</span> <span class=\"metric-values\"> <span class=\"metric-val val-idn\"><span data-fig=\"exp_read_idn\"></span>%</span> <span class=\"metric-sep\">/</span> <span class=\"metric-val val-peer\"><span data-fig=\"exp_read_vn\"></span>%</span> </span> </div> </div>",
+  "<div class=\"caption-head\"> <span class=\"caption-title\">USD/IDR, <span data-fig=\"pasar_rupiah_points\"></span> titik</span> <span class=\"caption-legend\">naik = rupiah melemah</span> </div> <div class=\"metric-group\"> <div class=\"metric-row\"><span class=\"metric-name\">Puncak {0}</span><span class=\"metric-values\"><span class=\"val-pasar\" data-fig=\"pasar_rupiah_peak\"></span></span></div> <div class=\"metric-row\"><span class=\"metric-name\">Korelasi IHSG</span><span class=\"metric-values\"><span class=\"val-pasar\" data-fig=\"pasar_rupiah_corr\"></span></span></div> </div>": "<div class=\"caption-head\"> <span class=\"caption-title\">USD/IDR, <span data-fig=\"pasar_rupiah_points\"></span> points</span> <span class=\"caption-legend\">up = weaker rupiah</span> </div> <div class=\"metric-group\"> <div class=\"metric-row\"><span class=\"metric-name\">Peak {0}</span><span class=\"metric-values\"><span class=\"val-pasar\" data-fig=\"pasar_rupiah_peak\"></span></span></div> <div class=\"metric-row\"><span class=\"metric-name\">JCI correlation</span><span class=\"metric-values\"><span class=\"val-pasar\" data-fig=\"pasar_rupiah_corr\"></span></span></div> </div>",
+  "Dashboard Data Publik: Gempa, PISA {0}, dan Pasar": "Public Data Dashboard: Earthquakes, PISA {0}, and Markets",
+  "Datanya append-only, dan halamannya dibangun ulang setiap hari. <span style=\"white-space:nowrap\">Data per <span data-fig=\"gempa_asof_long\"></span>.</span>": "The data is append-only, and the page is rebuilt every day. <span style=\"white-space:nowrap\">Data as of <span data-fig=\"gempa_asof_long\"></span>.</span>",
+  "Dihitung dari microdata publik OECD dan tabel lampiran resminya. <span style=\"white-space:nowrap\">Data PISA {0}, unduh {1}.</span>": "Computed from OECD public microdata and its official annex tables. <span style=\"white-space:nowrap\">PISA {0} data, downloaded {1}.</span>",
+  "Enam pelat: katalog gempa M5+ sejak {0}, PISA {1}, explorer, IHSG, rupiah, dan MSCI Indonesia; {2}% siswa di bawah ambang minimum.": "Six plates: the M5+ earthquake catalogue since {0}, PISA {1}, an explorer, the JCI, the rupiah, and MSCI Indonesia; {2}% of students below the minimum line.",
+  "Factsheet MSCI Indonesia Index (USD, net): {0} konstituen, bobot penuh {1}%. <span style=\"white-space:nowrap\">Data per <span data-fig=\"pasar_msci_asof_long\"></span>.</span>": "MSCI Indonesia Index factsheet (USD, net): {0} constituents, full weight {1}%. <span style=\"white-space:nowrap\">Data as of <span data-fig=\"pasar_msci_asof_long\"></span>.</span>",
+  "Garis IHSG {0} dari puncak Januari ke titik terendah Oktober": "JCI line for {0}, from the January peak to the October low",
+  "Garis USD/IDR sepanjang {0} yang naik, artinya rupiah melemah": "USD/IDR line through {0}, rising, which means a weaker rupiah",
+  "Gempa berkekuatan {0} atau lebih yang tercatat di wilayah Indonesia sejak {1}, dari katalog USGS.": "Earthquakes of magnitude {0} or more recorded in Indonesia since {1}, from the USGS catalogue.",
+  "Harga penutupan harian, Refinitiv sampai {0} lalu job harian IDX:COMPOSITE. <span style=\"white-space:nowrap\">Data per <span data-fig=\"pasar_ihsg_asof_long\"></span>.</span>": "Daily closing prices: Refinitiv up to {0}, then the daily IDX:COMPOSITE job. <span style=\"white-space:nowrap\">Data as of <span data-fig=\"pasar_ihsg_asof_long\"></span>.</span>",
+  "Hasil sains, membaca dan matematika siswa Indonesia di PISA {0} dibanding rata-rata OECD, dan siapa yang tertinggal di belakang.": "How Indonesian students did in science, reading and mathematics in PISA {0} against the OECD average, and who is falling behind.",
+  "IHSG {0}: Turun Sepanjang Tahun": "JCI {0}: Down All Year",
+  "Kartu pratinjau indeks Dashboard Data Publik: katalog gempa, PISA {0}, dan tiga pelat pasar (IHSG, rupiah, MSCI Indonesia).": "Preview card for the Public Data Dashboard index: the earthquake catalogue, PISA {0}, and three market plates (JCI, rupiah, MSCI Indonesia).",
+  "Kumpulan cerita data yang dibangun dari data publik. Satu halaman, satu kumpulan data, setiap angka dihitung ulang sebelum terbit.": "A collection of data stories built from public data. One page, one dataset, and every number recomputed before it is published.",
+  "Kurs referensi ECB lewat Frankfurter, <span data-fig=\"pasar_rupiah_points\"></span> titik harian. <span style=\"white-space:nowrap\">Data per <span data-fig=\"pasar_rupiah_asof_long\"></span>.</span>": "ECB reference rates via Frankfurter, <span data-fig=\"pasar_rupiah_points\"></span> daily points. <span style=\"white-space:nowrap\">Data as of <span data-fig=\"pasar_rupiah_asof_long\"></span>.</span>",
+  "Lima bobot terbesar di MSCI Indonesia Index": "Five largest weights in the MSCI Indonesia Index",
+  "Lima saham teratas mengisi <span data-fig=\"pasar_msci_top5\"></span> bobot indeks versi USD: Bank Central Asia sendirian <span data-fig=\"pasar_msci_bca\"></span>, perbankan <span data-fig=\"pasar_msci_fin\"></span>.": "The top five stocks make up <span data-fig=\"pasar_msci_top5\"></span> of the USD index: Bank Central Asia alone <span data-fig=\"pasar_msci_bca\"></span>, banks <span data-fig=\"pasar_msci_fin\"></span>.",
+  "MSCI Indonesia: Lima Nama, {0}% Bobot": "MSCI Indonesia: Five Names, {0}% of the Weight",
+  "Pendamping pelat {0}: pilih sendiri negara, mata pelajaran, dan titik persentilnya, lalu lihat sebaran kemampuannya per level.": "Companion to plate {0}: pick the country, subject and percentile yourself, then see the spread of proficiency by level.",
+  "Rupiah: Sembilan dari Sepuluh Bulan Melemah": "Rupiah: Weaker in Nine of Ten Months",
+  "Satu halaman mandiri dari tabel lampiran OECD yang sama, tanpa microdata siswa. <span style=\"white-space:nowrap\">Data PISA {0}, unduh {1}.</span>": "A standalone page built from the same OECD annex tables, without student microdata. <span style=\"white-space:nowrap\">PISA {0} data, downloaded {1}.</span>",
+  "Setengah Abad Gempa Indonesia": "Half a Century of Indonesian Earthquakes",
+  "Sumber: katalog gempa USGS dan OECD PISA {0} (CC BY {1}). Setiap angka di setiap halaman dihitung ulang oleh gerbang penerimaan sebelum terbit.": "Sources: USGS earthquake catalogue and OECD PISA {0} (CC BY {1}). Every number on every page is recomputed by an acceptance gate before it is published.",
+  "Titik terendah {0} di <span data-fig=\"pasar_ihsg_trough\"></span>: <span data-fig=\"pasar_ihsg_trough_dd\"></span> dari puncak {1} dalam {2} hari, lalu naik <span data-fig=\"pasar_ihsg_rebound\"></span> di dua sesi terakhir.": "Lowest close on {0} at <span data-fig=\"pasar_ihsg_trough\"></span>: <span data-fig=\"pasar_ihsg_trough_dd\"></span> from the {1} peak in {2} days, then up <span data-fig=\"pasar_ihsg_rebound\"></span> over the last two sessions.",
+  "USD/IDR naik dari <span data-fig=\"pasar_rupiah_first\"></span> ke <span data-fig=\"pasar_rupiah_last\"></span>, dan bergerak berlawanan dengan IHSG: korelasi <span data-fig=\"pasar_rupiah_corr\"></span> dari <span data-fig=\"pasar_rupiah_obs\"></span> hari return.": "USD/IDR rose from <span data-fig=\"pasar_rupiah_first\"></span> to <span data-fig=\"pasar_rupiah_last\"></span>, moving against the JCI: a correlation of <span data-fig=\"pasar_rupiah_corr\"></span> over <span data-fig=\"pasar_rupiah_obs\"></span> days of returns.",
+  "Visualisasi medan episentrum gempa Indonesia": "Field of Indonesian earthquake epicentres",
+  "di bawah 1b": "below 1b",
+  "{0} emiten lain mengisi sisa bobot": "{0} other issuers make up the remaining weight",
+  "* Factsheet mencatat nilai pasar saham yang beredar bebas <span data-fig=\"total_float_cap_factsheet\"></span> miliar USD; penjumlahan langsung dari sembilan saham menghasilkan <span data-fig=\"total_float_cap_sum\"></span> miliar USD karena pembulatan.": "* The factsheet lists a free-float market value of <span data-fig=\"total_float_cap_factsheet\"></span> USD billion; adding up the nine stocks directly gives <span data-fig=\"total_float_cap_sum\"></span> USD billion because of rounding.",
+  "<em>MSCI Indonesia Index, <span data-fig=\"as_of_formatted\"></span>. <span data-fig=\"constituents_count\"></span> saham mewakili <span data-fig=\"coverage_pct\"></span> persen nilai pasar, dan <span data-fig=\"bank_weight_pct\"></span> persennya empat bank.</em>": "<em>MSCI Indonesia Index, <span data-fig=\"as_of_formatted\"></span>. <span data-fig=\"constituents_count\"></span> stocks represent <span data-fig=\"coverage_pct\"></span> percent of market value, and <span data-fig=\"bank_weight_pct\"></span> percent of that is four banks.</em>",
+  "Cakupan nilai pasar {0} persen, skala {1} sampai {2} persen.": "Market value coverage {0} percent, scale {1} to {2} percent.",
+  "EMPAT BANK MEMEGANG <span data-fig=\"bank_weight_pct\"></span> PERSEN": "FOUR BANKS HOLD <span data-fig=\"bank_weight_pct\"></span> PERCENT",
+  "Grafik peringkat porsi saham": "Ranked chart of stock weights",
+  "INDEKS INI BUKAN PASAR. INI EMPAT BANK.": "THIS INDEX IS NOT THE MARKET. IT IS FOUR BANKS.",
+  "Indeks ini juga acuan banyak dana asing yang memegang pasar kita.": "This index is also the benchmark for much of the foreign money that holds our market.",
+  "Jadi apa artinya": "So what does it mean",
+  "Jumlah": "Total",
+  "Kalau empat bank turun <span data-fig=\"sim_drop_pct\"></span> persen, indeks turun <strong><span data-fig=\"sim_index_drop_pct\"></span></strong> persen.": "If the four banks fall <span data-fig=\"sim_drop_pct\"></span> percent, the index falls <strong><span data-fig=\"sim_index_drop_pct\"></span></strong> percent.",
+  "Lima saham teratas sudah mencakup <span data-fig=\"top5_weight_pct\"></span> indeks, dan empat di antaranya bank. Delapan saham lain berbagi <span data-fig=\"nonbank_weight_pct\"></span> persen.": "The top five stocks already cover <span data-fig=\"top5_weight_pct\"></span> of the index, and four of them are banks. Eight other stocks share <span data-fig=\"nonbank_weight_pct\"></span> percent.",
+  "MSCI Indonesia Index, {0}. Empat bank memegang {1} persen dari sembilan saham yang mewakili {2} persen pasar.": "MSCI Indonesia Index, {0}. Four banks hold {1} percent of the nine stocks that represent {2} percent of the market.",
+  "Metode: <span data-fig=\"method_note\"></span>": "Method: <span data-fig=\"method_note\"></span>",
+  "Nilai pasar (USD miliar)": "Market value (USD billion)",
+  "PASAR": "MARKETS",
+  "PASAR · {0}": "MARKETS · {0}",
+  "PASAR · {0}: Indeks Ini Bukan Pasar, Ini Empat Bank": "MARKETS · {0}: This Index Is Not the Market, It Is Four Banks",
+  "Porsi (persen)": "Weight (percent)",
+  "Porsi empat bank": "Four-bank weight",
+  "Porsi tiap sektor dalam indeks": "Weight of each sector in the index",
+  "Porsi tiap sektor dihitung dari sembilan saham itu, bukan dari seluruh bursa.": "Sector weights are computed from those nine stocks, not from the whole exchange.",
+  "SEMUA SEKTOR LAIN BERSAMA CUMA <span data-fig=\"nonbank_weight_pct\"></span> PERSEN": "ALL OTHER SECTORS TOGETHER ONLY <span data-fig=\"nonbank_weight_pct\"></span> PERCENT",
+  "Saham": "Stock",
+  "Sektor": "Sector",
+  "Sembilan saham MSCI Indonesia Index, <span data-fig=\"as_of_formatted\"></span>": "Nine stocks of the MSCI Indonesia Index, <span data-fig=\"as_of_formatted\"></span>",
+  "Sembilan saham di atas mewakili <span data-fig=\"coverage_pct\"></span> persen nilai pasar Indonesia. Sisanya di luar indeks ini.": "The nine stocks above represent <span data-fig=\"coverage_pct\"></span> percent of Indonesian market value. The rest is outside this index.",
+  "Sumber: <span data-fig=\"source_pdf\"></span>": "Source: <span data-fig=\"source_pdf\"></span>",
+  "Total {0} saham": "Total {0} stocks",
+  "aritmetika porsi, bukan ramalan": "weight arithmetic, not a forecast",
+  "dari sembilan saham, empat bank": "of nine stocks, four are banks",
+  "hampir selalu kabar empat bank.": "is almost always news about four banks.",
+  "jumlah porsi sektor <span data-fig=\"sectors_sum_pct\"></span>": "sum of sector weights <span data-fig=\"sectors_sum_pct\"></span>",
+  "pasar turun": "market falls",
+  "porsi dan nilai pasar diambil dari factsheet; total sektor dijumlah dari lima baris sektor": "weights and market values are taken from the factsheet; the sector total is summed from the five sector rows",
+  "ANGKA PER DEKADE BELUM BISA DIBANDINGKAN LANGSUNG": "COUNTS PER DECADE CANNOT BE COMPARED DIRECTLY YET",
+  "Agregasi kedekatan jarak spasial episentrum ke titik centroid provinsi rujukan Bapanas.": "Epicentres aggregated by spatial proximity to the reference province centroids from Bapanas.",
+  "Arahkan kursor atau ketuk salah satu titik episentrum untuk melihat rinciannya.": "Hover over or tap an epicentre to see its details.",
+  "Berpusat dekat permukaan kerak bumi, kelas kedalaman {0} sampai {1} km. Energi yang dilepas di kedalaman ini belum banyak teredam batuan di atasnya, jadi gempa dangkal adalah kelas yang paling sering dirasakan sampai ke permukaan dan paling berpotensi merusak; tsunami hanya terjadi bila gempa dangkal di dasar laut mengangkat dasar laut, jadi tidak setiap gempa dangkal memicunya.": "Centred close to the surface of the crust, depth class {0} to {1} km. Energy released at this depth is barely damped by the rock above it, so shallow quakes are the class most often felt at the surface and the most likely to cause damage; a tsunami only happens when a shallow quake under the sea lifts the seafloor, so not every shallow quake triggers one.",
+  "Berpusat di kedalaman {0} sampai {1} km, kelas menengah. Jarak dari permukaan membuat energinya lebih teredam daripada gempa dangkal, sehingga getaran yang sampai ke permukaan umumnya lebih lemah untuk magnitudo yang sama; gempa sedalam ini juga jarang memicu tsunami.": "Centred at a depth of {0} to {1} km, the intermediate class. The distance from the surface damps the energy more than in shallow quakes, so the shaking that reaches the surface is usually weaker for the same magnitude; quakes this deep also rarely trigger a tsunami.",
+  "CATATAN METODE DAN SUMBER DATA": "METHOD NOTES AND DATA SOURCES",
+  "Cuplikan gempa bumi BMKG saat halaman dibangun": "Snapshot of BMKG earthquakes at page build time",
+  "Cuplikan gempa bumi dirasakan BMKG saat halaman dibangun": "Snapshot of BMKG felt earthquakes at page build time",
+  "Cuplikan statis dari umpan BMKG pada saat halaman ini dibangun, bukan siaran langsung. Waktu gempa terbaru ada di baris pertama tabel di bawah.": "A static snapshot of the BMKG feed taken when this page was built, not a live broadcast. The latest earthquake time is in the first row of the table below.",
+  "Daftar dan sentroid {0} provinsi bersumber dari berkas referensi Badan Pangan Nasional (Bapanas) yang diunduh pada {1}. Digunakan semata untuk agregasi jarak terdekat (haversine) episentrum gempa, bukan sebagai acuan batas administratif resmi wilayah.": "The list and centroids of the {0} provinces come from the reference file of the National Food Agency (Bapanas), downloaded on {1}. They are used only for nearest-distance (haversine) aggregation of epicentres, not as an official reference for administrative boundaries.",
+  "Dalam ({0} km atau lebih)": "Deep ({0} km or more)",
+  "Dangkal (kurang dari {0} km)": "Shallow (less than {0} km)",
+  "Data mencakup {0} gempa bumi M5+ di Indonesia ({1}-{2}, {3} tahun kalender). rate_year = round({4} / {5}) = {6}/tahun; rate_month = round({7} / {8}) = {9}/bulan (rentang {10}-{11} hingga {12}-{13} inklusif); rate_week = {14} / ((last_event - first_event) dalam hari / {15}) = {16}/minggu. Persentase kedalaman dialokasikan menggunakan metode sisa terbesar agar tepat berjumlah {17}%.": "The data covers {0} M5+ earthquakes in Indonesia ({1}-{2}, {3} calendar years). rate_year = round({4} / {5}) = {6}/year; rate_month = round({7} / {8}) = {9}/month (range {10}-{11} to {12}-{13} inclusive); rate_week = {14} / ((last_event - first_event) in days / {15}) = {16}/week. Depth percentages are allocated with the largest-remainder method so they add up to exactly {17}%.",
+  "Distribusi peristiwa yang tercatat per dekade dalam katalog, tanpa data jaringan pemantauan untuk perbandingan langsung.": "Distribution of recorded events per decade in the catalogue, without monitoring-network data for a direct comparison.",
+  "GEMPA TERAKHIR DALAM CUPLIKAN INI": "LATEST EARTHQUAKE IN THIS SNAPSHOT",
+  "Garis putus-putus menandai batas lempeng tektonik (PB2002, Bird {0}); setiap goresan horizontal menandai satu episentrum gempa.": "The dashed line marks tectonic plate boundaries (PB2002, Bird {0}); each horizontal stroke marks one epicentre.",
+  "Gempa Bumi Dirasakan": "Felt Earthquakes",
+  "Gempa Bumi Terkini (M5.{0}+)": "Recent Earthquakes (M5.{0}+)",
+  "Jumlah peristiwa tertinggi berada di <span class=\"data-fig\" data-fig=\"top_prov_name\"></span>. Angka ini dihitung dari jarak episentrum ke sentroid provinsi terdekat, bukan dari batas administrasi.": "The highest event count is in <span class=\"data-fig\" data-fig=\"top_prov_name\"></span>. This figure is computed from the distance between the epicentre and the nearest province centroid, not from administrative boundaries.",
+  "Kartu pratinjau pelat gempa: judul SETENGAH ABAD, {0} GEMPA M5+, dengan ringkasan laju tahunan dan median kedalaman.": "Preview card for the earthquake plate: the headline HALF A CENTURY, {0} M5+ EARTHQUAKES, with a summary of the annual rate and median depth.",
+  "Katalog gempa bumi wilayah Indonesia magnitudo lima ke atas periode rekaman setengah abad.": "Catalogue of earthquakes of magnitude five and above in Indonesia over half a century of records.",
+  "Katalog ini hanya memuat rekaman kejadian gempa bumi tanpa data historis stasiun pemantauan, sehingga tidak dapat mengukur seberapa besar kenaikan angka berkaitan dengan perluasan deteksi. Angka per dekade menunjukkan jumlah peristiwa yang berhasil dicatat, bukan jumlah gempa yang sebenarnya terjadi di alam.": "This catalogue only holds records of earthquake events, with no history of monitoring stations, so it cannot measure how much of the rise in counts comes from wider detection. Counts per decade show how many events were recorded, not how many earthquakes actually happened.",
+  "Kedalaman": "Depth",
+  "Klasifikasi kedalaman seismologi: dangkal kurang dari {0} km, menengah {1} sampai kurang dari {2} km, dalam {3} km atau lebih.": "Seismological depth classes: shallow less than {0} km, intermediate {1} to less than {2} km, deep {3} km or more.",
+  "Lima Peristiwa Terbesar ({0}-{1})": "Five Largest Events ({0}-{1})",
+  "Lima kejadian terbesar dalam katalog, seluruhnya bermagnitudo {0} atau lebih.": "The five largest events in the catalogue, all of magnitude {0} or more.",
+  "Median Kedalaman": "Median Depth",
+  "Memuat data gempa dirasakan…": "Loading felt earthquake data…",
+  "Memuat data gempa terkini…": "Loading recent earthquake data…",
+  "Menengah ({0} sampai kurang dari {1} km)": "Intermediate ({0} to less than {1} km)",
+  "Metodologi dan Penyaringan": "Method and Filtering",
+  "PIRAMIDA CURAM: M5 MENDOMINASI, M9 CUMA SATU": "A STEEP PYRAMID: M5 DOMINATES, ONLY ONE M9",
+  "Peta sebaran episentrum gempa bumi Indonesia M5+": "Map of Indonesian M5+ earthquake epicentres",
+  "Peta sebaran episentrum gempa; gunakan tombol panah untuk memilih kejadian, Enter untuk membuka rincian, Escape untuk menutup.": "Map of earthquake epicentres; use the arrow keys to pick an event, Enter to open its details, Escape to close.",
+  "Provinsi": "Province",
+  "Provinsi Teraktif": "Most Active Provinces",
+  "SETENGAH ABAD, <span class=\"data-fig\" data-fig=\"total\"></span> GEMPA M5+": "HALF A CENTURY, <span class=\"data-fig\" data-fig=\"total\"></span> M5+ EARTHQUAKES",
+  "Sebaran jumlah kejadian per kelas magnitudo dan lima peristiwa terbesar dalam katalog yang sama.": "How events spread across magnitude classes, and the five largest events in the same catalogue.",
+  "Sebaran spasial titik episentrum gempa bumi berkekuatan M5 ke atas di seluruh kepulauan Indonesia.": "Spatial spread of M5+ earthquake epicentres across the Indonesian archipelago.",
+  "Setengah Abad Gempa Indonesia {0}-{1}": "Half a Century of Indonesian Earthquakes {0}-{1}",
+  "Spesifikasi teknis pipeline pembersihan data, eliminasi luar batas wilayah, dan verifikasi.": "Technical specification of the pipeline: data cleaning, removal of events outside the region, and verification.",
+  "Sumber Data Primer": "Primary Data Sources",
+  "TIGA PER EMPAT GEMPA ITU DANGKAL": "THREE IN FOUR OF THESE QUAKES ARE SHALLOW",
+  "Tabel dapat digeser ke samping untuk melihat seluruh kolom.": "Scroll the table sideways to see every column.",
+  "Tanggal (WIB)": "Date (WIB)",
+  "Tidak berpotensi tsunami": "No tsunami potential",
+  "U.S. Geological Survey, ANSS Comprehensive Earthquake Catalog (ComCat), katalog gempa bumi M5+ Indonesia yang diunduh pipeline ini.": "U.S. Geological Survey, ANSS Comprehensive Earthquake Catalog (ComCat), the Indonesian M5+ earthquake catalogue downloaded by this pipeline.",
+  "Wilayah": "Region",
+  "Wilayah Dirasakan": "Felt In",
+  "YANG PALING SERING DIGUNCANG BUKAN JAWA": "THE MOST SHAKEN PLACE IS NOT JAVA",
+  "dalam": "deep",
+  "dangkal": "shallow",
+  "gempa bumi": "earthquakes",
+  "kejadian pada kedalaman {0} km atau lebih, yang terdalam mencapai": "events at a depth of {0} km or more, the deepest reaching",
+  "kejadian per minggu": "events per week",
+  "kejadian per tahun": "events per year",
+  "kejadian tektonik M5+ terverifikasi dalam katalog": "verified M5+ tectonic events in the catalogue",
+  "kejadian tercatat": "events recorded",
+  "kilometer kedalaman": "kilometres deep",
+  "kurang dari {0} km": "less than {0} km",
+  "{0} gempa M5+ di Indonesia sejak {1}, rata-rata {2} per tahun: episentrum, kedalaman, magnitudo, dan provinsi paling sering diguncang (USGS).": "{0} M5+ earthquakes in Indonesia since {1}, an average of {2} a year: epicentres, depth, magnitude, and the provinces shaken most often (USGS).",
+  "{0} km atau lebih": "{0} km or more",
+  "{0} sampai kurang dari {1} km": "{0} to less than {1} km",
+  ", sesi ke-": ", session no. ",
+  "<span class=\"dot\" aria-hidden=\"true\"></span><span>Data per <span data-fig=\"as_of_formatted\"></span>, diperbarui otomatis tiap hari bursa pukul {0} WIB</span>": "<span class=\"dot\" aria-hidden=\"true\"></span><span>Data as of <span data-fig=\"as_of_formatted\"></span>, updated automatically every trading day at {0} WIB</span>",
+  "<span data-fig=\"neg_months\"></span> dari <span data-fig=\"total_months\"></span> bulan merah": "<span data-fig=\"neg_months\"></span> of <span data-fig=\"total_months\"></span> months in the red",
+  "Angka tiap bulan, IHSG {0}": "Monthly figures, JCI {0}",
+  "Asing keluar dari saham dan obligasi": "Foreigners pull out of stocks and bonds",
+  "Batang mendatar perubahan IHSG tiap bulan {0}, poros nol di tengah": "Horizontal bars of the JCI change each month of {0}, zero axis in the middle",
+  "Bulan": "Month",
+  "Bulan berjalan: <span data-fig=\"cur_month_label\"></span>, <span data-fig=\"cur_ret_pct\"></span> dalam <span data-fig=\"cur_sessions\"></span> sesi. Angka berubah tiap hari bursa.": "Current month: <span data-fig=\"cur_month_label\"></span>, <span data-fig=\"cur_ret_pct\"></span> over <span data-fig=\"cur_sessions\"></span> sessions. This figure changes every trading day.",
+  "Bulan merah": "Months in the red",
+  "Data per <span data-fig=\"as_of_formatted\"></span>, <span data-fig=\"sessions\"></span> sesi. Diperbarui otomatis tiap hari bursa pukul {0} WIB.": "Data as of <span data-fig=\"as_of_formatted\"></span>, <span data-fig=\"sessions\"></span> sessions. Updated automatically every trading day at {0} WIB.",
+  "Empat angka yang menjelaskan {0}": "Four numbers that explain {0}",
+  "Garis harga penutupan IHSG sejak {0}. Angka puncak, titik terendah, dan penutupan terakhir tertulis di teks halaman.": "JCI closing-price line since {0}. The peak, the low, and the latest close are written in the page text.",
+  "Harga penutupan harian IHSG sepanjang {0}. Garis putus-putus menandai puncak dan titik terendah.": "Daily JCI closing prices through {0}. Dashed lines mark the peak and the low.",
+  "Hari terburuk tahun ini <strong><span data-fig=\"worst_day_date_long\"></span></strong> (<span data-fig=\"worst_day_ret\"></span>), hari terbaik <strong><span data-fig=\"best_day_date_long\"></span></strong> (<span data-fig=\"best_day_ret\"></span>).": "The worst day this year was <strong><span data-fig=\"worst_day_date_long\"></span></strong> (<span data-fig=\"worst_day_ret\"></span>), the best day <strong><span data-fig=\"best_day_date_long\"></span></strong> (<span data-fig=\"best_day_ret\"></span>).",
+  "Hari terburuk, hari terbaik": "Worst day, best day",
+  "Hari turun": "Down days",
+  "IHSG harian, harga penutupan. Bukan MSCI Indonesia Index.": "Daily JCI, closing price. Not the MSCI Indonesia Index.",
+  "IHSG menutup di <strong><span data-fig=\"last_value\"></span></strong> pada <span data-fig=\"last_date_long\"></span>, <strong><span data-fig=\"drawdown_abs\"></span></strong> di bawah puncak <span data-fig=\"peak_date_long\"></span>. Titik terendahnya <span data-fig=\"trough_value\"></span> pada <span data-fig=\"trough_date_long\"></span>; sejak itu indeks sudah naik <strong><span data-fig=\"since_trough_pct\"></span></strong>.": "The JCI closed at <strong><span data-fig=\"last_value\"></span></strong> on <span data-fig=\"last_date_long\"></span>, <strong><span data-fig=\"drawdown_abs\"></span></strong> below its peak on <span data-fig=\"peak_date_long\"></span>. Its low was <span data-fig=\"trough_value\"></span> on <span data-fig=\"trough_date_long\"></span>; since then the index has gained <strong><span data-fig=\"since_trough_pct\"></span></strong>.",
+  "IHSG {0}: {1} sesi, {2} persen di bawah puncak Januari, lalu naik {3} persen dalam satu hari. Data diperbarui tiap hari bursa.": "JCI {0}: {1} sessions, {2} percent below the January peak, then up {3} percent in a single day. Data updated every trading day.",
+  "Indeks naik {0} persen, tapi asing masih jual {1} triliun hari itu. Pengangkatnya buyback emiten dan sinyal kebijakan, bukan kembalinya dana asing.": "The index rose {0} percent, yet foreigners still sold {1} trillion that day. The lift came from issuer buybacks and policy signals, not from foreign money coming back.",
+  "Jalan turun {0},<br>satu hari naik": "The road down in {0},<br>one day up",
+  "Konsultasi turun kelas, final {0}": "Downgrade consultation, final call in {0}",
+  "Laba empat bank besar kuartal II {0} triliun, naik {1} persen. Bank sekitar seperlima indeks, jadi IHSG turun walau labanya tidak rusak.": "Q2 profit at the four big banks was {0} trillion, up {1} percent. Banks are about a fifth of the index, so the JCI fell even though their profits held up.",
+  "Lima hari terbaik": "Five best days",
+  "Lima hari terburuk": "Five worst days",
+  "Metode: <b>harga penutupan harian</b>. Return harian = penutupan dibagi penutupan sebelumnya. Return bulanan = penutupan terakhir bulan dibagi penutupan terakhir bulan sebelumnya. Sesi pertama {0} belum punya pembanding, jadi pergerakan harian dihitung dari <span data-fig=\"sessions_with_change\"></span> pasangan sesi.": "Method: <b>daily closing price</b>. Daily return = close divided by the previous close. Monthly return = the last close of the month divided by the last close of the previous month. The first session of {0} has no prior close to compare, so daily moves are computed from <span data-fig=\"sessions_with_change\"></span> session pairs.",
+  "Naik karena pembeli domestik": "Up on domestic buyers",
+  "Net sell asing di saham {0} triliun sampai {1}, tertinggi lima tahun. Porsi asing di SBN tinggal {2} persen, terendah sejak {3}.": "Foreign net selling of stocks reached {0} trillion by {1}, a five-year high. The foreign share of government bonds (SBN) is down to {2} percent, the lowest since {3}.",
+  "PASAR · {0}: Setahun Turun, Satu Hari Naik": "MARKETS · {0}: Down for a Year, Up for a Day",
+  "Pasar · {0} · IHSG": "Markets · {0} · JCI",
+  "Penurunan dari puncak": "Drawdown from peak",
+  "Penutupan": "Close",
+  "Perubahan tiap bulan. Januari diukur dari sesi pertama {0}, bulan lain dari penutupan bulan sebelumnya.": "Change each month. January is measured from the first session of {0}, other months from the previous month's close.",
+  "Puncak": "Peak",
+  "Refinitiv via Datawrapper 5srr7 ({0} - {1}); sesi setelahnya dari job harian (TradingView IDX:COMPOSITE)": "Refinitiv via Datawrapper 5srr7 ({0} - {1}); later sessions from the daily job (TradingView IDX:COMPOSITE)",
+  "Rupiah tembus {0}": "Rupiah breaks {0}",
+  "Satu garis, <span data-fig=\"sessions\"></span> sesi": "One line, <span data-fig=\"sessions\"></span> sessions",
+  "Sesi": "Session",
+  "Sidik data sumber (SHA256, {0} karakter pertama): <span data-fig=\"source_sha_short\"></span>": "Source data fingerprint (SHA256, first {0} characters): <span data-fig=\"source_sha_short\"></span>",
+  "Sumber: <b>Refinitiv via Datawrapper 5srr7</b> ({0} sampai <span data-fig=\"source_primary_until\"></span>) sesi <span data-fig=\"appended_from\"></span> dan sesudahnya dari <b>BEI dan TradingView IDX:COMPOSITE</b>. Penutupan {1} memakai angka resmi BEI ({2}); baris terakhir dataset Datawrapper tertangkap intraday.": "Source: <b>Refinitiv via Datawrapper 5srr7</b> ({0} to <span data-fig=\"source_primary_until\"></span>); sessions from <span data-fig=\"appended_from\"></span> onward from <b>IDX and TradingView IDX:COMPOSITE</b>. The {1} close uses the official IDX figure ({2}); the last row of the Datawrapper dataset was captured intraday.",
+  "Sumber: Katadata/BEI, CNBC Indonesia/DJPPR": "Source: Katadata/IDX, CNBC Indonesia/DJPPR",
+  "Sumber: Kontan, BEI": "Source: Kontan, IDX",
+  "Sumber: Kontan, Bank Indonesia": "Source: Kontan, Bank Indonesia",
+  "Sumber: Kontan/Indo Premier Sekuritas": "Source: Kontan/Indo Premier Sekuritas",
+  "Sumber: MSCI": "Source: MSCI",
+  "Sumber: MSCI, CNBC Indonesia": "Source: MSCI, CNBC Indonesia",
+  "Tanggal": "Date",
+  "Terendah": "Low",
+  "Titik terendah": "Low point",
+  "Turun": "Down",
+  "Turun dari puncak": "Down from peak",
+  "Turun setahun bukan karena laba emiten jatuh. Pemicunya kepercayaan dan arus dana, lalu diperbesar oleh bank yang jadi bagian terbesar indeks. Kenaikan {0} juga bukan karena asing kembali.": "The year-long fall did not come from collapsing company earnings. The triggers were confidence and fund flows, amplified by the banks that make up the biggest part of the index. The {0} rise did not come from foreigners returning either.",
+  "bulan sebelumnya": "previous month",
+  "bulan,": "months,",
+  "cuma Juli dan Agustus yang hijau": "only July and August were green",
+  "dari": "of",
+  "dari puncak": "from the peak",
+  "dari puncak, lalu naik": "from the peak, then up",
+  "dari titik terendah": "from the low",
+  "pergerakan harian,": "daily moves,",
+  "return harian = close/close sebelumnya; return bulanan = close terakhir bulan lawan close terakhir bulan sebelumnya; Januari diukur dari sesi pertama {0}.": "daily return = close/previous close; monthly return = last close of the month vs the last close of the previous month; January is measured from the first session of {0}.",
+  "sesi": "sessions",
+  "sesi pertama": "first session",
+  "tahun ini": "this year",
+  "{0} MSCI membuka konsultasi reklasifikasi Indonesia ke Standalone Market. Keputusan final {1}, jadi premi risiko bertahan sampai ada kejelasan.": "{0} MSCI opened a consultation on reclassifying Indonesia to Standalone Market. The final decision comes {1}, so the risk premium stays until there is clarity.",
+  "{0} MSCI menghentikan semua perubahan indeks untuk Indonesia. Alasannya, struktur kepemilikan saham tidak transparan dan ada dugaan perdagangan terkoordinasi.": "{0} MSCI froze all index changes for Indonesia, citing an opaque share-ownership structure and suspected coordinated trading.",
+  "{0} rupiah menyentuh {1} per dolar. BI menaikkan suku bunga acuan ke {2} persen pada Juni untuk menahan pelemahan, jadi biaya modal ikut naik.": "{0} the rupiah touched {1} per dollar. BI raised its policy rate to {2} percent in June to hold back the slide, so the cost of capital rose too.",
+  "{0} · Nilai tukar": "{0} · Exchange rate",
+  ": kurs": ": rate",
+  "Angka kunci": "Key figures",
+  "Arah bulanan, kurs lawan IHSG": "Monthly direction, the rate against the JCI",
+  "Baca juga: PASAR · {0}, setahun turun satu hari naik": "Read also: MARKETS · {0}, down for a year, up for a day",
+  "Batas dari angka ini": "Limits of these numbers",
+  "Bergerak bareng, tapi tidak sesimetris itu": "Moving together, but not that symmetrically",
+  "Bulan arah berlawanan": "Months in opposite directions",
+  "Bulan arah sama": "Months in the same direction",
+  "Data harian, bukan prediksi. Halaman ini bagian ketiga dari seri Pasar.": "Daily data, not a forecast. This page is part three of the Markets series.",
+  "Korelasi dihitung dari return harian pada hari yang ada di dua sumber sekaligus, bukan dari level. Bulan dihitung dari penutupan terakhir tiap bulan terhadap penutupan bulan sebelumnya. Semua angka di halaman ini lahir dari <code>data/pasar/rupiah.json</code> lewat generator, tidak ada angka yang diketik di template.": "Correlation is computed from daily returns on days present in both sources, not from levels. Months are measured from the last close of each month against the previous month's close. Every number on this page comes from <code>data/pasar/rupiah.json</code> through the generator; none is typed into the template.",
+  "Korelasi harian": "Daily correlation",
+  "Korelasi mengukur kebersamaan gerak, bukan sebab. Dua seri bisa bergerak berlawanan karena satu pemicu yang sama (arus dana asing keluar), tanpa salah satu menyebabkan yang lain. Selain itu kurs di halaman ini kurs tengah harian dari data ECB, bukan JISDOR Bank Indonesia, jadi levelnya bisa beda beberapa poin dari rilis resmi.": "Correlation measures moving together, not cause. Two series can move in opposite directions because of one shared trigger (foreign money flowing out) without either causing the other. The rate on this page is also the daily ECB mid rate, not Bank Indonesia's JISDOR, so its level can differ by a few points from the official release.",
+  "Korelasi {0} berarti dua seri selalu bergerak berlawanan, {1} berarti tidak berhubungan. Angka di halaman ini dihitung dari masa lalu, dan bisa berubah kalau pemicunya berubah. Ini bukan ramalan arah.": "A correlation of {0} means the two series always move in opposite directions; {1} means they are unrelated. The figure on this page is computed from the past and can change if the drivers change. It is not a forecast of direction.",
+  "Kurs USD/IDR harian, {0} pada {1}-{2}-{3} ke {4} pada {5}-{6}-{7}": "Daily USD/IDR rate, {0} on {1}-{2}-{3} to {4} on {5}-{6}-{7}",
+  "Kurs USD/IDR harian: Frankfurter, referensi kurs ECB. IHSG harian: Refinitiv via Datawrapper untuk Januari sampai {0}, sesi setelahnya dari job harian {1} WIB. Data sampai <span data-fig=\"as_of_long\"></span>.": "Daily USD/IDR rate: Frankfurter, ECB reference rates. Daily JCI: Refinitiv via Datawrapper for January to {0}, later sessions from the daily job at {1} WIB. Data through <span data-fig=\"as_of_long\"></span>.",
+  "Kurs bergerak di pita <span data-fig=\"band_width\"></span> rupiah sepanjang tahun: terendah <span data-fig=\"trough\"></span> pada <span data-fig=\"trough_date\"></span>, tertinggi <span data-fig=\"peak\"></span> pada <span data-fig=\"peak_date\"></span>. <em>Tidak ada satu pun bulan yang membawa kurs kembali ke bawah level awal tahun.</em>": "The rate moved within a band of <span data-fig=\"band_width\"></span> rupiah all year: lowest <span data-fig=\"trough\"></span> on <span data-fig=\"trough_date\"></span>, highest <span data-fig=\"peak\"></span> on <span data-fig=\"peak_date\"></span>. <em>Not a single month brought the rate back below its start-of-year level.</em>",
+  "Metode": "Method",
+  "PASAR · {0} · USD/IDR dan IHSG": "MARKETS · {0} · USD/IDR and the JCI",
+  "PASAR · {0}: Rupiah dan IHSG, Arah yang Sama-sama Jatuh": "MARKETS · {0}: The Rupiah and the JCI, Falling Together",
+  "Perubahan bulanan kurs tengah. Hanya Agustus yang menguat, dan itu pun balik lagi di bulan berikutnya. Bar ke kanan berarti rupiah melemah, ke kiri berarti rupiah menguat.": "Monthly change in the mid rate. Only August strengthened, and even that reversed the next month. A bar to the right means a weaker rupiah, to the left a stronger one.",
+  "Rupiah jatuh, saham ikut jatuh": "The rupiah falls, stocks fall with it",
+  "Sebaran return harian kurs dan IHSG, {0} hari": "Spread of daily returns for the rate and the JCI, {0} days",
+  "Sejak akhir {0} sampai <span data-fig=\"as_of_long\"></span>, satu dollar bergerak dari <strong><span data-fig=\"first\"></span></strong> ke <strong><span data-fig=\"last\"></span></strong> rupiah. Dalam rentang yang sama, IHSG kehilangan sepertiga nilainya. Yang jarang dibahas: dua-duanya bergerak di hari yang sama, dengan arah yang sebagian besar berlawanan.": "From the end of {0} to <span data-fig=\"as_of_long\"></span>, one dollar went from <strong><span data-fig=\"first\"></span></strong> to <strong><span data-fig=\"last\"></span></strong> rupiah. Over the same stretch, the JCI lost a third of its value. What gets discussed less: both move on the same days, mostly in opposite directions.",
+  "Sembilan dari sepuluh bulan melemah": "Weaker in nine of ten months",
+  "Sumber": "Sources",
+  "Tiap titik satu hari bursa: sumbu datar perubahan kurs, sumbu tegak perubahan IHSG. Kalau dua-duanya selalu bergerak berlawanan, titiknya akan membentuk garis turun rapi. Yang terjadi: awan titik yang miring ke bawah, dengan sebaran lebar.": "Each dot is one trading day: the horizontal axis is the change in the rate, the vertical axis the change in the JCI. If the two always moved in opposite directions, the dots would form a neat falling line. What you get instead is a cloud tilted downward, with a wide spread.",
+  "USD/IDR {0}: {1} ke {2}, naik {3} persen dalam sepuluh bulan. Korelasi return harian dengan IHSG {4} dari {5} hari beririsan.": "USD/IDR {0}: {1} to {2}, up {3} percent in ten months. Correlation of daily returns with the JCI is {4} over {5} overlapping days.",
+  "hari": "days",
+  "koefisien korelasi Pearson dari return harian, <span data-fig=\"n_obs\"></span> hari beririsan antara data kurs dan data IHSG.": "Pearson correlation coefficient of daily returns, <span data-fig=\"n_obs\"></span> overlapping days between the rate data and the JCI data.",
+  "kurs (%)": "rate (%)",
+  "kurs tengah USD/IDR": "USD/IDR mid rate",
+  "naik": "up",
+  "sama": "same",
+  "sepanjang tahun": "all year",
+  "<em>Berapa persen siswa Indonesia dan siswa OECD yang sudah mencapai tiap tingkat kemampuan, di tiga bidang: sains, membaca, dan matematika.</em>": "<em>What share of Indonesian and OECD students reach each proficiency level, across three domains: science, reading, and mathematics.</em>",
+  "<em>Nilai rata-rata sains Indonesia dibandingkan tujuh negara ASEAN lain yang ikut PISA {0}.</em>": "<em>Indonesia's mean science score compared with the seven other ASEAN countries that took part in PISA {0}.</em>",
+  "<em>Nilai sains siswa Indonesia dan rata-rata negara OECD pada tujuh kali PISA, dari dua ribu enam sampai dua ribu dua puluh lima. Garis kecil di setiap titik menunjukkan besarnya ketidakpastian hasil pengukuran.</em>": "<em>Science scores of Indonesian students and the OECD average across seven rounds of PISA, from two thousand six to two thousand twenty-five. The small bar at each point shows the size of the measurement uncertainty.</em>",
+  "<em>Nilai sains siswa Indonesia dikelompokkan menurut latar belakang ekonomi keluarga, dari kelompok {0}% termiskin sampai {1}% terkaya, lalu dibandingkan dengan siswa OECD.</em>": "<em>Science scores of Indonesian students grouped by family economic background, from the poorest {0}% to the richest {1}%, then compared with OECD students.</em>",
+  "<em>PISA menguji kemampuan sains siswa berusia lima belas tahun di puluhan negara. Halaman ini membandingkan nilai siswa Indonesia dengan nilai rata-rata negara-negara OECD pada siklus terbaru.</em>": "<em>PISA tests the science skills of fifteen-year-old students in dozens of countries. This page compares Indonesian students' scores with the OECD average in the latest round.</em>",
+  "<em>Penjelasan singkat cara angka di halaman ini dihitung, seberapa besar ketidakpastiannya, dan dari mana datanya.</em>": "<em>A short explanation of how the numbers on this page are computed, how uncertain they are, and where the data comes from.</em>",
+  "<em>Perbandingan nilai siswa Indonesia dengan siswa OECD, dari yang paling rendah sampai yang paling tinggi. Kotak menunjukkan nilai separuh siswa di bagian tengah.</em>": "<em>Indonesian students' scores compared with OECD students, from the lowest to the highest. The box shows the scores of the middle half of students.</em>",
+  "<span class=\"hl-accent\"><span data-fig=\"prof_below_l2_math\"></span> PERSEN SISWA INDONESIA BELUM MENCAPAI KEMAMPUAN DASAR</span> <span class=\"hl-main\">MATEMATIKA</span>": "<span class=\"hl-accent\"><span data-fig=\"prof_below_l2_math\"></span> PERCENT OF INDONESIAN STUDENTS HAVE NOT REACHED BASIC PROFICIENCY</span> <span class=\"hl-main\">IN MATHEMATICS</span>",
+  "<span class=\"hl-accent\">CARA ANGKA INI DIHITUNG</span> <span class=\"hl-main\">BATASAN DAN ASAL DATANYA</span>": "<span class=\"hl-accent\">HOW THESE NUMBERS ARE COMPUTED</span> <span class=\"hl-main\">LIMITS AND DATA SOURCES</span>",
+  "<span class=\"hl-accent\">INDONESIA DI PERINGKAT <span data-fig=\"peers_rank\"></span> DARI DELAPAN</span> <span class=\"hl-main\">NEGARA ASEAN PESERTA PISA {0}</span>": "<span class=\"hl-accent\">INDONESIA RANKS <span data-fig=\"peers_rank\"></span> OF EIGHT</span> <span class=\"hl-main\">ASEAN COUNTRIES IN PISA {0}</span>",
+  "<span class=\"hl-accent\">NILAI SAINS SISWA INDONESIA <span data-fig=\"hero_gap\"></span> POIN</span> <span class=\"hl-main\">DI BAWAH RATA-RATA NEGARA OECD</span>": "<span class=\"hl-accent\">INDONESIAN STUDENTS' SCIENCE SCORE IS <span data-fig=\"hero_gap\"></span> POINTS</span> <span class=\"hl-main\">BELOW THE OECD AVERAGE</span>",
+  "<span class=\"hl-accent\">SEBARAN NILAI SISWA INDONESIA LEBIH SEMPIT</span> <span class=\"hl-main\">BAHKAN SEPULUH PERSEN TERBAIK MASIH DI BAWAH NILAI TENGAH OECD</span>": "<span class=\"hl-accent\">INDONESIAN SCORES ARE MORE NARROWLY SPREAD</span> <span class=\"hl-main\">EVEN THE TOP TEN PERCENT ARE STILL BELOW THE OECD MEDIAN</span>",
+  "<span class=\"hl-accent\">SELAMA SEMBILAN BELAS TAHUN, NILAI INDONESIA BERUBAH <span data-fig=\"trend_idn_change\"></span> POIN</span> <span class=\"hl-main\">PERUBAHAN SEKECIL ITU MASIH DI DALAM BATAS KETIDAKPASTIAN PENGUKURAN</span>": "<span class=\"hl-accent\">OVER NINETEEN YEARS, INDONESIA'S SCORE CHANGED BY <span data-fig=\"trend_idn_change\"></span> POINTS</span> <span class=\"hl-main\">A CHANGE THAT SMALL IS STILL WITHIN THE MEASUREMENT UNCERTAINTY</span>",
+  "<span class=\"hl-accent\">SELISIH <span data-fig=\"escs_gap_idn\"></span> POIN ANTARA SISWA TERKAYA DAN TERMISKIN</span> <span class=\"hl-main\">SISWA TERKAYA INDONESIA MASIH DI BAWAH SISWA TERMISKIN OECD</span>": "<span class=\"hl-accent\">A GAP OF <span data-fig=\"escs_gap_idn\"></span> POINTS BETWEEN THE RICHEST AND POOREST STUDENTS</span> <span class=\"hl-main\">INDONESIA'S RICHEST STUDENTS ARE STILL BELOW THE OECD'S POOREST</span>",
+  "<strong>Cara menghitung nilai:</strong> Setiap siswa mengerjakan satu set soal. PISA tidak menyimpulkan satu nilai tunggal, tetapi <span data-fig=\"meta_pv_count\"></span> perkiraan nilai untuk tiap siswa (istilah resminya: plausible values). Nilai rata-rata dan ketidakpastiannya dihitung dari <span data-fig=\"meta_rep_count\"></span> versi sampel ulang yang berbeda (istilah resminya: Balanced Repeated Replication atau BRR, dengan koefisien Fay).": "<strong>How scores are computed:</strong> Each student answers one set of questions. PISA does not infer a single score, but <span data-fig=\"meta_pv_count\"></span> score estimates per student (the official term: plausible values). Means and their uncertainty are computed from <span data-fig=\"meta_rep_count\"></span> different resampled versions (the official term: Balanced Repeated Replication, or BRR, with Fay's coefficient).",
+  "<strong>Lisensi dan pembuatan ulang:</strong> Datanya berasal dari repositori resmi OECD PISA dengan lisensi Creative Commons Attribution <span data-fig=\"meta_licence_ver\"></span> International (CC BY <span data-fig=\"meta_licence_ver_code\"></span>). Halaman ini dibuat ulang otomatis dari data yang sama, tanpa mengambil apa pun dari internet saat halaman dibuka.": "<strong>Licence and rebuilding:</strong> The data comes from the official OECD PISA repository under a Creative Commons Attribution <span data-fig=\"meta_licence_ver\"></span> International licence (CC BY <span data-fig=\"meta_licence_ver_code\"></span>). This page is rebuilt automatically from the same data, and fetches nothing from the internet when it is opened.",
+  "<strong>Yang tidak bisa disimpulkan:</strong> Angka di halaman ini menggambarkan keadaan siswa secara keseluruhan, bukan menilai sekolah atau siswa tertentu, dan tidak membuktikan sebab-akibat.": "<strong>What cannot be concluded:</strong> The numbers on this page describe students as a whole; they do not rate particular schools or students, and they do not prove cause and effect.",
+  "Catatan: urutan ini dihitung hanya dari nilai rata-rata. Selisih Indonesia dengan Kamboja cuma <span data-fig=\"peers_gap_kh\"></span> poin, sementara ketidakpastian pengukurannya sekitar <span data-fig=\"peers_gap_kh_2se\"></span> poin. Selisihnya tipis dan nyaris menyentuh batas ketidakpastian itu, jadi jangan dibaca sebagai jarak yang besar.": "Note: this ranking is computed from means only. Indonesia is just <span data-fig=\"peers_gap_kh\"></span> points from Cambodia, while the measurement uncertainty is about <span data-fig=\"peers_gap_kh_2se\"></span> points. The gap is thin and nearly touches that uncertainty limit, so do not read it as a large distance.",
+  "Kartu pratinjau pelat PISA: nilai sains siswa Indonesia {0} poin di bawah rata-rata negara OECD.": "Preview card for the PISA plate: Indonesian students' science score is {0} points below the OECD average.",
+  "Nilai sains siswa Indonesia {0} poin di bawah rata-rata negara OECD pada PISA {1}, dan {2}% siswa belum mencapai kemampuan dasar matematika.": "Indonesian students' science score is {0} points below the OECD average in PISA {1}, and {2}% of students have not reached basic proficiency in mathematics.",
+  "PISA {0}: Sains Indonesia {1} Poin di Bawah Rata-rata OECD": "PISA {0}: Indonesian Science {1} Points Below the OECD Average",
+  "Pita berwarna menunjukkan seberapa jauh nilai rata-rata sains Indonesia bisa berbeda kalau pengukuran diulang: sekitar <span data-fig=\"se_science_val\"></span> poin. Semakin lebar pitanya, semakin tidak pasti angkanya.": "The coloured band shows how far Indonesia's mean science score could differ if the measurement were repeated: about <span data-fig=\"se_science_val\"></span> points. The wider the band, the less certain the number.",
+  "Seberapa Tidak Pastinya Nilai Rata-rata": "How Uncertain the Mean Is",
+  "Sumber: data jawaban siswa (mikrodata PUF) dan tabel turunan batas kelompok ekonomi <span data-fig=\"meta_table_escs\"></span>": "Source: student response data (PUF microdata) and the derived table of economic group cut-offs <span data-fig=\"meta_table_escs\"></span>",
+  "Sumber: laporan teknis OECD PISA dan data terbuka publik (CC BY <span data-fig=\"meta_licence_note\"></span>)": "Source: OECD PISA technical report and public open data (CC BY <span data-fig=\"meta_licence_note\"></span>)",
+  "Sumber: ringkasan nilai rata-rata dan sebaran nilai sains, tabel lampiran <span data-fig=\"meta_table_hero\"></span>": "Source: summary of mean science scores and their spread, annex table <span data-fig=\"meta_table_hero\"></span>",
+  "Sumber: tabel peringkat nilai sains internasional, tabel lampiran <span data-fig=\"meta_table_peers\"></span>": "Source: international science score ranking, annex table <span data-fig=\"meta_table_peers\"></span>",
+  "Sumber: tabel sebaran dan variasi nilai sains, tabel lampiran <span data-fig=\"meta_table_spread\"></span>": "Source: table of science score spread and variation, annex table <span data-fig=\"meta_table_spread\"></span>",
+  "Sumber: tabel sebaran tingkat kemampuan sains, matematika, dan membaca, tabel lampiran <span data-fig=\"meta_table_prof_scie\"></span>, <span data-fig=\"meta_table_prof_math\"></span>, dan <span data-fig=\"meta_table_prof_read\"></span>": "Source: tables of proficiency levels in science, mathematics, and reading, annex tables <span data-fig=\"meta_table_prof_scie\"></span>, <span data-fig=\"meta_table_prof_math\"></span>, and <span data-fig=\"meta_table_prof_read\"></span>",
+  "Sumber: tabel tren nilai sains lintas siklus, tabel lampiran <span data-fig=\"meta_table_trend\"></span>": "Source: table of science score trends across rounds, annex table <span data-fig=\"meta_table_trend\"></span>",
+  "poin skor": "score points",
+  "satuan: poin skor | skala: {0} px per poin skor": "unit: score points | scale: {0} px per score point",
+  "<span class=\"kicker-num\">{0} / Catatan Metode &amp; Rujukan</span> &middot; Transparansi Pengukuran": "<span class=\"kicker-num\">{0} / Method Notes &amp; References</span> &middot; Measurement Transparency",
+  "<span class=\"kicker-num\">{0} / Kurva Sebaran Skor</span> &middot; Tabel <span class=\"fig\" data-fig=\"meta.tables.scores\"></span>": "<span class=\"kicker-num\">{0} / Score Distribution Curve</span> &middot; Table <span class=\"fig\" data-fig=\"meta.tables.scores\"></span>",
+  "<span class=\"picker-tag\">Negara:</span> <span id=\"label-picker-primary\">Indonesia</span> <span class=\"picker-caret\" aria-hidden=\"true\">&#{0};</span>": "<span class=\"picker-tag\">Country:</span> <span id=\"label-picker-primary\">Indonesia</span> <span class=\"picker-caret\" aria-hidden=\"true\">&#{0};</span>",
+  "<strong>Persentil</strong> mengurutkan siswa dari skor terendah ke tertinggi: titik <span class=\"fig\">p10</span> adalah batas {0}% siswa terbawah, <span class=\"fig\">p50</span> adalah nilai tengah (median), dan <span class=\"fig\">p90</span> adalah batas {1}% siswa teratas. Pada sains, median (<span class=\"fig\">p50</span>) Indonesia adalah <span class=\"fig\" data-fig=\"indonesia.science.p50\"></span> poin (rentang <span class=\"fig\">p10</span> <span class=\"fig\" data-fig=\"indonesia.science.p10\"></span> s.d. <span class=\"fig\">p90</span> <span class=\"fig\" data-fig=\"indonesia.science.p90\"></span>), sedangkan median Viet Nam mencapai <span class=\"fig\" data-fig=\"viet-nam.science.p50\"></span> poin dan Rata-rata OECD <span class=\"fig\" data-fig=\"oecd-average.science.p50\"></span> poin.": "<strong>Percentiles</strong> rank students from the lowest score to the highest: <span class=\"fig\">p10</span> is the cut-off for the bottom {0}% of students, <span class=\"fig\">p50</span> is the middle value (median), and <span class=\"fig\">p90</span> is the cut-off for the top {1}%. In science, Indonesia's median (<span class=\"fig\">p50</span>) is <span class=\"fig\" data-fig=\"indonesia.science.p50\"></span> points (range <span class=\"fig\">p10</span> <span class=\"fig\" data-fig=\"indonesia.science.p10\"></span> to <span class=\"fig\">p90</span> <span class=\"fig\" data-fig=\"indonesia.science.p90\"></span>), while Viet Nam's median reaches <span class=\"fig\" data-fig=\"viet-nam.science.p50\"></span> points and the OECD average <span class=\"fig\" data-fig=\"oecd-average.science.p50\"></span> points.",
+  "Alat eksplorasi interaktif hasil OECD PISA {0} untuk membandingkan skor sains, matematika, dan membaca di {1} negara peserta, distribusi kemampuan, persentil, tren, dan sebaran sekolah.": "Interactive explorer of OECD PISA {0} results for comparing science, mathematics and reading scores across {1} participating countries: proficiency distribution, percentiles, trends, and the spread between schools.",
+  "Apakah perbedaan nilai siswa terutama terjadi karena jurang mutu antar-sekolah, atau perbedaan capaian murid di dalam sekolah yang sama? Di Indonesia, variansi skor <span data-varlabel=\"low\">sains</span> di dalam sekolah sebesar <span class=\"fig\" data-fig=\"var.indonesia.science.within\"></span> dan antar-sekolah sebesar <span class=\"fig\" data-fig=\"var.indonesia.science.between\"></span> (total variansi <span class=\"fig\" data-fig=\"var.indonesia.science.total\"></span>). Ketika dinormalisasi terhadap rata-rata variansi total OECD, porsi antar-sekolah Indonesia adalah <span class=\"fig\" data-fig=\"var.indonesia.science.between_pct\"></span>%, Viet Nam <span class=\"fig\" data-fig=\"var.viet-nam.science.between_pct\"></span>%, dan Rata-rata OECD <span class=\"fig\" data-fig=\"var.oecd-average.science.between_pct\"></span>%.": "Do score differences come mostly from a quality gap between schools, or from different achievement among pupils in the same school? In Indonesia, the within-school variance in <span data-varlabel=\"low\">science</span> scores is <span class=\"fig\" data-fig=\"var.indonesia.science.within\"></span> and the between-school variance is <span class=\"fig\" data-fig=\"var.indonesia.science.between\"></span> (total variance <span class=\"fig\" data-fig=\"var.indonesia.science.total\"></span>). Normalised to the OECD average total variance, the between-school share is <span class=\"fig\" data-fig=\"var.indonesia.science.between_pct\"></span>% for Indonesia, <span class=\"fig\" data-fig=\"var.viet-nam.science.between_pct\"></span>% for Viet Nam, and <span class=\"fig\" data-fig=\"var.oecd-average.science.between_pct\"></span>% for the OECD average.",
+  "Arahkan kursor atau fokuskan tombol tingkat kemampuan untuk melihat persentase dan standard error (SE) asli dari tabel OECD.": "Hover over or focus a proficiency-level button to see the original percentage and standard error (SE) from the OECD table.",
+  "Band bernilai kosong (tidak ada data) tidak digambar sebagai batang. Panjang batang = persentase siswa (skala {0} sampai {1}%); batang bergaris = negara pembanding.": "Empty bands (no data) are not drawn as bars. Bar length = share of students (scale {0} to {1}%); striped bars = comparison country.",
+  "Batas kemampuan minimum OECD (skor sains <span class=\"fig\">{0}</span>, matematika <span class=\"fig\">{1}</span>, membaca <span class=\"fig\">{2}</span>) agar siswa dapat berpartisipasi penuh dalam masyarakat modern.": "The OECD minimum proficiency line (science score <span class=\"fig\">{0}</span>, mathematics <span class=\"fig\">{1}</span>, reading <span class=\"fig\">{2}</span>) for students to take part fully in modern society.",
+  "Cara Membaca Error Bar (2xSE), Istilah Statistik, dan Sumber Tabel": "How to Read the Error Bars (2xSE), Statistical Terms, and Source Tables",
+  "Cara membaca: dari total variansi gabungan di <strong>Indonesia</strong>, sebagian besar perbedaan nilai siswa berada di dalam sekolah yang sama, sedangkan di <strong>Viet Nam</strong> dan <strong>Rata-rata OECD</strong> pemisahan capaian antar-sekolah mengambil porsi yang lebih lebar.": "How to read it: of the combined total variance in <strong>Indonesia</strong>, most of the difference in student scores sits within the same school, while in <strong>Viet Nam</strong> and the <strong>OECD average</strong> the split between schools takes a wider share.",
+  "Cari nama negara atau ekonomi": "Search for a country or economy",
+  "Catatan Ketersediaan": "Availability Notes",
+  "Daftar Tabel Sumber": "Source Tables",
+  "Daftar peringkat skor negara": "Country score ranking",
+  "Di atas Level {0} / Level {1}-{2} (%)": "Above Level {0} / Level {1}-{2} (%)",
+  "Di bawah Level {0} (%)": "Below Level {0} (%)",
+  "Di bawah Level {0} (1a ke bawah)": "Below Level {0} (1a and below)",
+  "Di halaman ini Anda dapat memilih mata pelajaran (sains, matematika, atau membaca), mengganti negara utama serta negara pembanding dari <span class=\"fig\" data-fig=\"meta.counts.participants\"></span> peserta PISA {0}, menggeser titik persentil dari siswa terendah hingga tertinggi, mengurutkan tangga kawasan ASEAN, serta menyalakan error bar (<span class=\"fig\">2xSE</span>) dan tabel data lengkap di bawah setiap grafik.": "On this page you can pick the subject (science, mathematics, or reading), change the main country and the comparison country among the <span class=\"fig\" data-fig=\"meta.counts.participants\"></span> PISA {0} participants, slide the percentile point from the lowest to the highest students, sort the ASEAN ladder, and turn on error bars (<span class=\"fig\">2xSE</span>) and the full data table under each chart.",
+  "Diagram mistar rentang 2xSE sekitar skor sains Indonesia {0} poin": "Ruler diagram of the 2xSE range around Indonesia's science score of {0} points",
+  "Distribusi Skor": "Score Distribution",
+  "Filter mata pelajaran, negara, error bar, dan tabel data": "Filter by subject, country, error bars, and data tables",
+  "Gagal memuat payload interaktif. Angka bawaan untuk Indonesia, Viet Nam, dan Rata-rata OECD tetap dapat dibaca pada halaman ini.": "The interactive payload failed to load. The built-in figures for Indonesia, Viet Nam, and the OECD average can still be read on this page.",
+  "Garis Waktu Proporsi Siswa di Bawah Ambang Dasar vs Kemahiran Tinggi": "Timeline of the Share of Students Below the Baseline vs High Proficiency",
+  "Garis waktu proporsi kemahiran siswa antar siklus PISA": "Timeline of student proficiency shares across PISA rounds",
+  "Grafik garis lima titik persentil (p10, p25, p50, p75, p90) beserta garis mendatar ambang Level {0}.": "Line chart of five percentile points (p10, p25, p50, p75, p90) with a horizontal line at the Level {0} threshold.",
+  "Grafik ini menempatkan delapan negara ASEAN peserta PISA {0} bersama negara terpilih, pembanding, dan Rata-rata OECD. Klik baris negara mana pun untuk menjadikannya pembanding baru. Saat tombol <strong>Error bar (2xSE)</strong> diaktifkan, sistem memeriksa apakah selisih rata-rata antara negara terpilih dan pembanding lebih kecil dari dua kali standard error gabungan (<span class=\"fig\">2xSE</span>).": "This chart places the eight ASEAN countries in PISA {0} alongside the selected country, the comparison country, and the OECD average. Click any country row to make it the new comparison. When the <strong>Error bar (2xSE)</strong> toggle is on, the page checks whether the gap in means between the selected and comparison countries is smaller than twice the combined standard error (<span class=\"fig\">2xSE</span>).",
+  "Indeks status ekonomi, sosial, dan budaya rumah tangga siswa di berkas mikro PISA yang merangkum pendidikan orang tua, pekerjaan orang tua, dan kepemilikan fasilitas belajar di rumah.": "The index of economic, social and cultural status of students' households in the PISA micro files, summarising parents' education, parents' occupations, and learning resources at home.",
+  "Jarak Skor di Sepanjang Lima Titik Persentil": "Score Gaps Across Five Percentile Points",
+  "Kartu pratinjau halaman explorer interaktif PISA {0}: pemilih negara dan piramida kemampuan.": "Preview card for the interactive PISA {0} explorer page: country picker and proficiency pyramid.",
+  "Ketik nama negara (mis. Indonesia, Jepang)...": "Type a country name (e.g. Indonesia, Japan)...",
+  "Kurva persentil skor antara negara terpilih dan pembanding": "Score percentile curves for the selected and comparison countries",
+  "Langsung ke panel kontrol": "Skip to the control panel",
+  "Lisensi data: <span data-fig=\"meta.licence\"></span> (<a href=\"https://creativecommons.org/licenses/by/{0}/\" target=\"_blank\" rel=\"noopener\">Creative Commons Attribution {1} International</a>). Unduh basis data resmi di <a href=\"https://www.oecd.org/en/data/datasets/pisa-{2}-database.html\" target=\"_blank\" rel=\"noopener\">OECD PISA {3} Database</a> atau kembali ke <a href=\"../pisa/\">halaman laporan naratif /pisa/</a>.": "Data licence: <span data-fig=\"meta.licence\"></span> (<a href=\"https://creativecommons.org/licenses/by/{0}/\" target=\"_blank\" rel=\"noopener\">Creative Commons Attribution {1} International</a>). Download the official database at <a href=\"https://www.oecd.org/en/data/datasets/pisa-{2}-database.html\" target=\"_blank\" rel=\"noopener\">OECD PISA {3} Database</a> or go back to the <a href=\"../pisa/\">narrative report page /pisa/</a>.",
+  "Negara / Ekonomi": "Country / Economy",
+  "Negara Utama (Sains)": "Main Country (Science)",
+  "OECD membagi capaian siswa ke dalam sepuluh tingkat (band). <strong>Level {0}</strong> adalah ambang kemahiran dasar: siswa di bawah garis ini kesulitan menggunakan konsep ilmiah atau numerik sederhana untuk menyelesaikan masalah sehari-hari. Pada sains {1}, proporsi siswa Indonesia di bawah Level {2} mencapai <span class=\"fig\" data-fig=\"indonesia.science.share.below_l2.{3}\"></span>%, sedangkan di Viet Nam sebesar <span class=\"fig\" data-fig=\"viet-nam.science.share.below_l2.{4}\"></span>% dan Rata-rata OECD <span class=\"fig\" data-fig=\"oecd-average.science.share.below_l2.{5}\"></span>%.": "The OECD splits student achievement into ten levels (bands). <strong>Level {0}</strong> is the baseline of proficiency: students below this line struggle to use simple scientific or numerical ideas to solve everyday problems. In science {1}, the share of Indonesian students below Level {2} reaches <span class=\"fig\" data-fig=\"indonesia.science.share.below_l2.{3}\"></span>%, against <span class=\"fig\" data-fig=\"viet-nam.science.share.below_l2.{4}\"></span>% in Viet Nam and <span class=\"fig\" data-fig=\"oecd-average.science.share.below_l2.{5}\"></span>% for the OECD average.",
+  "PISA {0} Explorer: Perbandingan Lintas Negara": "PISA {0} Explorer: Cross-Country Comparison",
+  "PISA {0} Explorer: Perbandingan Lintas Negara & Distribusi Skor": "PISA {0} Explorer: Cross-Country Comparison & Score Distribution",
+  "PISA {0} Explorer: Skor, Sebaran Kemampuan, dan Posisi Negara": "PISA {0} Explorer: Scores, Proficiency Spread, and Country Positions",
+  "Pada sains, band puncak <strong>Indonesia</strong> berada di <strong>Level 1a</strong> (<span class=\"fig\" data-fig=\"indonesia.science.band.level_1a\"></span>%), sedangkan band puncak <strong>Viet Nam</strong> berada di <strong>Level {0}</strong> (<span class=\"fig\" data-fig=\"viet-nam.science.band.level_2\"></span>%).": "In science, <strong>Indonesia</strong>'s largest band is <strong>Level 1a</strong> (<span class=\"fig\" data-fig=\"indonesia.science.band.level_1a\"></span>%), while <strong>Viet Nam</strong>'s largest band is <strong>Level {0}</strong> (<span class=\"fig\" data-fig=\"viet-nam.science.band.level_2\"></span>%).",
+  "Perbandingan persentase siswa antar siklus PISA dengan penanda eksplisit untuk tahun yang tidak memiliki data.": "Share of students compared across PISA rounds, with an explicit marker for years without data.",
+  "Pilih Negara atau Ekonomi": "Pick a Country or Economy",
+  "Pilih indikator garis waktu": "Pick a timeline indicator",
+  "Pilih langsung titik persentil": "Pick a percentile point directly",
+  "Pilih negara dan mata pelajaran, lihat piramida kemampuan, persentil, tren, dan sebaran sekolah dari tabel lampiran resmi OECD PISA {0}.": "Pick a country and a subject, then see the proficiency pyramid, percentiles, trends, and the spread between schools from the official OECD PISA {0} annex tables.",
+  "Pilih titik persentil dari p10 sampai p90": "Pick a percentile point from p10 to p90",
+  "Piramida Kemampuan: Dari Level 1c ke Bawah hingga Level {0}": "Proficiency Pyramid: From Level 1c and Below to Level {0}",
+  "Porsi Antar ({0}% Bar)": "Between Share ({0}% Bar)",
+  "Porsi Dalam ({0}% Bar)": "Within Share ({0}% Bar)",
+  "Porsi variansi antar-sekolah (% dari kombinasian dalam + antar)": "Between-school share of variance (% of within + between combined)",
+  "Porsi variansi di dalam sekolah (% dari kombinasian dalam + antar)": "Within-school share of variance (% of within + between combined)",
+  "Rata-rata OECD": "OECD average",
+  "Rata-rata OECD (%)": "OECD average (%)",
+  "Rata-rata {0}": "{0} average",
+  "Sebaran di Dalam Sekolah vs Antar-Sekolah": "Spread Within Schools vs Between Schools",
+  "Sebaran variansi dalam vs antar-sekolah (sains · membaca · matematika)": "Spread of variance within vs between schools (science · reading · mathematics)",
+  "Sejak sains pertama kali menjadi domain utama pada {0}, proporsi siswa Indonesia yang berada di bawah Level {1} bergerak dari <span class=\"fig\" data-fig=\"indonesia.science.share.below_l2.{2}\"></span>% ({3}) menjadi <span class=\"fig\" data-fig=\"indonesia.science.share.below_l2.{4}\"></span>% ({5}), sementara proporsi siswa di Level {6} atau {7} pada {8} adalah <span class=\"fig\" data-fig=\"indonesia.science.share.above_l4.{9}\"></span>% (dibandingkan <span class=\"fig\" data-fig=\"oecd-average.science.share.above_l4.{10}\"></span>% pada Rata-rata OECD). Pada matematika dan membaca {11}, porsi siswa Indonesia di bawah Level {12} masing-masing sebesar <span class=\"fig\" data-fig=\"indonesia.mathematics.share.below_l2.{13}\"></span>% dan <span class=\"fig\" data-fig=\"indonesia.reading.share.below_l2.{14}\"></span>%. Siklus yang tidak diikuti oleh suatu negara ditandai secara eksplisit pada sumbu tahun dan tidak disambung diam-diam.": "Since science first became the main domain in {0}, the share of Indonesian students below Level {1} moved from <span class=\"fig\" data-fig=\"indonesia.science.share.below_l2.{2}\"></span>% ({3}) to <span class=\"fig\" data-fig=\"indonesia.science.share.below_l2.{4}\"></span>% ({5}), while the share of students at Level {6} or {7} in {8} is <span class=\"fig\" data-fig=\"indonesia.science.share.above_l4.{9}\"></span>% (against <span class=\"fig\" data-fig=\"oecd-average.science.share.above_l4.{10}\"></span>% for the OECD average). In mathematics and reading {11}, the share of Indonesian students below Level {12} is <span class=\"fig\" data-fig=\"indonesia.mathematics.share.below_l2.{13}\"></span>% and <span class=\"fig\" data-fig=\"indonesia.reading.share.below_l2.{14}\"></span>% respectively. Rounds a country did not take part in are marked explicitly on the year axis, not quietly joined up.",
+  "Selisih (Utama dikurangi Pembanding)": "Difference (Main minus Comparison)",
+  "Setiap rata-rata sampel memiliki ketidakpastian yang diukur dengan <strong>standard error (SE)</strong>. Rentang <span class=\"fig\">&plusmn;2xSE</span> di sekitar rata-rata membentuk selang kepercayaan sekitar {0}%. Untuk skor sains Indonesia (<span class=\"fig\" data-fig=\"indonesia.science.mean\"></span> poin, SE <span class=\"fig\" data-fig=\"indonesia.science.se\"></span>), nilai populasi sebenarnya berada di kisaran <span class=\"fig\">{1}</span> hingga <span class=\"fig\">{2}</span> poin. Jika selisih skor dua negara lebih kecil dari <span class=\"fig\">{3} &times; &radic;(SE<sub>{4}</sub><sup>{5}</sup> + SE<sub>{6}</sub><sup>{7}</sup>)</span>, urutan peringkat keduanya secara statistik bisa bertukar.": "Every sample mean carries uncertainty, measured by the <strong>standard error (SE)</strong>. A range of <span class=\"fig\">&plusmn;2xSE</span> around the mean forms a confidence interval of about {0}%. For Indonesia's science score (<span class=\"fig\" data-fig=\"indonesia.science.mean\"></span> points, SE <span class=\"fig\" data-fig=\"indonesia.science.se\"></span>), the true population value lies between <span class=\"fig\">{1}</span> and <span class=\"fig\">{2}</span> points. If the score gap between two countries is smaller than <span class=\"fig\">{3} &times; &radic;(SE<sub>{4}</sub><sup>{5}</sup> + SE<sub>{6}</sub><sup>{7}</sup>)</span>, their ranking order could statistically swap.",
+  "Skor PISA dihitung dari sampel berlapis (<span class=\"fig\" data-fig=\"meta.counts.total_students\"></span> siswa global; di Indonesia <span class=\"fig\" data-fig=\"meta.counts.students_idn\"></span> siswa dengan <span class=\"fig\" data-fig=\"meta.counts.missing_escs_idn\"></span> baris tanpa indeks sosial-ekonomi ESCS dari total global <span class=\"fig\" data-fig=\"meta.counts.total_missing_escs\"></span> baris). Pada seri tren sains jangka panjang (Tabel <span class=\"fig\" data-fig=\"meta.tables.trend\"></span>), rata-rata Indonesia tercatat <span class=\"fig\" data-fig=\"trend.indonesia.{0}\"></span> pada {1} dan <span class=\"fig\" data-fig=\"trend.indonesia.{2}\"></span> pada {3}, sedangkan kelompok acuan OECD-{4} bergerak dari <span class=\"fig\" data-fig=\"trend.oecd-{5}\"></span> ({6}) menjadi <span class=\"fig\" data-fig=\"trend.oecd-{7}\"></span> ({8}).": "PISA scores are computed from a stratified sample (<span class=\"fig\" data-fig=\"meta.counts.total_students\"></span> students worldwide; in Indonesia <span class=\"fig\" data-fig=\"meta.counts.students_idn\"></span> students, with <span class=\"fig\" data-fig=\"meta.counts.missing_escs_idn\"></span> rows lacking the ESCS socio-economic index out of <span class=\"fig\" data-fig=\"meta.counts.total_missing_escs\"></span> rows worldwide). In the long-run science trend series (Table <span class=\"fig\" data-fig=\"meta.tables.trend\"></span>), Indonesia's mean was <span class=\"fig\" data-fig=\"trend.indonesia.{0}\"></span> in {1} and <span class=\"fig\" data-fig=\"trend.indonesia.{2}\"></span> in {3}, while the OECD-{4} reference group moved from <span class=\"fig\" data-fig=\"trend.oecd-{5}\"></span> ({6}) to <span class=\"fig\" data-fig=\"trend.oecd-{7}\"></span> ({8}).",
+  "Skor Rata-rata": "Mean Score",
+  "Skor rata-rata, SE, SD, dan persentil": "Mean score, SE, SD, and percentiles",
+  "Sumber:": "Source:",
+  "Tabel data, bisa digeser ke samping": "Data table, scrolls sideways",
+  "Tabel distribusi persentil skor (p10 s.d. p90)": "Score percentile distribution table (p10 to p90)",
+  "Tabel peringkat skor rata-rata dan standard error (SE)": "Ranking table of mean scores and standard errors (SE)",
+  "Tabel variansi skor <span data-varlabel=\"low\">sains</span> di dalam sekolah dan antar-sekolah (Tabel <span class=\"fig\" data-fig=\"meta.tables.variation.science\"></span>)": "Table of within-school and between-school variance in <span data-varlabel=\"low\">science</span> scores (Table <span class=\"fig\" data-fig=\"meta.tables.variation.science\"></span>)",
+  "Tahun Siklus": "Round Year",
+  "Tangga Perbandingan ASEAN, Negara Pembanding, dan Rata-rata OECD": "Comparison Ladder: ASEAN, Comparison Countries, and the OECD Average",
+  "Tiga angka kunci sains PISA {0}": "Three key science figures from PISA {0}",
+  "Titik Persentil": "Percentile Point",
+  "Titik aktif: p50 (Median / nilai tengah)": "Active point: p50 (median / middle value)",
+  "Titik p10 ({0} persen terbawah)": "Point p10 (bottom {0} percent)",
+  "Titik p25 (kuartil bawah)": "Point p25 (lower quartile)",
+  "Titik p50 (median atau nilai tengah)": "Point p50 (median, the middle value)",
+  "Titik p75 (kuartil atas)": "Point p75 (upper quartile)",
+  "Titik p90 ({0} persen teratas)": "Point p90 (top {0} percent)",
+  "Titik pembagi distribusi siswa setelah diurutkan dari skor terendah ke tertinggi; p50 adalah median atau siswa tepat di tengah distribusi.": "Cut points of the student distribution once sorted from the lowest score to the highest; p50 is the median, the student exactly in the middle.",
+  "Titik silang pada sumbu bawah menandakan siklus tanpa data.": "A cross on the bottom axis marks a round with no data.",
+  "Tren porsi di bawah Level {0}": "Trend in the share below Level {0}",
+  "Tren rata-rata sains lintas siklus": "Trend in mean science across rounds",
+  "Tutup (Esc)": "Close (Esc)",
+  "Tutup daftar negara": "Close country list",
+  "Urut naik (skor terendah)": "Sort ascending (lowest score)",
+  "Urut turun (skor tertinggi)": "Sort descending (highest score)",
+  "Variansi Dalam Sekolah": "Within-School Variance",
+  "Variansi dihitung pada skala skor PISA; sumber Tabel": "Variance is computed on the PISA score scale; source Table",
+  "negara/ekonomi": "countries/economies",
+  "siswa di": "students in",
+  "tabel annex OECD PISA {0} + berkas siswa (PUF)": "OECD PISA {0} annex tables + student files (PUF)",
+  "{0} poin untuk SE = {1})": "{0} points for SE = {1})",
+  "Dashboard Data Publik": "Public Data Dashboard",
+  "terhadap IHSG,": "against the JCI,"
+ },
+ "patterns": [],
+ "js_all": [
+  [
+   "var MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',\n      'Agustus', 'September', 'Oktober', 'November', 'Desember'];",
+   "var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July',\n      'August', 'September', 'October', 'November', 'December'];"
+  ],
+  [
+   "text.textContent = 'Data per ' + longDate(iso);",
+   "text.textContent = 'Data as of ' + longDate(iso);"
+  ],
+  [
+   "const MONTHS_ID = [\n    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',\n    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'\n  ];",
+   "const MONTHS_ID = [\n    'January', 'February', 'March', 'April', 'May', 'June',\n    'July', 'August', 'September', 'October', 'November', 'December'\n  ];"
+  ],
+  [
+   ".toFixed(1).replace('.', ',')",
+   ".toFixed(1)"
+  ],
+  [
+   ".toFixed(1).replace(\".\", \",\")",
+   ".toFixed(1)"
+  ],
+  [
+   "String(item.mag || '').replace('.', ',')",
+   "String(item.mag || '')"
+  ],
+  [
+   "String(item.depth_km || '').replace('.', ',')",
+   "String(item.depth_km || '')"
+  ],
+  [
+   "String(item[1]).replace(/\\B(?=(\\d{3})+(?!\\d))/g, '.')",
+   "String(item[1]).replace(/\\B(?=(\\d{3})+(?!\\d))/g, ',')"
+  ],
+  [
+   "\", kedalaman \"",
+   "\", depth \""
+  ],
+  [
+   "Rentang 94,5°BT sampai 141,5°BT dan 6,5°LU sampai 11,5°LS",
+   "Range 94.5°E to 141.5°E and 6.5°N to 11.5°S"
+  ],
+  [
+   "Setiap goresan horizontal menandai satu episentrum gempa bumi M5+ pada resolusi koordinat 0,1 derajat.",
+   "Each horizontal stroke marks one M5+ earthquake epicentre at a coordinate resolution of 0.1 degrees."
+  ],
+  [
+   "kunci skala logaritmik (M5 ke M9)",
+   "logarithmic scale key (M5 to M9)"
+  ],
+  [
+   "Setiap kenaikan 1 tingkat magnitudo merepresentasikan lonjakan energi sekitar 32 kali lipat (hubungan energi-magnitudo Gutenberg-Richter, 10 pangkat 1,5). Batang di bawah menggunakan skala logaritmik untuk menampilkan piramida populasi dari M5 hingga M9.",
+   "Each step of 1 magnitude represents a jump in energy of about 32 times (the Gutenberg-Richter energy-magnitude relation, 10 to the power of 1.5). The bars below use a logarithmic scale to show the population pyramid from M5 to M9."
+  ],
+  [
+   "'Cakupan: dari ' + totalCount + ' provinsi, hanya ' + drawnCount + ' provinsi teratas yang ditampilkan dalam grafik ini.'",
+   "'Coverage: of ' + totalCount + ' provinces, only the top ' + drawnCount + ' are shown in this chart.'"
+  ],
+  [
+   "'Catatan: Batang proporsional digambar dari hitungan mentah (' + rawSumParts + '). Tiga persentase (' + pctSumParts + ') dialokasikan menggunakan metode sisa terbesar agar tepat berjumlah 100,0%, sehingga kelas yang sangat kecil dapat tercetak satu persepuluh di bawah hasil pembagian langsungnya.'",
+   "'Note: the proportional bars are drawn from raw counts (' + rawSumParts + '). The three percentages (' + pctSumParts + ') are allocated with the largest-remainder method so they add up to exactly 100.0%, so a very small class can print one tenth below its straight division.'"
+  ],
+  [
+   "'Provinsi dengan peristiwa terbanyak pada kedalaman 300 km atau lebih:'",
+   "'Provinces with the most events at a depth of 300 km or more:'"
+  ],
+  [
+   "'Daftar lima gempa bumi terbesar di Indonesia (1976-2026)'",
+   "'The five largest earthquakes in Indonesia (1976-2026)'"
+  ],
+  [
+   "['Tanggal', 'Magnitudo', 'Kedalaman', 'Wilayah']",
+   "['Date', 'Magnitude', 'Depth', 'Region']"
+  ],
+  [
+   "'* Periode parsial: rekaman dekade 2020an belum genap 10 tahun (data tercatat hingga '",
+   "'* Partial period: the 2020s record does not yet cover 10 full years (data recorded through '"
+  ],
+  [
+   "'Catatan: Batang dekade 2020an digambar dengan garis putus-putus untuk menandai periode parsial. Angka per dekade mencerminkan peristiwa yang tercatat dalam katalog, bukan perbandingan aktivitas seismik secara langsung.'",
+   "'Note: the 2020s bar is drawn with a dashed line to mark a partial period. Counts per decade reflect events recorded in the catalogue, not a direct comparison of seismic activity.'"
+  ],
+  [
+   "'Cuplikan gempa bumi dirasakan BMKG saat halaman dibangun'",
+   "'Snapshot of BMKG felt earthquakes at page build time'"
+  ],
+  [
+   "'Cuplikan gempa bumi BMKG saat halaman dibangun'",
+   "'Snapshot of BMKG earthquakes at page build time'"
+  ],
+  [
+   "isFelt ? 'Wilayah Dirasakan' : 'Wilayah'",
+   "isFelt ? 'Felt In' : 'Region'"
+  ],
+  [
+   "<th scope=\"col\">Kedalaman</th>",
+   "<th scope=\"col\">Depth</th>"
+  ],
+  [
+   "'Data tidak tersedia saat waktu pembuatan.'",
+   "'Data was not available at build time.'"
+  ],
+  [
+   "<dt><strong>Katalog Gempa USGS</strong></dt>",
+   "<dt><strong>USGS Earthquake Catalogue</strong></dt>"
+  ],
+  [
+   "<dd>Rekaman historis kejadian gempa bumi: <code",
+   "<dd>Historical record of earthquake events: <code"
+  ],
+  [
+   "<dd>Cuplikan umpan data gempa terkini dan dirasakan: <code",
+   "<dd>Snapshot of the recent and felt earthquake feeds: <code"
+  ],
+  [
+   "<dt><strong>Referensi Titik Provinsi (Bapanas)</strong></dt>",
+   "<dt><strong>Province Reference Points (Bapanas)</strong></dt>"
+  ],
+  [
+   "<dd>Daftar 38 titik sentroid provinsi dari API Badan Pangan Nasional (<code",
+   "<dd>List of 38 province centroids from the National Food Agency API (<code"
+  ],
+  [
+   "</code>) diunduh 12 Oktober 2026 sebagai koordinat acuan penentuan wilayah terdekat.</dd>",
+   "</code>) downloaded on 12 October 2026, used as reference coordinates for assigning the nearest region.</dd>"
+  ],
+  [
+   "<dt><strong>Kontur Daratan</strong></dt><dd>Polygon daratan dari Natural Earth (domain publik), dipotong ke kotak peta lalu disederhanakan dengan Douglas-Peucker saat build.</dd>",
+   "<dt><strong>Land Outline</strong></dt><dd>Land polygons from Natural Earth (public domain), clipped to the map box and simplified with Douglas-Peucker at build time.</dd>"
+  ],
+  [
+   "<dt><strong>Batas Lempeng</strong></dt><dd>Garis batas lempeng Bird 2003 PB2002 melalui berkas fraxen/tectonicplates, lisensi ODC-By 1.0.</dd>",
+   "<dt><strong>Plate Boundaries</strong></dt><dd>Bird 2003 PB2002 plate boundary lines via the fraxen/tectonicplates files, ODC-By 1.0 licence.</dd>"
+  ],
+  [
+   "'<p><strong>Cakupan:</strong> <span class=\"data-fig\">' + totalD + '</span> kejadian, dari <span class=\"data-fig\">' + spanFirstD + '</span> hingga <span class=\"data-fig\">' + spanLastD + '</span>, dibangun dari <span class=\"data-fig\">' + rawEventsD + '</span> rekaman mentah.</p>'",
+   "'<p><strong>Coverage:</strong> <span class=\"data-fig\">' + totalD + '</span> events, from <span class=\"data-fig\">' + spanFirstD + '</span> to <span class=\"data-fig\">' + spanLastD + '</span>, built from <span class=\"data-fig\">' + rawEventsD + '</span> raw records.</p>'"
+  ],
+  [
+   "'<p><strong>Metode Wilayah:</strong> '",
+   "'<p><strong>Region Method:</strong> '"
+  ],
+  [
+   "'<p><strong>Eliminasi Batas:</strong> <span class=\"data-fig\">' + droppedTotalD + '</span> kejadian berada di dalam kotak pembatas tetapi di luar wilayah Indonesia ('",
+   "'<p><strong>Boundary Filter:</strong> <span class=\"data-fig\">' + droppedTotalD + '</span> events fall inside the bounding box but outside Indonesian territory ('"
+  ],
+  [
+   "'<p><strong>Keterbatasan Data:</strong> Katalog ini hanya memuat kejadian gempa tanpa data riwayat stasiun pemantau, sehingga angka per dekade menunjukkan peristiwa yang tercatat dan belum dapat dibandingkan langsung.</p>'",
+   "'<p><strong>Data Limits:</strong> This catalogue only holds earthquake events, with no history of monitoring stations, so counts per decade show recorded events and cannot yet be compared directly.</p>'"
+  ],
+  [
+   "'<p><strong>Cuplikan BMKG:</strong> Blok gempa BMKG merupakan cuplikan statis saat halaman dibangun, bukan siaran langsung.</p>'",
+   "'<p><strong>BMKG Snapshot:</strong> The BMKG earthquake block is a static snapshot taken at page build time, not a live broadcast.</p>'"
+  ],
+  [
+   "'<p><strong>Cap Masukan:</strong> <code class=\"data-fig\">' + inputSha + '</code>. Cap ini adalah 12 karakter heksadesimal pertama dari hash SHA-256 atas gabungan bita mentah tiga berkas masukan (' + filesList + ') sesuai urutan tersebut.</p>'",
+   "'<p><strong>Input Stamp:</strong> <code class=\"data-fig\">' + inputSha + '</code>. This stamp is the first 12 hexadecimal characters of the SHA-256 hash of the concatenated raw bytes of the three input files (' + filesList + ') in that order.</p>'"
+  ],
+  [
+   "'<p><strong>Reproduktibilitas:</strong> Halaman ini diregenerasi secara deterministik dari berkas tersimpan tanpa akses jaringan saat runtime.</p>'",
+   "'<p><strong>Reproducibility:</strong> This page is regenerated deterministically from stored files, with no network access at runtime.</p>'"
+  ],
+  [
+   "'<p><strong>Zona Waktu:</strong> Waktu tampilan menggunakan WIB (UTC+7), sedangkan stempel waktu kejadian dalam berkas sumber adalah UTC.</p>'",
+   "'<p><strong>Time Zone:</strong> Displayed times use WIB (UTC+7), while event timestamps in the source files are UTC.</p>'"
+  ],
+  [
+   "'jumlah peristiwa per kelas magnitudo'",
+   "'number of events per magnitude class'"
+  ],
+  [
+   "'distribusi tangga magnitudo M5 sampai M9'",
+   "'magnitude ladder distribution, M5 to M9'"
+  ],
+  [
+   "'Terjadi kendala teknis saat memuat berkas data seismik.'",
+   "'A technical problem occurred while loading the seismic data file.'"
+  ],
+  [
+   "<title id=\"field-title\">Peta sebaran episentrum gempa bumi Indonesia M5+</title>",
+   "<title id=\"field-title\">Map of Indonesian M5+ earthquake epicentres</title>"
+  ],
+  [
+   "<desc id=\"field-desc\">Sebaran spasial titik episentrum gempa bumi berkekuatan M5 ke atas di seluruh kepulauan Indonesia.</desc>",
+   "<desc id=\"field-desc\">Spatial spread of M5+ earthquake epicentres across the Indonesian archipelago.</desc>"
+  ],
+  [
+   "return val.toFixed(2).replace('.', ',');",
+   "return val.toFixed(2);"
+  ],
+  [
+   "return val.toFixed(d).replace('.', ',');",
+   "return val.toFixed(d);"
+  ],
+  [
+   "DATA.hero.cut_unit || 'poin skor'",
+   "DATA.hero.cut_unit || 'score points'"
+  ],
+  [
+   "'Elemen kontainer #",
+   "'Container element #"
+  ],
+  [
+   " tidak ditemukan'",
+   " not found'"
+  ],
+  [
+   "aria-label=\"Penggaris skala skor literasi sains PISA 2025: Indonesia ' + fmt(idnScore) + ', batas kemampuan dasar ' + fmt(cutL2) + ', rata-rata negara OECD ' + fmt(oecdScore) + '\"",
+   "aria-label=\"PISA 2025 science literacy score ruler: Indonesia ' + fmt(idnScore) + ', basic proficiency line ' + fmt(cutL2) + ', OECD country average ' + fmt(oecdScore) + '\""
+  ],
+  [
+   ">SKALA NILAI SAINS: INDONESIA DAN OECD</text>",
+   ">SCIENCE SCORE SCALE: INDONESIA AND THE OECD</text>"
+  ],
+  [
+   ">Rata-rata OECD</text>",
+   ">OECD average</text>"
+  ],
+  [
+   ">Tanda di ujung gambar = rentang ketidakpastian pengukuran. Batas kemampuan dasar OECD: ' + fmt(cutL2) + '.</text>",
+   ">Marks at the ends = measurement uncertainty range. OECD basic proficiency line: ' + fmt(cutL2) + '.</text>"
+  ],
+  [
+   "'<title>Rata-rata 23 negara OECD ' + item.cycle + ': ' + fmt(oecdVal) + ' (ketidakpastian \\u00B1'",
+   "'<title>Average of 23 OECD countries ' + item.cycle + ': ' + fmt(oecdVal) + ' (uncertainty \\u00B1'"
+  ],
+  [
+   ">Rata-rata 23 negara OECD</text>",
+   ">Average of 23 OECD countries</text>"
+  ],
+  [
+   "'Kedua garis dihitung pada periode yang sama (' + firstItem.cycle + '-' + lastItem.cycle + ') dan 23 negara OECD yang sama sepanjang periode. Garis kecil di tiap titik adalah rentang ketidakpastian angkanya.'",
+   "'Both lines cover the same period (' + firstItem.cycle + '-' + lastItem.cycle + ') and the same 23 OECD countries throughout. The small bar at each point is the uncertainty range of that figure.'"
+  ],
+  [
+   "'Grafik tren nilai sains PISA ' + firstItem.cycle + '-' + lastItem.cycle + ': Indonesia dari ' + fmt(firstItem.idn) + ' ke ' + fmt(lastItem.idn) + ', rata-rata 23 negara OECD dari ' + fmt(firstItem.oecd23) + ' ke ' + fmt(lastItem.oecd23)",
+   "'PISA science score trend chart ' + firstItem.cycle + '-' + lastItem.cycle + ': Indonesia from ' + fmt(firstItem.idn) + ' to ' + fmt(lastItem.idn) + ', average of 23 OECD countries from ' + fmt(firstItem.oecd23) + ' to ' + fmt(lastItem.oecd23)"
+  ],
+  [
+   ">NILAI SAINS INDONESIA DAN OECD, ' + firstItem.cycle",
+   ">INDONESIAN AND OECD SCIENCE SCORES, ' + firstItem.cycle"
+  ],
+  [
+   ">satuan: poin skor</text>",
+   ">unit: score points</text>"
+  ],
+  [
+   "aria-label=\"Grafik tingkat kemampuan siswa PISA 2025: sains, membaca, dan matematika, membandingkan Indonesia dan rata-rata OECD\"",
+   "aria-label=\"PISA 2025 student proficiency chart: science, reading, and mathematics, comparing Indonesia with the OECD average\""
+  ],
+  [
+   ">TINGKAT KEMAMPUAN SISWA DI TIGA BIDANG</text>",
+   ">STUDENT PROFICIENCY IN THREE DOMAINS</text>"
+  ],
+  [
+   ">satuan: persen (%)</text>",
+   ">unit: percent (%)</text>"
+  ],
+  [
+   ">Rata-rata OECD (bergaris)</text>",
+   ">OECD average (striped)</text>"
+  ],
+  [
+   "'% di bawah Tingkat 2</text>'",
+   "'% below Level 2</text>'"
+  ],
+  [
+   "'<title>Rata-rata OECD '",
+   "'<title>OECD average '"
+  ],
+  [
+   ">Tingkat 2 adalah batas kemampuan dasar yang ditetapkan OECD. Bagian paling kiri setiap batang adalah siswa yang belum mencapainya.</text>",
+   ">Level 2 is the basic proficiency line set by the OECD. The leftmost part of each bar is the students who have not reached it.</text>"
+  ],
+  [
+   ">NILAI TENGAH OECD ' + fmt(oecd.p50)",
+   ">OECD MEDIAN ' + fmt(oecd.p50)"
+  ],
+  [
+   "'Grafik sebaran nilai sains PISA: Indonesia dari ' + fmt(idn.p10) + ' sampai ' + fmt(idn.p90) + ', nilai tengah ' + fmt(idn.p50) + '; rata-rata OECD dari ' + fmt(oecd.p10) + ' sampai ' + fmt(oecd.p90) + ', nilai tengah ' + fmt(oecd.p50)",
+   "'PISA science score spread chart: Indonesia from ' + fmt(idn.p10) + ' to ' + fmt(idn.p90) + ', median ' + fmt(idn.p50) + '; OECD average from ' + fmt(oecd.p10) + ' to ' + fmt(oecd.p90) + ', median ' + fmt(oecd.p50)"
+  ],
+  [
+   ">RENTANG NILAI SAINS: 10% TERBAWAH SAMPAI 10% TERATAS</text>",
+   ">SCIENCE SCORE RANGE: BOTTOM 10% TO TOP 10%</text>"
+  ],
+  [
+   ">Siswa Indonesia yang masuk kelompok 10% terbaik (' + fmt(idn.p90) + ') masih di bawah nilai tengah siswa OECD (' + fmt(oecd.p50) + '). Kotak = separuh siswa di bagian tengah, tanda panjang = dari 10% terbawah sampai 10% teratas.</text>",
+   ">Indonesian students in the top 10% (' + fmt(idn.p90) + ') are still below the median OECD student (' + fmt(oecd.p50) + '). Box = the middle half of students, long mark = bottom 10% to top 10%.</text>"
+  ],
+  [
+   ">RATA-RATA OECD TERMISKIN (' + fmt(q1Val) + ')</text>",
+   ">OECD AVERAGE, POOREST (' + fmt(q1Val) + ')</text>"
+  ],
+  [
+   "'Selisih terkaya dan termiskin: ' + fmt(idn.gap) + ' poin'",
+   "'Richest vs poorest gap: ' + fmt(idn.gap) + ' points'"
+  ],
+  [
+   "'Selisih terkaya dan termiskin: ' + fmt(oecd.gap) + ' poin'",
+   "'Richest vs poorest gap: ' + fmt(oecd.gap) + ' points'"
+  ],
+  [
+   "'Grafik nilai sains menurut latar belakang ekonomi keluarga: empat kelompok 25% siswa Indonesia dan rata-rata OECD, beserta batas antarkelompoknya.'",
+   "'Science scores by family economic background: four 25% groups of Indonesian students and the OECD average, with the cut-offs between groups.'"
+  ],
+  [
+   ">NILAI SAINS MENURUT LATAR BELAKANG EKONOMI KELUARGA</text>",
+   ">SCIENCE SCORES BY FAMILY ECONOMIC BACKGROUND</text>"
+  ],
+  [
+   ">BATAS ANTAR KELOMPOK EKONOMI: INDONESIA DAN OECD</text>",
+   ">CUT-OFFS BETWEEN ECONOMIC GROUPS: INDONESIA AND THE OECD</text>"
+  ],
+  [
+   ">Batas antarkelompok dihitung terpisah untuk Indonesia dan OECD, jadi angkanya tidak bisa dibandingkan langsung. Yang bisa dibandingkan adalah polanya.</text>",
+   ">Cut-offs are computed separately for Indonesia and the OECD, so the numbers cannot be compared directly. What can be compared is the pattern.</text>"
+  ],
+  [
+   "'Grafik nilai sains delapan negara ASEAN peserta PISA 2025: Indonesia urutan ke-' + (idnRank || 6) + ' dengan nilai ' + fmt(idnScore) + ' poin, rata-rata negara OECD ' + fmt(oecdVal) + ' poin'",
+   "'Science scores of the eight ASEAN countries in PISA 2025: Indonesia ranks no. ' + (idnRank || 6) + ' with ' + fmt(idnScore) + ' points, OECD country average ' + fmt(oecdVal) + ' points'"
+  ],
+  [
+   ">NILAI SAINS INDONESIA DAN NEGARA ASEAN LAIN</text>",
+   ">SCIENCE SCORES: INDONESIA AND OTHER ASEAN COUNTRIES</text>"
+  ],
+  [
+   ">RATA-RATA OECD ' + fmt(oecdVal)",
+   ">OECD AVERAGE ' + fmt(oecdVal)"
+  ],
+  [
+   "' poin' + (isIdn ? ' (Indonesia, urutan ke-' + (i + 1) + ')' : '')",
+   "' points' + (isIdn ? ' (Indonesia, rank ' + (i + 1) + ')' : '')"
+  ],
+  [
+   ">Garis putus-putus = rata-rata negara OECD. Batang berwarna = Indonesia.</text>",
+   ">Dashed line = OECD country average. Coloured bar = Indonesia.</text>"
+  ],
+  [
+   "aria-label=\"Pita ketidakpastian nilai rata-rata sains Indonesia: sekitar ' + seStr + ' poin\"",
+   "aria-label=\"Uncertainty band of Indonesia\\'s mean science score: about ' + seStr + ' points\""
+  ],
+  [
+   "'<title>Ketidakpastian nilai rata-rata sains Indonesia: sekitar ' + seStr + ' poin</title>'",
+   "'<title>Uncertainty of Indonesia\\'s mean science score: about ' + seStr + ' points</title>'"
+  ],
+  [
+   "new Intl.NumberFormat(\"id-ID\"",
+   "new Intl.NumberFormat(\"en-US\""
+  ],
+  [
+   "science: \"Sains\",\n    mathematics: \"Matematika\",\n    reading: \"Membaca\"",
+   "science: \"Science\",\n    mathematics: \"Mathematics\",\n    reading: \"Reading\""
+  ],
+  [
+   "label: \"Level 2 (Ambang)\"",
+   "label: \"Level 2 (Baseline)\""
+  ],
+  [
+   "label: \"Di bawah 1c\"",
+   "label: \"Below 1c\""
+  ],
+  [
+   "label: \"Di bawah 1b\"",
+   "label: \"Below 1b\""
+  ],
+  [
+   "label: \"p10 (10% Terbawah)\"",
+   "label: \"p10 (Bottom 10%)\""
+  ],
+  [
+   "label: \"p25 (Kuartil Bawah)\"",
+   "label: \"p25 (Lower Quartile)\""
+  ],
+  [
+   "label: \"p50 (Median / Nilai Tengah)\"",
+   "label: \"p50 (Median)\""
+  ],
+  [
+   "label: \"p75 (Kuartil Atas)\"",
+   "label: \"p75 (Upper Quartile)\""
+  ],
+  [
+   "label: \"p90 (10% Teratas)\"",
+   "label: \"p90 (Top 10%)\""
+  ],
+  [
+   "\"Negara Utama (\" + DOMAIN_LABELS[dom] + \")\"",
+   "\"Main Country (\" + DOMAIN_LABELS[dom] + \")\""
+  ],
+  [
+   "\"Pembanding (\" + DOMAIN_LABELS[dom] + \")\"",
+   "\"Comparison (\" + DOMAIN_LABELS[dom] + \")\""
+  ],
+  [
+   "\"Tiga angka kunci \" + DOMAIN_LABELS[dom] + \" PISA 2025\"",
+   "\"Three key \" + DOMAIN_LABELS[dom].toLowerCase() + \" figures, PISA 2025\""
+  ],
+  [
+   "\"Data skor tidak tersedia\"",
+   "\"Score data not available\""
+  ],
+  [
+   "\"Data distribusi tingkat kemampuan \" + DOMAIN_LABELS[dom] + \" tidak ada data untuk: \"",
+   "\"Proficiency distribution for \" + DOMAIN_LABELS[dom].toLowerCase() + \" has no data for: \""
+  ],
+  [
+   "\"Pada \" + DOMAIN_LABELS[dom].toLowerCase() + \", band puncak \" + pName + \" berada di \" + pMaxLabel",
+   "\"In \" + DOMAIN_LABELS[dom].toLowerCase() + \", the largest band for \" + pName + \" is \" + pMaxLabel"
+  ],
+  [
+   "\", sedangkan band puncak \" + cName + \" berada di \" + cMaxLabel",
+   "\", while the largest band for \" + cName + \" is \" + cMaxLabel"
+  ],
+  [
+   "\" (tidak ada data).\"",
+   "\" (no data).\""
+  ],
+  [
+   "\" (tidak ada data)\"",
+   "\" (no data)\""
+  ],
+  [
+   ": tidak ada data\"><span>tidak ada data</span></div>",
+   ": no data\"><span>no data</span></div>"
+  ],
+  [
+   "\" (SE tidak ada di tabel OECD)\"",
+   "\" (SE not in the OECD table)\""
+  ],
+  [
+   "\"Data persentil \" + DOMAIN_LABELS[dom] + \" tidak ada data untuk: \"",
+   "\"Percentile data for \" + DOMAIN_LABELS[dom].toLowerCase() + \" has no data for: \""
+  ],
+  [
+   "\"Titik aktif: \" + stopObj.label",
+   "\"Active point: \" + stopObj.label"
+  ],
+  [
+   "\" (±2xSE rata-rata: \"",
+   "\" (±2xSE of the mean: \""
+  ],
+  [
+   "\": selisih \" + formatScore(diff) + \" < 2xSE (\" + formatScore(combined2SE) + \") · urutan bisa bertukar\"",
+   "\": gap \" + formatScore(diff) + \" < 2xSE (\" + formatScore(combined2SE) + \") · ranking could swap\""
+  ],
+  [
+   "\": selisih \" + formatScore(diff) + \" poin melampaui ambang 2xSE (\" + formatScore(combined2SE) + \" poin)\"",
+   "\": gap of \" + formatScore(diff) + \" points exceeds the 2xSE threshold (\" + formatScore(combined2SE) + \" points)\""
+  ],
+  [
+   "\" · urutan bisa bertukar\"",
+   "\" · ranking could swap\""
+  ],
+  [
+   "\" [Pembanding]\"",
+   "\" [Comparison]\""
+  ],
+  [
+   "\"Pembanding\"",
+   "\"Comparison\""
+  ],
+  [
+   "aria-label=\"Jadikan ' + item.name + ' sebagai pembanding (skor ' + scoreLabel + ')\"",
+   "aria-label=\"Make ' + item.name + ' the comparison (score ' + scoreLabel + ')\""
+  ],
+  [
+   "\" tidak memiliki baris tren pada domain ini\"",
+   "\" has no trend rows in this domain\""
+  ],
+  [
+   "\" hanya memiliki 1 titik siklus (2025)\"",
+   "\" has only 1 round (2025)\""
+  ],
+  [
+   "\"Catatan riwayat siklus: \" + notes.join(\"; \") + \". Titik siklus yang kosong ditandai secara eksplisit.\"",
+   "\"Round history notes: \" + notes.join(\"; \") + \". Empty rounds are marked explicitly.\""
+  ],
+  [
+   "\": tidak ada data\"",
+   "\": no data\""
+  ],
+  [
+   "tidak ada data sebaran sekolah</span>",
+   "no school-spread data</span>"
+  ],
+  [
+   "<td class=\"num\">tidak ada data</td>",
+   "<td class=\"num\">no data</td>"
+  ],
+  [
+   "'<span class=\"var-item-nums\">Di dalam sekolah: ' + formatPct(withinShare) + '% (' + formatPct(withinRaw) + ') · Antar-sekolah: '",
+   "'<span class=\"var-item-nums\">Within schools: ' + formatPct(withinShare) + '% (' + formatPct(withinRaw) + ') · Between schools: '"
+  ],
+  [
+   "'% di dalam sekolah dan ' + formatPct(betweenShare) + '% antar-sekolah\">'",
+   "'% within schools and ' + formatPct(betweenShare) + '% between schools\">'"
+  ],
+  [
+   "\"Cara membaca (\" + (DOMAIN_LABELS[dom] || dom) + \"): dari 100% gabungan variansi dalam + antar-sekolah, porsi kesenjangan antar-sekolah di \"",
+   "\"How to read it (\" + (DOMAIN_LABELS[dom] || dom) + \"): of the combined 100% within + between-school variance, the between-school share in \""
+  ],
+  [
+   "getCountryName(pId) + \" adalah \" + formatPct(pBetween100) + \"% (atau \" + formatPct(pTuple[IDX_PCT]) + \"% terhadap total OECD), sedangkan di \"",
+   "getCountryName(pId) + \" is \" + formatPct(pBetween100) + \"% (or \" + formatPct(pTuple[IDX_PCT]) + \"% of the OECD total), while in \""
+  ],
+  [
+   "getCountryName(cId) + \" sebesar \" + formatPct(cBetween100) + \"% (\" + formatPct(cTuple[IDX_PCT]) + \"% terhadap total OECD).\"",
+   "getCountryName(cId) + \" it is \" + formatPct(cBetween100) + \"% (\" + formatPct(cTuple[IDX_PCT]) + \"% of the OECD total).\""
+  ],
+  [
+   ">Tidak ada negara yang cocok dengan pencarian.</li>",
+   ">No country matches your search.</li>"
+  ],
+  [
+   "\"Pilih Negara Utama\"",
+   "\"Pick the Main Country\""
+  ],
+  [
+   "\"Pilih Negara Pembanding (Tanpa Duplikat)\"",
+   "\"Pick the Comparison Country (No Duplicates)\""
+  ],
+  [
+   "\"tidak ada data\"",
+   "\"no data\""
+  ],
+  [
+   "var B = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'];",
+   "var B = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];"
+  ],
+  [
+   "return parts[0].replace(/\\B(?=(\\d{3})+(?!\\d))/g, '.') + ',' + parts[1];",
+   "return parts[0].replace(/\\B(?=(\\d{3})+(?!\\d))/g, ',') + '.' + parts[1];"
+  ],
+  [
+   "var s = Number(v).toFixed(2).replace('.', ',');",
+   "var s = Number(v).toFixed(2);"
+  ],
+  [
+   ">cakupan nilai pasar: ${DATA.fig.coverage_pct.d}, skala 0 sampai ${maxVal.toFixed(0)} persen</text>",
+   ">market value coverage: ${DATA.fig.coverage_pct.d}, scale 0 to ${maxVal.toFixed(0)} percent</text>"
+  ],
+  [
+   "svgText(gutterL - 18, plotBottom + 30, '% siswa',",
+   "svgText(gutterL - 18, plotBottom + 30, '% students',"
+  ],
+  [
+   "'Catatan: Skala panjang batang menggunakan logaritmik (log10), sedangkan angka yang tertera adalah hitungan kejadian sebenarnya.'",
+   "'Note: bar length uses a logarithmic scale (log10), while the printed numbers are actual event counts.'"
+  ]
+ ],
+ "js": {}
+}

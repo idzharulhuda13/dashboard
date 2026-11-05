@@ -134,6 +134,22 @@ def build_payload(fx: dict[str, float], ihsg: dict) -> dict:
     }
 
 
+def refresh_en() -> None:
+    """Turunkan ulang halaman /en/ dari halaman Indonesia yang barusan lolos gate.
+
+    Tidak memblokir publish versi Indonesia: kalau katalog i18n/en.json ketinggalan (ada prosa
+    baru), halaman EN tetap ditulis dan sisa teks Indonesia dicatat di log supaya katalog ditambah.
+    """
+    r = subprocess.run([sys.executable, str(ROOT / "i18n" / "localize.py")],
+                       cwd=ROOT, capture_output=True, text=True)
+    bad = [l for l in r.stdout.splitlines() if "MASALAH" in l or ("sisa Indonesia" in l and "sisa Indonesia 0" not in l)]
+    if r.returncode != 0 or bad:
+        log(f"PERINGATAN: i18n/localize.py exit {r.returncode}; katalog EN perlu ditambah: " + " | ".join(bad[:5])
+            + (" " + r.stderr[-300:] if r.stderr else ""))
+    else:
+        log("en: 7 halaman EN diperbarui, sisa Indonesia 0")
+
+
 def git(*args: str) -> subprocess.CompletedProcess:
     return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True)
 
@@ -192,7 +208,8 @@ def main() -> int:
             log("FATAL: git pull --rebase gagal; tidak push (perlu dilihat manusia)")
             return 6
         msg = f"Rupiah harian: kurs {new_as_of} ({payload['fig']['last']['d']})"
-        add = git("add", "data/pasar/rupiah.json", "pasar/rupiah.html")
+        refresh_en()
+        add = git("add", "data/pasar/rupiah.json", "pasar/rupiah.html", "en")
         if add.returncode != 0:
             print(add.stderr, file=sys.stderr)
             log("FATAL: git add gagal")

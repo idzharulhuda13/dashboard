@@ -101,14 +101,18 @@ if [ "$HV" -ne 0 ]; then
 fi
 log "hub verify: pass"
 
+# Versi Inggris /en/ diturunkan dari halaman Indonesia yang sudah lolos gate. Katalog yang
+# ketinggalan tidak menahan publish versi Indonesia; cukup dicatat supaya katalog ditambah.
+if "$PY" i18n/localize.py >>"$LOG" 2>&1; then log "en: pass"; else log "en: PERINGATAN, katalog i18n/en.json perlu ditambah (lihat log)"; fi
+
 # --- 4. publish -------------------------------------------------------------------------
 # Something else may have touched the tree; refuse rather than sweep it into a release.
-if [ -n "$(git status --porcelain -- ':!data/out' ':!data/raw' ':!gempa/index.html' ':!gempa/data.json' ':!index.html' ':!sitemap.xml' ':!assets/og')" ]; then
+if [ -n "$(git status --porcelain -- ':!data/out' ':!data/raw' ':!gempa/index.html' ':!gempa/data.json' ':!index.html' ':!sitemap.xml' ':!assets/og' ':!en')" ]; then
   git status --short | head -10 | tee -a "$LOG"
   die "working tree has changes outside the generated artefacts; commit or revert them first" 2
 fi
 
-git add -A gempa/index.html gempa/data.json index.html data/raw data/out sitemap.xml assets/og 2>/dev/null
+git add -A gempa/index.html gempa/data.json index.html data/raw data/out sitemap.xml assets/og en 2>/dev/null
 if git diff --cached --quiet; then
   log "nothing changed; no commit"
   log "=== publish end (no-op) ==="

@@ -468,13 +468,28 @@ def main():
     loc_lastmod.update(extra_page_lastmod)
     loc_lastmod.update(pasar["lastmod"])
 
+    # Versi Inggris: setiap halaman punya cermin /en/... (diturunkan i18n/localize.py) dengan
+    # lastmod yang sama; pasangan id/en ditautkan lewat xhtml:link hreflang.
+    id_locs = list(loc_lastmod)
+    en_of = {loc: loc.replace(f"{SITE}/", f"{SITE}/en/", 1) for loc in id_locs}
+    pair = {}
+    for loc in id_locs:
+        loc_lastmod[en_of[loc]] = loc_lastmod[loc]
+        pair[loc] = pair[en_of[loc]] = (loc, en_of[loc])
+
+    def url_line(loc: str) -> str:
+        id_loc, en_loc = pair[loc]
+        return (f'  <url><loc>{loc}</loc><lastmod>{loc_lastmod[loc]}</lastmod>'
+                f'<xhtml:link rel="alternate" hreflang="id" href="{id_loc}"/>'
+                f'<xhtml:link rel="alternate" hreflang="en" href="{en_loc}"/></url>')
+
     sitemap_lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-        f'  <url><loc>{SITE}/</loc><lastmod>{root_lastmod}</lastmod></url>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+        url_line(f"{SITE}/"),
     ]
     for loc in sorted(k for k in loc_lastmod if k != f"{SITE}/"):
-        sitemap_lines.append(f'  <url><loc>{loc}</loc><lastmod>{loc_lastmod[loc]}</lastmod></url>')
+        sitemap_lines.append(url_line(loc))
 
     sitemap_lines.append('</urlset>\n')
     sitemap_content = "\n".join(sitemap_lines)

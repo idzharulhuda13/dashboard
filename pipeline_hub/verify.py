@@ -749,6 +749,17 @@ def check_9_sitemap(sitemap_path: str, gempa_data_path: str, pisa_index_path: st
                 continue
             discovered_locs.add(f"{SITE}/{entry}/{page}")
 
+    # Cermin bahasa Inggris di /en/ (bersarang), ditemukan rekursif.
+    en_root = os.path.join(ROOT, "en")
+    if os.path.isdir(en_root):
+        for dirpath, dirnames, filenames in os.walk(en_root):
+            dirnames[:] = sorted(d for d in dirnames if not d.startswith((".", "_")))
+            rel = os.path.relpath(dirpath, ROOT).replace(os.sep, "/")
+            for page in sorted(filenames):
+                if not page.endswith(".html") or page.endswith(".template.html"):
+                    continue
+                discovered_locs.add(f"{SITE}/{rel}/" if page == "index.html" else f"{SITE}/{rel}/{page}")
+
     url_elems = [e for e in root if (e.tag.split("}")[-1] if "}" in e.tag else e.tag) == "url"]
     if not url_elems:
         return False, "sitemap.xml contains no <url> entries"
@@ -822,6 +833,16 @@ def check_9_sitemap(sitemap_path: str, gempa_data_path: str, pisa_index_path: st
         f"{SITE}/pisa/": pisa_lastmod,
     }
     expected_lastmods.update(pasar_lastmods)
+
+    for loc, exp_lm in list(expected_lastmods.items()):
+        expected_lastmods[loc.replace(f"{SITE}/", f"{SITE}/en/", 1)] = exp_lm
+    for loc in discovered_locs:
+        if loc.startswith(f"{SITE}/en/"):
+            twin = loc.replace(f"{SITE}/en/", f"{SITE}/", 1)
+            if twin not in discovered_locs:
+                return False, f"halaman EN {loc} tidak punya pasangan Indonesia"
+            if twin in sitemap_map and sitemap_map.get(loc) != sitemap_map[twin]:
+                return False, f"sitemap.xml <lastmod> EN {loc} beda dengan pasangan ID"
 
     for loc, exp_lm in expected_lastmods.items():
         if loc in sitemap_map and sitemap_map[loc] != exp_lm:

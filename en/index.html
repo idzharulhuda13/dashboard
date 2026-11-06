@@ -1,4 +1,4 @@
-<!--BUILD sha256:1d348f8725edd8192adca318020d00b9de5f720631bf2f153a8c8b5370d8c721-->
+<!--BUILD sha256:483b24effa2a482951942cbf36dca83f19b550b29bbbc723512ea308b46babca-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +27,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Public Data Dashboard", "url": "https://dashboard.idzharulhuda.com/", "inLanguage": "en", "description": "Six plates: the M5+ earthquake catalogue since 1976, PISA 2025, an explorer, the JCI, the rupiah, and MSCI Indonesia; 83.1% of students below the minimum line."}, {"@type": "CollectionPage", "name": "Public Data Dashboard: Earthquakes, PISA 2025, and Markets", "url": "https://dashboard.idzharulhuda.com/", "inLanguage": "en", "description": "Six plates: the M5+ earthquake catalogue since 1976, PISA 2025, an explorer, the JCI, the rupiah, and MSCI Indonesia; 83.1% of students below the minimum line.", "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Half a Century of Indonesian Earthquakes", "url": "https://dashboard.idzharulhuda.com/gempa/"}, {"@type": "ListItem", "position": 2, "name": "PISA 2025: Dua Dekade Datar", "url": "https://dashboard.idzharulhuda.com/pisa/"}, {"@type": "ListItem", "position": 3, "name": "Explorer Interaktif PISA 2025", "url": "https://dashboard.idzharulhuda.com/pisa-explorer/"}, {"@type": "ListItem", "position": 4, "name": "JCI 2026: Down All Year", "url": "https://dashboard.idzharulhuda.com/pasar/ihsg.html"}, {"@type": "ListItem", "position": 5, "name": "Rupiah: Weaker in Nine of Ten Months", "url": "https://dashboard.idzharulhuda.com/pasar/rupiah.html"}, {"@type": "ListItem", "position": 6, "name": "MSCI Indonesia: Five Names, 85.58% of the Weight", "url": "https://dashboard.idzharulhuda.com/pasar/msci.html"}]}}]}
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Public Data Dashboard", "url": "https://dashboard.idzharulhuda.com/", "inLanguage": "en", "description": "Six plates: the M5+ earthquake catalogue since 1976, PISA 2025, an explorer, the JCI, the rupiah, and MSCI Indonesia; 83.1% of students below the minimum line."}, {"@type": "CollectionPage", "name": "Public Data Dashboard: Earthquakes, PISA 2025, and Markets", "url": "https://dashboard.idzharulhuda.com/", "inLanguage": "en", "description": "Six plates: the M5+ earthquake catalogue since 1976, PISA 2025, an explorer, the JCI, the rupiah, and MSCI Indonesia; 83.1% of students below the minimum line.", "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "JCI 2026: Down All Year", "url": "https://dashboard.idzharulhuda.com/pasar/ihsg.html"}, {"@type": "ListItem", "position": 2, "name": "Rupiah: Weaker in Nine of Ten Months", "url": "https://dashboard.idzharulhuda.com/pasar/rupiah.html"}, {"@type": "ListItem", "position": 3, "name": "MSCI Indonesia: Five Names, 85.58% of the Weight", "url": "https://dashboard.idzharulhuda.com/pasar/msci.html"}, {"@type": "ListItem", "position": 4, "name": "PISA 2025: Dua Dekade Datar", "url": "https://dashboard.idzharulhuda.com/pisa/"}, {"@type": "ListItem", "position": 5, "name": "Explorer Interaktif PISA 2025", "url": "https://dashboard.idzharulhuda.com/pisa-explorer/"}, {"@type": "ListItem", "position": 6, "name": "Half a Century of Indonesian Earthquakes", "url": "https://dashboard.idzharulhuda.com/gempa/"}]}}]}
 </script>
   <!--SEO:END-->
   <style>
@@ -126,14 +126,15 @@ body {
 }
 
 .masthead {
-  padding: 3.5rem 0 2.5rem;
-  border-bottom: 1px solid var(--line);
+  padding: 3rem 0 0;
 }
 
 .masthead-inner {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 3px double var(--ink);
 }
 
 .masthead-label {
@@ -147,172 +148,237 @@ body {
 
 .masthead-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  font-weight: 600;
-  line-height: 1.2;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
   color: var(--ink);
-  letter-spacing: -0.01em;
 }
 
 .masthead-intro {
-  font-family: var(--font-display);
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: 1.6;
-  color: var(--ink);
-  max-width: 68ch;
+  color: var(--muted);
+  max-width: 62ch;
 }
 
-.ledger {
+.toc {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 1.5rem;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 13px;
 }
 
-.entry-row {
-  width: 100%;
-  padding: 3.5rem 0;
+.toc-k {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.toc a {
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0.6rem 0;
   border-bottom: 1px solid var(--line);
 }
 
-.entry-grid {
+.toc a:hover {
+  border-color: var(--ink);
+}
+
+.front {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cerita utama: teks kiri, grafik kanan. */
+.lead {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 3.5rem;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 3rem;
+  align-items: center;
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--ink);
+}
+
+.lead-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.desk {
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 1rem;
+}
+
+.desk-h {
+  display: inline-block;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.desk-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  position: relative;
+}
+
+/* Garis pemisah di tengah celah, supaya dua kolom sama lebar dan teks grafiknya sama besar. */
+.desk-grid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: 1px solid var(--line);
+}
+
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.story-wide {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  column-gap: 3rem;
   align-items: start;
 }
 
-.entry-col-left {
+.story-wide .story-text {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .plate-label {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.plate-gempa {
-  color: var(--accent-gempa);
-}
-
-.plate-pisa {
-  color: var(--accent-pisa);
-}
-
-.plate-explorer {
-  color: var(--accent-explorer);
-}
-
-.plate-pasar {
-  color: var(--accent-pasar);
-}
+.plate-gempa { color: var(--accent-gempa); }
+.plate-pisa { color: var(--accent-pisa); }
+.plate-explorer { color: var(--accent-explorer); }
+.plate-pasar { color: var(--accent-pasar); }
 
 .entry-name {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-size: 1.375rem;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.lead .entry-name {
+  font-size: clamp(1.75rem, 3.2vw, 2.6rem);
 }
 
 .entry-link-title {
   color: var(--ink);
   text-decoration: none;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.2s ease;
 }
 
-.entry-gempa .entry-link-title:hover {
-  color: var(--accent-gempa);
-  border-bottom-color: var(--accent-gempa);
+.entry-link-title:hover {
+  background-size: 100% 2px;
 }
 
-.entry-pisa .entry-link-title:hover {
-  color: var(--accent-pisa);
-  border-bottom-color: var(--accent-pisa);
-}
-
-.entry-explorer .entry-link-title:hover {
-  color: var(--accent-explorer);
-  border-bottom-color: var(--accent-explorer);
-}
-
-.entry-pasar .entry-link-title:hover {
-  color: var(--accent-pasar);
-  border-bottom-color: var(--accent-pasar);
-}
-
-.entry-link-title:focus-visible {
+.entry-link-title:focus-visible,
+.toc a:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 4px;
 }
 
-.entry-line {
+.big {
   font-family: var(--font-display);
-  font-size: 1.0625rem;
-  line-height: 1.6;
-  color: var(--ink);
+  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.lead .big {
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+}
+
+.num-cap {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.45;
+  max-width: 40ch;
+}
+
+.entry-line {
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
 .entry-fact {
-  font-family: var(--font-display);
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: var(--muted);
 }
 
-.entry-nav {
-  margin-top: 0.5rem;
-}
-
-.entry-link-btn {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ink);
-  text-decoration: none;
-  border-bottom: 1px solid var(--ink);
-  padding-bottom: 2px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-}
-
-.entry-gempa .entry-link-btn:hover {
-  color: var(--accent-gempa);
-  border-bottom-color: var(--accent-gempa);
-}
-
-.entry-pisa .entry-link-btn:hover {
-  color: var(--accent-pisa);
-  border-bottom-color: var(--accent-pisa);
-}
-
-.entry-explorer .entry-link-btn:hover {
-  color: var(--accent-explorer);
-  border-bottom-color: var(--accent-explorer);
-}
-
-.entry-pasar .entry-link-btn:hover {
-  color: var(--accent-pasar);
-  border-bottom-color: var(--accent-pasar);
-}
-
-.entry-link-btn:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 3px;
-}
-
-.entry-col-right {
-  width: 100%;
-}
-
+/* Bingkai grafik: satu bentuk untuk keenam pelat. Kepala (judul + kunci) di atas, kanvas 16:9 di bawah. */
 .window-frame {
   margin: 0;
   display: flex;
   flex-direction: column;
 }
+
+.window-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  padding: 0 0 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.window-keys {
+  display: flex;
+  gap: 0.9rem;
+  white-space: nowrap;
+}
+
+.key {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.35rem;
+}
+
+.key-bar { width: 12px; height: 8px; }
+.key-line { width: 14px; height: 2px; }
+.key-tick { width: 2px; height: 12px; background: var(--ink); }
+.key-ref { width: 14px; border-top: 1px dashed var(--muted); }
+.key-dot { width: 7px; height: 7px; border-radius: 50%; }
 
 .window {
   width: 100%;
@@ -321,6 +387,7 @@ body {
   border: 1px solid var(--line);
   position: relative;
   overflow: hidden;
+  padding: 0.5rem;
 }
 
 .window-fig {
@@ -331,88 +398,34 @@ body {
 
 .window-fig .fig-label {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   fill: var(--muted);
 }
 
-.window-caption {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding: 1rem;
-  background-color: var(--panel);
-  border: 1px solid var(--line);
-  border-top: none;
-}
-
-.caption-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 0.5rem;
-}
-
-.caption-title {
+.window-fig .fig-val {
   font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
+  fill: var(--ink);
 }
 
-.caption-legend {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--muted);
-  white-space: nowrap;
-}
+.window-fig .fig-track { fill: var(--line); opacity: 0.45; }
+.window-fig .fig-ref { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+.window-fig .fig-tick { stroke: var(--ink); stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.window-fig .fig-tick-halo { stroke: var(--panel); stroke-width: 5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.window-fig .fig-dot-ref { fill: var(--panel); stroke: var(--muted); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.window-fig .fig-line { fill: none; stroke-width: 1.75; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 
-.metric-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.metric-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 1.4;
-}
-
-.metric-name {
-  color: var(--ink);
-}
-
-.metric-values {
-  display: flex;
-  align-items: baseline;
-  gap: 0.35rem;
-}
-
-.val-idn {
-  color: var(--accent-pisa);
-  font-weight: 500;
-}
-
-.val-pasar {
-  color: var(--accent-pasar);
-  font-weight: 500;
-}
-
-.val-sep {
-  color: var(--line);
-}
-
-.val-oecd {
-  color: var(--muted);
-}
-
-.val-peer {
-  color: var(--peer);
-}
+/* Satu aturan warna: seri utama mengikuti aksen pelatnya. */
+.acc-gempa { color: var(--accent-gempa); --acc: var(--accent-gempa); }
+.acc-pisa { color: var(--accent-pisa); --acc: var(--accent-pisa); }
+.acc-explorer { color: var(--accent-explorer); --acc: var(--accent-explorer); }
+.acc-pasar { color: var(--accent-pasar); --acc: var(--accent-pasar); }
+.window-frame .key-bar, .window-frame .key-line, .window-frame .key-dot { background: var(--acc); }
+.window-frame .window-head { color: var(--muted); }
+.window-fig .fig-bar { fill: var(--acc); }
+.window-fig .fig-line { stroke: var(--acc); }
+.window-fig .fig-dot { fill: var(--acc); }
 
 .footer {
   margin-top: auto;
@@ -427,16 +440,31 @@ body {
   max-width: 80ch;
 }
 
-@media (max-width: 768px) {
-  .entry-grid {
+@media (max-width: 860px) {
+  .lead,
+  .desk-grid,
+  .story-wide {
     grid-template-columns: 1fr;
+  }
+  .lead {
+    gap: 1.5rem;
+    padding: 2rem 0;
+  }
+  .desk-grid {
     gap: 2rem;
   }
-  .masthead {
-    padding: 2.5rem 0 2rem;
+  .desk-grid::before {
+    display: none;
   }
-  .entry-row {
-    padding: 2.5rem 0;
+  .desk-grid > .story + .story {
+    border-top: 1px solid var(--line);
+    padding-top: 2rem;
+  }
+  .story-wide {
+    row-gap: 0.75rem;
+  }
+  .story-wide .window-frame {
+    order: -1;
   }
 }
 
@@ -585,132 +613,111 @@ body {
         <p class="masthead-label">DATA PUBLIK</p>
         <h1 class="masthead-title">Public Data Dashboard</h1>
         <p class="masthead-intro">A collection of data stories built from public data. One page, one dataset, and every number recomputed before it is published.</p>
+        <nav class="toc" aria-label="Contents"><span class="toc-k">Contents</span><a href="#desk-pasar">Markets 3</a><a href="#desk-didik">Education 2</a><a href="#desk-bumi">Earth 1</a></nav>
       </div>
     </div>
   </header>
 
-  <main class="ledger">
-    <article class="entry-row entry-gempa">
-      <div class="container">
-        <div class="entry-grid">
-          <div class="entry-col-left">
-            <p class="plate-label plate-gempa">Pelat 01</p>
-            <h2 class="entry-name"><a href="/en/gempa/" class="entry-link-title">Half a Century of Indonesian Earthquakes</a></h2>
-            <p class="entry-line">Earthquakes of magnitude 5 or more recorded in Indonesia since 1976, from the USGS catalogue.</p>
-            <p class="entry-fact">The data is append-only, and the page is rebuilt every day. <span style="white-space:nowrap">Data as of <span data-fig="gempa_asof_long">2 November 2026</span>.</span></p>
-            <p class="entry-nav"><a href="/en/gempa/" class="entry-link-btn">Open plate /gempa/</a></p>
-          </div>
-          <div class="entry-col-right">
-            <figure class="window-frame">
-              <div id="window-gempa" class="window" role="img" aria-label="Field of Indonesian earthquake epicentres"></div>
+  <main class="front">
+    <div class="container">
+      <section class="lead" id="desk-pasar">
+        <article class="lead-text">
+          <p class="plate-label plate-pasar">Pelat 04</p>
+          <h2 class="entry-name"><a href="/en/pasar/ihsg.html" class="entry-link-title">JCI 2026: Down All Year</a></h2>
+          <p class="big acc-pasar"><span data-fig="pasar_ihsg_trough_dd">-46.31%</span></p>
+          <p class="entry-line">Lowest close on 19 October at <span data-fig="pasar_ihsg_trough">4,904.29</span>: <span data-fig="pasar_ihsg_trough_dd">-46.31%</span> from the 20 January peak in 177 days, then up <span data-fig="pasar_ihsg_rebound">2.98%</span> over the last two sessions.</p>
+          <p class="entry-fact">Daily closing prices: Refinitiv up to 16 October 2026, then the daily IDX:COMPOSITE job. <span style="white-space:nowrap">Data as of <span data-fig="pasar_ihsg_asof_long">6 November 2026</span>.</span></p>
+        </article>
+        <figure class="window-frame acc-pasar">
+              <figcaption class="window-head"><span class="window-title">JCI, <span data-fig="pasar_ihsg_sessions">203</span> sessions</span><span class="window-keys"><span><span class="key key-line"></span>close</span><span><span class="key key-ref"></span>peak</span></span></figcaption>
+              <div class="window" role="img" aria-label="JCI line for 2026, from the January peak to the October low"><svg class="window-fig" viewBox="0 0 320 180" aria-hidden="true" focusable="false"><line class="fig-ref" x1="8.0" y1="16.0" x2="228.0" y2="16.0"/><path class="fig-line" d="M8.0 29.2 L9.1 25.4 L10.1 22.8 L11.2 22.5 L12.3 23.1 L13.3 22.7 L14.4 24.5 L15.5 22.3 L16.6 19.5 L17.6 18.0 L18.7 16.0 L19.8 16.0 L20.8 20.2 L21.9 20.9 L23.0 22.3 L24.0 21.4 L25.1 21.3 L26.2 43.7 L27.2 46.7 L28.3 43.4 L29.4 57.3 L30.5 50.5 L31.5 49.6 L32.6 51.1 L33.7 56.8 L34.7 53.5 L35.8 50.1 L36.9 44.7 L37.9 45.6 L39.0 47.4 L40.1 44.1 L41.1 45.3 L42.2 45.4 L43.3 41.1 L44.4 45.1 L45.4 43.7 L46.5 46.6 L47.6 46.6 L48.6 54.1 L49.7 56.7 L50.8 69.0 L51.8 64.5 L52.9 68.7 L54.0 77.2 L55.0 73.7 L56.1 75.4 L57.2 76.3 L58.3 84.0 L59.3 87.9 L60.4 85.0 L61.5 78.4 L62.5 83.1 L63.6 85.4 L64.7 85.5 L65.7 87.0 L66.8 82.4 L67.9 87.8 L69.0 89.0 L70.0 89.6 L71.1 79.2 L72.2 78.2 L73.2 73.1 L74.3 71.6 L75.4 65.7 L76.4 67.4 L77.5 67.5 L78.6 67.1 L79.6 68.4 L80.7 69.6 L81.8 70.2 L82.9 75.8 L83.9 84.3 L85.0 85.0 L86.1 86.2 L87.1 85.2 L88.2 90.1 L89.3 89.6 L90.3 86.7 L91.4 85.5 L92.5 82.7 L93.5 89.7 L94.6 91.9 L95.7 93.5 L96.8 98.1 L97.8 102.3 L98.9 110.1 L100.0 111.9 L101.0 119.5 L102.1 117.2 L103.2 115.7 L104.2 118.3 L105.3 118.4 L106.4 116.1 L107.4 124.7 L108.5 128.2 L109.6 136.5 L110.7 145.1 L111.7 131.3 L112.8 126.0 L113.9 126.6 L114.9 122.4 L116.0 114.0 L117.1 115.2 L118.1 116.8 L119.2 116.7 L120.3 118.7 L121.3 119.3 L122.4 126.7 L123.5 122.7 L124.6 126.2 L125.6 128.8 L126.7 134.8 L127.8 133.1 L128.8 131.4 L129.9 126.9 L131.0 125.6 L132.0 123.2 L133.1 127.0 L134.2 125.7 L135.2 125.3 L136.3 121.4 L137.4 121.4 L138.5 121.3 L139.5 119.0 L140.6 116.7 L141.7 114.8 L142.7 111.1 L143.8 111.3 L144.9 112.0 L145.9 116.0 L147.0 116.4 L148.1 118.3 L149.1 119.6 L150.2 116.4 L151.3 114.7 L152.4 114.7 L153.4 111.8 L154.5 110.8 L155.6 111.0 L156.6 108.8 L157.7 110.3 L158.8 113.6 L159.8 110.0 L160.9 112.4 L162.0 109.0 L163.0 107.4 L164.1 109.3 L165.2 105.6 L166.3 104.8 L167.3 105.6 L168.4 108.9 L169.5 104.9 L170.5 105.1 L171.6 104.8 L172.7 102.3 L173.7 102.4 L174.8 100.0 L175.9 101.0 L177.0 101.6 L178.0 99.3 L179.1 99.6 L180.2 102.6 L181.2 104.3 L182.3 104.5 L183.4 107.0 L184.4 107.8 L185.5 107.0 L186.6 107.7 L187.6 109.6 L188.7 113.3 L189.8 109.9 L190.9 112.5 L191.9 114.5 L193.0 117.7 L194.1 118.6 L195.1 120.3 L196.2 122.4 L197.3 121.4 L198.3 118.7 L199.4 116.1 L200.5 117.7 L201.5 121.6 L202.6 119.5 L203.7 124.9 L204.8 125.2 L205.8 124.6 L206.9 127.3 L208.0 150.4 L209.0 156.9 L210.1 147.2 L211.2 145.6 L212.2 143.5 L213.3 141.8 L214.4 144.0 L215.4 147.7 L216.5 147.1 L217.6 153.4 L218.7 154.8 L219.7 153.4 L220.8 160.0 L221.9 159.5 L222.9 155.7 L224.0 155.0"/><circle class="fig-dot-ref" cx="19.8" cy="16.0" r="2.4"/><circle class="fig-dot" cx="224.0" cy="155.0" r="3"/><text x="312.0" y="19.5" class="fig-label" text-anchor="end">9,134.70</text><text x="312.0" y="158.5" class="fig-val" text-anchor="end">5,050.43</text><text x="8.0" y="174.0" class="fig-label" text-anchor="start">2 Jan</text><text x="224.0" y="174.0" class="fig-label" text-anchor="end">6 Nov</text></svg></div>
             </figure>
-          </div>
-        </div>
-      </div>
-    </article>
+      </section>
+    </div>
 
-    <article class="entry-row entry-pisa">
-      <div class="container">
-        <div class="entry-grid">
-          <div class="entry-col-left">
-            <p class="plate-label plate-pisa">Pelat 02</p>
-            <h2 class="entry-name">
-              <a href="/en/pisa/" class="entry-link-title">PISA 2025: Dua Dekade Datar</a>
-            </h2>
-            <p class="entry-line">How Indonesian students did in science, reading and mathematics in PISA 2025 against the OECD average, and who is falling behind.</p>
-            <p class="entry-fact">Computed from OECD public microdata and its official annex tables. <span style="white-space:nowrap">PISA 2025 data, downloaded 13 October 2026.</span></p>
-            <p class="entry-nav"><a href="/en/pisa/" class="entry-link-btn">Open plate /pisa/</a></p>
-          </div>
-          <div class="entry-col-right">
-            <figure class="window-frame">
-              <div id="window-pisa" class="window" role="img" aria-label="Visualisasi perbandingan capaian PISA 2025"></div>
-              <figcaption class="window-caption"><div class="caption-head"> <span class="caption-title">Below the minimum proficiency line</span> <span class="caption-legend">IDN / OECD</span> </div> <div class="metric-group"> <div class="metric-row"> <span class="metric-name">Mathematics</span> <span class="metric-values"> <span class="metric-val val-idn"><span data-fig="prof_math_idn">83.1</span>%</span> <span class="metric-sep">/</span> <span class="metric-val val-oecd"><span data-fig="prof_math_oecd">34.9</span>%</span> </span> </div> <div class="metric-row"> <span class="metric-name">Reading</span> <span class="metric-values"> <span class="metric-val val-idn"><span data-fig="prof_read_idn">72.9</span>%</span> <span class="metric-sep">/</span> <span class="metric-val val-oecd"><span data-fig="prof_read_oecd">31.0</span>%</span> </span> </div> <div class="metric-row"> <span class="metric-name">Science</span> <span class="metric-values"> <span class="metric-val val-idn"><span data-fig="prof_scie_idn">63.2</span>%</span> <span class="metric-sep">/</span> <span class="metric-val val-oecd"><span data-fig="prof_scie_oecd">25.7</span>%</span> </span> </div> </div></figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </article>
-    <article class="entry-row entry-explorer">
-      <div class="container">
-        <div class="entry-grid">
-          <div class="entry-col-left">
-            <p class="plate-label plate-explorer">Pelat 03</p>
-            <h2 class="entry-name">
-              <a href="/en/pisa-explorer/" class="entry-link-title">Explorer Interaktif PISA 2025</a>
-            </h2>
-            <p class="entry-line">Companion to plate 02: pick the country, subject and percentile yourself, then see the spread of proficiency by level.</p>
-            <p class="entry-fact">A standalone page built from the same OECD annex tables, without student microdata. <span style="white-space:nowrap">PISA 2025 data, downloaded 13 October 2026.</span></p>
-            <p class="entry-nav"><a href="/en/pisa-explorer/" class="entry-link-btn">Open plate /pisa-explorer/</a></p>
-          </div>
-          <div class="entry-col-right">
-            <figure class="window-frame">
-              <div id="window-pisa-explorer" class="window" role="img" aria-label="Visualisasi sebaran kemampuan sains per level, Indonesia dibanding Vietnam"></div>
-              <figcaption class="window-caption"><div class="caption-head"> <span class="caption-title">Students at Level 4 or above</span> <span class="caption-legend">IDN / VNM</span> </div> <div class="metric-group"> <div class="metric-row"> <span class="metric-name">Science</span> <span class="metric-values"> <span class="metric-val val-idn"><span data-fig="exp_scie_idn">0.76</span>%</span> <span class="metric-sep">/</span> <span class="metric-val val-peer"><span data-fig="exp_scie_vn">10.96</span>%</span> </span> </div> <div class="metric-row"> <span class="metric-name">Mathematics</span> <span class="metric-values"> <span class="metric-val val-idn"><span data-fig="exp_math_idn">0.33</span>%</span> <span class="metric-sep">/</span> <span class="metric-val val-peer"><span data-fig="exp_math_vn">13.13</span>%</span> </span> </div> <div class="metric-row"> <span class="metric-name">Reading</span> <span class="metric-values"> <span class="metric-val val-idn"><span data-fig="exp_read_idn">0.35</span>%</span> <span class="metric-sep">/</span> <span class="metric-val val-peer"><span data-fig="exp_read_vn">2.18</span>%</span> </span> </div> </div></figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="entry-row entry-pasar">
-      <div class="container">
-        <div class="entry-grid">
-          <div class="entry-col-left">
-            <p class="plate-label plate-pasar">Pelat 04</p>
-            <h2 class="entry-name"><a href="/en/pasar/ihsg.html" class="entry-link-title">JCI 2026: Down All Year</a></h2>
-            <p class="entry-line">Lowest close on 19 October at <span data-fig="pasar_ihsg_trough">4,904.29</span>: <span data-fig="pasar_ihsg_trough_dd">-46.31%</span> from the 20 January peak in 177 days, then up <span data-fig="pasar_ihsg_rebound">2.98%</span> over the last two sessions.</p>
-            <p class="entry-fact">Daily closing prices: Refinitiv up to 16 October 2026, then the daily IDX:COMPOSITE job. <span style="white-space:nowrap">Data as of <span data-fig="pasar_ihsg_asof_long">6 November 2026</span>.</span></p>
-            <p class="entry-nav"><a href="/en/pasar/ihsg.html" class="entry-link-btn">Open plate /pasar/ihsg.html</a></p>
-          </div>
-          <div class="entry-col-right">
-            <figure class="window-frame">
-              <div class="window" role="img" aria-label="JCI line for 2026, from the January peak to the October low"><svg class="window-fig" viewBox="0 0 320 180" aria-hidden="true" focusable="false"><path d="M12.0 28.8 L13.2 25.1 L14.5 22.7 L15.7 22.3 L17.0 22.9 L18.2 22.6 L19.5 24.3 L20.7 22.2 L22.0 19.4 L23.2 18.0 L24.5 16.0 L25.7 16.0 L27.0 20.1 L28.2 20.7 L29.5 22.1 L30.7 21.3 L32.0 21.1 L33.2 42.9 L34.5 45.9 L35.7 42.6 L37.0 56.1 L38.2 49.5 L39.4 48.7 L40.7 50.1 L41.9 55.7 L43.2 52.5 L44.4 49.2 L45.7 43.9 L46.9 44.8 L48.2 46.5 L49.4 43.3 L50.7 44.5 L51.9 44.6 L53.2 40.4 L54.4 44.3 L55.7 42.9 L56.9 45.8 L58.2 45.8 L59.4 53.0 L60.7 55.5 L61.9 67.5 L63.1 63.1 L64.4 67.3 L65.6 75.5 L66.9 72.1 L68.1 73.8 L69.4 74.7 L70.6 82.1 L71.9 85.9 L73.1 83.1 L74.4 76.6 L75.6 81.2 L76.9 83.4 L78.1 83.6 L79.4 85.0 L80.6 80.5 L81.9 85.8 L83.1 87.0 L84.4 87.6 L85.6 77.4 L86.9 76.5 L88.1 71.5 L89.3 70.1 L90.6 64.3 L91.8 66.0 L93.1 66.1 L94.3 65.7 L95.6 67.0 L96.8 68.1 L98.1 68.7 L99.3 74.1 L100.6 82.4 L101.8 83.1 L103.1 84.2 L104.3 83.3 L105.6 88.1 L106.8 87.6 L108.1 84.8 L109.3 83.6 L110.6 80.9 L111.8 87.7 L113.0 89.8 L114.3 91.3 L115.5 95.8 L116.8 99.9 L118.0 107.5 L119.3 109.2 L120.5 116.6 L121.8 114.4 L123.0 112.9 L124.3 115.4 L125.5 115.5 L126.8 113.3 L128.0 121.7 L129.3 125.0 L130.5 133.1 L131.8 141.5 L133.0 128.1 L134.3 123.0 L135.5 123.5 L136.8 119.5 L138.0 111.3 L139.2 112.4 L140.5 114.0 L141.7 113.9 L143.0 115.9 L144.2 116.4 L145.5 123.6 L146.7 119.8 L148.0 123.2 L149.2 125.7 L150.5 131.5 L151.7 129.8 L153.0 128.2 L154.2 123.8 L155.5 122.5 L156.7 120.2 L158.0 123.9 L159.2 122.6 L160.5 122.2 L161.7 118.5 L163.0 118.4 L164.2 118.3 L165.4 116.2 L166.7 113.9 L167.9 112.1 L169.2 108.5 L170.4 108.7 L171.7 109.3 L172.9 113.2 L174.2 113.6 L175.4 115.4 L176.7 116.7 L177.9 113.6 L179.2 111.9 L180.4 112.0 L181.7 109.2 L182.9 108.1 L184.2 108.4 L185.4 106.2 L186.7 107.6 L187.9 110.9 L189.1 107.4 L190.4 109.8 L191.6 106.4 L192.9 104.9 L194.1 106.7 L195.4 103.1 L196.6 102.3 L197.9 103.1 L199.1 106.3 L200.4 102.5 L201.6 102.6 L202.9 102.3 L204.1 99.9 L205.4 100.0 L206.6 97.6 L207.9 98.7 L209.1 99.2 L210.4 97.0 L211.6 97.3 L212.9 100.2 L214.1 101.8 L215.3 102.0 L216.6 104.5 L217.8 105.3 L219.1 104.4 L220.3 105.1 L221.6 107.0 L222.8 110.6 L224.1 107.3 L225.3 109.9 L226.6 111.7 L227.8 114.8 L229.1 115.7 L230.3 117.4 L231.6 119.4 L232.8 118.5 L234.1 115.8 L235.3 113.4 L236.6 114.9 L237.8 118.7 L239.0 116.6 L240.3 121.9 L241.5 122.2 L242.8 121.6 L244.0 124.2 L245.3 146.7 L246.5 152.9 L247.8 143.6 L249.0 142.0 L250.3 140.0 L251.5 138.3 L252.8 140.5 L254.0 144.0 L255.3 143.5 L256.5 149.6 L257.8 150.9 L259.0 149.6 L260.3 156.0 L261.5 155.5 L262.8 151.8 L264.0 151.2" fill="none" stroke="var(--accent-pasar)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><line x1="12.0" y1="16.0" x2="268.0" y2="16.0" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/><circle cx="25.7" cy="16.0" r="2.4" fill="var(--accent-pasar)"/><circle cx="264.0" cy="151.2" r="2.6" fill="var(--accent-pasar)"/><text x="12.0" y="11" class="fig-label" text-anchor="start">9,134.70</text><text x="12.0" y="173.0" class="fig-label" text-anchor="start">5,050.43</text><text x="268.0" y="173.0" class="fig-label" text-anchor="end">6 Nov</text><text x="12.0" y="173.0" class="fig-label" text-anchor="start" opacity="0">2 Jan</text></svg></div>
-              <figcaption class="window-caption"><div class="caption-head"> <span class="caption-title">JCI, <span data-fig="pasar_ihsg_sessions">203</span> sessions</span> <span class="caption-legend">closing price</span> </div> <div class="metric-group"> <div class="metric-row"><span class="metric-name">Peak 20 Jan</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_ihsg_peak">9,134.70</span></span></div> <div class="metric-row"><span class="metric-name">Latest <span data-fig="pasar_ihsg_asof_short">6 Nov</span></span><span class="metric-values"><span class="val-pasar" data-fig="pasar_ihsg_last">5,050.43</span></span></div> </div></figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="entry-row entry-pasar">
-      <div class="container">
-        <div class="entry-grid">
-          <div class="entry-col-left">
+    <div class="container">
+      <section class="desk">
+        <h2 class="desk-h">Markets</h2>
+        <div class="desk-grid">
+          <article class="story">
             <p class="plate-label plate-pasar">Pelat 05</p>
-            <h2 class="entry-name"><a href="/en/pasar/rupiah.html" class="entry-link-title">Rupiah: Weaker in Nine of Ten Months</a></h2>
+            <figure class="window-frame acc-pasar">
+              <figcaption class="window-head"><span class="window-title">USD/IDR, <span data-fig="pasar_rupiah_points">218</span> points</span><span class="window-keys"><span><span class="key key-line"></span>USD/IDR</span><span><span class="key key-ref"></span>start of year</span></span></figcaption>
+              <div class="window" role="img" aria-label="USD/IDR line through 2026, rising, which means a weaker rupiah"><svg class="window-fig" viewBox="0 0 320 180" aria-hidden="true" focusable="false"><line class="fig-ref" x1="8.0" y1="160.0" x2="228.0" y2="160.0"/><path class="fig-line" d="M8.0 160.0 L9.0 160.0 L10.0 157.6 L11.0 154.7 L12.0 154.9 L13.0 148.2 L14.0 145.8 L15.0 142.6 L16.0 145.4 L17.0 144.6 L18.0 142.2 L18.9 140.1 L19.9 134.6 L20.9 137.3 L21.9 140.8 L22.9 144.3 L23.9 149.5 L24.9 153.9 L25.9 160.0 L26.9 157.4 L27.9 153.5 L28.9 152.9 L29.9 151.8 L30.9 154.7 L31.9 152.3 L32.9 145.1 L33.9 144.5 L34.9 149.1 L35.9 153.0 L36.9 151.7 L37.9 148.8 L38.9 149.5 L39.9 149.9 L40.8 148.9 L41.8 143.3 L42.8 140.1 L43.8 142.9 L44.8 149.6 L45.8 148.5 L46.8 150.3 L47.8 155.0 L48.8 151.6 L49.8 144.2 L50.8 142.4 L51.8 146.3 L52.8 141.0 L53.8 134.7 L54.8 137.7 L55.8 145.2 L56.8 142.1 L57.8 143.2 L58.8 141.9 L59.8 135.5 L60.8 136.1 L61.8 132.6 L62.7 135.9 L63.7 139.4 L64.7 142.3 L65.7 142.8 L66.7 146.0 L67.7 140.2 L68.7 133.7 L69.7 130.2 L70.7 135.5 L71.7 140.5 L72.7 130.9 L73.7 125.1 L74.7 134.4 L75.7 122.4 L76.7 122.6 L77.7 113.5 L78.7 119.1 L79.7 116.8 L80.7 118.2 L81.7 114.3 L82.7 119.3 L83.6 119.4 L84.6 112.4 L85.6 104.8 L86.6 108.0 L87.6 111.4 L88.6 104.0 L89.6 97.7 L90.6 97.9 L91.6 91.7 L92.6 87.4 L93.6 99.7 L94.6 102.6 L95.6 95.9 L96.6 90.1 L97.6 83.0 L98.6 83.1 L99.6 86.2 L100.6 74.0 L101.6 64.7 L102.6 58.8 L103.6 62.9 L104.6 65.3 L105.5 63.5 L106.5 59.7 L107.5 49.7 L108.5 49.5 L109.5 48.1 L110.5 51.6 L111.5 49.7 L112.5 50.5 L113.5 37.2 L114.5 30.9 L115.5 26.5 L116.5 18.6 L117.5 38.4 L118.5 42.3 L119.5 36.0 L120.5 54.3 L121.5 61.1 L122.5 60.9 L123.5 52.9 L124.5 45.8 L125.5 52.4 L126.5 49.4 L127.4 41.2 L128.4 35.7 L129.4 35.2 L130.4 47.3 L131.4 47.9 L132.4 43.0 L133.4 37.3 L134.4 31.4 L135.4 37.0 L136.4 31.9 L137.4 44.2 L138.4 24.7 L139.4 23.0 L140.4 25.9 L141.4 28.7 L142.4 27.5 L143.4 26.4 L144.4 34.8 L145.4 38.9 L146.4 38.4 L147.4 43.5 L148.4 41.4 L149.3 37.0 L150.3 40.4 L151.3 28.2 L152.3 23.4 L153.3 26.3 L154.3 25.7 L155.3 28.3 L156.3 35.7 L157.3 34.7 L158.3 46.2 L159.3 43.3 L160.3 48.6 L161.3 57.1 L162.3 49.4 L163.3 48.9 L164.3 47.6 L165.3 54.4 L166.3 51.6 L167.3 47.0 L168.3 50.0 L169.3 53.5 L170.2 67.1 L171.2 61.7 L172.2 64.6 L173.2 61.7 L174.2 59.4 L175.2 61.3 L176.2 62.0 L177.2 58.6 L178.2 61.5 L179.2 68.2 L180.2 69.3 L181.2 68.2 L182.2 73.2 L183.2 85.1 L184.2 75.4 L185.2 72.6 L186.2 67.0 L187.2 63.3 L188.2 66.0 L189.2 60.4 L190.2 50.9 L191.2 46.4 L192.1 51.2 L193.1 53.7 L194.1 40.0 L195.1 41.9 L196.1 35.7 L197.1 41.1 L198.1 44.2 L199.1 38.8 L200.1 38.4 L201.1 42.0 L202.1 49.1 L203.1 46.2 L204.1 41.3 L205.1 45.2 L206.1 41.3 L207.1 45.2 L208.1 41.2 L209.1 39.0 L210.1 30.4 L211.1 29.2 L212.1 34.8 L213.1 29.2 L214.0 26.0 L215.0 22.8 L216.0 17.5 L217.0 19.7 L218.0 16.0 L219.0 19.4 L220.0 18.9 L221.0 20.0 L222.0 19.9 L223.0 20.7 L224.0 26.6"/><circle class="fig-dot-ref" cx="8.0" cy="160.0" r="2.4"/><circle class="fig-dot" cx="224.0" cy="26.6" r="3"/><text x="312.0" y="163.5" class="fig-label" text-anchor="end">16,716</text><text x="312.0" y="30.1" class="fig-val" text-anchor="end">18,069</text><text x="8.0" y="174.0" class="fig-label" text-anchor="start">31 Dec</text><text x="224.0" y="174.0" class="fig-label" text-anchor="end">5 Nov</text></svg></div>
+            </figure>
+            <h3 class="entry-name"><a href="/en/pasar/rupiah.html" class="entry-link-title">Rupiah: Weaker in Nine of Ten Months</a></h3>
+            <p class="big acc-pasar"><span data-fig="pasar_rupiah_last">18,069</span></p>
             <p class="entry-line">USD/IDR rose from <span data-fig="pasar_rupiah_first">16,716</span> to <span data-fig="pasar_rupiah_last">18,069</span>, moving against the JCI: a correlation of <span data-fig="pasar_rupiah_corr">-0.400</span> over <span data-fig="pasar_rupiah_obs">191</span> days of returns.</p>
             <p class="entry-fact">ECB reference rates via Frankfurter, <span data-fig="pasar_rupiah_points">218</span> daily points. <span style="white-space:nowrap">Data as of <span data-fig="pasar_rupiah_asof_long">5 November 2026</span>.</span></p>
-            <p class="entry-nav"><a href="/en/pasar/rupiah.html" class="entry-link-btn">Open plate /pasar/rupiah.html</a></p>
-          </div>
-          <div class="entry-col-right">
-            <figure class="window-frame">
-              <div class="window" role="img" aria-label="USD/IDR line through 2026, rising, which means a weaker rupiah"><svg class="window-fig" viewBox="0 0 320 180" aria-hidden="true" focusable="false"><path d="M12.0 156.0 L13.2 156.0 L14.3 153.7 L15.5 150.8 L16.6 151.0 L17.8 144.5 L19.0 142.2 L20.1 139.0 L21.3 141.8 L22.5 141.1 L23.6 138.7 L24.8 136.6 L25.9 131.3 L27.1 134.0 L28.3 137.3 L29.4 140.8 L30.6 145.7 L31.7 150.1 L32.9 156.0 L34.1 153.5 L35.2 149.7 L36.4 149.1 L37.5 148.0 L38.7 150.8 L39.9 148.5 L41.0 141.5 L42.2 141.0 L43.4 145.4 L44.5 149.2 L45.7 148.0 L46.8 145.1 L48.0 145.7 L49.2 146.2 L50.3 145.2 L51.5 139.8 L52.6 136.6 L53.8 139.4 L55.0 145.8 L56.1 144.8 L57.3 146.6 L58.5 151.1 L59.6 147.9 L60.8 140.7 L61.9 138.8 L63.1 142.7 L64.3 137.5 L65.4 131.4 L66.6 134.3 L67.7 141.6 L68.9 138.6 L70.1 139.7 L71.2 138.4 L72.4 132.1 L73.5 132.8 L74.7 129.4 L75.9 132.5 L77.0 136.0 L78.2 138.8 L79.4 139.2 L80.5 142.4 L81.7 136.7 L82.8 130.4 L84.0 127.1 L85.2 132.1 L86.3 137.0 L87.5 127.7 L88.6 122.1 L89.8 131.1 L91.0 119.5 L92.1 119.7 L93.3 110.8 L94.5 116.2 L95.6 114.0 L96.8 115.4 L97.9 111.5 L99.1 116.4 L100.3 116.5 L101.4 109.7 L102.6 102.3 L103.7 105.4 L104.9 108.8 L106.1 101.6 L107.2 95.4 L108.4 95.6 L109.5 89.6 L110.7 85.4 L111.9 97.4 L113.0 100.2 L114.2 93.7 L115.4 88.1 L116.5 81.2 L117.7 81.3 L118.8 84.2 L120.0 72.3 L121.2 63.3 L122.3 57.6 L123.5 61.6 L124.6 63.9 L125.8 62.2 L127.0 58.5 L128.1 48.8 L129.3 48.6 L130.5 47.2 L131.6 50.6 L132.8 48.8 L133.9 49.5 L135.1 36.6 L136.3 30.5 L137.4 26.3 L138.6 18.5 L139.7 37.8 L140.9 41.6 L142.1 35.5 L143.2 53.3 L144.4 59.9 L145.5 59.7 L146.7 51.8 L147.9 44.9 L149.0 51.4 L150.2 48.5 L151.4 40.5 L152.5 35.2 L153.7 34.7 L154.8 46.5 L156.0 47.0 L157.2 42.3 L158.3 36.7 L159.5 30.9 L160.6 36.4 L161.8 31.4 L163.0 43.4 L164.1 24.4 L165.3 22.8 L166.5 25.6 L167.6 28.4 L168.8 27.2 L169.9 26.2 L171.1 34.3 L172.3 38.2 L173.4 37.8 L174.6 42.7 L175.7 40.7 L176.9 36.4 L178.1 39.8 L179.2 27.9 L180.4 23.2 L181.5 26.1 L182.7 25.4 L183.9 28.0 L185.0 35.2 L186.2 34.2 L187.4 45.3 L188.5 42.5 L189.7 47.7 L190.8 56.0 L192.0 48.5 L193.2 48.0 L194.3 46.8 L195.5 53.4 L196.6 50.6 L197.8 46.2 L199.0 49.1 L200.1 52.4 L201.3 65.6 L202.5 60.5 L203.6 63.2 L204.8 60.5 L205.9 58.2 L207.1 60.1 L208.3 60.8 L209.4 57.4 L210.6 60.3 L211.7 66.8 L212.9 67.8 L214.1 66.8 L215.2 71.6 L216.4 83.2 L217.5 73.8 L218.7 71.0 L219.9 65.5 L221.0 62.0 L222.2 64.6 L223.4 59.1 L224.5 49.9 L225.7 45.5 L226.8 50.2 L228.0 52.6 L229.2 39.4 L230.3 41.2 L231.5 35.2 L232.6 40.4 L233.8 43.4 L235.0 38.1 L236.1 37.8 L237.3 41.3 L238.5 48.2 L239.6 45.3 L240.8 40.6 L241.9 44.4 L243.1 40.6 L244.3 44.4 L245.4 40.5 L246.6 38.3 L247.7 30.0 L248.9 28.8 L250.1 34.3 L251.2 28.8 L252.4 25.7 L253.5 22.6 L254.7 17.4 L255.9 19.6 L257.0 16.0 L258.2 19.3 L259.4 18.8 L260.5 19.9 L261.7 19.8 L262.8 20.6 L264.0 26.3" fill="none" stroke="var(--accent-pasar)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><line x1="12.0" y1="16.0" x2="268.0" y2="16.0" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/><circle cx="257.0" cy="16.0" r="2.4" fill="var(--accent-pasar)"/><circle cx="264.0" cy="26.3" r="2.6" fill="var(--accent-pasar)"/><text x="12.0" y="11" class="fig-label" text-anchor="start">18,069</text><text x="12.0" y="173.0" class="fig-label" text-anchor="start">16,716</text><text x="268.0" y="173.0" class="fig-label" text-anchor="end">5 Nov</text><text x="12.0" y="173.0" class="fig-label" text-anchor="start" opacity="0">31 Dec</text></svg></div>
-              <figcaption class="window-caption"><div class="caption-head"> <span class="caption-title">USD/IDR, <span data-fig="pasar_rupiah_points">218</span> points</span> <span class="caption-legend">up = weaker rupiah</span> </div> <div class="metric-group"> <div class="metric-row"><span class="metric-name">Peak 8 Jun</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_rupiah_peak">18,177</span></span></div> <div class="metric-row"><span class="metric-name">JCI correlation</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_rupiah_corr">-0.400</span></span></div> </div></figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="entry-row entry-pasar">
-      <div class="container">
-        <div class="entry-grid">
-          <div class="entry-col-left">
+          </article>
+          <article class="story">
             <p class="plate-label plate-pasar">Pelat 06</p>
-            <h2 class="entry-name"><a href="/en/pasar/msci.html" class="entry-link-title">MSCI Indonesia: Five Names, 85.58% of the Weight</a></h2>
+            <figure class="window-frame acc-pasar">
+              <figcaption class="window-head"><span class="window-title">Five largest weights</span><span class="window-keys"><span><span class="key key-bar"></span>weight</span></span></figcaption>
+              <div class="window" role="img" aria-label="Five largest weights in the MSCI Indonesia Index"><svg class="window-fig" viewBox="0 0 320 180" aria-hidden="true" focusable="false"><text x="8.0" y="26.9" class="fig-label" text-anchor="start">Bank Central Asia</text><rect class="fig-track" x="8.0" y="31.9" width="216.0" height="10"/><rect class="fig-bar" x="8.0" y="31.9" width="169.6" height="10"/><text x="312.0" y="40.4" class="fig-val" text-anchor="end">31.41%</text><text x="8.0" y="55.7" class="fig-label" text-anchor="start">Bank Rakyat Indonesia</text><rect class="fig-track" x="8.0" y="60.7" width="216.0" height="10"/><rect class="fig-bar" x="8.0" y="60.7" width="107.8" height="10"/><text x="312.0" y="69.2" class="fig-val" text-anchor="end">19.96%</text><text x="8.0" y="84.5" class="fig-label" text-anchor="start">Bank Mandiri</text><rect class="fig-track" x="8.0" y="89.5" width="216.0" height="10"/><rect class="fig-bar" x="8.0" y="89.5" width="84.8" height="10"/><text x="312.0" y="98.0" class="fig-val" text-anchor="end">15.70%</text><text x="8.0" y="113.3" class="fig-label" text-anchor="start">Telkom Indonesia</text><rect class="fig-track" x="8.0" y="118.3" width="216.0" height="10"/><rect class="fig-bar" x="8.0" y="118.3" width="57.8" height="10"/><text x="312.0" y="126.8" class="fig-val" text-anchor="end">10.70%</text><text x="8.0" y="142.1" class="fig-label" text-anchor="start">Astra International</text><rect class="fig-track" x="8.0" y="147.1" width="216.0" height="10"/><rect class="fig-bar" x="8.0" y="147.1" width="42.2" height="10"/><text x="312.0" y="155.6" class="fig-val" text-anchor="end">7.81%</text><text x="8.0" y="174.0" class="fig-label" text-anchor="start">4 other issuers make up the remaining weight</text><text x="224.0" y="174.0" class="fig-label" text-anchor="end">0-40%</text></svg></div>
+            </figure>
+            <h3 class="entry-name"><a href="/en/pasar/msci.html" class="entry-link-title">MSCI Indonesia: Five Names, 85.58% of the Weight</a></h3>
+            <p class="big acc-pasar"><span data-fig="pasar_msci_top5">85.58%</span></p>
             <p class="entry-line">The top five stocks make up <span data-fig="pasar_msci_top5">85.58%</span> of the USD index: Bank Central Asia alone <span data-fig="pasar_msci_bca">31.41%</span>, banks <span data-fig="pasar_msci_fin">71.71%</span>.</p>
             <p class="entry-fact">MSCI Indonesia Index factsheet (USD, net): 9 constituents, full weight 100%. <span style="white-space:nowrap">Data as of <span data-fig="pasar_msci_asof_long">30 September 2026</span>.</span></p>
-            <p class="entry-nav"><a href="/en/pasar/msci.html" class="entry-link-btn">Open plate /pasar/msci.html</a></p>
-          </div>
-          <div class="entry-col-right">
-            <figure class="window-frame">
-              <div class="window" role="img" aria-label="Five largest weights in the MSCI Indonesia Index"><svg class="window-fig" viewBox="0 0 320 180" aria-hidden="true" focusable="false"><text x="0" y="21.0" class="fig-label" text-anchor="start">Bank Central Asia</text><rect x="132.0" y="12.0" width="142.0" height="9.0" fill="var(--accent-pasar)" opacity="0.85"/><text x="279.0" y="21.0" class="fig-label" text-anchor="start">31.41%</text><text x="0" y="38.0" class="fig-label" text-anchor="start">Bank Rakyat Indonesia</text><rect x="132.0" y="29.0" width="90.2" height="9.0" fill="var(--accent-pasar)" opacity="0.85"/><text x="227.2" y="38.0" class="fig-label" text-anchor="start">19.96%</text><text x="0" y="55.0" class="fig-label" text-anchor="start">Bank Mandiri</text><rect x="132.0" y="46.0" width="71.0" height="9.0" fill="var(--accent-pasar)" opacity="0.85"/><text x="208.0" y="55.0" class="fig-label" text-anchor="start">15.70%</text><text x="0" y="72.0" class="fig-label" text-anchor="start">Telkom Indonesia</text><rect x="132.0" y="63.0" width="48.4" height="9.0" fill="var(--accent-pasar)" opacity="0.85"/><text x="185.4" y="72.0" class="fig-label" text-anchor="start">10.70%</text><text x="0" y="89.0" class="fig-label" text-anchor="start">Astra International</text><rect x="132.0" y="80.0" width="35.3" height="9.0" fill="var(--accent-pasar)" opacity="0.85"/><text x="172.3" y="89.0" class="fig-label" text-anchor="start">7.81%</text><text x="0" y="174.0" class="fig-label" text-anchor="start">4 other issuers make up the remaining weight</text></svg></div>
-              <figcaption class="window-caption"><div class="caption-head"> <span class="caption-title">Five largest weights</span> <span class="caption-legend">% of index</span> </div> <div class="metric-group"> <div class="metric-row"><span class="metric-name">Constituents</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_msci_names">9</span></span></div> <div class="metric-row"><span class="metric-name">Float cap</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_msci_float">53.36</span><span class="val-sep">/</span><span class="val-oecd">USD billion</span></span></div> </div></figcaption>
-            </figure>
-          </div>
+          </article>
         </div>
-      </div>
-    </article>
+      </section>
+    </div>
+
+    <div class="container">
+      <section class="desk" id="desk-didik">
+        <h2 class="desk-h">Education</h2>
+        <div class="desk-grid">
+          <article class="story">
+            <p class="plate-label plate-pisa">Pelat 02</p>
+            <figure class="window-frame acc-pisa">
+              <figcaption class="window-head"><span class="window-title">Below minimum proficiency</span><span class="window-keys"><span><span class="key key-bar"></span>Indonesia</span><span><span class="key key-tick"></span>OECD</span></span></figcaption>
+              <div id="window-pisa" class="window" role="img" aria-label="Visualisasi perbandingan capaian PISA 2025"></div>
+            </figure>
+            <h3 class="entry-name">
+              <a href="/en/pisa/" class="entry-link-title">PISA 2025: Dua Dekade Datar</a>
+            </h3>
+            <p class="big acc-pisa"><span data-fig="prof_math_idn">83.1</span>%</p>
+            <p class="num-cap">of Indonesian students are below minimum proficiency in mathematics; OECD average <span data-fig="prof_math_oecd">34.9</span>%.</p>
+            <p class="entry-line">How Indonesian students did in science, reading and mathematics in PISA 2025 against the OECD average, and who is falling behind.</p>
+            <p class="entry-fact">Computed from OECD public microdata and its official annex tables. <span style="white-space:nowrap">PISA 2025 data, downloaded 13 October 2026.</span></p>
+          </article>
+          <article class="story">
+            <p class="plate-label plate-explorer">Pelat 03</p>
+            <figure class="window-frame acc-explorer">
+              <figcaption class="window-head"><span class="window-title">Students at Level 4 or above</span><span class="window-keys"><span><span class="key key-bar"></span>Indonesia</span><span><span class="key key-tick"></span>Vietnam</span></span></figcaption>
+              <div id="window-pisa-explorer" class="window" role="img" aria-label="Bars of the share of Indonesian students reaching Level 4 or above by subject, with Vietnam marked"></div>
+            </figure>
+            <h3 class="entry-name">
+              <a href="/en/pisa-explorer/" class="entry-link-title">Explorer Interaktif PISA 2025</a>
+            </h3>
+            <p class="big acc-explorer"><span data-fig="exp_scie_idn">0.76</span>%</p>
+            <p class="num-cap">of Indonesian students reach Level 4 or above in science; Vietnam <span data-fig="exp_scie_vn">10.96</span>%.</p>
+            <p class="entry-line">Companion to plate 02: pick the country, subject and percentile yourself, then see the spread of proficiency by level.</p>
+            <p class="entry-fact">A standalone page built from the same OECD annex tables, without student microdata. <span style="white-space:nowrap">PISA 2025 data, downloaded 13 October 2026.</span></p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <div class="container">
+      <section class="desk" id="desk-bumi">
+        <h2 class="desk-h">Earth</h2>
+        <article class="story story-wide">
+          <div class="story-text">
+            <p class="plate-label plate-gempa">Pelat 01</p>
+            <h3 class="entry-name"><a href="/en/gempa/" class="entry-link-title">Half a Century of Indonesian Earthquakes</a></h3>
+            <p class="entry-line">Earthquakes of magnitude 5 or more recorded in Indonesia since 1976, from the USGS catalogue.</p>
+            <p class="entry-fact">The data is append-only, and the page is rebuilt every day. <span style="white-space:nowrap">Data as of <span data-fig="gempa_asof_long">2 November 2026</span>.</span></p>
+          </div>
+          <figure class="window-frame acc-gempa">
+              <figcaption class="window-head"><span class="window-title">Epicentre field since 1976</span><span class="window-keys"><span><span class="key key-dot"></span>M5+ epicentre</span></span></figcaption>
+              <div id="window-gempa" class="window" role="img" aria-label="Field of Indonesian earthquake epicentres"></div>
+            </figure>
+        </article>
+      </section>
+    </div>
   </main>
 
   <footer class="footer">
@@ -803,187 +810,74 @@ body {
     container.appendChild(svg);
   }
 
+  // Tata bahasa grafik hub, sama dengan pipeline_hub/pasar_hub.py: kanvas 320x180, plot x 8..224,
+  // kolom nilai rata kanan di x 312. Batang = Indonesia (aksen pelat), tick tinta = pembanding.
+  var G = { W: 320, H: 180, PL: 8, PR: 224, PT: 16, PB: 160, VX: 312, TICK_Y: 174 };
+  var NS = 'http://www.w3.org/2000/svg';
+
+  function svgEl(tag, attrs, parent) {
+    var n = document.createElementNS(NS, tag);
+    Object.keys(attrs).forEach(function (k) { n.setAttribute(k, String(attrs[k])); });
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  // Kunci bidang = nilai profBars[].domain; label tampilan terpisah supaya bisa diterjemahkan.
+  var DOMAIN_LABEL = { matematika: 'Mathematics', membaca: 'Reading', sains: 'Science' };
+  var EXP_KEY = { matematika: 'math', membaca: 'read', sains: 'scie' };
+  function domainLabel(d) { return DOMAIN_LABEL[d] || String(d || ''); }
+
+  // rows: [{label, v, vd, c, cd}] dengan v dan c dalam persen.
+  function barChart(container, rows, scale, cmpName) {
+    var svg = svgEl('svg', { 'class': 'window-fig', viewBox: '0 0 320 180', 'aria-hidden': 'true', focusable: 'false' });
+    var pitch = (G.PB - G.PT) / rows.length;
+    var off = Math.max(0, (pitch - 27) / 2);
+    var trackW = G.PR - G.PL;
+    rows.forEach(function (r, i) {
+      var top = G.PT + i * pitch + off;
+      var by = top + 15;
+      var t = svgEl('text', { x: G.PL, y: top + 10, 'class': 'fig-label', 'text-anchor': 'start' }, svg);
+      t.textContent = r.label;
+      svgEl('rect', { 'class': 'fig-track', x: G.PL, y: by, width: trackW, height: 10 }, svg);
+      svgEl('rect', { 'class': 'fig-bar bar-idn', x: G.PL, y: by, width: Math.max(1.5, trackW * Math.min(1, r.v / scale)).toFixed(1), height: 10 }, svg);
+      var tx = (G.PL + trackW * Math.min(1, r.c / scale)).toFixed(1);
+      svgEl('line', { 'class': 'fig-tick-halo', x1: tx, x2: tx, y1: by - 3, y2: by + 13 }, svg);
+      svgEl('line', { 'class': 'fig-tick tick-oecd', x1: tx, x2: tx, y1: by - 3, y2: by + 13 }, svg);
+      var v = svgEl('text', { x: G.VX, y: by + 8.5, 'class': 'fig-val', 'text-anchor': 'end' }, svg);
+      v.textContent = r.vd + '%';
+      var c = svgEl('text', { x: G.VX, y: top + 10, 'class': 'fig-label', 'text-anchor': 'end' }, svg);
+      c.textContent = cmpName + ' ' + r.cd + '%';
+    });
+    var sc = svgEl('text', { x: G.PR, y: G.TICK_Y, 'class': 'fig-label', 'text-anchor': 'end' }, svg);
+    sc.textContent = '0-' + scale + '%';
+    container.innerHTML = '';
+    container.appendChild(svg);
+  }
+
   function renderPisa() {
     var container = document.getElementById('window-pisa');
     if (!container) return;
-    if (!DATA || !DATA.profBars || !Array.isArray(DATA.profBars) || !DATA.profBars.length) {
-      container.innerHTML = '';
-      return;
-    }
-
-    var totalW = 1000;
-    var totalH = 562.5;
-    var barH = 64;
-    var count = DATA.profBars.length;
-    var gap = (totalH - count * barH) / (count + 1);
-
-    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('viewBox', '0 0 ' + totalW + ' ' + totalH);
-    svg.setAttribute('width', '100%');
-    svg.setAttribute('height', '100%');
-    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-    svg.setAttribute('aria-hidden', 'true');
-    svg.style.display = 'block';
-    svg.style.width = '100%';
-    svg.style.height = '100%';
-
-    DATA.profBars.forEach(function (item, idx) {
-      var y = gap + idx * (barH + gap);
-      var idnVal = Number(item.idn);
-      var barW = Math.max(0, Math.min(totalW, (idnVal / 100) * totalW));
-
-      var bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      bar.setAttribute('class', 'bar-idn');
-      bar.setAttribute('x', '0');
-      bar.setAttribute('y', String(y));
-      bar.setAttribute('width', String(barW));
-      bar.setAttribute('height', String(barH));
-      bar.setAttribute('rx', '5');
-      bar.setAttribute('fill', 'var(--accent-pisa)');
-      svg.appendChild(bar);
-
-      var oecdVal = Number(item.oecd);
-      var tickX = Math.max(0, Math.min(totalW, (oecdVal / 100) * totalW));
-      var tickY1 = y - 8;
-      var tickY2 = y + barH + 8;
-
-      var tickBg = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      tickBg.setAttribute('x1', String(tickX));
-      tickBg.setAttribute('y1', String(tickY1));
-      tickBg.setAttribute('x2', String(tickX));
-      tickBg.setAttribute('y2', String(tickY2));
-      tickBg.setAttribute('stroke', 'var(--panel)');
-      tickBg.setAttribute('stroke-width', '7');
-      tickBg.setAttribute('stroke-linecap', 'round');
-      svg.appendChild(tickBg);
-
-      var tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      tick.setAttribute('class', 'tick-oecd');
-      tick.setAttribute('x1', String(tickX));
-      tick.setAttribute('y1', String(tickY1));
-      tick.setAttribute('x2', String(tickX));
-      tick.setAttribute('y2', String(tickY2));
-      tick.setAttribute('stroke', 'var(--ink)');
-      tick.setAttribute('stroke-width', '3.5');
-      tick.setAttribute('stroke-linecap', 'round');
-      svg.appendChild(tick);
-    });
-
-    container.innerHTML = '';
-    container.appendChild(svg);
+    if (!DATA || !Array.isArray(DATA.profBars) || !DATA.profBars.length) { container.innerHTML = ''; return; }
+    barChart(container, DATA.profBars.map(function (b) {
+      return { label: domainLabel(b.domain), v: Number(b.idn), vd: b.idn_d, c: Number(b.oecd), cd: b.oecd_d };
+    }), 100, 'OECD');
   }
 
   function renderExplorer() {
     var container = document.getElementById('window-pisa-explorer');
     if (!container) return;
-    var P = DATA && DATA.expPyramid;
-    if (!P || !Array.isArray(P.bands) || !P.bands.length) {
-      container.innerHTML = '';
-      return;
+    var F = DATA && DATA.fig;
+    if (!F || !Array.isArray(DATA.profBars) || !F.exp_math_idn) { container.innerHTML = ''; return; }
+    // Urutan bidang mengikuti profBars supaya dua grafik PISA sejajar baris per baris.
+    var rows = [];
+    for (var i = 0; i < DATA.profBars.length; i++) {
+      var dom = DATA.profBars[i].domain, k = EXP_KEY[dom];
+      var idn = k && F['exp_' + k + '_idn'], vn = k && F['exp_' + k + '_vn'];
+      if (!idn || !vn) { container.innerHTML = ''; return; }
+      rows.push({ label: domainLabel(dom), v: Number(idn.v), vd: idn.d, c: Number(vn.v), cd: vn.d });
     }
-
-    var totalW = 1000;
-    var totalH = 562.5;
-    var gutterL = 200;
-    var gutterR = 40;
-    var plotTop = 78;
-    var plotBottom = totalH - 42;
-    var trackW = totalW - gutterL - gutterR;
-    var axisMax = Number(P.axisMax) > 0 ? Number(P.axisMax) : 50;
-
-    // Level tertinggi di atas, seperti piramida: urutannya dibalik dari payload (terendah dulu).
-    var bands = P.bands.slice().reverse();
-    var rowH = (plotBottom - plotTop) / bands.length;
-    var barH = Math.max(8, rowH * 0.34);
-    var barGap = Math.max(3, rowH * 0.1);
-
-    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('viewBox', '0 0 ' + totalW + ' ' + totalH);
-    svg.setAttribute('width', '100%');
-    svg.setAttribute('height', '100%');
-    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-    svg.setAttribute('aria-hidden', 'true');
-    svg.style.display = 'block';
-    svg.style.width = '100%';
-    svg.style.height = '100%';
-
-    function svgText(x, y, str, opts) {
-      var t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      t.setAttribute('x', String(x));
-      t.setAttribute('y', String(y));
-      t.setAttribute('font-family', "'JetBrains Mono', monospace");
-      t.setAttribute('font-size', String((opts && opts.size) || 15));
-      t.setAttribute('fill', (opts && opts.fill) || 'var(--muted)');
-      if (opts && opts.anchor) t.setAttribute('text-anchor', opts.anchor);
-      if (opts && opts.weight) t.setAttribute('font-weight', opts.weight);
-      t.textContent = str;
-      svg.appendChild(t);
-      return t;
-    }
-
-    // Sumbu persen dan garis bantu tipis, skala penuh dari payload (tanpa pembulatan di klien).
-    [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].forEach(function (tick) {
-      if (tick > axisMax) return;
-      var x = gutterL + (tick / axisMax) * trackW;
-      var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('x1', String(x));
-      line.setAttribute('y1', String(plotTop - 8));
-      line.setAttribute('x2', String(x));
-      line.setAttribute('y2', String(plotBottom + 6));
-      line.setAttribute('stroke', 'var(--line)');
-      line.setAttribute('stroke-width', '1');
-      line.setAttribute('stroke-opacity', tick === 0 ? '1' : '0.7');
-      svg.appendChild(line);
-      svgText(x, plotBottom + 30, String(tick), { size: 24, anchor: 'middle' });
-    });
-    // Satuan sumbu ditulis sekali di kolom label, bukan ditempel di ujung tick terakhir.
-    svgText(gutterL - 18, plotBottom + 30, '% students', { size: 22, anchor: 'end' });
-
-    // Legenda: warna yang sama dengan batang di bawahnya.
-    var legendY = 40;
-    [
-      ['idn', P.legend && P.legend.idn ? P.legend.idn : 'Indonesia', 'var(--accent-pisa)'],
-      ['vn', P.legend && P.legend.vn ? P.legend.vn : 'Vietnam', 'var(--peer)'],
-    ].forEach(function (item, i) {
-      var lx = gutterL + i * 240;
-      var swatch = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      swatch.setAttribute('x', String(lx));
-      swatch.setAttribute('y', String(legendY - 14));
-      swatch.setAttribute('width', '22');
-      swatch.setAttribute('height', '22');
-      swatch.setAttribute('rx', '4');
-      swatch.setAttribute('fill', item[2]);
-      svg.appendChild(swatch);
-      svgText(lx + 32, legendY + 4, item[1], { size: 26 });
-    });
-
-    bands.forEach(function (band, idx) {
-      var rowTop = plotTop + idx * rowH;
-      var yIdn = rowTop + (rowH - (barH * 2 + barGap)) / 2;
-      var yVn = yIdn + barH + barGap;
-
-      svgText(gutterL - 18, rowTop + rowH / 2 + 8, String(band.label), { size: 24, anchor: 'end' });
-
-      [
-        [band.idn, yIdn, 'var(--accent-pisa)'],
-        [band.vn, yVn, 'var(--peer)'],
-      ].forEach(function (spec) {
-        var v = spec[0];
-        if (v === null || v === undefined) return;
-        var w = Math.max(0, Math.min(trackW, (Number(v) / axisMax) * trackW));
-        var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        rect.setAttribute('x', String(gutterL));
-        rect.setAttribute('y', String(spec[1]));
-        rect.setAttribute('width', String(Math.max(w, 1.5)));
-        rect.setAttribute('height', String(barH));
-        rect.setAttribute('rx', '4');
-        rect.setAttribute('fill', spec[2]);
-        svg.appendChild(rect);
-      });
-    });
-
-    container.innerHTML = '';
-    container.appendChild(svg);
+    var max = Math.max.apply(null, rows.map(function (r) { return Math.max(r.v, r.c); }));
+    barChart(container, rows, Math.max(10, Math.ceil(max / 10) * 10), 'Vietnam');
   }
 
   document.addEventListener('DOMContentLoaded', function () {

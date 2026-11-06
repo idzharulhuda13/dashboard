@@ -68,14 +68,15 @@ body {
 }
 
 .masthead {
-  padding: 3.5rem 0 2.5rem;
-  border-bottom: 1px solid var(--line);
+  padding: 3rem 0 0;
 }
 
 .masthead-inner {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 3px double var(--ink);
 }
 
 .masthead-label {
@@ -89,172 +90,237 @@ body {
 
 .masthead-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  font-weight: 600;
-  line-height: 1.2;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
   color: var(--ink);
-  letter-spacing: -0.01em;
 }
 
 .masthead-intro {
-  font-family: var(--font-display);
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: 1.6;
-  color: var(--ink);
-  max-width: 68ch;
+  color: var(--muted);
+  max-width: 62ch;
 }
 
-.ledger {
+.toc {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 1.5rem;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 13px;
 }
 
-.entry-row {
-  width: 100%;
-  padding: 3.5rem 0;
+.toc-k {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.toc a {
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0.6rem 0;
   border-bottom: 1px solid var(--line);
 }
 
-.entry-grid {
+.toc a:hover {
+  border-color: var(--ink);
+}
+
+.front {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cerita utama: teks kiri, grafik kanan. */
+.lead {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 3.5rem;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 3rem;
+  align-items: center;
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--ink);
+}
+
+.lead-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.desk {
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 1rem;
+}
+
+.desk-h {
+  display: inline-block;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.desk-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  position: relative;
+}
+
+/* Garis pemisah di tengah celah, supaya dua kolom sama lebar dan teks grafiknya sama besar. */
+.desk-grid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: 1px solid var(--line);
+}
+
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.story-wide {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  column-gap: 3rem;
   align-items: start;
 }
 
-.entry-col-left {
+.story-wide .story-text {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .plate-label {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.plate-gempa {
-  color: var(--accent-gempa);
-}
-
-.plate-pisa {
-  color: var(--accent-pisa);
-}
-
-.plate-explorer {
-  color: var(--accent-explorer);
-}
-
-.plate-pasar {
-  color: var(--accent-pasar);
-}
+.plate-gempa { color: var(--accent-gempa); }
+.plate-pisa { color: var(--accent-pisa); }
+.plate-explorer { color: var(--accent-explorer); }
+.plate-pasar { color: var(--accent-pasar); }
 
 .entry-name {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-size: 1.375rem;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.lead .entry-name {
+  font-size: clamp(1.75rem, 3.2vw, 2.6rem);
 }
 
 .entry-link-title {
   color: var(--ink);
   text-decoration: none;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.2s ease;
 }
 
-.entry-gempa .entry-link-title:hover {
-  color: var(--accent-gempa);
-  border-bottom-color: var(--accent-gempa);
+.entry-link-title:hover {
+  background-size: 100% 2px;
 }
 
-.entry-pisa .entry-link-title:hover {
-  color: var(--accent-pisa);
-  border-bottom-color: var(--accent-pisa);
-}
-
-.entry-explorer .entry-link-title:hover {
-  color: var(--accent-explorer);
-  border-bottom-color: var(--accent-explorer);
-}
-
-.entry-pasar .entry-link-title:hover {
-  color: var(--accent-pasar);
-  border-bottom-color: var(--accent-pasar);
-}
-
-.entry-link-title:focus-visible {
+.entry-link-title:focus-visible,
+.toc a:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 4px;
 }
 
-.entry-line {
+.big {
   font-family: var(--font-display);
-  font-size: 1.0625rem;
-  line-height: 1.6;
-  color: var(--ink);
+  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.lead .big {
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+}
+
+.num-cap {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.45;
+  max-width: 40ch;
+}
+
+.entry-line {
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
 .entry-fact {
-  font-family: var(--font-display);
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: var(--muted);
 }
 
-.entry-nav {
-  margin-top: 0.5rem;
-}
-
-.entry-link-btn {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ink);
-  text-decoration: none;
-  border-bottom: 1px solid var(--ink);
-  padding-bottom: 2px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-}
-
-.entry-gempa .entry-link-btn:hover {
-  color: var(--accent-gempa);
-  border-bottom-color: var(--accent-gempa);
-}
-
-.entry-pisa .entry-link-btn:hover {
-  color: var(--accent-pisa);
-  border-bottom-color: var(--accent-pisa);
-}
-
-.entry-explorer .entry-link-btn:hover {
-  color: var(--accent-explorer);
-  border-bottom-color: var(--accent-explorer);
-}
-
-.entry-pasar .entry-link-btn:hover {
-  color: var(--accent-pasar);
-  border-bottom-color: var(--accent-pasar);
-}
-
-.entry-link-btn:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 3px;
-}
-
-.entry-col-right {
-  width: 100%;
-}
-
+/* Bingkai grafik: satu bentuk untuk keenam pelat. Kepala (judul + kunci) di atas, kanvas 16:9 di bawah. */
 .window-frame {
   margin: 0;
   display: flex;
   flex-direction: column;
 }
+
+.window-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  padding: 0 0 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.window-keys {
+  display: flex;
+  gap: 0.9rem;
+  white-space: nowrap;
+}
+
+.key {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.35rem;
+}
+
+.key-bar { width: 12px; height: 8px; }
+.key-line { width: 14px; height: 2px; }
+.key-tick { width: 2px; height: 12px; background: var(--ink); }
+.key-ref { width: 14px; border-top: 1px dashed var(--muted); }
+.key-dot { width: 7px; height: 7px; border-radius: 50%; }
 
 .window {
   width: 100%;
@@ -263,6 +329,7 @@ body {
   border: 1px solid var(--line);
   position: relative;
   overflow: hidden;
+  padding: 0.5rem;
 }
 
 .window-fig {
@@ -273,88 +340,34 @@ body {
 
 .window-fig .fig-label {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 12px;
   fill: var(--muted);
 }
 
-.window-caption {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding: 1rem;
-  background-color: var(--panel);
-  border: 1px solid var(--line);
-  border-top: none;
-}
-
-.caption-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 0.5rem;
-}
-
-.caption-title {
+.window-fig .fig-val {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--muted);
+  font-weight: 600;
+  fill: var(--ink);
 }
 
-.caption-legend {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--muted);
-  white-space: nowrap;
-}
+.window-fig .fig-track { fill: var(--line); opacity: 0.45; }
+.window-fig .fig-ref { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+.window-fig .fig-tick { stroke: var(--ink); stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.window-fig .fig-tick-halo { stroke: var(--panel); stroke-width: 5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.window-fig .fig-dot-ref { fill: var(--panel); stroke: var(--muted); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.window-fig .fig-line { fill: none; stroke-width: 1.75; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 
-.metric-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.metric-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 1.4;
-}
-
-.metric-name {
-  color: var(--ink);
-}
-
-.metric-values {
-  display: flex;
-  align-items: baseline;
-  gap: 0.35rem;
-}
-
-.val-idn {
-  color: var(--accent-pisa);
-  font-weight: 500;
-}
-
-.val-pasar {
-  color: var(--accent-pasar);
-  font-weight: 500;
-}
-
-.val-sep {
-  color: var(--line);
-}
-
-.val-oecd {
-  color: var(--muted);
-}
-
-.val-peer {
-  color: var(--peer);
-}
+/* Satu aturan warna: seri utama mengikuti aksen pelatnya. */
+.acc-gempa { color: var(--accent-gempa); --acc: var(--accent-gempa); }
+.acc-pisa { color: var(--accent-pisa); --acc: var(--accent-pisa); }
+.acc-explorer { color: var(--accent-explorer); --acc: var(--accent-explorer); }
+.acc-pasar { color: var(--accent-pasar); --acc: var(--accent-pasar); }
+.window-frame .key-bar, .window-frame .key-line, .window-frame .key-dot { background: var(--acc); }
+.window-frame .window-head { color: var(--muted); }
+.window-fig .fig-bar { fill: var(--acc); }
+.window-fig .fig-line { stroke: var(--acc); }
+.window-fig .fig-dot { fill: var(--acc); }
 
 .footer {
   margin-top: auto;
@@ -369,16 +382,31 @@ body {
   max-width: 80ch;
 }
 
-@media (max-width: 768px) {
-  .entry-grid {
+@media (max-width: 860px) {
+  .lead,
+  .desk-grid,
+  .story-wide {
     grid-template-columns: 1fr;
+  }
+  .lead {
+    gap: 1.5rem;
+    padding: 2rem 0;
+  }
+  .desk-grid {
     gap: 2rem;
   }
-  .masthead {
-    padding: 2.5rem 0 2rem;
+  .desk-grid::before {
+    display: none;
   }
-  .entry-row {
-    padding: 2.5rem 0;
+  .desk-grid > .story + .story {
+    border-top: 1px solid var(--line);
+    padding-top: 2rem;
+  }
+  .story-wide {
+    row-gap: 0.75rem;
+  }
+  .story-wide .window-frame {
+    order: -1;
   }
 }
 
@@ -525,241 +553,121 @@ body {
         <p class="masthead-label">DATA PUBLIK</p>
         <h1 class="masthead-title">Dashboard Data Publik</h1>
         <p class="masthead-intro">Kumpulan cerita data yang dibangun dari data publik. Satu halaman, satu kumpulan data, setiap angka dihitung ulang sebelum terbit.</p>
+        <nav class="toc" aria-label="Isi"><span class="toc-k">Isi</span><a href="#desk-pasar">Pasar 3</a><a href="#desk-didik">Pendidikan 2</a><a href="#desk-bumi">Bumi 1</a></nav>
       </div>
     </div>
   </header>
 
-  <main class="ledger">
-    <article class="entry-row entry-gempa">
-      <div class="container">
-        <div class="entry-grid">
-          <div class="entry-col-left">
-            <p class="plate-label plate-gempa">Pelat 01</p>
-            <h2 class="entry-name">
-              <a href="/gempa/" class="entry-link-title">Setengah Abad Gempa Indonesia</a>
-            </h2>
-            <p class="entry-line">Gempa berkekuatan 5 atau lebih yang tercatat di wilayah Indonesia sejak 1976, dari katalog USGS.</p>
-            <p class="entry-fact">Datanya append-only, dan halamannya dibangun ulang setiap hari. <span style="white-space:nowrap">Data per <span data-fig="gempa_asof_long">20 Oktober 2026</span>.</span></p>
-            <p class="entry-nav">
-              <a href="/gempa/" class="entry-link-btn">Buka pelat /gempa/</a>
-            </p>
-          </div>
-          <div class="entry-col-right">
-            <figure class="window-frame">
-              <div id="window-gempa" class="window" role="img" aria-label="Visualisasi medan episentrum gempa Indonesia"></div>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="entry-row entry-pisa">
-      <div class="container">
-        <div class="entry-grid">
-          <div class="entry-col-left">
-            <p class="plate-label plate-pisa">Pelat 02</p>
-            <h2 class="entry-name">
-              <a href="/pisa/" class="entry-link-title">PISA 2025: Dua Dekade Datar</a>
-            </h2>
-            <p class="entry-line">Hasil sains, membaca dan matematika siswa Indonesia di PISA 2025 dibanding rata-rata OECD, dan siapa yang tertinggal di belakang.</p>
-            <p class="entry-fact">Dihitung dari microdata publik OECD dan tabel lampiran resminya. <span style="white-space:nowrap">Data PISA 2025, unduh 13 Oktober 2026.</span></p>
-            <p class="entry-nav">
-              <a href="/pisa/" class="entry-link-btn">Buka pelat /pisa/</a>
-            </p>
-          </div>
-          <div class="entry-col-right">
-            <figure class="window-frame">
-              <div id="window-pisa" class="window" role="img" aria-label="Visualisasi perbandingan capaian PISA 2025"></div>
-              <figcaption class="window-caption">
-                <div class="caption-head">
-                  <span class="caption-title">Di bawah ambang minimum kemahiran</span>
-                  <span class="caption-legend">IDN / OECD</span>
-                </div>
-                <div class="metric-group">
-                  <div class="metric-row">
-                    <span class="metric-name">Matematika</span>
-                    <span class="metric-values">
-                      <span class="metric-val val-idn"><span data-fig="prof_math_idn">83,1</span>%</span>
-                      <span class="metric-sep">/</span>
-                      <span class="metric-val val-oecd"><span data-fig="prof_math_oecd">34,9</span>%</span>
-                    </span>
-                  </div>
-                  <div class="metric-row">
-                    <span class="metric-name">Membaca</span>
-                    <span class="metric-values">
-                      <span class="metric-val val-idn"><span data-fig="prof_read_idn">72,9</span>%</span>
-                      <span class="metric-sep">/</span>
-                      <span class="metric-val val-oecd"><span data-fig="prof_read_oecd">31,0</span>%</span>
-                    </span>
-                  </div>
-                  <div class="metric-row">
-                    <span class="metric-name">Sains</span>
-                    <span class="metric-values">
-                      <span class="metric-val val-idn"><span data-fig="prof_scie_idn">63,2</span>%</span>
-                      <span class="metric-sep">/</span>
-                      <span class="metric-val val-oecd"><span data-fig="prof_scie_oecd">25,7</span>%</span>
-                    </span>
-                  </div>
-                </div>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </article>
-    <article class="entry-row entry-explorer">
-      <div class="container">
-        <div class="entry-grid">
-          <div class="entry-col-left">
-            <p class="plate-label plate-explorer">Pelat 03</p>
-            <h2 class="entry-name">
-              <a href="/pisa-explorer/" class="entry-link-title">Explorer Interaktif PISA 2025</a>
-            </h2>
-            <p class="entry-line">Pendamping pelat 02: pilih sendiri negara, mata pelajaran, dan titik persentilnya, lalu lihat sebaran kemampuannya per level.</p>
-            <p class="entry-fact">Satu halaman mandiri dari tabel lampiran OECD yang sama, tanpa microdata siswa. <span style="white-space:nowrap">Data PISA 2025, unduh 13 Oktober 2026.</span></p>
-            <p class="entry-nav">
-              <a href="/pisa-explorer/" class="entry-link-btn">Buka pelat /pisa-explorer/</a>
-            </p>
-          </div>
-          <div class="entry-col-right">
-            <figure class="window-frame">
-              <div id="window-pisa-explorer" class="window" role="img" aria-label="Visualisasi sebaran kemampuan sains per level, Indonesia dibanding Vietnam"></div>
-              <figcaption class="window-caption">
-                <div class="caption-head">
-                  <span class="caption-title">Siswa capai Level 4 ke atas</span>
-                  <span class="caption-legend">IDN / VNM</span>
-                </div>
-                <div class="metric-group">
-                  <div class="metric-row">
-                    <span class="metric-name">Sains</span>
-                    <span class="metric-values">
-                      <span class="metric-val val-idn"><span data-fig="exp_scie_idn">0,76</span>%</span>
-                      <span class="metric-sep">/</span>
-                      <span class="metric-val val-peer"><span data-fig="exp_scie_vn">10,96</span>%</span>
-                    </span>
-                  </div>
-                  <div class="metric-row">
-                    <span class="metric-name">Matematika</span>
-                    <span class="metric-values">
-                      <span class="metric-val val-idn"><span data-fig="exp_math_idn">0,33</span>%</span>
-                      <span class="metric-sep">/</span>
-                      <span class="metric-val val-peer"><span data-fig="exp_math_vn">13,13</span>%</span>
-                    </span>
-                  </div>
-                  <div class="metric-row">
-                    <span class="metric-name">Membaca</span>
-                    <span class="metric-values">
-                      <span class="metric-val val-idn"><span data-fig="exp_read_idn">0,35</span>%</span>
-                      <span class="metric-sep">/</span>
-                      <span class="metric-val val-peer"><span data-fig="exp_read_vn">2,18</span>%</span>
-                    </span>
-                  </div>
-                </div>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="entry-row entry-pasar">
-      <div class="container">
-        <div class="entry-grid">
-          <div class="entry-col-left">
-            <p class="plate-label plate-pasar">Pelat 04</p>
-            <h2 class="entry-name">
-              <a href="/pasar/ihsg.html" class="entry-link-title">IHSG 2026: Turun Sepanjang Tahun</a>
-            </h2>
-            <p class="entry-line">Titik terendah 19 Oktober di <span data-fig="pasar_ihsg_trough">4.996,61</span>: <span data-fig="pasar_ihsg_trough_dd">-45,30%</span> dari puncak 20 Januari dalam 177 hari, lalu naik <span data-fig="pasar_ihsg_rebound">6,64%</span> di dua sesi terakhir.</p>
-            <p class="entry-fact">Harga penutupan harian, Refinitiv sampai 16 Oktober 2026 lalu job harian IDX:COMPOSITE. <span style="white-space:nowrap">Data per <span data-fig="pasar_ihsg_asof_long">21 Oktober 2026</span>.</span></p>
-            <p class="entry-nav">
-              <a href="/pasar/ihsg.html" class="entry-link-btn">Buka pelat /pasar/ihsg.html</a>
-            </p>
-          </div>
-          <div class="entry-col-right">
-            <figure class="window-frame">
+  <main class="front">
+    <div class="container">
+      <section class="lead" id="desk-pasar">
+        <article class="lead-text">
+          <p class="plate-label plate-pasar">Pelat 04</p>
+          <h2 class="entry-name">
+            <a href="/pasar/ihsg.html" class="entry-link-title">IHSG 2026: Turun Sepanjang Tahun</a>
+          </h2>
+          <p class="big acc-pasar"><span data-fig="pasar_ihsg_trough_dd">-45,30%</span></p>
+          <p class="entry-line">Titik terendah 19 Oktober di <span data-fig="pasar_ihsg_trough">4.996,61</span>: <span data-fig="pasar_ihsg_trough_dd">-45,30%</span> dari puncak 20 Januari dalam 177 hari, lalu naik <span data-fig="pasar_ihsg_rebound">6,64%</span> di dua sesi terakhir.</p>
+          <p class="entry-fact">Harga penutupan harian, Refinitiv sampai 16 Oktober 2026 lalu job harian IDX:COMPOSITE. <span style="white-space:nowrap">Data per <span data-fig="pasar_ihsg_asof_long">21 Oktober 2026</span>.</span></p>
+        </article>
+        <figure class="window-frame acc-pasar">
+              <figcaption class="window-head"><span class="window-title">IHSG, <span data-fig="pasar_ihsg_sessions">191</span> sesi</span><span class="window-keys"><span><span class="key key-line"></span>penutupan</span><span><span class="key key-ref"></span>puncak</span></span></figcaption>
               <div class="window" role="img" aria-label="Garis IHSG 2026 dari puncak Januari ke titik terendah Oktober"><!--FIG:pasar_ihsg--></div>
-              <figcaption class="window-caption">
-                <div class="caption-head">
-                  <span class="caption-title">IHSG, <span data-fig="pasar_ihsg_sessions">191</span> sesi</span>
-                  <span class="caption-legend">harga penutupan</span>
-                </div>
-                <div class="metric-group">
-                  <div class="metric-row"><span class="metric-name">Puncak 20 Jan</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_ihsg_peak">9.134,70</span></span></div>
-                  <div class="metric-row"><span class="metric-name">Terakhir <span data-fig="pasar_ihsg_asof_short">21 Okt</span></span><span class="metric-values"><span class="val-pasar" data-fig="pasar_ihsg_last">5.328,36</span></span></div>
-                </div>
-              </figcaption>
             </figure>
-          </div>
-        </div>
-      </div>
-    </article>
+      </section>
+    </div>
 
-    <article class="entry-row entry-pasar">
-      <div class="container">
-        <div class="entry-grid">
-          <div class="entry-col-left">
+    <div class="container">
+      <section class="desk">
+        <h2 class="desk-h">Pasar</h2>
+        <div class="desk-grid">
+          <article class="story">
             <p class="plate-label plate-pasar">Pelat 05</p>
-            <h2 class="entry-name">
+            <figure class="window-frame acc-pasar">
+              <figcaption class="window-head"><span class="window-title">USD/IDR, <span data-fig="pasar_rupiah_points">207</span> titik</span><span class="window-keys"><span><span class="key key-line"></span>USD/IDR</span><span><span class="key key-ref"></span>awal tahun</span></span></figcaption>
+              <div class="window" role="img" aria-label="Garis USD/IDR sepanjang 2026 yang naik, artinya rupiah melemah"><!--FIG:pasar_rupiah--></div>
+            </figure>
+            <h3 class="entry-name">
               <a href="/pasar/rupiah.html" class="entry-link-title">Rupiah: Sembilan dari Sepuluh Bulan Melemah</a>
-            </h2>
+            </h3>
+            <p class="big acc-pasar"><span data-fig="pasar_rupiah_last">18.043</span></p>
+            <p class="num-cap">rupiah per dolar AS; puncak tahun ini <span data-fig="pasar_rupiah_peak">18.151</span>.</p>
             <p class="entry-line">USD/IDR naik dari <span data-fig="pasar_rupiah_first">16.716</span> ke <span data-fig="pasar_rupiah_last">18.043</span>, dan bergerak berlawanan dengan IHSG: korelasi <span data-fig="pasar_rupiah_corr">-0,417</span> dari <span data-fig="pasar_rupiah_obs">180</span> hari return.</p>
             <p class="entry-fact">Kurs referensi ECB lewat Frankfurter, <span data-fig="pasar_rupiah_points">207</span> titik harian. <span style="white-space:nowrap">Data per <span data-fig="pasar_rupiah_asof_long">21 Oktober 2026</span>.</span></p>
-            <p class="entry-nav">
-              <a href="/pasar/rupiah.html" class="entry-link-btn">Buka pelat /pasar/rupiah.html</a>
-            </p>
-          </div>
-          <div class="entry-col-right">
-            <figure class="window-frame">
-              <div class="window" role="img" aria-label="Garis USD/IDR sepanjang 2026 yang naik, artinya rupiah melemah"><!--FIG:pasar_rupiah--></div>
-              <figcaption class="window-caption">
-                <div class="caption-head">
-                  <span class="caption-title">USD/IDR, <span data-fig="pasar_rupiah_points">207</span> titik</span>
-                  <span class="caption-legend">naik = rupiah melemah</span>
-                </div>
-                <div class="metric-group">
-                  <div class="metric-row"><span class="metric-name">Puncak 8 Jun</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_rupiah_peak">18.151</span></span></div>
-                  <div class="metric-row"><span class="metric-name">Korelasi IHSG</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_rupiah_corr">-0,417</span></span></div>
-                </div>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="entry-row entry-pasar">
-      <div class="container">
-        <div class="entry-grid">
-          <div class="entry-col-left">
+          </article>
+          <article class="story">
             <p class="plate-label plate-pasar">Pelat 06</p>
-            <h2 class="entry-name">
+            <figure class="window-frame acc-pasar">
+              <figcaption class="window-head"><span class="window-title">Bobot lima terbesar</span><span class="window-keys"><span><span class="key key-bar"></span>bobot</span></span></figcaption>
+              <div class="window" role="img" aria-label="Lima bobot terbesar di MSCI Indonesia Index"><!--FIG:pasar_msci--></div>
+            </figure>
+            <h3 class="entry-name">
               <a href="/pasar/msci.html" class="entry-link-title">MSCI Indonesia: Lima Nama, 85,58% Bobot</a>
-            </h2>
+            </h3>
+            <p class="big acc-pasar"><span data-fig="pasar_msci_top5">85,58%</span></p>
+            <p class="num-cap">bobot di lima saham teratas dari <span data-fig="pasar_msci_names">9</span> konstituen; free float <span data-fig="pasar_msci_float">53,36</span> miliar USD.</p>
             <p class="entry-line">Lima saham teratas mengisi <span data-fig="pasar_msci_top5">85,58%</span> bobot indeks versi USD: Bank Central Asia sendirian <span data-fig="pasar_msci_bca">31,41%</span>, perbankan <span data-fig="pasar_msci_fin">71,71%</span>.</p>
             <p class="entry-fact">Factsheet MSCI Indonesia Index (USD, net): 9 konstituen, bobot penuh 100%. <span style="white-space:nowrap">Data per <span data-fig="pasar_msci_asof_long">30 September 2026</span>.</span></p>
-            <p class="entry-nav">
-              <a href="/pasar/msci.html" class="entry-link-btn">Buka pelat /pasar/msci.html</a>
-            </p>
-          </div>
-          <div class="entry-col-right">
-            <figure class="window-frame">
-              <div class="window" role="img" aria-label="Lima bobot terbesar di MSCI Indonesia Index"><!--FIG:pasar_msci--></div>
-              <figcaption class="window-caption">
-                <div class="caption-head">
-                  <span class="caption-title">Bobot lima terbesar</span>
-                  <span class="caption-legend">% indeks</span>
-                </div>
-                <div class="metric-group">
-                  <div class="metric-row"><span class="metric-name">Konstituen</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_msci_names">9</span></span></div>
-                  <div class="metric-row"><span class="metric-name">Float cap</span><span class="metric-values"><span class="val-pasar" data-fig="pasar_msci_float">53,36</span><span class="val-sep">/</span><span class="val-oecd">miliar USD</span></span></div>
-                </div>
-              </figcaption>
-            </figure>
-          </div>
+          </article>
         </div>
-      </div>
-    </article>
+      </section>
+    </div>
+
+    <div class="container">
+      <section class="desk" id="desk-didik">
+        <h2 class="desk-h">Pendidikan</h2>
+        <div class="desk-grid">
+          <article class="story">
+            <p class="plate-label plate-pisa">Pelat 02</p>
+            <figure class="window-frame acc-pisa">
+              <figcaption class="window-head"><span class="window-title">Di bawah ambang minimum kemahiran</span><span class="window-keys"><span><span class="key key-bar"></span>Indonesia</span><span><span class="key key-tick"></span>OECD</span></span></figcaption>
+              <div id="window-pisa" class="window" role="img" aria-label="Visualisasi perbandingan capaian PISA 2025"></div>
+            </figure>
+            <h3 class="entry-name">
+              <a href="/pisa/" class="entry-link-title">PISA 2025: Dua Dekade Datar</a>
+            </h3>
+            <p class="big acc-pisa"><span data-fig="prof_math_idn">83,1</span>%</p>
+            <p class="num-cap">siswa Indonesia di bawah ambang minimum matematika; rata-rata OECD <span data-fig="prof_math_oecd">34,9</span>%.</p>
+            <p class="entry-line">Hasil sains, membaca dan matematika siswa Indonesia di PISA 2025 dibanding rata-rata OECD, dan siapa yang tertinggal di belakang.</p>
+            <p class="entry-fact">Dihitung dari microdata publik OECD dan tabel lampiran resminya. <span style="white-space:nowrap">Data PISA 2025, unduh 13 Oktober 2026.</span></p>
+          </article>
+          <article class="story">
+            <p class="plate-label plate-explorer">Pelat 03</p>
+            <figure class="window-frame acc-explorer">
+              <figcaption class="window-head"><span class="window-title">Siswa capai Level 4 ke atas</span><span class="window-keys"><span><span class="key key-bar"></span>Indonesia</span><span><span class="key key-tick"></span>Vietnam</span></span></figcaption>
+              <div id="window-pisa-explorer" class="window" role="img" aria-label="Batang persentase siswa Indonesia yang mencapai Level 4 ke atas per bidang, dengan penanda Vietnam"></div>
+            </figure>
+            <h3 class="entry-name">
+              <a href="/pisa-explorer/" class="entry-link-title">Explorer Interaktif PISA 2025</a>
+            </h3>
+            <p class="big acc-explorer"><span data-fig="exp_scie_idn">0,76</span>%</p>
+            <p class="num-cap">siswa Indonesia capai Level 4 ke atas di sains; Vietnam <span data-fig="exp_scie_vn">10,96</span>%.</p>
+            <p class="entry-line">Pendamping pelat 02: pilih sendiri negara, mata pelajaran, dan titik persentilnya, lalu lihat sebaran kemampuannya per level.</p>
+            <p class="entry-fact">Satu halaman mandiri dari tabel lampiran OECD yang sama, tanpa microdata siswa. <span style="white-space:nowrap">Data PISA 2025, unduh 13 Oktober 2026.</span></p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <div class="container">
+      <section class="desk" id="desk-bumi">
+        <h2 class="desk-h">Bumi</h2>
+        <article class="story story-wide">
+          <div class="story-text">
+            <p class="plate-label plate-gempa">Pelat 01</p>
+            <h3 class="entry-name">
+              <a href="/gempa/" class="entry-link-title">Setengah Abad Gempa Indonesia</a>
+            </h3>
+            <p class="entry-line">Gempa berkekuatan 5 atau lebih yang tercatat di wilayah Indonesia sejak 1976, dari katalog USGS.</p>
+            <p class="entry-fact">Datanya append-only, dan halamannya dibangun ulang setiap hari. <span style="white-space:nowrap">Data per <span data-fig="gempa_asof_long">20 Oktober 2026</span>.</span></p>
+          </div>
+          <figure class="window-frame acc-gempa">
+              <figcaption class="window-head"><span class="window-title">Medan episentrum sejak 1976</span><span class="window-keys"><span><span class="key key-dot"></span>episentrum M5+</span></span></figcaption>
+              <div id="window-gempa" class="window" role="img" aria-label="Visualisasi medan episentrum gempa Indonesia"></div>
+            </figure>
+        </article>
+      </section>
+    </div>
   </main>
 
   <footer class="footer">
@@ -852,187 +760,80 @@ body {
     container.appendChild(svg);
   }
 
+  // Tata bahasa grafik hub, sama dengan pipeline_hub/pasar_hub.py: kanvas 384x216, plot x 9.6..268.8,
+  // kolom nilai rata kanan di x 374.4. Batang = Indonesia (aksen pelat), tick tinta = pembanding.
+  var G = { W: 384, H: 216, PL: 9.6, PR: 268.8, PT: 19.2, PB: 192, VX: 374.4, TICK_Y: 208.8 };
+  var NS = 'http://www.w3.org/2000/svg';
+
+  function svgEl(tag, attrs, parent) {
+    var n = document.createElementNS(NS, tag);
+    Object.keys(attrs).forEach(function (k) { n.setAttribute(k, String(attrs[k])); });
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  // Kunci bidang = nilai profBars[].domain; label tampilan terpisah supaya bisa diterjemahkan.
+  var DOMAIN_LABEL = { matematika: 'Matematika', membaca: 'Membaca', sains: 'Sains' };
+  var EXP_KEY = { matematika: 'math', membaca: 'read', sains: 'scie' };
+  function domainLabel(d) { return DOMAIN_LABEL[d] || String(d || ''); }
+
+  // rows: [{label, v, vd, c, cd}] dengan v dan c dalam persen.
+  function barChart(container, rows, scale, cmpName) {
+    var svg = svgEl('svg', { 'class': 'window-fig', viewBox: '0 0 384 216', 'aria-hidden': 'true', focusable: 'false' });
+    var pitch = (G.PB - G.PT) / rows.length;
+    var off = Math.max(0, (pitch - 32.4) / 2);
+    var trackW = G.PR - G.PL;
+    rows.forEach(function (r, i) {
+      var top = G.PT + i * pitch + off;
+      var by = top + 18;
+      var t = svgEl('text', { x: G.PL, y: top + 12, 'class': 'fig-label', 'text-anchor': 'start' }, svg);
+      t.textContent = r.label;
+      svgEl('rect', { 'class': 'fig-track', x: G.PL, y: by, width: trackW, height: 12 }, svg);
+      svgEl('rect', { 'class': 'fig-bar bar-idn', x: G.PL, y: by, width: Math.max(1.5, trackW * Math.min(1, r.v / scale)).toFixed(1), height: 12 }, svg);
+      var tx = (G.PL + trackW * Math.min(1, r.c / scale)).toFixed(1);
+      svgEl('line', { 'class': 'fig-tick-halo', x1: tx, x2: tx, y1: by - 3.6, y2: by + 15.6 }, svg);
+      svgEl('line', { 'class': 'fig-tick tick-oecd', x1: tx, x2: tx, y1: by - 3.6, y2: by + 15.6 }, svg);
+      var v = svgEl('text', { x: G.VX, y: by + 10.2, 'class': 'fig-val', 'text-anchor': 'end' }, svg);
+      var vf = svgEl('tspan', { 'data-fig': r.vf }, v);
+      vf.textContent = r.vd;
+      v.appendChild(document.createTextNode('%'));
+      var c = svgEl('text', { x: G.VX, y: top + 10, 'class': 'fig-label', 'text-anchor': 'end' }, svg);
+      c.textContent = cmpName + ' ';
+      var cf = svgEl('tspan', { 'data-fig': r.cf }, c);
+      cf.textContent = r.cd;
+      c.appendChild(document.createTextNode('%'));
+    });
+    var sc = svgEl('text', { x: G.PR, y: G.TICK_Y, 'class': 'fig-label', 'text-anchor': 'end' }, svg);
+    sc.textContent = '0-' + scale + '%';
+    container.innerHTML = '';
+    container.appendChild(svg);
+  }
+
   function renderPisa() {
     var container = document.getElementById('window-pisa');
     if (!container) return;
-    if (!DATA || !DATA.profBars || !Array.isArray(DATA.profBars) || !DATA.profBars.length) {
-      container.innerHTML = '';
-      return;
-    }
-
-    var totalW = 1000;
-    var totalH = 562.5;
-    var barH = 64;
-    var count = DATA.profBars.length;
-    var gap = (totalH - count * barH) / (count + 1);
-
-    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('viewBox', '0 0 ' + totalW + ' ' + totalH);
-    svg.setAttribute('width', '100%');
-    svg.setAttribute('height', '100%');
-    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-    svg.setAttribute('aria-hidden', 'true');
-    svg.style.display = 'block';
-    svg.style.width = '100%';
-    svg.style.height = '100%';
-
-    DATA.profBars.forEach(function (item, idx) {
-      var y = gap + idx * (barH + gap);
-      var idnVal = Number(item.idn);
-      var barW = Math.max(0, Math.min(totalW, (idnVal / 100) * totalW));
-
-      var bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      bar.setAttribute('class', 'bar-idn');
-      bar.setAttribute('x', '0');
-      bar.setAttribute('y', String(y));
-      bar.setAttribute('width', String(barW));
-      bar.setAttribute('height', String(barH));
-      bar.setAttribute('rx', '5');
-      bar.setAttribute('fill', 'var(--accent-pisa)');
-      svg.appendChild(bar);
-
-      var oecdVal = Number(item.oecd);
-      var tickX = Math.max(0, Math.min(totalW, (oecdVal / 100) * totalW));
-      var tickY1 = y - 8;
-      var tickY2 = y + barH + 8;
-
-      var tickBg = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      tickBg.setAttribute('x1', String(tickX));
-      tickBg.setAttribute('y1', String(tickY1));
-      tickBg.setAttribute('x2', String(tickX));
-      tickBg.setAttribute('y2', String(tickY2));
-      tickBg.setAttribute('stroke', 'var(--panel)');
-      tickBg.setAttribute('stroke-width', '7');
-      tickBg.setAttribute('stroke-linecap', 'round');
-      svg.appendChild(tickBg);
-
-      var tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      tick.setAttribute('class', 'tick-oecd');
-      tick.setAttribute('x1', String(tickX));
-      tick.setAttribute('y1', String(tickY1));
-      tick.setAttribute('x2', String(tickX));
-      tick.setAttribute('y2', String(tickY2));
-      tick.setAttribute('stroke', 'var(--ink)');
-      tick.setAttribute('stroke-width', '3.5');
-      tick.setAttribute('stroke-linecap', 'round');
-      svg.appendChild(tick);
-    });
-
-    container.innerHTML = '';
-    container.appendChild(svg);
+    if (!DATA || !Array.isArray(DATA.profBars) || !DATA.profBars.length) { container.innerHTML = ''; return; }
+    barChart(container, DATA.profBars.map(function (b) {
+      var k = EXP_KEY[b.domain];
+      return { label: domainLabel(b.domain), v: Number(b.idn), vd: b.idn_d, vf: 'prof_' + k + '_idn', c: Number(b.oecd), cd: b.oecd_d, cf: 'prof_' + k + '_oecd' };
+    }), 100, 'OECD');
   }
 
   function renderExplorer() {
     var container = document.getElementById('window-pisa-explorer');
     if (!container) return;
-    var P = DATA && DATA.expPyramid;
-    if (!P || !Array.isArray(P.bands) || !P.bands.length) {
-      container.innerHTML = '';
-      return;
+    var F = DATA && DATA.fig;
+    if (!F || !Array.isArray(DATA.profBars) || !F.exp_math_idn) { container.innerHTML = ''; return; }
+    // Urutan bidang mengikuti profBars supaya dua grafik PISA sejajar baris per baris.
+    var rows = [];
+    for (var i = 0; i < DATA.profBars.length; i++) {
+      var dom = DATA.profBars[i].domain, k = EXP_KEY[dom];
+      var idn = k && F['exp_' + k + '_idn'], vn = k && F['exp_' + k + '_vn'];
+      if (!idn || !vn) { container.innerHTML = ''; return; }
+      rows.push({ label: domainLabel(dom), v: Number(idn.v), vd: idn.d, vf: 'exp_' + k + '_idn', c: Number(vn.v), cd: vn.d, cf: 'exp_' + k + '_vn' });
     }
-
-    var totalW = 1000;
-    var totalH = 562.5;
-    var gutterL = 200;
-    var gutterR = 40;
-    var plotTop = 78;
-    var plotBottom = totalH - 42;
-    var trackW = totalW - gutterL - gutterR;
-    var axisMax = Number(P.axisMax) > 0 ? Number(P.axisMax) : 50;
-
-    // Level tertinggi di atas, seperti piramida: urutannya dibalik dari payload (terendah dulu).
-    var bands = P.bands.slice().reverse();
-    var rowH = (plotBottom - plotTop) / bands.length;
-    var barH = Math.max(8, rowH * 0.34);
-    var barGap = Math.max(3, rowH * 0.1);
-
-    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('viewBox', '0 0 ' + totalW + ' ' + totalH);
-    svg.setAttribute('width', '100%');
-    svg.setAttribute('height', '100%');
-    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-    svg.setAttribute('aria-hidden', 'true');
-    svg.style.display = 'block';
-    svg.style.width = '100%';
-    svg.style.height = '100%';
-
-    function svgText(x, y, str, opts) {
-      var t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      t.setAttribute('x', String(x));
-      t.setAttribute('y', String(y));
-      t.setAttribute('font-family', "'JetBrains Mono', monospace");
-      t.setAttribute('font-size', String((opts && opts.size) || 15));
-      t.setAttribute('fill', (opts && opts.fill) || 'var(--muted)');
-      if (opts && opts.anchor) t.setAttribute('text-anchor', opts.anchor);
-      if (opts && opts.weight) t.setAttribute('font-weight', opts.weight);
-      t.textContent = str;
-      svg.appendChild(t);
-      return t;
-    }
-
-    // Sumbu persen dan garis bantu tipis, skala penuh dari payload (tanpa pembulatan di klien).
-    [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].forEach(function (tick) {
-      if (tick > axisMax) return;
-      var x = gutterL + (tick / axisMax) * trackW;
-      var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('x1', String(x));
-      line.setAttribute('y1', String(plotTop - 8));
-      line.setAttribute('x2', String(x));
-      line.setAttribute('y2', String(plotBottom + 6));
-      line.setAttribute('stroke', 'var(--line)');
-      line.setAttribute('stroke-width', '1');
-      line.setAttribute('stroke-opacity', tick === 0 ? '1' : '0.7');
-      svg.appendChild(line);
-      svgText(x, plotBottom + 30, String(tick), { size: 24, anchor: 'middle' });
-    });
-    // Satuan sumbu ditulis sekali di kolom label, bukan ditempel di ujung tick terakhir.
-    svgText(gutterL - 18, plotBottom + 30, '% siswa', { size: 22, anchor: 'end' });
-
-    // Legenda: warna yang sama dengan batang di bawahnya.
-    var legendY = 40;
-    [
-      ['idn', P.legend && P.legend.idn ? P.legend.idn : 'Indonesia', 'var(--accent-pisa)'],
-      ['vn', P.legend && P.legend.vn ? P.legend.vn : 'Vietnam', 'var(--peer)'],
-    ].forEach(function (item, i) {
-      var lx = gutterL + i * 240;
-      var swatch = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      swatch.setAttribute('x', String(lx));
-      swatch.setAttribute('y', String(legendY - 14));
-      swatch.setAttribute('width', '22');
-      swatch.setAttribute('height', '22');
-      swatch.setAttribute('rx', '4');
-      swatch.setAttribute('fill', item[2]);
-      svg.appendChild(swatch);
-      svgText(lx + 32, legendY + 4, item[1], { size: 26 });
-    });
-
-    bands.forEach(function (band, idx) {
-      var rowTop = plotTop + idx * rowH;
-      var yIdn = rowTop + (rowH - (barH * 2 + barGap)) / 2;
-      var yVn = yIdn + barH + barGap;
-
-      svgText(gutterL - 18, rowTop + rowH / 2 + 8, String(band.label), { size: 24, anchor: 'end' });
-
-      [
-        [band.idn, yIdn, 'var(--accent-pisa)'],
-        [band.vn, yVn, 'var(--peer)'],
-      ].forEach(function (spec) {
-        var v = spec[0];
-        if (v === null || v === undefined) return;
-        var w = Math.max(0, Math.min(trackW, (Number(v) / axisMax) * trackW));
-        var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        rect.setAttribute('x', String(gutterL));
-        rect.setAttribute('y', String(spec[1]));
-        rect.setAttribute('width', String(Math.max(w, 1.5)));
-        rect.setAttribute('height', String(barH));
-        rect.setAttribute('rx', '4');
-        rect.setAttribute('fill', spec[2]);
-        svg.appendChild(rect);
-      });
-    });
-
-    container.innerHTML = '';
-    container.appendChild(svg);
+    var max = Math.max.apply(null, rows.map(function (r) { return Math.max(r.v, r.c); }));
+    barChart(container, rows, Math.max(10, Math.ceil(max / 10) * 10), 'Vietnam');
   }
 
   document.addEventListener('DOMContentLoaded', function () {

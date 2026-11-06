@@ -56,92 +56,78 @@ def _png_num(v: float, dp: int = 0) -> str:
     return fmt_id(v, dp)
 
 
-def _line_svg(points: list[float], *, label_hi: str, label_lo: str, tick_left: str, tick_right: str,
-              mark_hi: int | None = None, mark_last: bool = True) -> str:
-    """Grafik garis 320x180 dengan label nilai di ujung dan dua penanda waktu.
+# Tata bahasa grafik hub (dipakai juga oleh renderPisa/renderExplorer di hub.template.html):
+# kanvas 384x216 (16:9), area plot x 9.6..268.8 / y 19.2..192, kolom nilai rata kanan di x 374.4, label 12px mono.
+# Seri utama = warna aksen pelat; pembanding = garis tipis tinta (tick atau garis putus-putus).
+W, H = 384.0, 216.0
+PL, PR, PT, PB = 9.6, 268.8, 19.2, 192.0
+VX = 374.4
+TICK_Y = 208.8
 
-    Satu warna saja (var(--accent-pasar)): warna di sini menandai bagian halaman, bukan
-    arah angka. Arah dibaca dari posisi garis, bukan dari hijau/merah.
+
+def _spread(ys: list[float], gap: float = 14.4) -> list[float]:
+    """Geser label kolom nilai supaya tidak bertumpuk, urutan vertikalnya tetap."""
+    order = sorted(range(len(ys)), key=lambda i: ys[i])
+    out = list(ys)
+    for a_, b_ in zip(order, order[1:]):
+        if out[b_] - out[a_] < gap:
+            out[b_] = out[a_] + gap
+    lo_clip = max(0.0, max(out) - (PB + 4.8))
+    return [min(max(y - lo_clip, PT), PB + 4.8) for y in out]
+
+
+def _line_svg(points: list[float], *, ref_idx: int, ref_label: str, last_label: str,
+              tick_left: str, tick_right: str, figs: tuple[str, str, str]) -> str:
+    """Grafik garis: seri aksen, garis acuan putus-putus di titik ref_idx, dua nilai di kolom kanan.
+
+    Satu warna saja (var(--accent-pasar)): warna menandai bagian halaman, bukan arah angka.
+    figs = kunci payload untuk (label acuan, label terakhir, tick kanan), dipasang sebagai data-fig.
     """
     if len(points) < 2:
         raise RuntimeError("deret pasar terlalu pendek untuk digambar")
-    w, h = 320.0, 180.0
-    pad_l, pad_r, pad_t, pad_b = 12.0, 56.0, 16.0, 24.0
-    lo = min(points)
-    hi = max(points)
+    lo, hi = min(points), max(points)
     span = (hi - lo) or 1.0
-    inner_w = w - pad_l - pad_r
-    inner_h = h - pad_t - pad_b
-    step = inner_w / (len(points) - 1)
+    step = (PR - PL) / (len(points) - 1)
 
     def xy(i: int, v: float) -> tuple[float, float]:
-        x = pad_l + step * i
-        y = pad_t + (1 - (v - lo) / span) * inner_h
-        return x, y
+        return PL + step * i, PT + (1 - (v - lo) / span) * (PB - PT)
 
     coords = [xy(i, v) for i, v in enumerate(points)]
     d = "M" + " L".join(f"{x:.1f} {y:.1f}" for x, y in coords)
-
-    parts = [
-        '<svg class="window-fig" viewBox="0 0 320 180" aria-hidden="true" focusable="false">',
-        '<path d="' + d + '" fill="none" stroke="var(--accent-pasar)" stroke-width="1.6" '
-        'stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>',
-    ]
-    if mark_hi is not None:
-        hx, hy = coords[mark_hi]
-        parts.append(
-            f'<line x1="{pad_l:.1f}" y1="{hy:.1f}" x2="{w - pad_r + 4:.1f}" y2="{hy:.1f}" '
-            'stroke="var(--line)" stroke-width="1" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/>'
-        )
-        parts.append(f'<circle cx="{hx:.1f}" cy="{hy:.1f}" r="2.4" fill="var(--accent-pasar)"/>')
-    if mark_last:
-        lx, ly = coords[-1]
-        parts.append(f'<circle cx="{lx:.1f}" cy="{ly:.1f}" r="2.6" fill="var(--accent-pasar)"/>')
-
-    parts.append(
-        f'<text x="{pad_l:.1f}" y="11" class="fig-label" text-anchor="start">{label_hi}</text>'
-    )
-    parts.append(
-        f'<text x="{pad_l:.1f}" y="{h - 7:.1f}" class="fig-label" text-anchor="start">{label_lo}</text>'
-    )
-    parts.append(
-        f'<text x="{w - pad_r + 4:.1f}" y="{h - 7:.1f}" class="fig-label" text-anchor="end">{tick_right}</text>'
-    )
-    parts.append(
-        f'<text x="{pad_l:.1f}" y="{h - 7:.1f}" class="fig-label" text-anchor="start" opacity="0">{tick_left}</text>'
-    )
-    parts.append("</svg>")
-    return "".join(parts)
+    rx, ry = coords[ref_idx]
+    lx, ly = coords[-1]
+    ref_ty, last_ty = _spread([ry + 4.2, ly + 4.2])
+    f_ref, f_last, f_tick = figs
+    return "".join([
+        '<svg class="window-fig" viewBox="0 0 384 216" aria-hidden="true" focusable="false">',
+        f'<line class="fig-ref" x1="{PL:.1f}" y1="{ry:.1f}" x2="{PR + 4.8:.1f}" y2="{ry:.1f}"/>',
+        f'<path class="fig-line" d="{d}"/>',
+        f'<circle class="fig-dot-ref" cx="{rx:.1f}" cy="{ry:.1f}" r="2.9"/>',
+        f'<circle class="fig-dot" cx="{lx:.1f}" cy="{ly:.1f}" r="3.6"/>',
+        f'<text x="{VX:.1f}" y="{ref_ty:.1f}" class="fig-label" text-anchor="end" data-fig="{f_ref}">{ref_label}</text>',
+        f'<text x="{VX:.1f}" y="{last_ty:.1f}" class="fig-val" text-anchor="end" data-fig="{f_last}">{last_label}</text>',
+        f'<text x="{PL:.1f}" y="{TICK_Y:.1f}" class="fig-label" text-anchor="start">{tick_left}</text>',
+        f'<text x="{PR:.1f}" y="{TICK_Y:.1f}" class="fig-label" text-anchor="end"{f' data-fig="{f_tick}"' if f_tick else ""}>{tick_right}</text>',
+        "</svg>",
+    ])
 
 
 def _bar_svg(rows: list[tuple[str, float]], note: str) -> str:
-    """Lima batang bobot terbesar plus catatan jumlah sisanya."""
-    w, h = 320.0, 180.0
-    label_w = 132.0
-    pad_t = 12.0
-    bar_h = 9.0
-    gap = 8.0
-    max_v = max(v for _, v in rows) or 1.0
-    bar_space = w - label_w - 46.0
-    parts = [
-        '<svg class="window-fig" viewBox="0 0 320 180" aria-hidden="true" focusable="false">',
-    ]
-    y = pad_t
-    for name, val in rows:
-        bw = max(2.0, bar_space * (val / max_v))
-        parts.append(
-            f'<text x="0" y="{y + bar_h:.1f}" class="fig-label" text-anchor="start">{name}</text>'
-        )
-        parts.append(
-            f'<rect x="{label_w:.1f}" y="{y:.1f}" width="{bw:.1f}" height="{bar_h}" fill="var(--accent-pasar)" opacity="0.85"/>'
-        )
-        parts.append(
-            f'<text x="{label_w + bw + 5:.1f}" y="{y + bar_h:.1f}" class="fig-label" text-anchor="start">{fmt_id(val, 2)}%</text>'
-        )
-        y += bar_h + gap
-    parts.append(
-        f'<text x="0" y="{h - 6:.1f}" class="fig-label" text-anchor="start">{note}</text>'
-    )
+    """Batang horizontal: nama di atas batang, jalur skala 0..max dibulatkan ke 10, nilai di kolom kanan."""
+    scale = max(10.0, -(-max(v for _, v in rows) // 10) * 10)
+    pitch = (PB - PT) / len(rows)
+    off = max(0.0, (pitch - 32.4) / 2)
+    parts = ['<svg class="window-fig" viewBox="0 0 384 216" aria-hidden="true" focusable="false">']
+    for i, (name, val) in enumerate(rows):
+        top = PT + i * pitch + off
+        by = top + 18
+        bw = max(1.5, (PR - PL) * (val / scale))
+        parts.append(f'<text x="{PL:.1f}" y="{top + 12:.1f}" class="fig-label" text-anchor="start">{name}</text>')
+        parts.append(f'<rect class="fig-track" x="{PL:.1f}" y="{by:.1f}" width="{PR - PL:.1f}" height="12"/>')
+        parts.append(f'<rect class="fig-bar" x="{PL:.1f}" y="{by:.1f}" width="{bw:.1f}" height="12"/>')
+        parts.append(f'<text x="{VX:.1f}" y="{by + 10.2:.1f}" class="fig-val" text-anchor="end">{fmt_id(val, 2)}%</text>')
+    parts.append(f'<text x="{PL:.1f}" y="{TICK_Y:.1f}" class="fig-label" text-anchor="start">{note}</text>')
+    parts.append(f'<text x="{PR:.1f}" y="{TICK_Y:.1f}" class="fig-label" text-anchor="end">0-{int(scale)}%</text>')
     parts.append("</svg>")
     return "".join(parts)
 
@@ -202,24 +188,25 @@ def load(root: str) -> dict:
     ihsg_series = [row["close"] for row in ihsg["series"]]
     peak_idx = max(range(len(ihsg_series)), key=lambda i: ihsg_series[i])
     rupiah_series = [row["rate"] for row in rupiah["series"]]
-    rupiah_peak_idx = max(range(len(rupiah_series)), key=lambda i: rupiah_series[i])
 
     svg = {
         "pasar_ihsg": _line_svg(
             ihsg_series,
-            label_hi=ihsg_fig["peak_value"]["d"],
-            label_lo=ihsg_fig["last_value"]["d"],
-            tick_left="2 Jan",
+            ref_idx=peak_idx,
+            ref_label=ihsg_fig["peak_value"]["d"],
+            last_label=ihsg_fig["last_value"]["d"],
+            tick_left=short_date(ihsg["series"][0]["date"]),
             tick_right=short_date(ihsg_as_of),
-            mark_hi=peak_idx,
+            figs=("pasar_ihsg_peak", "pasar_ihsg_last", "pasar_ihsg_asof_short"),
         ),
         "pasar_rupiah": _line_svg(
             rupiah_series,
-            label_hi=rupiah_fig["last"]["d"],
-            label_lo=rupiah_fig["first"]["d"],
-            tick_left="31 Des",
+            ref_idx=0,
+            ref_label=rupiah_fig["first"]["d"],
+            last_label=rupiah_fig["last"]["d"],
+            tick_left=short_date(rupiah["series"][0]["date"]),
             tick_right=short_date(rupiah_as_of),
-            mark_hi=rupiah_peak_idx,
+            figs=("pasar_rupiah_first", "pasar_rupiah_last", ""),
         ),
         "pasar_msci": _bar_svg(
             [(c["name"], c["weight_pct"]) for c in constituents[:5]],

@@ -367,7 +367,23 @@
   "tabel annex OECD PISA {0} + berkas siswa (PUF)": "OECD PISA {0} annex tables + student files (PUF)",
   "{0} poin untuk SE = {1})": "{0} points for SE = {1})",
   "Dashboard Data Publik": "Public Data Dashboard",
-  "terhadap IHSG,": "against the JCI,"
+  "terhadap IHSG,": "against the JCI,",
+  "<span class=\"window-title\">Bobot lima terbesar</span><span class=\"window-keys\"><span><span class=\"key key-bar\"></span>bobot</span></span>": "<span class=\"window-title\">Five largest weights</span><span class=\"window-keys\"><span><span class=\"key key-bar\"></span>weight</span></span>",
+  "<span class=\"window-title\">Di bawah ambang minimum kemahiran</span><span class=\"window-keys\"><span><span class=\"key key-bar\"></span>Indonesia</span><span><span class=\"key key-tick\"></span>OECD</span></span>": "<span class=\"window-title\">Below minimum proficiency</span><span class=\"window-keys\"><span><span class=\"key key-bar\"></span>Indonesia</span><span><span class=\"key key-tick\"></span>OECD</span></span>",
+  "<span class=\"window-title\">IHSG, <span data-fig=\"pasar_ihsg_sessions\"></span> sesi</span><span class=\"window-keys\"><span><span class=\"key key-line\"></span>penutupan</span><span><span class=\"key key-ref\"></span>puncak</span></span>": "<span class=\"window-title\">JCI, <span data-fig=\"pasar_ihsg_sessions\"></span> sessions</span><span class=\"window-keys\"><span><span class=\"key key-line\"></span>close</span><span><span class=\"key key-ref\"></span>peak</span></span>",
+  "<span class=\"window-title\">Medan episentrum sejak {0}</span><span class=\"window-keys\"><span><span class=\"key key-dot\"></span>episentrum M5+</span></span>": "<span class=\"window-title\">Epicentre field since {0}</span><span class=\"window-keys\"><span><span class=\"key key-dot\"></span>M5+ epicentre</span></span>",
+  "<span class=\"window-title\">Siswa capai Level {0} ke atas</span><span class=\"window-keys\"><span><span class=\"key key-bar\"></span>Indonesia</span><span><span class=\"key key-tick\"></span>Vietnam</span></span>": "<span class=\"window-title\">Students at Level {0} or above</span><span class=\"window-keys\"><span><span class=\"key key-bar\"></span>Indonesia</span><span><span class=\"key key-tick\"></span>Vietnam</span></span>",
+  "<span class=\"window-title\">USD/IDR, <span data-fig=\"pasar_rupiah_points\"></span> titik</span><span class=\"window-keys\"><span><span class=\"key key-line\"></span>USD/IDR</span><span><span class=\"key key-ref\"></span>awal tahun</span></span>": "<span class=\"window-title\">USD/IDR, <span data-fig=\"pasar_rupiah_points\"></span> points</span><span class=\"window-keys\"><span><span class=\"key key-line\"></span>USD/IDR</span><span><span class=\"key key-ref\"></span>start of year</span></span>",
+  "Batang persentase siswa Indonesia yang mencapai Level {0} ke atas per bidang, dengan penanda Vietnam": "Bars of the share of Indonesian students reaching Level {0} or above by subject, with Vietnam marked",
+  "Pasar": "Markets",
+  "Pasar {0}": "Markets {0}",
+  "siswa Indonesia capai Level {0} ke atas di sains; Vietnam <span data-fig=\"exp_scie_vn\"></span>%.": "of Indonesian students reach Level {0} or above in science; Vietnam <span data-fig=\"exp_scie_vn\"></span>%.",
+  "siswa Indonesia di bawah ambang minimum matematika; rata-rata OECD <span data-fig=\"prof_math_oecd\"></span>%.": "of Indonesian students are below minimum proficiency in mathematics; OECD average <span data-fig=\"prof_math_oecd\"></span>%.",
+  "Isi": "Contents",
+  "Pendidikan": "Education",
+  "Bumi": "Earth",
+  "Pendidikan {0}": "Education {0}",
+  "Bumi {0}": "Earth {0}"
  },
  "patterns": [],
  "js_all": [
@@ -912,12 +928,12 @@
    ">market value coverage: ${DATA.fig.coverage_pct.d}, scale 0 to ${maxVal.toFixed(0)} percent</text>"
   ],
   [
-   "svgText(gutterL - 18, plotBottom + 30, '% siswa',",
-   "svgText(gutterL - 18, plotBottom + 30, '% students',"
-  ],
-  [
    "'Catatan: Skala panjang batang menggunakan logaritmik (log10), sedangkan angka yang tertera adalah hitungan kejadian sebenarnya.'",
    "'Note: bar length uses a logarithmic scale (log10), while the printed numbers are actual event counts.'"
+  ],
+  [
+   "var DOMAIN_LABEL = { matematika: 'Matematika', membaca: 'Membaca', sains: 'Sains' };",
+   "var DOMAIN_LABEL = { matematika: 'Mathematics', membaca: 'Reading', sains: 'Science' };"
   ]
  ],
  "js": {}

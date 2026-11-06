@@ -80,7 +80,8 @@ def check_viewport(browser, url, width, height):
     expected = payload_display_values()
     shown = page.evaluate("""() => {
         const o = {};
-        document.querySelectorAll('span[data-fig]').forEach(s => { o[s.getAttribute('data-fig')] = s.textContent.trim(); });
+        // Grafik hub menaruh angka payload di <text>/<tspan> SVG, jadi semua elemen ber-data-fig dihitung.
+        document.querySelectorAll('[data-fig]').forEach(s => { o[s.getAttribute('data-fig')] = s.textContent.trim(); });
         return o;
     }""")
     mismatched = {k: (shown.get(k), v) for k, v in expected.items() if shown.get(k) != v}

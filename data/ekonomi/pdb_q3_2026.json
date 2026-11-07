@@ -1,7 +1,7 @@
 {
  "meta": {
   "title": "PDB TW III-2026 dan Sakernas Agustus 2026",
-  "source": "BPS, BRS 111 & 113/11/Th.XXIX, 5 Nov 2026",
+  "source": "BPS, BRS 111 dan 113/11/Th.XXIX, 5 Nov 2026",
   "files": [
    "source/brs_pdb_q3_2026.pdf",
    "source/brs_sakernas_agu_2026.pdf"
@@ -145,7 +145,7 @@
  ],
  "wage": [
   {
-   "sector": "Keuangan & asuransi",
+   "sector": "Keuangan dan asuransi",
    "juta": 5.35
   },
   {
@@ -157,7 +157,7 @@
    "juta": 5.11
   },
   {
-   "sector": "Listrik & gas",
+   "sector": "Listrik dan gas",
    "juta": 5.0
   },
   {
@@ -177,7 +177,7 @@
    "juta": 3.98
   },
   {
-   "sector": "Kesehatan & sosial",
+   "sector": "Kesehatan dan sosial",
    "juta": 3.77
   },
   {
@@ -193,7 +193,7 @@
    "juta": 3.21
   },
   {
-   "sector": "Air & limbah",
+   "sector": "Air dan limbah",
    "juta": 3.07
   },
   {
@@ -201,7 +201,7 @@
    "juta": 2.94
   },
   {
-   "sector": "Akomodasi & makan minum",
+   "sector": "Akomodasi dan makan minum",
    "juta": 2.59
   },
   {

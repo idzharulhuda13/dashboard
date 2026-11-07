@@ -126,7 +126,7 @@ def main() -> int:
                   f'<meta name="description" content="PDB TW III 2026 tumbuh {num(F["yoy"])} persen, pengangguran turun ke '
                   f'{num(F["tpt_26"])} persen, tapi pengangguran usia 15-24 naik ke {num(F["muda_26"])} persen. Data BPS 5 November 2026.">', head)
     head = head.replace('href="https://dashboard.idzharulhuda.com/pasar/rupiah.html"', f'href="{URL}"')
-    head = re.sub(r'<span class="i18n-switch">.*?</span></div>', "</div>", head, count=1, flags=re.S)
+    head = head.replace('href="/en/pasar/rupiah.html"', 'href="/en/ekonomi/pdb.html"')
     head = head.replace('data-cadence="daily"', 'data-cadence="daily" data-fixed')
     head = head.replace("  </style>", CSS_EXTRA + "  </style>", 1)
     head = head.replace("/*__FONTS__*/", fonts_css())

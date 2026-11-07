@@ -39,6 +39,7 @@ PAGES = {
     "pasar/ihsg.html": "en/pasar/ihsg.html",
     "pasar/rupiah.html": "en/pasar/rupiah.html",
     "pasar/msci.html": "en/pasar/msci.html",
+    "ekonomi/pdb.html": "en/ekonomi/pdb.html",
 }
 
 BLOCK = {"p", "li", "h1", "h2", "h3", "h4", "h5", "h6", "figcaption", "caption", "td", "th",

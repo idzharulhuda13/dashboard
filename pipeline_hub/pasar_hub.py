@@ -219,6 +219,24 @@ def load(root: str) -> dict:
         for (_, rel, _), payload in zip(PAGES, (ihsg, rupiah, msci))
     }
 
+    # Pelat 07 (Ekonomi): PDB TW III dan Sakernas Agustus 2026, payload statis dari BRS BPS.
+    eko = _load(root, "data/ekonomi/pdb_q3_2026.json")
+    ef, eko_as_of = eko["fig"], eko["meta"]["as_of"]
+    for k, v in {
+        "eko_yoy": (ef["yoy"], fmt_id(ef["yoy"], 2) + "%"),
+        "eko_tpt": (ef["tpt_26"], fmt_id(ef["tpt_26"], 2) + "%"),
+        "eko_muda_25": (ef["muda_25"], fmt_id(ef["muda_25"], 2) + "%"),
+        "eko_muda_26": (ef["muda_26"], fmt_id(ef["muda_26"], 2) + "%"),
+        "eko_asof_long": (eko_as_of, long_date(eko_as_of)),
+    }.items():
+        fig[k] = {"r": v[0], "d": v[1]}
+    svg["ekonomi_pdb"] = _bar_svg(
+        [("Konsumsi pemerintah", ef["pem_q3"]), ("Investasi (PMTB)", ef["pmtb_q3"]),
+         ("PDB", ef["yoy"]), ("Rumah tangga", ef["rt_q3"])],
+        note="tumbuh y-on-y, TW III 2026",
+    )
+    lastmod["https://dashboard.idzharulhuda.com/ekonomi/pdb.html"] = eko_as_of
+
     def inject(html: str) -> str:
         for key, markup in svg.items():
             marker = f"<!--FIG:{key}-->"
@@ -231,4 +249,4 @@ def load(root: str) -> dict:
         return html
 
     return {"fig": fig, "svg": svg, "lastmod": lastmod, "inject": inject,
-            "as_of": {name: p["meta"]["as_of"] for name, p in (("ihsg", ihsg), ("rupiah", rupiah), ("msci", msci))}}
+            "as_of": {name: p["meta"]["as_of"] for name, p in (("ihsg", ihsg), ("rupiah", rupiah), ("msci", msci), ("ekonomi", eko))}}

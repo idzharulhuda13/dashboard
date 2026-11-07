@@ -474,11 +474,17 @@ def main():
     en_of = {loc: loc.replace(f"{SITE}/", f"{SITE}/en/", 1) for loc in id_locs}
     pair = {}
     for loc in id_locs:
+        en_file = os.path.join(ROOT, en_of[loc][len(SITE) + 1:])
+        if loc != f"{SITE}/" and not os.path.exists(en_file if not en_file.endswith("/") else en_file + "index.html"):
+            pair[loc] = (loc, None)  # belum ada cermin /en/ (mis. pelat Ekonomi): tanpa hreflang
+            continue
         loc_lastmod[en_of[loc]] = loc_lastmod[loc]
         pair[loc] = pair[en_of[loc]] = (loc, en_of[loc])
 
     def url_line(loc: str) -> str:
         id_loc, en_loc = pair[loc]
+        if en_loc is None:
+            return f'  <url><loc>{loc}</loc><lastmod>{loc_lastmod[loc]}</lastmod></url>'
         return (f'  <url><loc>{loc}</loc><lastmod>{loc_lastmod[loc]}</lastmod>'
                 f'<xhtml:link rel="alternate" hreflang="id" href="{id_loc}"/>'
                 f'<xhtml:link rel="alternate" hreflang="en" href="{en_loc}"/></url>')

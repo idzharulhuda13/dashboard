@@ -277,8 +277,8 @@ def check_4_fallback_literals(index_content: str, embedded_data: dict):
     if "<!--FIG:" in index_content:
         return False, "index.html masih memuat placeholder <!--FIG:...--> yang belum terisi"
     svg_count = index_content.count('class="window-fig"')
-    if svg_count != 3:
-        return False, f"jumlah gambar pasar statis di index.html bukan 3 (actual: {svg_count})"
+    if svg_count != 4:
+        return False, f"jumlah gambar statis (3 pasar + 1 ekonomi) di index.html bukan 4 (actual: {svg_count})"
 
     return True, (
         f"all {len(spans)} span[data-fig] fallback literals equal payload display values, "
@@ -372,7 +372,7 @@ def check_5_skeleton(index_path: str, template_path: str):
     # Gambar pasar disuntikkan saat build: satu placeholder di template diganti satu <svg>
     # inline, jadi keduanya dikuncikan ke sentinel yang sama sebelum dibandingkan baris demi baris.
     reconstructed = re.sub(r'<svg class="window-fig".*?</svg>', '<!--__FIG__-->', reconstructed, flags=re.DOTALL)
-    template_skeleton = re.sub(r'<!--FIG:pasar_[a-z]+-->', '<!--__FIG__-->', template_skeleton)
+    template_skeleton = re.sub(r'<!--FIG:(?:pasar|ekonomi)_[a-z]+-->', '<!--__FIG__-->', template_skeleton)
 
     # Isi span[data-fig] ditulis ulang builder dari payload, jadi teksnya dinormalkan dulu;
     # check_4 yang memastikan nilai di halaman benar-benar sama dengan payload.

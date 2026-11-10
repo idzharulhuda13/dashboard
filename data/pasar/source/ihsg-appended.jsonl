@@ -13,3 +13,4 @@
 {"date": "2026-11-05", "close": 5030.261, "source": "tradingview:IDX:COMPOSITE", "prev_close": 4919.767, "method": "close - change_abs", "change_pct": 2.2459193697587834, "fetched_at": "2026-11-05T16:20:44+07:00"}
 {"date": "2026-11-06", "close": 5050.429, "source": "tradingview:IDX:COMPOSITE", "prev_close": 5030.261, "method": "close - change_abs", "change_pct": 0.40093347045013494, "fetched_at": "2026-11-06T16:20:34+07:00"}
 {"date": "2026-11-09", "close": 5073.77, "source": "tradingview:IDX:COMPOSITE", "prev_close": 5050.429, "method": "close - change_abs", "change_pct": 0.46215875918660276, "fetched_at": "2026-11-09T16:20:42+07:00"}
+{"date": "2026-11-10", "close": 5125.726, "source": "tradingview:IDX:COMPOSITE", "prev_close": 5073.77, "method": "close - change_abs", "change_pct": 1.0240117309219616, "fetched_at": "2026-11-10T16:20:24+07:00"}

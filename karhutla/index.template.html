@@ -118,6 +118,26 @@ h2 { font-family: var(--font-display); font-weight: 900; font-size: 28px; line-h
 .end-lab { position: absolute; font-family: var(--font-mono); font-size: 12px; color: var(--muted); white-space: nowrap; transform: translateY(-50%); padding-left: 6px; }
 .end-lab.cur { color: var(--ink); font-weight: 500; }
 
+/* luas */
+.luas-grid { display: grid; grid-template-columns: 0.8fr 1fr 1.15fr; gap: 48px; margin-top: 32px; align-items: start; }
+.luas-big { font-family: var(--font-mono); font-weight: 500; font-size: 52px; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; margin-top: 8px; }
+.luas-big small { font-size: 20px; letter-spacing: 0; margin-left: 6px; }
+.luas-ctx { font-size: 15px; margin-top: 14px; max-width: 36ch; }
+.luas-ctx b { font-family: var(--font-mono); font-weight: 500; font-variant-numeric: tabular-nums; }
+.luas-ctx + .luas-ctx { color: var(--muted); }
+.lrows { border-top: 1px solid var(--ink); }
+.lrow { display: grid; grid-template-columns: 64px 1fr 96px; gap: 12px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.lrow .y { font-family: var(--font-mono); font-size: 13px; }
+.lrow .bar { display: block; height: 12px; background: var(--control); min-width: 1px; }
+.lrow.cur .bar { background: var(--fire); }
+.lrow.cur .y, .lrow.cur .n { font-weight: 500; }
+.lrow.sus .bar { background: transparent; border: 1px dashed var(--muted); height: 12px; }
+.lrow .n { text-align: right; font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; }
+.lrow.p { grid-template-columns: minmax(0, 168px) 1fr 64px; }
+.lrow.p .y { font-family: var(--font-sans); font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lrow.p .bar { background: var(--fire); }
+.lnote { font-size: 13px; color: var(--muted); margin-top: 10px; }
+
 /* provinsi */
 .prov-list { margin-top: 24px; border-top: 1px solid var(--ink); }
 .prow { display: grid; grid-template-columns: minmax(0, 220px) 1fr 84px 92px; gap: 14px; align-items: center; width: 100%; min-height: 44px; padding: 6px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; font: inherit; color: inherit; cursor: pointer; }
@@ -156,6 +176,8 @@ h2 { font-family: var(--font-display); font-weight: 900; font-size: 28px; line-h
   .cell:nth-child(n+2) { border-top: 1px solid var(--line); }
   .cell:nth-child(3) { padding-left: 20px; border-left: 1px solid var(--line); }
   .years, .drill-grid { grid-template-columns: 1fr; gap: 28px; }
+  .luas-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+  .luas-main { grid-column: 1 / -1; }
 }
 @media (max-width: 600px) {
   .container { padding: 0 18px; }
@@ -176,6 +198,8 @@ h2 { font-family: var(--font-display); font-weight: 900; font-size: 28px; line-h
   .prow .pb, .prov-head span:nth-child(2) { display: none; }
   .method-grid { grid-template-columns: 1fr; }
   .yr { grid-template-columns: 44px 1fr 80px; }
+  .luas-grid { grid-template-columns: 1fr; }
+  .luas-big { font-size: 42px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
@@ -276,7 +300,32 @@ h2 { font-family: var(--font-display); font-weight: 900; font-size: 28px; line-h
   </div>
 </section>
 
-<section class="band" aria-labelledby="h-prov" id="prov-band">
+<section class="band" aria-labelledby="h-luas">
+  <div class="container">
+    <h2 id="h-luas">Luas terbakar: data resmi baru sampai <span data-fig="luas_last">__FIG_luas_last__</span></h2>
+    <p class="lead">Luas indikasi kebakaran dari SiPongi+ dihitung dari citra satelit setelah api padam, jadi angkanya tertinggal beberapa bulan dari titik panas. Ini angka resmi pemerintah; perkiraan lembaga lain bisa jauh berbeda.</p>
+    <div class="luas-grid">
+      <div class="luas-main">
+        <p class="k"><span data-fig="luas_span">__FIG_luas_span__</span></p>
+        <p class="luas-big"><span data-fig="luas_cur">__FIG_luas_cur__</span><small>ha</small></p>
+        <p class="luas-ctx">Sampai <span data-fig="luas_hs_upto">__FIG_luas_hs_upto__</span> baru <b data-fig="luas_hs_share">__FIG_luas_hs_share__</b> titik panas tahun ini yang terjadi. Puncak Agustus sampai Oktober belum masuk angka ini.</p>
+        <p class="luas-ctx">Rata-rata setahun penuh <span data-fig="luas_avg_span">__FIG_luas_avg_span__</span>: <b data-fig="luas_avg_full">__FIG_luas_avg_full__</b> ha. Terluas <span data-fig="luas_big_year">__FIG_luas_big_year__</span>: <b data-fig="luas_big">__FIG_luas_big__</b> ha.</p>
+      </div>
+      <div>
+        <p class="k" style="margin-bottom:8px">Luas per tahun (ha)</p>
+        <div class="lrows">__LUAS_YEARS__</div>
+        __LUAS_NOTE__
+      </div>
+      <div>
+        <p class="k" style="margin-bottom:8px">Provinsi terluas, <span data-fig="luas_span">__FIG_luas_span__</span> (ha)</p>
+        <div class="lrows">__LUAS_PROV__</div>
+        <p class="lnote">__LUAS_PROV_NOTE__</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band plane" aria-labelledby="h-prov" id="prov-band">
   <div class="container">
     <div class="band-top">
       <div>
@@ -308,13 +357,14 @@ h2 { font-family: var(--font-display); font-weight: 900; font-size: 28px; line-h
   </div>
 </section>
 
-<section class="method plane" aria-labelledby="h-method">
+<section class="method" aria-labelledby="h-method">
   <div class="container">
     <h2 id="h-method">Sumber dan cara hitung</h2>
     <div class="method-grid">
       <div>
         <h3>Sumber</h3>
         <p>Titik panas dari <a href="https://sipongi.gakkum.kehutanan.go.id" rel="noopener">SiPongi+</a>, Direktorat Pengendalian Kebakaran Hutan dan Lahan, Kementerian Kehutanan, yang meneruskan deteksi satelit NASA (MODIS, VIIRS NOAA-20, VIIRS NOAA-21). Data diambil dari API publik peta SiPongi+ tanpa login.</p>
+        <p>Luas indikasi kebakaran dari rekap resmi SiPongi+ per provinsi (<a href="https://sipongi.gakkum.kehutanan.go.id/indikasi-luas-kebakaran" rel="noopener">halaman sumber</a>), ditarik ulang di setiap pembaruan.</p>
         <p>Halaman ini dibangun ulang otomatis tiga kali sehari (05.30, 11.30, 16.30 WIB). Empat hari terakhir selalu ditarik ulang, karena deteksi bisa masuk terlambat.</p>
       </div>
       <div>

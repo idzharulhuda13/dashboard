@@ -73,3 +73,15 @@ ENERGY 2 / RHYTHM 2 / MOTION 1 (hover/fokus dan transisi kontrol saja, tanpa scr
 Cron `no_agent` 3x sehari (05.30, 11.30, 16.30 WIB) setelah lintasan satelit: tarik ulang 4 hari terakhir,
 bangun payload + halaman, jalankan gate, commit + push hanya kalau lolos. Gagal -> notifikasi; sukses senyap.
 `tools/check_freshness.py` memantau halaman ini (cadence daily).
+
+## Amandemen 11 Nov 2026: band luas terbakar
+
+Permintaan pemilik: tambah luas (ha). Sumber: rekap resmi SiPongi+ `api/list/luas-kebakaran/provinsi` (terbuka,
+per provinsi per tahun 2015-sekarang), ditarik ulang di setiap refresh (`harvest.py --luas`), disimpan di
+`data/karhutla/source/luas_provinsi.json`. Data resmi tertinggal beberapa bulan (`last` = "Juli 2026" saat rilis).
+- Angka fokus = luas tahun berjalan s.d. bulan `last`, konteksnya: porsi titik panas tahun ini yang sudah terjadi
+  sampai akhir bulan itu (9% saat rilis) dan rata-rata setahun penuh 2015-2024.
+- Batang per tahun memakai --control; tahun berjalan --fire bertanda ** (parsial). Tahun yang angkanya tidak sejalan
+  dengan ringkasan SiPongi+ sendiri (2025: 12.227 ha) digambar putus-putus, bertanda *, dan dikeluarkan dari rata-rata;
+  tanda hilang otomatis begitu angkanya >= 50.000 ha (`LUAS_SUSPECT` di build_data.py).
+- Tidak dicampur dengan versi luas lain (Pantau Gambut, Nusantara Atlas). Batang ditulis statis saat build.

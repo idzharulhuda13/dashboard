@@ -35,6 +35,8 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "karhutla"
 AGG = DATA / "agg"
 CELLS = DATA / "cells.csv.gz"
+LUAS = DATA / "source" / "luas_provinsi.json"
+LUAS_URL = "https://opsroom.sipongidata.my.id/api/list/luas-kebakaran/provinsi?tahunAwal=2015&tahunAkhir={year}"
 STATE = DATA / "harvest_state.json"
 BASE = "https://opsroom.sipongidata.my.id/api/opsroom/indoHotspot"
 UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36"
@@ -212,16 +214,42 @@ def recent(days: int) -> None:
     log(f"RECENT {d0}..{today}: {total} titik (sebelumnya {prev_total}); cells {n} baris; terbaru {newest}Z")
 
 
+def luas() -> None:
+    """Rekap luas indikasi karhutla resmi (ha) per provinsi per tahun. Kecil (~18 KB) dan jarang berubah.
+
+    Gagal tarik tidak menggagalkan pembaruan titik panas: berkas lama tetap dipakai dan halaman menyebut
+    periodenya sendiri (`last`). Respons yang bentuknya aneh tidak pernah menimpa berkas yang sehat.
+    """
+    url = LUAS_URL.format(year=today_wib().year)
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
+        with urllib.request.urlopen(req, timeout=60) as r:
+            doc = json.loads(r.read().decode("utf-8"))
+        if not (isinstance(doc.get("data"), list) and len(doc["data"]) >= 30 and doc.get("total") and doc.get("last")):
+            raise ValueError("bentuk respons tidak dikenal")
+    except Exception as e:  # noqa: BLE001
+        log(f"PERINGATAN: luas gagal ditarik ({e}); pakai berkas lama")
+        return
+    LUAS.parent.mkdir(parents=True, exist_ok=True)
+    new = json.dumps(doc, ensure_ascii=False, indent=1, sort_keys=True) + "\n"
+    changed = not LUAS.exists() or LUAS.read_text() != new
+    LUAS.write_text(new)
+    log(f"luas: {len(doc['data'])} provinsi, periode terakhir {doc['last']}{' (berubah)' if changed else ''}")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--year", type=int, nargs="*", default=[])
     ap.add_argument("--recent", type=int, default=0)
+    ap.add_argument("--luas", action="store_true", help="tarik rekap luas indikasi karhutla per provinsi")
     a = ap.parse_args()
+    if a.luas:
+        luas()
     for y in a.year:
         full_year(y)
     if a.recent:
         recent(a.recent)
-    if not a.year and not a.recent:
+    if not a.year and not a.recent and not a.luas:
         ap.print_help()
 
 

@@ -49,7 +49,7 @@ def main() -> int:
 
     old = json.loads(PAYLOAD.read_text())["meta"]["newest_utc"] if PAYLOAD.exists() else ""
     py = sys.executable
-    step("harvest", py, "karhutla/harvest.py", "--recent", str(a.days), code=2)
+    step("harvest", py, "karhutla/harvest.py", "--recent", str(a.days), "--luas", code=2)
     step("payload", py, "karhutla/build_data.py", code=3)
     step("halaman", py, "karhutla/build_page.py", code=4)
     step("verify", py, "karhutla/verify.py", code=5)
@@ -62,7 +62,7 @@ def main() -> int:
         print(pull.stdout, pull.stderr, file=sys.stderr)
         log("FATAL: git pull --rebase gagal; tidak push")
         return 6
-    run("git", "add", "data/karhutla/karhutla.json", "karhutla/index.html")
+    run("git", "add", "data/karhutla/karhutla.json", "karhutla/index.html", "data/karhutla/source/luas_provinsi.json")
     if run("git", "diff", "--cached", "--quiet").returncode == 0:
         log("tidak ada perubahan, tidak commit")
         return 0

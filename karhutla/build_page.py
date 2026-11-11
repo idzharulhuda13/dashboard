@@ -47,6 +47,37 @@ def as_of_long(meta: dict) -> str:
     return f"{int(d)} {MONTHS[int(m) - 1]} {y}, {meta['as_of_time'].replace(':', '.')} WIB"
 
 
+def fmt(x: float) -> str:
+    return f"{x:,.0f}".replace(",", ".")
+
+
+def luas_blocks(t: str, data: dict) -> str:
+    """Batang luas per tahun + provinsi ditulis statis (terbaca tanpa JavaScript)."""
+    L = data["luas"]
+    tot, cur, sus = L["total"], L["year"], set(L["suspect"])
+    mx = max(tot.values())
+    rows = []
+    for y in L["years"]:
+        cls = "lrow" + (" cur" if y == cur else "") + (" sus" if y in sus else "")
+        tag = f"{y} *" if y in sus else (f"{y}**" if y == cur else y)
+        rows.append(f'<div class="{cls}"><span class="y">{tag}</span><span><span class="bar" '
+                    f'style="width:{tot[y] / mx * 100:.2f}%"></span></span><span class="n">{fmt(tot[y])}</span></div>')
+    month = MONTHS[L["last_month"] - 1]
+    notes = [f"** {cur}: Januari sampai {month} saja; tahun lain setahun penuh."]
+    if sus:
+        ys = ", ".join(sorted(sus))
+        notes.insert(0, f"* {ys}: angka SiPongi+ ({', '.join(fmt(tot[y]) for y in sorted(sus))} ha) tidak sejalan dengan "
+                        f"ringkasan di halaman SiPongi+ sendiri; dianggap belum lengkap dan tidak masuk rata-rata.")
+    note = "".join(f'<p class="lnote">{html.escape(n)}</p>' for n in notes)
+    prov = L["prov"]
+    pm = prov[0][1]
+    prow = [f'<div class="lrow p"><span class="y">{html.escape(nm)}</span><span><span class="bar" '
+            f'style="width:{v / pm * 100:.2f}%"></span></span><span class="n">{fmt(v)}</span></div>' for nm, v in prov[:10]]
+    pnote = f"10 dari {len(prov)} provinsi yang tercatat punya luas terbakar tahun ini."
+    return (t.replace("__LUAS_YEARS__", "".join(rows)).replace("__LUAS_NOTE__", note)
+             .replace("__LUAS_PROV__", "".join(prow)).replace("__LUAS_PROV_NOTE__", html.escape(pnote)))
+
+
 def build() -> str:
     data = json.loads(DATA.read_text())
     base = json.loads(BASEMAP.read_text())
@@ -69,6 +100,7 @@ def build() -> str:
           .replace("__MAP_W__", str(base["w"])).replace("__MAP_H__", str(base["h"]))
           .replace("__MAP_LAND__", base["land"])
           .replace("/*__FONTS__*/", fonts_css()))
+    t = luas_blocks(t, data)
     payload = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     t = t.replace("__DATA__", payload)
     left = re.findall(r"__[A-Z][A-Z0-9_]+__", t)

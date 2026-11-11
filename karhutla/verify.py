@@ -132,6 +132,42 @@ def gate_numbers(p: dict) -> None:
         check(tot == dsum(cur, day(a), day(b), BASIS), f"sel peta jendela {w}: {tot} = agg {dsum(cur, day(a), day(b), BASIS)}")
 
 
+def gate_luas(p: dict) -> None:
+    """Luas dihitung ulang dari berkas sumber lewat regex teks mentah, bukan json parse yang dipakai builder."""
+    raw = (DATA / "source" / "luas_provinsi.json").read_text()
+    L, fig = p["luas"], p["fig"]
+    pairs = re.findall(r'"luas":\s*"([0-9.,-]*)",\s*"tahun":\s*"?(\d{4})"?', raw)
+    tot: dict[str, float] = {}
+    for v, y in pairs:
+        n = float(v.replace(".", "").replace(",", ".")) if v not in ("", "-") else 0.0
+        tot[y] = tot.get(y, 0.0) + n
+    check(len(pairs) >= 30 * len(L["years"]), f"luas: {len(pairs)} pasangan provinsi-tahun terbaca")
+    for y, v in tot.items():
+        check(abs(L["total"][y] - v) < 0.01, f"luas {y}: payload {L['total'][y]} vs teks {v:.2f}")
+    cur = L["year"]
+    check(fig["luas_cur"]["d"] == fmt(tot[cur]), f"luas_cur '{fig['luas_cur']['d']}' vs {fmt(tot[cur])}")
+    last = re.search(r'"last":\s*"([^"]+)"', raw).group(1)
+    check(fig["luas_last"]["d"] == last, f"periode luas {fig['luas_last']['d']} = {last}")
+    clean = [y for y in L["years"] if y != cur and y not in L["suspect"]]
+    avg = sum(tot[y] for y in clean) / len(clean)
+    check(fig["luas_avg_full"]["d"] == fmt(avg), f"rata-rata luas {fig['luas_avg_full']['d']} vs {fmt(avg)}")
+    for y in L["suspect"]:
+        check(tot[y] < 50_000, f"tahun {y} masih ditandai belum lengkap karena < 50.000 ha ({tot[y]:.0f})")
+    # porsi titik panas sampai akhir bulan data luas
+    m = p["meta"]
+    d0 = dt.date.fromisoformat(m["d0"])
+    end = dt.date.fromisoformat(fig["luas_hs_upto"]["r"])
+    cur_rows = load_agg(m["year"])
+    yday = (dt.date.fromisoformat(m["as_of"]) - dt.timedelta(days=1)).isoformat()
+    upto = dsum(cur_rows, m["d0"], min(end.isoformat(), yday), BASIS)
+    allv = dsum(cur_rows, m["d0"], yday, BASIS)
+    check(fig["luas_hs_share"]["d"] == fmt(upto / allv * 100) + "%", f"porsi titik panas s.d. {end}: {fig['luas_hs_share']['d']} vs {fmt(upto / allv * 100)}%")
+    html = PAGE.read_text()
+    rows = re.findall(r'<div class="lrow[^"]*"><span class="y">(\d{4})[ *]*</span>.*?<span class="n">([0-9.]+)</span>', html)
+    check(len(rows) == len(L["years"]) and all(n == fmt(tot[y]) for y, n in rows), f"batang luas per tahun di halaman ({len(rows)})")
+    _ = d0
+
+
 def gate_page(p: dict) -> None:
     html = PAGE.read_text()
     for k, v in re.findall(r'data-fig="([a-z0-9_]+)">([^<]*)<', html):
@@ -269,17 +305,21 @@ def negative(p: dict) -> None:
     bad = copy.deepcopy(p)
     bad["fig"]["k7"]["r"] += 1
     bad["fig"]["ytd_2019"]["r"] -= 5
+    bad["luas"]["total"]["2019"] += 1
     results = []
     gate_numbers(bad)
+    gate_luas(bad)
     fails = [m for ok, m in results if not ok]
     results = saved
-    check(any(m.startswith("k7:") for m in fails) and any("ytd 2019" in m for m in fails),
-          f"uji negatif: gangguan k7 + ytd_2019 tertangkap ({len(fails)} gagal)")
+    check(any(m.startswith("k7:") for m in fails) and any("ytd 2019" in m for m in fails)
+          and any(m.startswith("luas 2019") for m in fails),
+          f"uji negatif: gangguan k7 + ytd_2019 + luas 2019 tertangkap ({len(fails)} gagal)")
 
 
 def main() -> int:
     p = json.loads((DATA / "karhutla.json").read_text())
     gate_numbers(p)
+    gate_luas(p)
     gate_page(p)
     gate_contrast()
     negative(p)

@@ -28,6 +28,10 @@ BASIS = ("NASA-MODIS", "NASA-NOAA20")
 YEAR_BASIS = ("NASA-MODIS",)
 CMP_YEARS = (2025, 2024, 2023, 2019)
 BUDGET_BYTES = 320_000
+LUAS = DATA / "source" / "luas_provinsi.json"
+# Tahun yang angka luasnya di SiPongi+ tidak sejalan dengan pernyataan SiPongi+ sendiri. Ditandai "belum lengkap"
+# hanya selama angkanya masih di bawah ambang; begitu SiPongi+ memperbaikinya, tanda hilang sendiri.
+LUAS_SUSPECT = {"2025": 50_000}
 LON0, LAT0, CELL = 94.0, 7.0, 0.25
 WIB = dt.timezone(dt.timedelta(hours=7))
 MONTHS = ("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
@@ -76,6 +80,65 @@ def span(a: dt.date, b: dt.date) -> str:
     if a.month == b.month:
         return f"{a.day}-{b.day} {MON_S[b.month - 1]}"
     return f"{short_date(a)} - {short_date(b)}"
+
+
+def ha(s) -> float:
+    s = str(s or "").strip()
+    return float(s.replace(".", "").replace(",", ".")) if s and s != "-" else 0.0
+
+
+def build_luas(nat_basis: list[int], d0: dt.date, li: int) -> tuple[dict, dict]:
+    doc = json.loads(LUAS.read_text())
+    months = {m.lower(): i + 1 for i, m in enumerate(MONTHS)}
+    mname, myear = doc["last"].split()
+    last_m, last_y = months[mname.lower()], int(myear)
+    years = sorted({str(x["tahun"]) for p in doc["data"] for x in p["data_luas"]})
+    total = {y: 0.0 for y in years}
+    prov: dict[str, dict[str, float]] = {}
+    for p in doc["data"]:
+        nm = p["nama_provinsi"].strip()
+        prov[nm] = {str(x["tahun"]): ha(x.get("luas")) for x in p["data_luas"]}
+        for y, v in prov[nm].items():
+            total[y] += v
+    api_total = {str(t["tahun"]): ha(t["total"]) for t in doc["total"]}
+    for y in years:
+        if abs(api_total.get(y, 0) - total[y]) > 1:
+            sys.exit(f"FATAL: luas {y}: jumlah provinsi {total[y]:.2f} != total API {api_total.get(y)}")
+    cur = str(last_y)
+    full = [y for y in years if y != cur]
+    suspect = {y: True for y, lim in LUAS_SUSPECT.items() if y in total and total[y] < lim}
+    clean_full = [y for y in full if y not in suspect]
+    avg_full = sum(total[y] for y in clean_full) / len(clean_full)
+    prov_cur = sorted(((nm, round(v[cur], 2)) for nm, v in prov.items() if v.get(cur, 0) > 0), key=lambda t: (-t[1], t[0]))
+    # porsi titik panas tahun ini yang sudah terjadi sampai akhir bulan data luas
+    end_last = (dt.date(last_y, last_m % 12 + 1, 1) if last_m < 12 else dt.date(last_y + 1, 1, 1)) - dt.timedelta(days=1)
+    upto = min((end_last - d0).days, li - 1)
+    hs_upto = sum(nat_basis[: upto + 1])
+    hs_ytd = sum(nat_basis[:li])
+    share = hs_upto / hs_ytd * 100 if hs_ytd else None
+    big = max(clean_full, key=lambda y: total[y])
+    luas = {
+        "last": doc["last"], "last_month": last_m, "year": cur, "years": years,
+        "total": {y: round(total[y], 2) for y in years}, "suspect": sorted(suspect),
+        "prov": prov_cur, "avg_full": round(avg_full, 2), "avg_years": [clean_full[0], clean_full[-1]],
+        "hs_share_upto": share, "source_url": "https://sipongi.gakkum.kehutanan.go.id/indikasi-luas-kebakaran",
+    }
+    fig = {
+        "luas_cur": {"r": round(total[cur], 2), "d": num(total[cur])},
+        "luas_last": {"r": doc["last"], "d": doc["last"]},
+        "luas_span": {"r": [1, last_m], "d": f"Januari - {MONTHS[last_m - 1]} {cur}" if last_m > 1 else f"Januari {cur}"},
+        "luas_top_prov": {"r": prov_cur[0][0], "d": prov_cur[0][0]},
+        "luas_top_ha": {"r": prov_cur[0][1], "d": num(prov_cur[0][1])},
+        "luas_avg_full": {"r": round(avg_full, 2), "d": num(avg_full)},
+        "luas_avg_span": {"r": [clean_full[0], clean_full[-1]], "d": f"{clean_full[0]}-{clean_full[-1]}"},
+        "luas_big_year": {"r": big, "d": big},
+        "luas_big": {"r": round(total[big], 2), "d": num(total[big])},
+        "luas_hs_share": {"r": share, "d": (num(share, 0) + "%") if share is not None else None},
+        "luas_hs_upto": {"r": end_last.isoformat(), "d": long_date(end_last)},
+    }
+    for y in suspect:
+        fig[f"luas_{y}"] = {"r": round(total[y], 2), "d": num(total[y])}
+    return luas, fig
 
 
 def main() -> None:
@@ -255,6 +318,8 @@ def main() -> None:
         "cells": cells,
         "fig": fig,
     }
+    payload["luas"], luas_fig = build_luas(nat_basis, d0, li)
+    payload["fig"].update(luas_fig)
     text = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     if len(text.encode()) > BUDGET_BYTES:
         sys.exit(f"FATAL: payload {len(text.encode())} byte > anggaran {BUDGET_BYTES}")

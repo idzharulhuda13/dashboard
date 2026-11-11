@@ -11,7 +11,8 @@ Dibekukan 20 Okt 2026 oleh Arc. Urutan otoritas: `DESIGN.data-story.md` -> file 
 
 Tiga halaman, satu arah, satu ground. Tiap halaman satu cerita:
 
-1. `pasar/msci.html` — **struktur**: sembilan saham yang menentukan indeks.
+1. `pasar/msci.html` — **ditinggal**: US$100 sejak Oktober 2011 jadi US$52,47, return vs negara berkembang
+   dan global, valuasi, aliran Oktober (OJK), linimasa konsultasi Standalone; struktur sembilan saham di bawahnya.
 2. `pasar/ihsg.html` — **jatuhnya**: 9.134,70 ke 4.918,39.
 3. `pasar/rupiah.html` — **yang bergerak bareng**: 16.716 ke 18.043 dan korelasi -0,405.
 
@@ -61,3 +62,18 @@ mikro. Lantai 12px. Font base64, nol jaringan.
 
 `PASAR · 01` / `PASAR · 02` / `PASAR · 03` di label mikro, dan satu baris penutup yang menyebut
 "MSCI Indonesia Index (USD, net), bukan IHSG" hanya di halaman 01.
+
+## Amandemen 11 Nov 2026 — halaman 01 ikut seri konten MSCI #2
+
+Halaman 01 dirombak mengikuti carousel/reel MSCI #2 "Paling murah, paling ditinggal" (tayang 9 Nov), data
+factsheet 30 Oktober 2026. Hero sekarang US$100 sejak 2011 (pita skala: garis putus-putus = modal US$100),
+diikuti band return (batang divergen, skala sama untuk semua periode), valuasi (tiga small multiple, skala per
+ukuran), aritmetika Oktober, aliran OJK, linimasa konsultasi; band struktur lama tetap di bawah.
+
+- Warna seri: Indonesia = `--accent`; negara berkembang = `--muted` isi; global = `--muted` garis saja (kanal
+  kedua selain warna). `--misfit` tetap haram: arah turun dibaca dari posisi kiri nol dan tanda minus.
+- Dividend yield factsheet (9,38%) sengaja tidak digambar: gagal cek silang dengan EIDO (~3,5%) 9 Nov.
+- Angka di luar factsheet (OJK, rilis MSCI) masuk lewat `data/pasar/msci_context.json`; `pasar/verify.py`
+  mencocokkan tiap angka ke teks sumber yang disimpan di `data/pasar/source/`.
+- Payload ditulis `pasar/extract_msci.py`; verify membaca ulang PDF lewat `pdftotext -layout` (jalur ekstraksi
+  berbeda), jadi salah parse di extractor tertangkap.

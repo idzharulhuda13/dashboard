@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PASAR · 01: Indeks Ini Bukan Pasar, Ini Empat Bank</title>
-  <meta name="description" content="MSCI Indonesia Index, 30 September 2026. Empat bank memegang 71,71 persen dari sembilan saham yang mewakili 85 persen pasar.">
+  <title>PASAR · 01: Paling Murah, Paling Ditinggal</title>
+  <meta name="description" content="MSCI Indonesia Index sampai 30 Oktober 2026: US$100 sejak Oktober 2011 tinggal US$52,47, turun 48,16 persen sepanjang 2026, dengan P/E 8,64 dibanding 13,68 di negara berkembang.">
   <style>
 :root {
   --ground: #F7F1E6;
@@ -589,6 +589,162 @@ body {
   margin-top: 6px;
 }
 
+
+/* Hero chart: US$100 sejak Oktober 2011 (pita skala) */
+.cum-chart {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.cum-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+.cum-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+}
+.cum-name { color: var(--ink); font-weight: 600; }
+.cum-val { font-family: var(--font-mono); font-weight: 500; color: var(--muted); }
+.cum-row.is-id .cum-val { color: var(--accent); }
+.cum-zone, .ret-zone, .val-zone {
+  position: relative;
+  height: 16px;
+}
+.cum-zone .base-mark, .ret-zone .zero-mark {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 0;
+  border-left: 1px dashed var(--ink);
+}
+.ret-zone .zero-mark { border-left-style: solid; }
+.mark {
+  position: absolute;
+  top: 2px;
+  height: 12px;
+}
+.mark-id { background-color: var(--accent); }
+.mark-em { background-color: var(--muted); }
+.mark-acwi { background-color: transparent; border: 1.5px solid var(--muted); }
+.cum-caption {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* Band: return per periode */
+.band-returns { padding: 68px 0; }
+.chart-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-bottom: 28px;
+  font-size: 13px;
+  color: var(--ink);
+}
+.chart-key span { display: inline-flex; align-items: center; gap: 8px; }
+.chart-key .mark { position: static; display: inline-block; width: 18px; height: 12px; }
+.ret-list { display: flex; flex-direction: column; gap: 22px; }
+.ret-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.ret-label { font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.ret-row.is-focus .ret-label { color: var(--accent); }
+.ret-bars { display: flex; flex-direction: column; gap: 4px; }
+.ret-line {
+  display: grid;
+  grid-template-columns: 1fr 76px;
+  gap: 12px;
+  align-items: center;
+}
+.ret-num {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: right;
+  color: var(--muted);
+}
+.ret-line.s-indonesia .ret-num { color: var(--accent); }
+.ret-axis {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  margin-top: 10px;
+}
+.ret-axis-inner {
+  position: relative;
+  height: 18px;
+  margin-right: 88px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+.ret-axis-inner span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+
+/* Band: valuasi */
+.band-valuation { padding: 68px 0; }
+.val-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+}
+.val-title { font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.35; margin-bottom: 14px; min-height: 38px; }
+.val-line {
+  display: grid;
+  grid-template-columns: 1fr 56px;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.val-name { grid-column: 1 / -1; font-size: 13px; color: var(--muted); margin-bottom: -6px; }
+.val-num { font-family: var(--font-mono); font-size: 14px; font-weight: 500; text-align: right; color: var(--muted); }
+.val-line.s-indonesia .val-num, .val-name.s-indonesia { color: var(--accent); }
+
+/* Band: bulan yang sama (OJK) */
+.band-flows { padding: 68px 0; }
+.flow-list { list-style: none; max-width: 860px; }
+.flow-list li {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+.flow-list li:last-child { border-bottom: 1px solid var(--line); }
+.flow-num { font-family: var(--font-mono); font-size: 28px; font-weight: 500; color: var(--ink); letter-spacing: -0.02em; }
+.flow-list li.is-focus .flow-num { color: var(--accent); }
+.flow-text { font-size: 15px; color: var(--ink); line-height: 1.45; }
+.flow-text small { display: block; font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+/* Band: kenapa + linimasa */
+.band-why { padding: 68px 0; }
+.why-copy { max-width: 720px; font-size: 16px; line-height: 1.55; color: var(--ink); margin-bottom: 14px; }
+.timeline { list-style: none; max-width: 720px; margin-top: 28px; }
+.timeline li {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  font-size: 15px;
+}
+.timeline li:last-child { border-bottom: 1px solid var(--line); }
+.tl-date { font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--ink); }
+.timeline li.is-past .tl-date, .timeline li.is-past .tl-text { color: var(--muted); }
+.timeline li.is-next .tl-date { color: var(--accent); }
+.tl-state { display: block; font-family: var(--font-sans); font-size: 12px; font-weight: 600; color: var(--accent); margin-top: 2px; }
+.why-disclaimer { font-size: 13px; color: var(--muted); margin-top: 20px; max-width: 720px; }
+.band-divider-label { display: block; margin-bottom: 14px; }
+
 /* Responsiveness: 719px and 639px breakpoints */
 @media (max-width: 719px) {
   .hero-grid {
@@ -697,6 +853,21 @@ body {
     text-align: left;
   }
 
+
+  .band-returns, .band-valuation, .band-flows, .band-why {
+    padding: 52px 0;
+  }
+  .ret-row, .ret-axis, .flow-list li, .timeline li {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .ret-axis > span:first-child { display: none; }
+  .ret-line { grid-template-columns: 1fr 64px; }
+  .ret-axis-inner { margin-right: 76px; }
+  .val-grid { grid-template-columns: 1fr; gap: 28px; }
+  .val-title { min-height: 0; }
+  .flow-num { font-size: 24px; }
+
   /* Band 6 Footer Mobile */
   .footer-inner {
     grid-template-columns: 1fr;
@@ -713,7 +884,7 @@ body {
   </style>
 </head>
 <body>
-  <div class="dateline-strip" data-dateline data-cadence="monthly" data-as-of="2026-09-30" style="font:500 12px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;opacity:.62;padding:10px 20px;text-align:center;border-bottom:1px solid currentColor"><span data-dateline-text>Data per 30 September 2026</span><span class="i18n-switch"> &middot; <a class="lang-switch" href="/en/pasar/msci.html" hreflang="en" lang="en" style="color:inherit;text-decoration:underline;text-underline-offset:3px">English</a></span></div>
+  <div class="dateline-strip" data-dateline data-cadence="monthly" data-as-of="2026-10-30" style="font:500 12px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;opacity:.62;padding:10px 20px;text-align:center;border-bottom:1px solid currentColor"><span data-dateline-text>Data per 30 Oktober 2026</span><span class="i18n-switch"> &middot; <a class="lang-switch" href="/en/pasar/msci.html" hreflang="en" lang="en" style="color:inherit;text-decoration:underline;text-underline-offset:3px">English</a></span></div>
   <script>
   /* dateline.js: satu definisi untuk "Data per <tanggal>" di semua dashboard.
    *
@@ -834,34 +1005,109 @@ body {
   })();
   </script>
 
-  <!-- Band 1: Hero (most air, dark ground) -->
+  <!-- Band 1: Hero. Fokus: US$100 sejak 2011 jadi berapa (pita skala) -->
   <section class="sheet sheet-ground band-hero" aria-labelledby="hero-heading">
     <div class="container hero-grid">
       <div class="hero-main">
         <span class="micro-label">PASAR · 01</span>
-        <h1 id="hero-heading" class="hero-title">INDEKS INI BUKAN PASAR. INI EMPAT BANK.</h1>
+        <h1 id="hero-heading" class="hero-title">PALING MURAH, PALING DITINGGAL.</h1>
         <p class="hero-subtitle">
-          <em>MSCI Indonesia Index, <span data-fig="as_of_formatted"></span>. <span data-fig="constituents_count"></span> saham mewakili <span data-fig="coverage_pct"></span> persen nilai pasar, dan <span data-fig="bank_weight_pct"></span> persennya empat bank.</em>
+          <em>MSCI Indonesia Index (USD), sampai <span data-fig="as_of_formatted"></span>. US$100 yang ditanam di saham besar Indonesia pada Oktober 2011 sekarang tinggal <span data-fig="cum_id"></span>. Di indeks negara berkembang, uang yang sama jadi <span data-fig="cum_em"></span>.</em>
         </p>
 
-        <!-- motif strip 1: a weight ruler 0 to 35 persen with ticks and caption -->
-        <div class="motif-strip" id="motif-ruler"><span class="ruler-fallback">Cakupan nilai pasar 85 persen, skala 0 sampai 100 persen.</span></div>
+        <div class="cum-chart" id="cum-chart" role="img" aria-label="Nilai US$100 yang ditanam Oktober 2011 di tiga indeks MSCI">
+          <p class="ruler-fallback">Nilai US$100 sejak Oktober 2011: Indonesia <span data-fig="cum_id"></span>, negara berkembang <span data-fig="cum_em"></span>, global <span data-fig="cum_acwi"></span>.</p>
+        </div>
       </div>
 
-      <!-- one callout block OFF the grid -->
-      <aside class="hero-callout" aria-label="Porsi empat bank">
-        <span class="callout-num" data-fig="bank_weight_pct_str"></span>
-        <span class="callout-label">dari sembilan saham, empat bank</span>
-        <span class="callout-context">BBCA sendirian <span data-fig="bca_weight_pct"></span></span>
+      <aside class="hero-callout" aria-label="Return sepanjang 2026">
+        <span class="callout-num" data-fig="ytd_id"></span>
+        <span class="callout-label">sepanjang 2026, dalam dolar AS</span>
+        <span class="callout-context">Negara berkembang <span data-fig="ytd_em"></span>, global <span data-fig="ytd_acwi"></span></span>
       </aside>
+    </div>
+  </section>
+
+  <!-- Band R: return per periode -->
+  <section class="sheet sheet-plane band-returns" aria-labelledby="returns-heading">
+    <div class="container">
+      <h2 id="returns-heading" class="band-title">TERTINGGAL <span data-fig="ytd_gap"></span> POIN DARI NEGARA BERKEMBANG TAHUN INI</h2>
+      <p class="band-lead">Bukan cuma 2026. Dihitung rata-rata per tahun, indeks ini minus di 3, 5, dan 10 tahun terakhir, sementara negara berkembang dan global plus.</p>
+      <div class="chart-key" aria-hidden="true">
+        <span><span class="mark mark-id"></span>MSCI Indonesia</span>
+        <span><span class="mark mark-em"></span>MSCI Emerging Markets (negara berkembang)</span>
+        <span><span class="mark mark-acwi"></span>MSCI ACWI IMI (global)</span>
+      </div>
+      <div class="ret-list" id="returns-chart" role="region" aria-label="Return tiga indeks per periode, dalam persen">
+        <p class="ruler-fallback">2026 sampai akhir Oktober: Indonesia <span data-fig="ytd_id"></span>, negara berkembang <span data-fig="ytd_em"></span>.</p>
+      </div>
+      <div class="ret-axis" aria-hidden="true"><span></span><div class="ret-axis-inner" id="returns-axis"></div></div>
+    </div>
+  </section>
+
+  <!-- Band V: valuasi -->
+  <section class="sheet sheet-ground band-valuation" aria-labelledby="valuation-heading">
+    <div class="container">
+      <h2 id="valuation-heading" class="band-title">RP1 LABA DIHARGAI RP<span data-fig="pe_id"></span>. DI NEGARA BERKEMBANG RP<span data-fig="pe_em"></span>.</h2>
+      <p class="band-lead">Per rupiah laba, saham besar Indonesia dijual sekitar <span data-fig="pe_vs_em"></span> persen dari harga di negara berkembang. Batang lebih pendek berarti lebih murah.</p>
+      <div class="val-grid" id="valuation-chart" role="region" aria-label="P/E, P/E perkiraan, dan P/BV tiga indeks">
+        <p class="ruler-fallback">P/E Indonesia <span data-fig="pe_id"></span>, negara berkembang <span data-fig="pe_em"></span>, global <span data-fig="pe_acwi"></span>.</p>
+      </div>
+      <p class="band-note" style="margin-top:24px">Factsheet juga mencatat dividend yield <span data-fig="div_yld_id"></span>. Angka itu tidak digambar di sini karena belum lolos cek silang dengan dana yang melacak indeks serupa.</p>
+    </div>
+  </section>
+
+  <!-- Band O: Oktober, aritmetika valuasi -->
+  <section class="sheet sheet-plane-2 band-arithmetic" aria-labelledby="october-heading">
+    <div class="container">
+      <p id="october-heading" class="arithmetic-headline">
+        Oktober saja indeks turun <strong><span data-fig="m1_id"></span></strong>. P/E ikut turun dari <span data-fig="pe_prev"></span> ke <span data-fig="pe_id"></span>.
+      </p>
+      <p class="arithmetic-note">aritmetika, bukan ramalan</p>
+      <p class="arithmetic-formula">
+        P/E: <span data-fig="pe_id"></span> ÷ <span data-fig="pe_prev"></span> − 1 = <span data-fig="pe_change"></span>. Laba tersirat: (1 <span data-fig="m1_id"></span>) ÷ (1 <span data-fig="pe_change"></span>) − 1 ≈ <span data-fig="eps_change"></span>.
+      </p>
+      <h3 class="consequence-title">Jadi apa artinya</h3>
+      <ul class="consequence-list">
+        <li>Murahnya datang dari harga yang jatuh, bukan dari laba yang melonjak.</li>
+        <li>Negara berkembang di bulan yang sama turun <span data-fig="m1_em"></span>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Band F: bulan yang sama, data OJK -->
+  <section class="sheet sheet-plane band-flows" aria-labelledby="flows-heading">
+    <div class="container">
+      <h2 id="flows-heading" class="band-title">BULAN YANG SAMA: ASING JUAL <span data-fig="ojk_sell"></span>, <span data-fig="ojk_inv_new"></span> ORANG BARU MASUK</h2>
+      <p class="band-lead">Siaran pers OJK untuk Oktober 2026. Jumlah orang dan jumlah uang bukan saling ganti.</p>
+      <ul class="flow-list">
+        <li class="is-focus"><span class="flow-num" data-fig="ojk_sell"></span><span class="flow-text">dijual bersih investor asing di pasar saham<small>September: jual bersih <span data-fig="ojk_sell_sep"></span></small></span></li>
+        <li><span class="flow-num" data-fig="ojk_sbn"></span><span class="flow-text">dibeli bersih investor asing di Surat Berharga Negara<small>September: jual bersih <span data-fig="ojk_sbn_sep"></span></small></span></li>
+        <li><span class="flow-num" data-fig="ojk_inv_new"></span><span class="flow-text">investor pasar modal baru dalam sebulan<small>total sekarang <span data-fig="ojk_inv_total"></span> investor</small></span></li>
+        <li><span class="flow-num" data-fig="ojk_ritel"></span><span class="flow-text">porsi investor ritel di nilai transaksi harian saham<small>September: <span data-fig="ojk_ritel_sep"></span></small></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Band W: kenapa + linimasa -->
+  <section class="sheet sheet-ground band-why" aria-labelledby="why-heading">
+    <div class="container">
+      <h2 id="why-heading" class="band-title">KENAPA DITINGGAL: MSCI MENIMBANG MENURUNKAN INDONESIA KE STANDALONE</h2>
+      <p class="why-copy">Dalam rilis 15 Oktober 2026, MSCI menulis bahwa pelaku pasar masih melihat kepemilikan saham yang tidak transparan, dugaan perdagangan terkoordinasi, dan penegakan aturan yang belum terlihat. Standalone berada di luar kelompok negara berkembang. Menurut MSCI, turun ke Frontier pun dinilai belum mencerminkan dalamnya masalah.</p>
+      <p class="why-copy">Selama konsultasi, perubahan yang menambah porsi Indonesia dibekukan: tidak ada saham baru masuk, tidak ada kenaikan porsi saham untuk asing (FIF) atau jumlah saham (NOS), dan tidak ada saham naik kelas. Saham masih bisa dikeluarkan atau turun kelas.</p>
+      <ol class="timeline" id="timeline" aria-label="Linimasa konsultasi dan Index Review">
+        <!-- populated from DATA; fallback below for no-JS -->
+      </ol>
+      <p class="why-disclaimer">Data ini tidak bilang harga bakal naik atau turun. Bukan rekomendasi investasi.</p>
     </div>
   </section>
 
   <!-- Band 2: Ranked bar (the focal chart, sheet plane) -->
   <section class="sheet sheet-plane band-ranked" aria-labelledby="ranked-heading">
     <div class="container">
+      <span class="micro-label band-divider-label">Isi indeksnya</span>
       <h2 id="ranked-heading" class="band-title">EMPAT BANK MEMEGANG <span data-fig="bank_weight_pct"></span> PERSEN</h2>
-      <p class="band-lead">Lima saham teratas sudah mencakup <span data-fig="top5_weight_pct"></span> indeks, dan empat di antaranya bank. Delapan saham lain berbagi <span data-fig="nonbank_weight_pct"></span> persen.</p>
+      <p class="band-lead">Indeks ini cuma <span data-fig="constituents_count"></span> saham, mewakili <span data-fig="coverage_pct"></span> persen nilai pasar. Lima teratas sudah mencakup <span data-fig="top5_weight_pct"></span> indeks, dan empat di antaranya bank. Lima saham lain berbagi <span data-fig="nonbank_weight_pct"></span> persen. BBCA sendirian <span data-fig="bca_weight_pct"></span>.</p>
 
       <div class="ranked-chart" id="ranked-bars" role="region" aria-label="Grafik peringkat porsi saham">
         <!-- populated from DATA -->
@@ -872,7 +1118,7 @@ body {
   <!-- Band 3: Proportion, not donut (sheet ground) -->
   <section class="sheet sheet-ground band-proportion" aria-labelledby="proportion-heading">
     <div class="container">
-      <h2 id="proportion-heading" class="band-title">SEMUA SEKTOR LAIN BERSAMA CUMA <span data-fig="nonbank_weight_pct"></span> PERSEN</h2>
+      <h2 id="proportion-heading" class="band-title">SEMUA SEKTOR LAIN BERSAMA CUMA <span data-fig="nonfin_sector_pct"></span> PERSEN</h2>
       <p class="band-lead">Porsi tiap sektor dihitung dari sembilan saham itu, bukan dari seluruh bursa.</p>
 
       <div class="stacked-track" id="stacked-bar" role="img" aria-label="Porsi tiap sektor dalam indeks">
@@ -883,7 +1129,7 @@ body {
         <!-- populated from DATA -->
       </div>
 
-      <p class="band-note">jumlah porsi sektor <span data-fig="sectors_sum_pct"></span></p>
+      <p class="band-note">jumlah porsi sektor <span data-fig="sectors_sum_pct"></span>, lebih dari 100 karena pembulatan di factsheet</p>
     </div>
   </section>
 
@@ -895,14 +1141,14 @@ body {
       </p>
       <p class="arithmetic-note">aritmetika porsi, bukan ramalan</p>
       <p class="arithmetic-formula">
-        Hitungan: <span data-fig="bank_weight_pct_str"></span> × <span data-fig="sim_drop_pct"></span>% = 7,171% ≈ <span data-fig="sim_index_drop_pct"></span>%
+        Hitungan: <span data-fig="bank_weight_pct_str"></span> × <span data-fig="sim_drop_pct"></span>% = <span data-fig="sim_index_exact"></span> ≈ <span data-fig="sim_index_drop_pct"></span>%
       </p>
 
       <h3 class="consequence-title">Jadi apa artinya</h3>
       <ul class="consequence-list">
         <li>Kabar &ldquo;pasar turun&rdquo; hampir selalu kabar empat bank.</li>
         <li>Satu bank kena masalah, seluruh indeks ikut terhitung.</li>
-        <li>Indeks ini juga acuan banyak dana asing yang memegang pasar kita.</li>
+        <li>Indeks ini acuan dana asing, jadi keputusan MSCI soal Indonesia ikut menggerakkan uang mereka.</li>
       </ul>
     </div>
   </section>
@@ -927,14 +1173,14 @@ body {
           <tr>
             <th scope="row">Total 9 saham</th>
             <td class="col-sector" data-label="Jumlah"></td>
-            <td class="col-cap" data-label="Nilai pasar (USD miliar)"><span data-fig="total_float_cap_factsheet"></span>*</td>
-            <td class="col-weight" data-label="Porsi (persen)"><span data-fig="weights_sum_pct"></span></td>
+            <td class="col-cap" data-label="Nilai pasar (USD miliar)"><span data-fig="total_float_cap_factsheet"></span></td>
+            <td class="col-weight" data-label="Porsi (persen)">100,00%*</td>
           </tr>
         </tfoot>
       </table>
       <p class="table-note">Sembilan saham di atas mewakili <span data-fig="coverage_pct"></span> persen nilai pasar Indonesia. Sisanya di luar indeks ini.</p>
       <p class="table-footnote">
-        * Factsheet mencatat nilai pasar saham yang beredar bebas <span data-fig="total_float_cap_factsheet"></span> miliar USD; penjumlahan langsung dari sembilan saham menghasilkan <span data-fig="total_float_cap_sum"></span> miliar USD karena pembulatan.
+        * Total dari factsheet. Penjumlahan langsung porsi sembilan saham menghasilkan <span data-fig="weights_sum_pct"></span> karena pembulatan; nilai pasar yang beredar bebas berjumlah <span data-fig="total_float_cap_sum"></span> miliar USD, sama dengan factsheet.
       </p>
     </div>
   </section>
@@ -945,6 +1191,9 @@ body {
       <div class="footer-brand">PASAR</div>
       <div class="footer-content">
         <p class="footer-line">Sumber: <span data-fig="source_pdf"></span></p>
+        <p class="footer-line">Sumber pembanding: <span data-fig="source_prev"></span></p>
+        <p class="footer-line">Sumber data Oktober: <a href="https://www.ojk.go.id/id/berita-dan-kegiatan/siaran-pers/Pages/RDKB-Oktober-2026.aspx" style="color:inherit"><span data-fig="source_ojk"></span></a></p>
+        <p class="footer-line">Sumber linimasa: rilis MSCI <a href="https://ir.msci.com/news-releases/news-release-details/msci-launches-consultation-proposal-reclassify-indonesia" style="color:inherit">15 Oktober 2026</a> dan <a href="https://ir.msci.com/news-releases/news-release-details/msci-november-index-review-announcement-scheduled-november-11" style="color:inherit">4 November 2026</a></p>
         <p class="footer-line">Metode: <span data-fig="method_note"></span></p>
         <p class="footer-hash">SHA256: <span data-fig="source_sha256"></span></p>
         <p class="footer-scope"><span data-fig="scope_note"></span></p>
@@ -956,7 +1205,7 @@ body {
 const DATA = /*__DATA__*/ {};
 
 function initDataStory() {
-  if (!DATA || !DATA.constituents || !DATA.sectors) return;
+  if (!DATA || !DATA.constituents || !DATA.sectors || !DATA.fig) return;
 
   // 1. Populate data-fig elements
   const figEls = document.querySelectorAll('[data-fig]');
@@ -969,42 +1218,85 @@ function initDataStory() {
     }
   });
 
-  // 2. Render Motif Ruler (0 to 100 percent of market cap)
-  const rulerContainer = document.getElementById('motif-ruler');
-  if (rulerContainer) {
-    const width = 560;
-    const height = 56;
-    const maxVal = 100;
-    const startX = 20;
-    const endX = 540;
-    const spanX = endX - startX;
-    const lineY = 22;
+  const esc = v => String(v).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+  const SER = { indonesia: 'mark-id', em: 'mark-em', acwi_imi: 'mark-acwi' };
 
-    let svgInner = '';
-    // Base axis line
-    svgInner += `<line x1="${startX}" y1="${lineY}" x2="${endX}" y2="${lineY}" stroke="var(--line)" stroke-width="1.5" />`;
+  // 2. Hero: US$100 sejak Oktober 2011. Skala 0 sampai kelipatan 100 di atas nilai terbesar.
+  const cum = document.getElementById('cum-chart');
+  if (cum && DATA.cumulative) {
+    const top = Math.ceil(Math.max(...DATA.cumulative.map(r => r.r)) / 100) * 100;
+    const basePos = (100 / top) * 100;
+    let html = '';
+    DATA.cumulative.forEach(r => {
+      const w = ((r.r / top) * 100).toFixed(2);
+      html += `<div class="cum-row${r.series === 'indonesia' ? ' is-id' : ''}">
+        <div class="cum-head"><span class="cum-name">${esc(r.name)}</span><span class="cum-val">${esc(r.d)}</span></div>
+        <div class="cum-zone"><span class="base-mark" style="left:${basePos.toFixed(2)}%"></span><span class="mark ${SER[r.series]}" style="left:0;width:${w}%"></span></div>
+      </div>`;
+    });
+    html += `<p class="cum-caption">Garis putus-putus = modal awal US$100. Skala 0 sampai US$${top}, return bersih dalam dolar AS.</p>`;
+    cum.innerHTML = html;
+  }
 
-    // Ticks: 0 to 100, labelled every 20
-    for (let v = 0; v <= maxVal; v++) {
-      const x = startX + (v / maxVal) * spanX;
-      if (v % 20 === 0) {
-        svgInner += `<line x1="${x}" y1="${lineY - 7}" x2="${x}" y2="${lineY}" stroke="var(--control)" stroke-width="1.5" />`;
-        svgInner += `<text x="${x}" y="${lineY - 10}" fill="var(--muted)" font-family="var(--font-mono)" font-size="12" text-anchor="middle">${v}%</text>`;
-      } else {
-        svgInner += `<line x1="${x}" y1="${lineY - 4}" x2="${x}" y2="${lineY}" stroke="var(--line)" stroke-width="1" />`;
-      }
+  // 2b. Return per periode: batang divergen dari nol, skala sama untuk semua baris.
+  const ret = document.getElementById('returns-chart');
+  if (ret && DATA.returns) {
+    const all = DATA.returns.flatMap(r => r.values.map(v => v.r));
+    const lo = Math.floor(Math.min(0, ...all) / 10) * 10;
+    const hi = Math.ceil(Math.max(0, ...all) / 10) * 10;
+    const pos = v => ((v - lo) / (hi - lo)) * 100;
+    const zero = pos(0);
+    let html = '';
+    DATA.returns.forEach(row => {
+      let bars = '';
+      row.values.forEach(v => {
+        const a = Math.min(pos(v.r), zero), b = Math.max(pos(v.r), zero);
+        bars += `<div class="ret-line s-${v.series}">
+          <div class="ret-zone"><span class="zero-mark" style="left:${zero.toFixed(2)}%"></span><span class="mark ${SER[v.series]}" style="left:${a.toFixed(2)}%;width:${Math.max(b - a, 0.4).toFixed(2)}%"></span></div>
+          <span class="ret-num" aria-label="${esc(v.name)} ${esc(v.d)}">${esc(v.d)}</span>
+        </div>`;
+      });
+      html += `<div class="ret-row${row.key === 'ytd' ? ' is-focus' : ''}"><span class="ret-label">${esc(row.label)}</span><div class="ret-bars">${bars}</div></div>`;
+    });
+    ret.innerHTML = html;
+    const axis = document.getElementById('returns-axis');
+    if (axis) {
+      let ticks = '';
+      for (let t = lo; t <= hi; t += 25) ticks += `<span style="left:${pos(t).toFixed(2)}%">${t > 0 ? '+' : ''}${t}%</span>`;
+      axis.innerHTML = ticks;
     }
+  }
 
-    // Coverage marker: 9 names cover this share of the whole market. Real value, own unit.
-    const coverVal = DATA.fig.coverage_pct.r;
-    const coverX = startX + (coverVal / maxVal) * spanX;
-    svgInner += `<rect x="${startX}" y="${lineY - 3}" width="${coverX - startX}" height="6" fill="var(--accent)" opacity="0.55" />`;
-    svgInner += `<line x1="${coverX}" y1="${lineY - 12}" x2="${coverX}" y2="${lineY + 8}" stroke="var(--accent)" stroke-width="2" />`;
+  // 2c. Valuasi: tiga ukuran, skala per ukuran (0 sampai nilai terbesar).
+  const val = document.getElementById('valuation-chart');
+  if (val && DATA.valuation) {
+    let html = '';
+    DATA.valuation.forEach(m => {
+      const max = Math.max(...m.values.map(v => v.r));
+      let lines = '';
+      m.values.forEach(v => {
+        lines += `<span class="val-name s-${v.series}">${esc(v.name)}</span><div class="val-line s-${v.series}">
+          <div class="val-zone"><span class="mark ${SER[v.series]}" style="left:0;width:${((v.r / max) * 100).toFixed(2)}%"></span></div>
+          <span class="val-num">${esc(v.d)}</span></div>`;
+      });
+      html += `<div class="val-metric"><p class="val-title">${esc(m.title)}</p>${lines}</div>`;
+    });
+    val.innerHTML = html;
+  }
 
-    // Caption below carries the number, so the strip never reads as a bare axis
-    svgInner += `<text x="${startX}" y="48" fill="var(--muted)" font-family="var(--font-sans)" font-size="12">cakupan nilai pasar: ${DATA.fig.coverage_pct.d}, skala 0 sampai ${maxVal.toFixed(0)} persen</text>`;
-
-    rulerContainer.innerHTML = `<svg viewBox="0 0 ${width} ${height}" class="ruler-svg" role="presentation">${svgInner}</svg>`;
+  // 2d. Linimasa: tandai yang sudah lewat dan yang berikutnya, dari tanggal hari ini (WIB).
+  const tl = document.getElementById('timeline');
+  if (tl && DATA.timeline) {
+    const today = new Date(Date.now() + 7 * 3600 * 1000).toISOString().slice(0, 10);
+    let nextFound = false;
+    let html = '';
+    DATA.timeline.forEach(e => {
+      let cls = 'is-past', state = '';
+      if (e.date >= today && !nextFound) { cls = 'is-next'; state = '<span class="tl-state">berikutnya</span>'; nextFound = true; }
+      else if (e.date >= today) { cls = ''; }
+      html += `<li class="${cls}"><span class="tl-date">${esc(e.d)}${state}</span><span class="tl-text">${esc(e.text)}</span></li>`;
+    });
+    tl.innerHTML = html;
   }
 
   // 3. Render Ranked Bars

@@ -1,91 +1,193 @@
 {
-  "meta": {
-    "index": "MSCI Indonesia Index (USD, net)",
-    "as_of": "2026-09-30",
-    "constituents": 9,
-    "coverage_pct": 85,
-    "index_float_cap_bn": 53.36,
-    "source_pdf": "source/msci-indonesia-index-net.pdf",
-    "source_sha256": "8b3d84bcbd7671486abfce5fc94ed85a932e965686d666016a944f9b7d0178aa",
-    "extracted": "2026-10-20",
-    "note": "weights sum 100.00; cap sum 53.37 vs 53.36 di factsheet karena pembulatan"
+ "meta": {
+  "index": "MSCI Indonesia Index (USD, net)",
+  "as_of": "2026-10-30",
+  "constituents": 9,
+  "coverage_pct": 85,
+  "index_float_cap_bn": 45.92,
+  "source_pdf": "source/msci-indonesia-index-net-2026-10-30.pdf",
+  "source_txt": "source/msci-indonesia-2026-10-30.txt",
+  "source_sha256": "1b894604d5049d172c34a421238d66626a953781ebdb0846dbf4441e0c535928",
+  "extracted": "2026-11-11",
+  "note": "weights sum 100.02 vs 100.00; cap sum 45.92 vs 45.92 di factsheet (pembulatan)"
+ },
+ "constituents": [
+  {
+   "name": "Bank Central Asia",
+   "float_cap_bn": 13.55,
+   "weight_pct": 29.51,
+   "sector": "Financials"
   },
-  "constituents": [
-    {
-      "name": "Bank Central Asia",
-      "float_cap_bn": 16.76,
-      "weight_pct": 31.41,
-      "sector": "Financials"
-    },
-    {
-      "name": "Bank Rakyat Indonesia",
-      "float_cap_bn": 10.65,
-      "weight_pct": 19.96,
-      "sector": "Financials"
-    },
-    {
-      "name": "Bank Mandiri",
-      "float_cap_bn": 8.38,
-      "weight_pct": 15.7,
-      "sector": "Financials"
-    },
-    {
-      "name": "Telkom Indonesia",
-      "float_cap_bn": 5.71,
-      "weight_pct": 10.7,
-      "sector": "Comm Srvcs"
-    },
-    {
-      "name": "Astra International",
-      "float_cap_bn": 4.17,
-      "weight_pct": 7.81,
-      "sector": "Industrials"
-    },
-    {
-      "name": "Bank Negara Indonesia",
-      "float_cap_bn": 2.48,
-      "weight_pct": 4.64,
-      "sector": "Financials"
-    },
-    {
-      "name": "Bumi Resources Minerals",
-      "float_cap_bn": 1.87,
-      "weight_pct": 3.51,
-      "sector": "Materials"
-    },
-    {
-      "name": "United Tractors",
-      "float_cap_bn": 1.84,
-      "weight_pct": 3.44,
-      "sector": "Energy"
-    },
-    {
-      "name": "Barito Pacific",
-      "float_cap_bn": 1.51,
-      "weight_pct": 2.83,
-      "sector": "Materials"
-    }
-  ],
-  "sectors": [
-    {
-      "sector": "Financials",
-      "weight_pct": 71.71
-    },
-    {
-      "sector": "Comm Srvcs",
-      "weight_pct": 10.7
-    },
-    {
-      "sector": "Industrials",
-      "weight_pct": 7.81
-    },
-    {
-      "sector": "Materials",
-      "weight_pct": 6.34
-    },
-    {
-      "sector": "Energy",
-      "weight_pct": 3.44
-    }
-  ]
+  {
+   "name": "Bank Rakyat Indonesia",
+   "float_cap_bn": 9.37,
+   "weight_pct": 20.4,
+   "sector": "Financials"
+  },
+  {
+   "name": "Bank Mandiri",
+   "float_cap_bn": 7.66,
+   "weight_pct": 16.69,
+   "sector": "Financials"
+  },
+  {
+   "name": "Telkom Indonesia",
+   "float_cap_bn": 4.87,
+   "weight_pct": 10.61,
+   "sector": "Comm Srvcs"
+  },
+  {
+   "name": "Astra International",
+   "float_cap_bn": 4.29,
+   "weight_pct": 9.34,
+   "sector": "Industrials"
+  },
+  {
+   "name": "Bank Negara Indonesia",
+   "float_cap_bn": 2.39,
+   "weight_pct": 5.21,
+   "sector": "Financials"
+  },
+  {
+   "name": "United Tractors",
+   "float_cap_bn": 1.62,
+   "weight_pct": 3.53,
+   "sector": "Energy"
+  },
+  {
+   "name": "Barito Pacific",
+   "float_cap_bn": 1.13,
+   "weight_pct": 2.47,
+   "sector": "Materials"
+  },
+  {
+   "name": "Bumi Resources Minerals",
+   "float_cap_bn": 1.04,
+   "weight_pct": 2.26,
+   "sector": "Materials"
+  }
+ ],
+ "sectors": [
+  {
+   "sector": "Financials",
+   "weight_pct": 71.8
+  },
+  {
+   "sector": "Comm Srvcs",
+   "weight_pct": 10.61
+  },
+  {
+   "sector": "Industrials",
+   "weight_pct": 9.34
+  },
+  {
+   "sector": "Materials",
+   "weight_pct": 4.73
+  },
+  {
+   "sector": "Energy",
+   "weight_pct": 3.53
+  }
+ ],
+ "performance": {
+  "indonesia": {
+   "1m": -13.83,
+   "3m": -20.3,
+   "1y": -47.86,
+   "ytd": -48.16,
+   "3y": -21.27,
+   "5y": -13.67,
+   "10y": -6.33,
+   "since_2000": 8.36
+  },
+  "em": {
+   "1m": -8.05,
+   "3m": -5.49,
+   "1y": 14.05,
+   "ytd": 13.45,
+   "3y": 22.28,
+   "5y": 6.92,
+   "10y": 8.15,
+   "since_2000": 8.73
+  },
+  "acwi_imi": {
+   "1m": -1.56,
+   "3m": -0.24,
+   "1y": 12.5,
+   "ytd": 11.21,
+   "3y": 22.01,
+   "5y": 9.66,
+   "10y": 12.1,
+   "since_2000": 7.54
+  }
+ },
+ "fundamentals": {
+  "indonesia": {
+   "div_yld": 9.38,
+   "pe": 8.64,
+   "pe_fwd": 7.49,
+   "pbv": 1.37
+  },
+  "em": {
+   "div_yld": 2.19,
+   "pe": 13.68,
+   "pe_fwd": 8.7,
+   "pbv": 2.2
+  },
+  "acwi_imi": {
+   "div_yld": 1.66,
+   "pe": 21.04,
+   "pe_fwd": 15.59,
+   "pbv": 3.38
+  }
+ },
+ "cumulative": {
+  "base": 100,
+  "start": "2011-10",
+  "acwi_imi": 464.26,
+  "em": 224.94,
+  "indonesia": 52.47
+ },
+ "prev": {
+  "as_of": "2026-09-30",
+  "ytd": -39.83,
+  "div_yld": 8.29,
+  "pe": 9.9,
+  "pe_fwd": 8.6,
+  "pbv": 1.57,
+  "source_sha256": "8b3d84bcbd7671486abfce5fc94ed85a932e965686d666016a944f9b7d0178aa"
+ },
+ "context": {
+  "ojk": {
+   "source": "Siaran pers OJK SP 219/OJK/DKPU/XI/2026 (RDK Bulanan Oktober 2026), 5 November 2026",
+   "source_file": "source/ojk-rdkb-okt-2026.md",
+   "url": "https://www.ojk.go.id/id/berita-dan-kegiatan/siaran-pers/Pages/RDKB-Oktober-2026.aspx",
+   "net_sell_saham_t": 16.88,
+   "net_sell_saham_sep_t": 10.24,
+   "net_buy_sbn_t": 9.55,
+   "net_sell_sbn_sep_t": 0.34,
+   "investor_new_jt": 1.38,
+   "investor_total_jt": 33.55,
+   "ritel_rnth_pct": 47.69,
+   "ritel_rnth_sep_pct": 54.7,
+   "net_redemption_rd_t": 2.28
+  },
+  "msci_release": {
+   "consultation": {
+    "date": "2026-10-15",
+    "source_file": "source/msci-release-2026-10-15.md",
+    "url": "https://ir.msci.com/news-releases/news-release-details/msci-launches-consultation-proposal-reclassify-indonesia",
+    "feedback_until": "2027-04-30",
+    "decision_by": "2027-06-30"
+   },
+   "review": {
+    "date": "2026-11-04",
+    "source_file": "source/msci-release-2026-11-04.md",
+    "url": "https://ir.msci.com/news-releases/news-release-details/msci-november-index-review-announcement-scheduled-november-11",
+    "announce_cet": "2026-11-11 23:00",
+    "announce_wib": "2026-11-12 05:00",
+    "effective_close": "2026-11-30"
+   }
+  }
+ }
 }

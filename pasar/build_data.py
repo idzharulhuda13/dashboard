@@ -10,6 +10,9 @@ import json
 import base64
 import hashlib
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from dateline import long_date, stamp as dateline_stamp  # noqa: E402
+
 def get_base_dir():
     # Base dashboard project root
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -37,6 +40,27 @@ SECTOR_DISPLAY_MAP = {
 
 def fmt_num(val, decimals=2):
     return f"{float(val):.{decimals}f}".replace(".", ",")
+
+
+def fmt_signed(val, decimals=2):
+    return ("+" if val > 0 else "") + fmt_num(val, decimals)
+
+
+RETURN_ROWS = (
+    ("1m", "Oktober saja"),
+    ("3m", "3 bulan terakhir"),
+    ("ytd", "2026 sampai akhir Oktober"),
+    ("1y", "12 bulan terakhir"),
+    ("3y", "Rata-rata per tahun, 3 tahun"),
+    ("5y", "Rata-rata per tahun, 5 tahun"),
+    ("10y", "Rata-rata per tahun, 10 tahun"),
+)
+
+VALUATION_ROWS = (
+    ("pe", "P/E: harga untuk Rp1 laba setahun", "Rp"),
+    ("pe_fwd", "P/E perkiraan: harga untuk Rp1 laba tahun depan", "Rp"),
+    ("pbv", "P/BV: harga untuk Rp1 aset bersih", "Rp"),
+)
 
 def main():
     base_dir = get_base_dir()
@@ -74,12 +98,37 @@ def main():
     banks = [c for c in constituents_raw if "Bank" in c["name"]]
     bank_weight = round(sum(c["weight_pct"] for c in banks), 2)
     bca_weight = round(constituents_raw[0]["weight_pct"], 2)
-    non_bca_weight = round(100.0 - bca_weight, 2)
     top5_weight = round(sum(c["weight_pct"] for c in constituents_raw[:5]), 2)
+    # Dijumlah dari baris, bukan 100 dikurangi: total factsheet kena pembulatan (100,02 / 100,01).
+    nonbank_weight = round(sum(c["weight_pct"] for c in constituents_raw if "Bank" not in c["name"]), 2)
+    nonfin_sector = round(sum(s["weight_pct"] for s in sectors_raw if s["sector"] != "Financials"), 2)
     sim_drop_pct = 10
-    sim_index_drop = round(bank_weight * (sim_drop_pct / 100.0), 1)
+    sim_index_exact = round(bank_weight * (sim_drop_pct / 100.0), 3)
+    sim_index_drop = round(sim_index_exact, 1)
 
-    factsheet_cap = meta_raw.get("index_float_cap_bn", 53.36)
+    factsheet_cap = meta_raw["index_float_cap_bn"]
+    as_of = meta_raw["as_of"]
+    as_of_long = long_date(as_of)
+
+    perf = raw_data["performance"]
+    fund = raw_data["fundamentals"]
+    cum = raw_data["cumulative"]
+    prev = raw_data["prev"]
+    ojk = raw_data["context"]["ojk"]
+    rel = raw_data["context"]["msci_release"]
+
+    pe_change = round((fund["indonesia"]["pe"] / prev["pe"] - 1) * 100, 2)
+    # Laba trailing tersirat: harga turun 1 Mo, P/E turun pe_change, sisanya laba.
+    eps_change = round(((1 + perf["indonesia"]["1m"] / 100) / (1 + pe_change / 100) - 1) * 100, 2)
+    pe_vs_em = round(fund["indonesia"]["pe"] / fund["em"]["pe"] * 100)
+    ytd_gap = round(perf["em"]["ytd"] - perf["indonesia"]["ytd"], 2)
+    cum_multiple = round(cum["em"] / cum["indonesia"], 1)
+
+    def f(r, d):
+        return {"r": r, "d": d}
+
+    def pct(v, dp=2):
+        return f(v, f"{fmt_signed(v, dp)}%")
 
     # Build constituent items
     constituents_data = []
@@ -113,39 +162,108 @@ def main():
             "weight_pct_d": f"{fmt_num(s['weight_pct'], 2)}%"
         })
 
+    series = (("indonesia", "Indonesia"), ("em", "Negara berkembang"), ("acwi_imi", "Global"))
+    returns_rows = []
+    for key, label in RETURN_ROWS:
+        returns_rows.append({
+            "key": key, "label": label,
+            "values": [{"series": s, "name": n, "r": perf[s][key], "d": f"{fmt_signed(perf[s][key], 2)}%"}
+                       for s, n in series],
+        })
+    cumulative_rows = [{"series": s, "name": n, "r": cum[s], "d": f"US${fmt_num(cum[s], 2)}"} for s, n in series]
+    valuation = []
+    for key, title, unit in VALUATION_ROWS:
+        valuation.append({
+            "key": key, "title": title, "unit": unit,
+            "values": [{"series": s, "name": n, "r": fund[s][key], "d": fmt_num(fund[s][key], 2)} for s, n in series],
+        })
+
+    def wib(stamp):
+        day, hm = stamp.split(" ")
+        return f"{long_date(day)}, {hm.replace(':', '.')} WIB"
+
+    timeline = [
+        {"date": rel["consultation"]["date"], "d": long_date(rel["consultation"]["date"]),
+         "text": "MSCI membuka konsultasi untuk menurunkan Indonesia ke Standalone."},
+        {"date": rel["review"]["announce_wib"][:10], "d": wib(rel["review"]["announce_wib"]),
+         "text": "Hasil Index Review November diumumkan (11 November, 23.00 waktu Eropa Tengah)."},
+        {"date": rel["review"]["effective_close"], "d": long_date(rel["review"]["effective_close"]),
+         "text": "Perubahan isi indeks berlaku saat penutupan bursa."},
+        {"date": rel["consultation"]["feedback_until"], "d": long_date(rel["consultation"]["feedback_until"]),
+         "text": "Batas akhir masukan untuk konsultasi."},
+        {"date": rel["consultation"]["decision_by"], "d": long_date(rel["consultation"]["decision_by"]),
+         "text": "Keputusan MSCI paling lambat."},
+    ]
+
     # Prepare structured DATA dictionary
     DATA = {
         "meta": {
-            "index": meta_raw.get("index", "MSCI Indonesia Index (USD, net)"),
-            "as_of": meta_raw.get("as_of", "2026-09-30"),
-            "as_of_formatted": "30 September 2026",
+            "index": meta_raw["index"],
+            "as_of": as_of,
+            "as_of_formatted": as_of_long,
             "constituents_count": len(constituents_raw),
-            "coverage_pct": meta_raw.get("coverage_pct", 85),
+            "coverage_pct": meta_raw["coverage_pct"],
             "index_float_cap_bn": factsheet_cap,
-            "source_pdf": "MSCI Indonesia Index Factsheet, 30 September 2026",
-            "source_sha256": meta_raw.get("source_sha256", ""),
-            "scope_note": "MSCI Indonesia Index (USD, net), bukan IHSG.",
-            "method_note": "porsi dan nilai pasar diambil dari factsheet; total sektor dijumlah dari lima baris sektor"
+            "source_pdf": f"MSCI Indonesia Index Factsheet (USD), {as_of_long}",
+            "source_prev": f"MSCI Indonesia Index Factsheet (USD), {long_date(prev['as_of'])}, untuk P/E dan P/BV bulan sebelumnya",
+            "source_ojk": ojk["source"],
+            "source_sha256": meta_raw["source_sha256"],
+            "scope_note": "MSCI Indonesia Index (USD, net), bukan IHSG. Bukan rekomendasi investasi.",
+            "method_note": "return, valuasi, porsi, dan nilai pasar diambil apa adanya dari factsheet; total porsi empat bank dan lima saham teratas dijumlah dari baris saham"
         },
         "fig": {
-            "bank_weight_pct": {"r": bank_weight, "d": fmt_num(bank_weight, 2)},
-            "bank_weight_pct_str": {"r": bank_weight, "d": f"{fmt_num(bank_weight, 2)}%"},
-            "bca_weight_pct": {"r": bca_weight, "d": f"{fmt_num(bca_weight, 2)}%"},
-            "bca_name": {"d": constituents_raw[0]["name"]},
-            "non_bca_weight_pct": {"r": non_bca_weight, "d": f"{fmt_num(non_bca_weight, 2)}%"},
-            "nonbank_weight_pct": {"r": round(100 - bank_weight, 2), "d": fmt_num(100 - bank_weight, 2)},
-            "top5_weight_pct": {"r": top5_weight, "d": f"{fmt_num(top5_weight, 2)}%"},
-            "top5_weight_pct_plain": {"r": top5_weight, "d": fmt_num(top5_weight, 2)},
-            "weights_sum_pct": {"r": weights_sum, "d": f"{fmt_num(weights_sum, 2)}%"},
-            "sectors_sum_pct": {"r": sector_sum, "d": f"{fmt_num(sector_sum, 2)} persen"},
-            "sim_drop_pct": {"r": sim_drop_pct, "d": str(sim_drop_pct)},
-            "sim_index_drop_pct": {"r": sim_index_drop, "d": fmt_num(sim_index_drop, 1)},
-            "total_float_cap_factsheet": {"r": factsheet_cap, "d": fmt_num(factsheet_cap, 2)},
-            "total_float_cap_sum": {"r": caps_sum, "d": fmt_num(caps_sum, 2)},
-            "constituents_count": {"r": len(constituents_raw), "d": str(len(constituents_raw))},
-            "coverage_pct": {"r": meta_raw.get("coverage_pct", 85), "d": str(meta_raw.get("coverage_pct", 85))},
-            "as_of_formatted": {"d": "30 September 2026"}
+            "as_of_formatted": {"d": as_of_long},
+            "prev_as_of_formatted": {"d": long_date(prev["as_of"])},
+            "cum_id": f(cum["indonesia"], f"US${fmt_num(cum['indonesia'], 2)}"),
+            "cum_em": f(cum["em"], f"US${fmt_num(cum['em'], 2)}"),
+            "cum_acwi": f(cum["acwi_imi"], f"US${fmt_num(cum['acwi_imi'], 2)}"),
+            "cum_multiple": f(cum_multiple, fmt_num(cum_multiple, 1)),
+            "ytd_id": pct(perf["indonesia"]["ytd"]),
+            "ytd_em": pct(perf["em"]["ytd"]),
+            "ytd_acwi": pct(perf["acwi_imi"]["ytd"]),
+            "ytd_gap": f(ytd_gap, fmt_num(ytd_gap, 2)),
+            "m1_id": pct(perf["indonesia"]["1m"]),
+            "m1_em": pct(perf["em"]["1m"]),
+            "y10_id": pct(perf["indonesia"]["10y"]),
+            "y10_em": pct(perf["em"]["10y"]),
+            "pe_id": f(fund["indonesia"]["pe"], fmt_num(fund["indonesia"]["pe"], 2)),
+            "pe_em": f(fund["em"]["pe"], fmt_num(fund["em"]["pe"], 2)),
+            "pe_acwi": f(fund["acwi_imi"]["pe"], fmt_num(fund["acwi_imi"]["pe"], 2)),
+            "pe_prev": f(prev["pe"], fmt_num(prev["pe"], 2)),
+            "pe_change": pct(pe_change),
+            "eps_change": pct(eps_change),
+            "pe_vs_em": f(pe_vs_em, str(pe_vs_em)),
+            "div_yld_id": f(fund["indonesia"]["div_yld"], f"{fmt_num(fund['indonesia']['div_yld'], 2)}%"),
+            "ojk_sell": f(ojk["net_sell_saham_t"], f"Rp{fmt_num(ojk['net_sell_saham_t'], 2)} T"),
+            "ojk_sell_sep": f(ojk["net_sell_saham_sep_t"], f"Rp{fmt_num(ojk['net_sell_saham_sep_t'], 2)} T"),
+            "ojk_sbn": f(ojk["net_buy_sbn_t"], f"Rp{fmt_num(ojk['net_buy_sbn_t'], 2)} T"),
+            "ojk_sbn_sep": f(ojk["net_sell_sbn_sep_t"], f"Rp{fmt_num(ojk['net_sell_sbn_sep_t'], 2)} T"),
+            "ojk_inv_new": f(ojk["investor_new_jt"], f"{fmt_num(ojk['investor_new_jt'], 2)} juta"),
+            "ojk_inv_total": f(ojk["investor_total_jt"], f"{fmt_num(ojk['investor_total_jt'], 2)} juta"),
+            "ojk_ritel": f(ojk["ritel_rnth_pct"], f"{fmt_num(ojk['ritel_rnth_pct'], 2)}%"),
+            "ojk_ritel_sep": f(ojk["ritel_rnth_sep_pct"], f"{fmt_num(ojk['ritel_rnth_sep_pct'], 2)}%"),
+            "review_wib": {"d": wib(rel["review"]["announce_wib"])},
+            "decision_by": {"d": long_date(rel["consultation"]["decision_by"])},
+            "bank_weight_pct": f(bank_weight, fmt_num(bank_weight, 2)),
+            "bank_weight_pct_str": f(bank_weight, f"{fmt_num(bank_weight, 2)}%"),
+            "bca_weight_pct": f(bca_weight, f"{fmt_num(bca_weight, 2)}%"),
+            "nonbank_weight_pct": f(nonbank_weight, fmt_num(nonbank_weight, 2)),
+            "nonfin_sector_pct": f(nonfin_sector, fmt_num(nonfin_sector, 2)),
+            "top5_weight_pct": f(top5_weight, f"{fmt_num(top5_weight, 2)}%"),
+            "weights_sum_pct": f(weights_sum, f"{fmt_num(weights_sum, 2)}%"),
+            "sectors_sum_pct": f(sector_sum, f"{fmt_num(sector_sum, 2)} persen"),
+            "sim_drop_pct": f(sim_drop_pct, str(sim_drop_pct)),
+            "sim_index_exact": f(sim_index_exact, f"{fmt_num(sim_index_exact, 3)}%"),
+            "sim_index_drop_pct": f(sim_index_drop, fmt_num(sim_index_drop, 1)),
+            "total_float_cap_factsheet": f(factsheet_cap, fmt_num(factsheet_cap, 2)),
+            "total_float_cap_sum": f(caps_sum, fmt_num(caps_sum, 2)),
+            "constituents_count": f(len(constituents_raw), str(len(constituents_raw))),
+            "coverage_pct": f(meta_raw["coverage_pct"], str(meta_raw["coverage_pct"])),
         },
+        "cumulative": cumulative_rows,
+        "returns": returns_rows,
+        "valuation": valuation,
+        "timeline": timeline,
         "constituents": constituents_data,
         "sectors": sectors_data
     }
@@ -207,6 +325,17 @@ def main():
     rendered_html = template_str.replace(placeholder_data, compact_json)
     rendered_html = rendered_html.replace(placeholder_fonts, fonts_replacement)
 
+    # 3a. Linimasa statis (terbaca tanpa JavaScript; JS hanya menambah penanda lewat/berikutnya)
+    tl_marker = "<!-- populated from DATA; fallback below for no-JS -->"
+    if tl_marker not in rendered_html:
+        print("FATAL: timeline placeholder not found in template")
+        sys.exit(1)
+    import html as _h
+    tl_html = "".join(
+        f'<li><span class="tl-date">{_h.escape(e["d"])}</span><span class="tl-text">{_h.escape(e["text"])}</span></li>'
+        for e in DATA["timeline"])
+    rendered_html = rendered_html.replace(tl_marker, tl_html)
+
     # 3b. Fill data-fig fallbacks so a reader without JavaScript sees the same values
     import re as _re
     import html as _html
@@ -239,6 +368,8 @@ def main():
         print(f"FATAL: {slots} data-fig slots but {filled} filled; a slot has markup this builder cannot fill")
         sys.exit(1)
     print(f"Filled {filled} data-fig fallbacks")
+
+    rendered_html = dateline_stamp(rendered_html, as_of)
 
     # Add SHA256 build stamp as the very first line
     build_stamp = f"<!--BUILD sha256:{template_sha256}-->\n"

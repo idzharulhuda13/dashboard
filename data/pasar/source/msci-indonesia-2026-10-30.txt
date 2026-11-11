@@ -1,0 +1,333 @@
+Index Factsheet
+MSCI Indonesia Index (USD)
+MSCI Indonesia Index (USD) | msci.com
+The MSCI Indonesia Index is designed to measure the performance of the large and mid cap segments of the Indonesian market. With
+9 constituents, the index covers about 85% of the Indonesian equity universe.
+For a complete description of the index methodology, please see Index methodology - MSCI.
+CUMULATIVE INDEX PERFORMANCE — NET RETURNS   (USD)
+(OCT 2011 – OCT 2026)
+Oct 11
+Jan 13
+Apr 14
+Jul 15
+Oct 16
+Jan 18
+Apr 19
+Jul 20
+Oct 21
+Jan 23
+Apr 24
+Jul 25
+ Oct 26
+50
+200
+400
+MSCI Indonesia
+MSCI Emerging Markets
+MSCI ACWI IMI
+464.26
+224.94
+52.47
+ANNUAL PERFORMANCE (%)
+Year
+MSCI
+Indonesia
+MSCI
+Emerging
+Markets
+MSCI
+ACWI IMI
+2025
+-2.75
+33.57
+22.06
+2024
+-12.95
+7.50
+16.37
+2023
+7.33
+9.83
+21.58
+2022
+3.59
+-20.09
+-18.40
+2021
+2.11
+-2.54
+18.22
+2020
+-8.09
+18.31
+16.25
+2019
+9.09
+18.42
+26.35
+2018
+-9.21
+-14.57
+-10.08
+2017
+24.22
+37.28
+23.95
+2016
+16.98
+11.19
+8.36
+2015
+-19.46
+-14.92
+-2.19
+2014
+26.59
+-2.19
+3.84
+2013
+-23.48
+-2.60
+23.55
+2012
+4.65
+18.22
+16.38
+INDEX PERFORMANCE — NET RETURNS   (%) (OCT 30, 2026)
+ANNUALIZED
+1 Mo
+3 Mo
+1 Yr
+YTD
+3 Yr
+5 Yr
+10 Yr
+Since
+Dec 29, 2000
+MSCI Indonesia
+-13.83
+-20.30
+-47.86
+-48.16
+-21.27
+-13.67
+-6.33
+8.36
+MSCI Emerging Markets
+-8.05
+-5.49
+14.05
+13.45
+22.28
+6.92
+8.15
+8.73
+MSCI ACWI IMI
+-1.56
+-0.24
+12.50
+11.21
+22.01
+9.66
+12.10
+7.54
+FUNDAMENTALS  (OCT 30, 2026)
+Div Yld (%)
+P/E
+P/E Fwd
+P/BV
+9.38
+8.64
+7.49
+1.37
+2.19
+13.68
+8.70
+2.20
+1.66
+21.04
+15.59
+3.38
+INDEX RISK AND RETURN CHARACTERISTICS  (OCT 30, 2026)
+ANNUALIZED STD DEV (%) 2
+SHARPE RATIO  2 , 3
+MAXIMUM DRAWDOWN
+Turnover
+(%) 1
+3 Yr
+5 Yr
+10 Yr
+3 Yr
+5 Yr
+10 Yr
+Since
+Dec 29,
+2000
+(%)
+Period YYYY-MM-DD
+MSCI Indonesia
+20.63
+24.09
+20.75
+22.44
+-1.05
+-0.78
+-0.28
+0.36
+71.54
+2008-02-28—2008-11-21
+MSCI Emerging Markets
+5.52
+17.88
+18.79
+17.68
+0.97
+0.25
+0.39
+0.41
+65.25
+2007-10-29—2008-10-27
+MSCI ACWI IMI
+2.62
+12.02
+14.99
+14.96
+1.36
+0.44
+0.67
+0.41
+58.59
+2007-10-31—2009-03-09
+1 Last 12 months
+2 Based on monthly net returns data
+3 Based on NY FED Overnight SOFR from Sep 1 2021 & on ICE LIBOR 1M prior that date
+The MSCI Indonesia Index was launched on Jan 01, 2001. Data prior to the launch date is back-tested test (i.e. calculations of how the index might have performed over that
+time period had the index existed). There are frequently material differences between back-tested performance and actual results. Past performance -- whether actual or back-
+tested -- is no indication or guarantee of future performance.
+OCT 30, 2026
+Index Factsheet
+MSCI Indonesia Index (USD) | msci.com
+INDEX CHARACTERISTICS
+MSCI Indonesia
+Number of
+Constituents
+9 
+Mkt Cap ( USD Millions)
+Index
+45,917.36 
+Largest
+13,548.35 
+Smallest
+1,038.84 
+Average
+5,101.93 
+Median
+4,288.46 
+TOP 9 CONSTITUENTS
+Float Adj Mkt
+Cap
+( USD Billions)
+Index
+Wt. (%)
+Sector
+BANK CENTRAL ASIA
+13.55
+29.51
+Financials
+BANK RAKYAT INDONESIA
+9.37
+20.40
+Financials
+BANK MANDIRI
+7.66
+16.69
+Financials
+TELKOM INDONESIA
+4.87
+10.61
+Comm Srvcs
+ASTRA INTERNATIONAL
+4.29
+9.34
+Industrials
+BANK NEGARA INDONESIA
+2.39
+5.21
+Financials
+UNITED TRACTORS
+1.62
+3.53
+Energy
+BARITO PACIFIC
+1.13
+2.47
+Materials
+BUMI RESOURCES MINERALS
+1.04
+2.26
+Materials
+Total
+45.92
+100.00
+FACTORS - KEY EXPOSURES THAT DRIVE RISK AND RETURN
+MSCI FACTOR BOX
+MSCI Indonesia
+MSCI Emerging Markets
+UNDERWEIGHT
+NEUTRAL
+OVERWEIGHT
+<-1.5
+0
++1.5<
+MSCI FaCS
+VALUE
+Relatively Inexpensive Stocks
+LOW SIZE
+Smaller Companies
+MOMENTUM
+Rising Stocks
+QUALITY
+Sound Balance Sheet Stocks
+YIELD
+Cash Flow Paid Out
+LOW VOLATILITY
+Lower Risk Stocks
+MSCI FaCS provides absolute factor exposures
+relative to a
+broad global index - MSCI ACWI IMI.
+Neutral factor exposure (FaCS = 0) represents
+MSCI ACWI IMI.
+SECTOR WEIGHTS
+Financials 71.8%
+Communication Services 10.61%
+Industrials 9.34%
+Materials 4.73%
+Energy 3.53%
+71.8%
+10.61%
+9.34%
+4.73%
+3.53%
+OCT 30, 2026
+Index Factsheet
+ABOUT MSCI
+MSCI (NYSE: MSCI Inc.) strengthens global markets by connecting participants across the ﬁnancial ecosystem with a common language. Our research-based data, analytics and indexes, supported by
+advanced technology, set standards for global investors and help our clients understand risks and opportunities so they can make better decisions and unlock innovation. We serve asset managers and
+owners, private-market sponsors and investors, hedge funds, wealth managers, banks, insurers and corporates. To learn more, please visit www.msci.com.
+The data, data feeds, databases, reports, text, graphs, charts, images, videos, recordings, models, metrics, analytics, indexes, assessments, ratings, scores, software, websites, products, services and other
+information delivered in connection with this notice (the “Information”): (a) are proprietary information of MSCI and its suppliers, (b) may not be used for commercial purposes without prior written permission
+from MSCI Inc. or its afﬁliates (“MSCI”), and (c) are not investment advice and must not be relied on as such. The Information and its use are further subject to the disclaimer at https://www.msci.com/
+legal/notice-and-disclaimer. As detailed therein, MSCI AND ITS SUPPLIERS MAKE NO EXPRESS OR IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR OTHERWISE
+WITH RESPECT TO THE INFORMATION HEREIN AND DISCLAIM ALL LIABILITY TO THE MAXIMUM EXTENT PERMITTED BY LAW. For information about how MSCI collects and uses personal data, refer
+to https://www.msci.com/privacy-pledge.
+© 2026 MSCI Inc. All rights reserved.
+MSCI Indonesia Index (USD) | msci.com
+MSCI FACTOR BOX AND FaCS FRAMEWORK (Please refer to complete description of the MSCI FaCS methodology  here)
+MSCI FaCS is a standard method for evaluating and reporting the Factor characteristics of equity portfolios. MSCI FaCS consists
+of Factor Groups (e.g. Value, Size, Momentum, Quality, Yield, and Volatility) that have been extensively documented in academic
+literature and validated by MSCI Research as key drivers of risk and return in equity portfolios. These Factor Groups are constructed
+by aggregating 16 factors (e.g. Book-to-Price, Earnings/Dividend Yields, LT Reversal, Leverage, Earnings Variability/Quality, Beta)
+from the latest Barra global equity factor risk model, GEMLT, designed to make fund comparisons transparent and intuitive for use.
+The MSCI Factor Box, which is powered by MSCI FaCS, provides a visualization designed to easily compare absolute exposures
+of funds/indexes and their benchmarks along 6 Factor Groups that have historically demonstrated excess market returns over
+the long run.

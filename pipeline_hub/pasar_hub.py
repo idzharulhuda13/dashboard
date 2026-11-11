@@ -46,6 +46,10 @@ def fmt_id(v: float, dp: int = 2) -> str:
     return s.replace(",", "\x01").replace(".", ",").replace("\x01", ".")
 
 
+def signed(v: float, dp: int = 2) -> str:
+    return ("+" if v > 0 else "") + fmt_id(v, dp)
+
+
 def _load(root: str, rel: str) -> dict:
     path = os.path.join(root, rel)
     with open(path, "r", encoding="utf-8") as f:
@@ -112,12 +116,20 @@ def _line_svg(points: list[float], *, ref_idx: int, ref_label: str, last_label: 
     ])
 
 
-def _bar_svg(rows: list[tuple[str, float]], note: str) -> str:
-    """Batang horizontal: nama di atas batang, jalur skala 0..max dibulatkan ke 10, nilai di kolom kanan."""
-    scale = max(10.0, -(-max(v for _, v in rows) // 10) * 10)
+def _bar_svg(rows: list[tuple[str, float]], note: str, *, step: float = 10.0,
+             val_fmt=lambda v: f"{fmt_id(v, 2)}%", scale_fmt=lambda s: f"0-{int(s)}%",
+             ref: float | None = None) -> str:
+    """Batang horizontal: nama di atas batang, jalur skala 0..max dibulatkan ke `step`, nilai di kolom kanan.
+
+    `ref` menggambar garis acuan putus-putus (mis. modal awal US$100) di posisi nilainya.
+    """
+    scale = max(step, -(-max(v for _, v in rows) // step) * step)
     pitch = (PB - PT) / len(rows)
     off = max(0.0, (pitch - 32.4) / 2)
     parts = ['<svg class="window-fig" viewBox="0 0 384 216" aria-hidden="true" focusable="false">']
+    if ref is not None:  # digambar duluan supaya label dan batang menimpanya
+        rx = PL + (PR - PL) * (ref / scale)
+        parts.append(f'<line class="fig-ref" x1="{rx:.1f}" y1="{PT:.1f}" x2="{rx:.1f}" y2="{PB:.1f}"/>')
     for i, (name, val) in enumerate(rows):
         top = PT + i * pitch + off
         by = top + 18
@@ -125,9 +137,9 @@ def _bar_svg(rows: list[tuple[str, float]], note: str) -> str:
         parts.append(f'<text x="{PL:.1f}" y="{top + 12:.1f}" class="fig-label" text-anchor="start">{name}</text>')
         parts.append(f'<rect class="fig-track" x="{PL:.1f}" y="{by:.1f}" width="{PR - PL:.1f}" height="12"/>')
         parts.append(f'<rect class="fig-bar" x="{PL:.1f}" y="{by:.1f}" width="{bw:.1f}" height="12"/>')
-        parts.append(f'<text x="{VX:.1f}" y="{by + 10.2:.1f}" class="fig-val" text-anchor="end">{fmt_id(val, 2)}%</text>')
+        parts.append(f'<text x="{VX:.1f}" y="{by + 10.2:.1f}" class="fig-val" text-anchor="end">{val_fmt(val)}</text>')
     parts.append(f'<text x="{PL:.1f}" y="{TICK_Y:.1f}" class="fig-label" text-anchor="start">{note}</text>')
-    parts.append(f'<text x="{PR:.1f}" y="{TICK_Y:.1f}" class="fig-label" text-anchor="end">0-{int(scale)}%</text>')
+    parts.append(f'<text x="{PR:.1f}" y="{TICK_Y:.1f}" class="fig-label" text-anchor="end">{scale_fmt(scale)}</text>')
     parts.append("</svg>")
     return "".join(parts)
 
@@ -168,12 +180,7 @@ def load(root: str) -> dict:
         "pasar_rupiah_peak": {"r": rupiah_fig["peak"]["r"], "d": rupiah_fig["peak"]["d"]},
         "pasar_rupiah_corr": {"r": corr, "d": fmt_id(corr, 3)},
         "pasar_msci_names": {"r": len(constituents), "d": str(len(constituents))},
-        "pasar_msci_coverage": {"r": msci["meta"]["coverage_pct"], "d": f"{msci['meta']['coverage_pct']}%"},
-        "pasar_msci_float": {"r": msci["meta"]["index_float_cap_bn"], "d": fmt_id(msci["meta"]["index_float_cap_bn"], 2)},
         "pasar_msci_fin": {"r": fin["weight_pct"], "d": fmt_id(fin["weight_pct"], 2) + "%"},
-        "pasar_msci_top5": {"r": round(sum(c["weight_pct"] for c in constituents[:5]), 2),
-                            "d": fmt_id(sum(c["weight_pct"] for c in constituents[:5]), 2) + "%"},
-        "pasar_msci_bca": {"r": constituents[0]["weight_pct"], "d": fmt_id(constituents[0]["weight_pct"], 2) + "%"},
         # Tanggal dan jumlah yang tampil di kartu hub. Dulu semuanya ditulis mati di template,
         # jadi kartu mengaku "Terakhir 21 Okt" sambil menampilkan angka 29 Okt.
         "pasar_ihsg_asof_short": {"r": ihsg_as_of, "d": short_date(ihsg_as_of)},
@@ -183,6 +190,12 @@ def load(root: str) -> dict:
         "pasar_rupiah_points": {"r": len(rupiah["series"]), "d": str(len(rupiah["series"]))},
         "pasar_rupiah_obs": {"r": int(rupiah_fig["n_obs"]), "d": str(int(rupiah_fig["n_obs"]))},
         "pasar_msci_asof_long": {"r": msci_as_of, "d": long_date(msci_as_of)},
+        "pasar_msci_ytd": {"r": msci["performance"]["indonesia"]["ytd"], "d": signed(msci["performance"]["indonesia"]["ytd"]) + "%"},
+        "pasar_msci_ytd_em": {"r": msci["performance"]["em"]["ytd"], "d": signed(msci["performance"]["em"]["ytd"]) + "%"},
+        "pasar_msci_cum_id": {"r": msci["cumulative"]["indonesia"], "d": "US$" + fmt_id(msci["cumulative"]["indonesia"], 2)},
+        "pasar_msci_cum_em": {"r": msci["cumulative"]["em"], "d": "US$" + fmt_id(msci["cumulative"]["em"], 2)},
+        "pasar_msci_pe": {"r": msci["fundamentals"]["indonesia"]["pe"], "d": fmt_id(msci["fundamentals"]["indonesia"]["pe"], 2)},
+        "pasar_msci_pe_em": {"r": msci["fundamentals"]["em"]["pe"], "d": fmt_id(msci["fundamentals"]["em"]["pe"], 2)},
     }
 
     ihsg_series = [row["close"] for row in ihsg["series"]]
@@ -209,8 +222,10 @@ def load(root: str) -> dict:
             figs=("pasar_rupiah_first", "pasar_rupiah_last", ""),
         ),
         "pasar_msci": _bar_svg(
-            [(c["name"], c["weight_pct"]) for c in constituents[:5]],
-            note=f"{len(constituents) - 5} emiten lain mengisi sisa bobot",
+            [("Indonesia", msci["cumulative"]["indonesia"]), ("Negara berkembang", msci["cumulative"]["em"]),
+             ("Global", msci["cumulative"]["acwi_imi"])],
+            note="putus-putus = modal US$100",
+            step=100.0, val_fmt=lambda v: "US$" + fmt_id(v, 2), scale_fmt=lambda s: f"0-US${int(s)}", ref=100.0,
         ),
     }
 

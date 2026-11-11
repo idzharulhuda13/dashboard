@@ -177,46 +177,139 @@ def main():
     sector_sum_str = fmt_ind(sector_sum, 2)
     print(f"[PASS] Recomputed 5 sector shares sum: {sector_sum_str}% (shares: {sector_shares})")
 
+    # 1b. Independent re-read of the factsheet PDF (pdftotext -layout), a different extraction
+    #     path from pasar/extract_msci.py (plain pdftotext text). Every payload number must match.
+    import re as _re0
+    import subprocess as _sp
+
+    src_dir = os.path.join(base_dir, "data", "pasar")
+    pdf_path = os.path.join(src_dir, meta["source_pdf"])
+    with open(pdf_path, "rb") as pf:
+        pdf_sha = hashlib.sha256(pf.read()).hexdigest()
+    if pdf_sha != meta.get("source_sha256"):
+        print(f"[FAIL] source_sha256 {meta.get('source_sha256')} != sha256 of {meta['source_pdf']} {pdf_sha}")
+        sys.exit(1)
+    layout = _sp.run(["pdftotext", "-layout", pdf_path, "-"], check=True, capture_output=True, text=True).stdout
+    fails = []
+
+    def row_nums(label):
+        m = _re0.search(r"^\s*" + _re0.escape(label) + r"\s+(-?\d+\.\d+(?:\s+-?\d+\.\d+){11})\s*$", layout, _re0.M)
+        return [float(v) for v in m.group(1).split()] if m else None
+
+    periods = ["1m", "3m", "1y", "ytd", "3y", "5y", "10y", "since_2000"]
+    for key, label in (("indonesia", "MSCI Indonesia"), ("em", "MSCI Emerging Markets"), ("acwi_imi", "MSCI ACWI IMI")):
+        nums = row_nums(label)
+        if nums is None:
+            fails.append(f"performance row for {label} not found in PDF layout")
+            continue
+        for i, per in enumerate(periods):
+            if data["performance"][key][per] != nums[i]:
+                fails.append(f"performance {key}.{per}: payload {data['performance'][key][per]} vs PDF {nums[i]}")
+        for i, fk in enumerate(["div_yld", "pe", "pe_fwd", "pbv"]):
+            if data["fundamentals"][key][fk] != nums[8 + i]:
+                fails.append(f"fundamentals {key}.{fk}: payload {data['fundamentals'][key][fk]} vs PDF {nums[8 + i]}")
+
+    cum_pos = {}
+    for key in ("acwi_imi", "em", "indonesia"):
+        v = f"{data['cumulative'][key]:.2f}"
+        hit = [i for i, line in enumerate(layout.splitlines()) if _re0.search(r"(^|\s)" + _re0.escape(v) + r"(\s|$)", line)]
+        if not hit:
+            fails.append(f"cumulative {key} {v} not printed in PDF")
+        else:
+            cum_pos[key] = hit[0]
+    if len(cum_pos) == 3 and not (cum_pos["acwi_imi"] < cum_pos["em"] < cum_pos["indonesia"]):
+        fails.append(f"cumulative labels out of chart order: {cum_pos}")
+
+    for c in constituents:
+        m = _re0.search(_re0.escape(c["name"].upper()) + r"\s+(\d+\.\d+)\s+(\d+\.\d+)\s+(\S[\S ]*?)\s*$", layout, _re0.M)
+        if not m or (float(m.group(1)), float(m.group(2))) != (c["float_cap_bn"], c["weight_pct"]) or m.group(3) != c["sector"]:
+            fails.append(f"constituent {c['name']}: payload {c['float_cap_bn']}/{c['weight_pct']}/{c['sector']} vs PDF {m.groups() if m else None}")
+    sector_names = {"Comm Srvcs": "Communication Services"}
+    for sct in sectors:
+        nm = sector_names.get(sct["sector"], sct["sector"])
+        m = _re0.search(_re0.escape(nm) + r" (\d+(?:\.\d+)?)%", layout)
+        if not m or float(m.group(1)) != sct["weight_pct"]:
+            fails.append(f"sector {nm}: payload {sct['weight_pct']} vs PDF {m.group(1) if m else None}")
+    m = _re0.search(r"^\s*Total\s+(\d+\.\d+)\s+100\.00\s*$", layout, _re0.M)
+    if not m or float(m.group(1)) != meta["index_float_cap_bn"]:
+        fails.append(f"index float cap: payload {meta['index_float_cap_bn']} vs PDF {m.group(1) if m else None}")
+
+    # Previous month's P/E (comparison factsheet), same layout parse.
+    prev = data["prev"]
+    prev_layout = _sp.run(["pdftotext", "-layout", os.path.join(src_dir, "source", "msci-indonesia-index-net.pdf"), "-"],
+                          check=True, capture_output=True, text=True).stdout
+    mp = _re0.search(r"^\s*MSCI Indonesia\s+((?:-?\d+\.\d+\s+){11}-?\d+\.\d+)\s*$", prev_layout, _re0.M)
+    pv = [float(v) for v in mp.group(1).split()] if mp else []
+    if not pv or (pv[9], pv[11]) != (prev["pe"], prev["pbv"]):
+        fails.append(f"prev P/E, P/BV: payload {prev['pe']}/{prev['pbv']} vs Sep PDF {pv[9:12] if pv else None}")
+
+    # Context outside the factsheet: every figure must appear verbatim in the saved source text.
+    ctx = data["context"]
+    with open(os.path.join(src_dir, ctx["ojk"]["source_file"]), encoding="utf-8") as of:
+        ojk_txt = of.read()
+    for k, phrase in (("net_sell_saham_t", "net sell* tercatat sebesar Rp{v} triliun"),
+                      ("net_sell_saham_sep_t", "(September 2026: *net sell* Rp{v} triliun)"),
+                      ("net_buy_sbn_t", "*net buy* sebesar Rp{v} triliun secara *mtm*"),
+                      ("net_sell_sbn_sep_t", "(September 2026: *net sell* Rp{v} triliun)"),
+                      ("investor_new_jt", "penambahan investor baru sebanyak {v} juta"),
+                      ("investor_total_jt", "menjadi {v} juta investor"),
+                      ("ritel_rnth_pct", "individu sebesar {v} persen"),
+                      ("ritel_rnth_sep_pct", "(September 2026: {v} persen)")):
+        v = f"{ctx['ojk'][k]:.2f}".replace(".", ",")
+        if phrase.format(v=v) not in ojk_txt:
+            fails.append(f"OJK {k}={v}: phrase not found in {ctx['ojk']['source_file']}")
+    rel = ctx["msci_release"]
+    with open(os.path.join(src_dir, rel["consultation"]["source_file"]), encoding="utf-8") as rf:
+        r1 = rf.read()
+    with open(os.path.join(src_dir, rel["review"]["source_file"]), encoding="utf-8") as rf:
+        r2 = rf.read()
+    for phrase, txt, name in (("until April 30, 2027", r1, "feedback_until"), ("on or before June 30, 2027", r1, "decision_by"),
+                              ("Standalone Market", r1, "standalone"), ("Oct. 15, 2026", r1, "consultation date"),
+                              ("11:00 p.m. Central European Time (CET) on November 11, 2026", r2, "announce"),
+                              ("close of November 30, 2026", r2, "effective")):
+        if phrase not in txt:
+            fails.append(f"MSCI release: '{phrase}' ({name}) not found")
+    if (rel["consultation"]["feedback_until"], rel["consultation"]["decision_by"], rel["review"]["effective_close"],
+            rel["review"]["announce_wib"]) != ("2027-04-30", "2027-06-30", "2026-11-30", "2026-11-12 05:00"):
+        fails.append(f"MSCI release dates in payload disagree with the release text: {rel}")
+
+    if fails:
+        print(f"[FAIL] {len(fails)} payload value(s) disagree with their sources:")
+        for e in fails[:20]:
+            print(f"  - {e}")
+        sys.exit(1)
+    print("[PASS] Payload matches factsheet PDF (layout re-read), Sep factsheet, OJK text, and MSCI releases")
+
+    # 1c. Derived figures, recomputed here
     banks = [c for c in constituents if "Bank" in c["name"]]
     four_banks_weight = round(sum(c["weight_pct"] for c in banks), 2)
-    four_banks_str = fmt_ind(four_banks_weight, 2)
-    if four_banks_weight != 71.71:
-        print(f"[FAIL] Expected four banks weight 71.71, got {four_banks_weight}")
-        sys.exit(1)
-    print(f"[PASS] Recomputed four banks weight: {four_banks_str}% (71,71)")
-
-    bca_weight = round(constituents[0]["weight_pct"], 2)
-    bca_str = fmt_ind(bca_weight, 2)
-    if bca_weight != 31.41:
-        print(f"[FAIL] Expected BCA weight 31.41, got {bca_weight}")
-        sys.exit(1)
-    print(f"[PASS] Recomputed BCA weight: {bca_str}% (31,41)")
-
-    non_bca_weight = round(100.0 - bca_weight, 2)
-    non_bca_str = fmt_ind(non_bca_weight, 2)
-    if non_bca_weight != 68.59:
-        print(f"[FAIL] Expected non-BCA weight 68.59, got {non_bca_weight}")
-        sys.exit(1)
-    print(f"[PASS] Recomputed non-BCA weight: {non_bca_str}% (68,59)")
-
     top5_weight = round(sum(c["weight_pct"] for c in constituents[:5]), 2)
-    top5_str = fmt_ind(top5_weight, 2)
-    if top5_weight != 85.58:
-        print(f"[FAIL] Expected top 5 weight 85.58, got {top5_weight}")
-        sys.exit(1)
-    print(f"[PASS] Recomputed top 5 weight: {top5_str}% (85,58)")
-
-    sim_drop = round(four_banks_weight * 0.10, 1)
-    sim_drop_str = fmt_ind(sim_drop, 1)
-    if sim_drop != 7.2:
-        print(f"[FAIL] Expected arithmetic index drop 7.2, got {sim_drop}")
-        sys.exit(1)
-    print(f"[PASS] Recomputed arithmetic simulation: 71,71 * 0,10 = {sim_drop_str}% (7,2)")
+    nonbank_weight = round(sum(c["weight_pct"] for c in constituents if "Bank" not in c["name"]), 2)
+    nonfin = round(sum(x["weight_pct"] for x in sectors if x["sector"] != "Financials"), 2)
+    perf, fund, cum = data["performance"], data["fundamentals"], data["cumulative"]
+    pe_change = round((fund["indonesia"]["pe"] / prev["pe"] - 1) * 100, 2)
+    eps_change = round(((1 + perf["indonesia"]["1m"] / 100) / (1 + pe_change / 100) - 1) * 100, 2)
+    derived = {
+        "bank_weight_pct": fmt_ind(four_banks_weight, 2),
+        "top5_weight_pct": fmt_ind(top5_weight, 2) + "%",
+        "nonbank_weight_pct": fmt_ind(nonbank_weight, 2),
+        "nonfin_sector_pct": fmt_ind(nonfin, 2),
+        "sim_index_drop_pct": fmt_ind(round(four_banks_weight * 0.10, 1), 1),
+        "sim_index_exact": fmt_ind(round(four_banks_weight * 0.10, 3), 3) + "%",
+        "ytd_gap": fmt_ind(round(perf["em"]["ytd"] - perf["indonesia"]["ytd"], 2), 2),
+        "pe_change": fmt_ind(pe_change, 2) + "%",
+        "eps_change": fmt_ind(eps_change, 2) + "%",
+        "pe_vs_em": str(round(fund["indonesia"]["pe"] / fund["em"]["pe"] * 100)),
+        "cum_id": "US$" + fmt_ind(cum["indonesia"], 2),
+        "ytd_id": fmt_ind(perf["indonesia"]["ytd"], 2) + "%",
+        "ytd_em": "+" + fmt_ind(perf["em"]["ytd"], 2) + "%",
+    }
+    print(f"[PASS] Recomputed derived figures: {derived}")
 
     caps = [c["float_cap_bn"] for c in constituents]
     caps_sum = round(sum(caps), 2)
     caps_sum_str = fmt_ind(caps_sum, 2)
-    factsheet_cap = meta.get("index_float_cap_bn", 53.36)
+    factsheet_cap = meta["index_float_cap_bn"]
     factsheet_cap_str = fmt_ind(factsheet_cap, 2)
     print(f"[PASS] Recomputed float cap: sum-of-parts = {caps_sum_str} bn USD, factsheet = {factsheet_cap_str} bn USD")
 
@@ -247,21 +340,18 @@ def main():
 
     # 3. Assert every figure appears in rendered html
     required_figures = [
-        # 9 constituent weights
         fmt_ind(c["weight_pct"], 2) for c in constituents
     ] + [
-        # 5 sector shares
-        fmt_ind(s["weight_pct"], 2) for s in sectors
+        fmt_ind(x["weight_pct"], 2) for x in sectors
     ] + [
-        "100,00",
-        "71,71",
-        "31,41",
-        "68,59",
-        "85,58",
-        "7,2",
-        "53,36",
-        "53,37"
-    ]
+        fmt_ind(v, 2) for row in data["performance"].values() for k, v in row.items() if k != "since_2000"
+    ] + [
+        fmt_ind(row[k], 2) for row in data["fundamentals"].values() for k in ("pe", "pe_fwd", "pbv")
+    ] + [
+        fmt_ind(cum[k], 2) for k in ("indonesia", "em", "acwi_imi")
+    ] + [
+        "100,00", caps_sum_str, factsheet_cap_str, fmt_ind(prev["pe"], 2),
+    ] + [v.replace("+", "") for v in derived.values()]
     # Unique figures to check
     unique_figures = sorted(list(set(required_figures)))
     missing_figures = [fig for fig in unique_figures if fig not in html_content]
@@ -349,6 +439,10 @@ def main():
         actual = _html.unescape(_re.sub(r"<[^>]+>", "", m.group("body"))).strip()
         if actual != expected:
             slot_errors.append(f"{key}: page shows {actual!r}, payload says {expected!r}")
+    for key, want in derived.items():
+        got = str(fig_payload.get(key, {}).get("d"))
+        if got != want:
+            slot_errors.append(f"{key}: payload {got!r}, recomputed {want!r}")
     if slot_errors:
         print(f"[FAIL] {len(slot_errors)} of {slot_total} data-fig slots disagree with the payload:")
         for e in slot_errors[:10]:

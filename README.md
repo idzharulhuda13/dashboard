@@ -6,7 +6,7 @@ plates: `gempa/`, `pisa/`, `pisa-explorer/`, and the market plates `pasar/ihsg.h
 figure is generated from stored source files at build time and then re-checked by acceptance gates. No
 network access at runtime, no API keys, no build step for the pages themselves.
 
-Plates 01 to 06 shipped.
+Plates 01 to 08 shipped.
 
 ## Plate 01: Setengah Abad Gempa Indonesia
 
@@ -213,3 +213,17 @@ Both gates were tested by making them fail. A gate that cannot fail is not a gat
 ## Licence and attribution
 
 The source data belongs to USGS and BMKG. Check their terms before reusing the raw files.
+
+
+## Plate 08: Titik Panas Indonesia (karhutla, live)
+
+A monitoring tool rather than a story: where fire hotspots are now and whether there are more than usual.
+Data from the open SiPongi+ map API (Ministry of Forestry), which relays NASA MODIS and VIIRS detections.
+`karhutla/refresh.py` runs from a box cron three times a day (05.30, 11.30, 16.30 WIB): it re-pulls the last four
+WIB days, rebuilds `data/karhutla/karhutla.json` and `karhutla/index.html`, runs `karhutla/verify.py` (numbers
+recomputed from the aggregates, map cells reconciled with national totals, a browser sweep at 1440 and 390 that clicks
+every control, empty and error states, a negative test), and pushes only when everything passes.
+
+Sensor basis matters: within 2026 the page counts MODIS + NOAA-20 only (NOAA-21 joined the feed on 2 Nov 2026 and would
+double the count with no extra fire); across years it counts MODIS only, the one sensor present in every year
+(SiPongi's 2019 data is MODIS-only). Contract: `DESIGN.karhutla.md`.

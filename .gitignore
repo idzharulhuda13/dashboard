@@ -8,3 +8,10 @@ __pycache__/
 # per run and bury the actual data changes.
 data/out/append_report.json
 data/out/publish.log
+
+# Karhutla: ringkasan tahun berjalan + sel peta + state harvest berubah tiap 8 jam dan bisa ditarik ulang dari
+# SiPongi+ dalam ~3 menit (karhutla/harvest.py --year <tahun>). Yang di-commit hanya payload + halaman, dan
+# ringkasan tahun yang sudah selesai. Saat tahun berganti, commit agg/<tahun lalu>.csv.gz lalu ganti baris ini.
+data/karhutla/agg/2026.csv.gz
+data/karhutla/cells.csv.gz
+data/karhutla/harvest_state.json

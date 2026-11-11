@@ -543,7 +543,12 @@
   "<span class=\"tl-date\">{0}</span><span class=\"tl-text\">Hasil Index Review November diumumkan ({1} November, {2} waktu Eropa Tengah).</span>": "<span class=\"tl-date\">{0}</span><span class=\"tl-text\">November Index Review results announced ({1} November, {2} Central European Time).</span>",
   "<span class=\"tl-date\">{0}</span><span class=\"tl-text\">Hasil Index Review November diumumkan ({1}, {2} waktu Eropa Tengah).</span>": "<span class=\"tl-date\">{0}</span><span class=\"tl-text\">November Index Review results announced ({1}, {2} Central European Time).</span>",
   "<span class=\"tl-date\">{0}, {1} WIB</span><span class=\"tl-text\">Hasil Index Review November diumumkan ({2} November, {3} waktu Eropa Tengah).</span>": "<span class=\"tl-date\">{0}, {1} WIB</span><span class=\"tl-text\">November Index Review results announced ({2} November, {3} Central European Time).</span>",
-  "putus-putus = modal US${0}": "dashed = US${0} capital"
+  "putus-putus = modal US${0}": "dashed = US${0} capital",
+  "<a href=\"/karhutla/\" class=\"entry-link-title\">Titik Panas Indonesia, Pantauan Harian</a>": "<a href=\"/karhutla/\" class=\"entry-link-title\">Indonesia Fire Hotspots, Daily Watch</a>",
+  "Titik Panas Indonesia, Pantauan Harian": "Indonesia Fire Hotspots, Daily Watch",
+  "Data satelit dari SiPongi+ Kementerian Kehutanan, halamannya dibangun ulang otomatis tiga kali sehari.": "Satellite data from SiPongi+ (Ministry of Forestry); the page rebuilds itself three times a day.",
+  "Di mana titik panas karhutla sekarang dan apakah lebih banyak dari biasanya: peta {0} hari, tren harian, provinsi, dan perbandingan dengan {1} sampai {2}.": "Where forest and land fire hotspots are right now and whether there are more than usual: a {0}-day map, the daily trend, provinces, and a comparison with {1} to {2}.",
+  "Sumber: katalog gempa USGS, titik panas SiPongi+ Kementerian Kehutanan, dan OECD PISA {0} (CC BY {1}). Setiap angka di setiap halaman dihitung ulang oleh gerbang penerimaan sebelum terbit.": "Sources: the USGS earthquake catalogue, SiPongi+ fire hotspots (Ministry of Forestry), and OECD PISA {0} (CC BY {1}). Every figure on every page is recomputed by an acceptance gate before it is published."
  },
  "patterns": [],
  "js_all": [

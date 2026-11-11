@@ -28,6 +28,7 @@ PAGES = [
     ("pasar/ihsg.html", "data/pasar/ihsg.json", ("meta", "as_of"), "daily", 4),
     ("pasar/rupiah.html", "data/pasar/rupiah.json", ("meta", "as_of"), "daily", 4),
     ("pasar/msci.html", "data/pasar/msci.json", ("meta", "as_of"), "monthly", 45),
+    ("karhutla/index.html", "data/karhutla/karhutla.json", ("meta", "as_of"), "daily", 2),
     ("index.html", None, None, "daily", 4),
     ("gempa/index.html", None, None, "daily", 4),
     ("pisa/index.html", None, None, "yearly", 400),

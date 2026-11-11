@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Titik Panas Indonesia: Pantauan Karhutla Harian</title>
+  <meta name="description" content="Pantauan titik panas (hotspot) kebakaran hutan dan lahan di Indonesia dari data satelit SiPongi+, diperbarui otomatis tiga kali sehari: 7 hari terakhir, peta, tren harian, provinsi, dan perbandingan antar tahun.">
+  <link rel="canonical" href="https://dashboard.idzharulhuda.com/karhutla/">
+  <meta property="og:title" content="Titik Panas Indonesia: Pantauan Karhutla Harian">
+  <meta property="og:description" content="Di mana titik panas sekarang, dan apakah lebih banyak dari biasanya. Data SiPongi+, diperbarui otomatis.">
+  <meta property="og:url" content="https://dashboard.idzharulhuda.com/karhutla/">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <style>
+:root {
+  --ground: #F7F1E6;
+  --plane: #FFFBF3;
+  --plane-2: #F0E6D4;
+  --ink: #1A1410;
+  --muted: #6B5B4A;
+  --line: #DCCFB8;
+  --control: #8C7A62;
+  --fire: #B42F14;
+  --font-sans: 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Archivo Black', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+/*__FONTS__*/
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: clip; background: var(--ground); color: var(--ink); }
+body { background: var(--ground); color: var(--ink); font-family: var(--font-sans); font-size: 15px; line-height: 1.5; overflow-x: clip; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+a { color: var(--ink); text-underline-offset: 3px; }
+.container { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* strip kesegaran */
+.dateline { border-bottom: 1px solid var(--line); background: var(--plane); }
+.dateline .container { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 9px; padding-bottom: 9px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.dateline a { color: var(--muted); }
+
+/* galat */
+.err { display: none; background: var(--ink); color: var(--plane); }
+.err .container { padding-top: 12px; padding-bottom: 12px; font-size: 14px; }
+body.has-error .err { display: block; }
+
+/* kepala */
+.head { padding: 56px 0 48px; }
+.micro { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--font-display); font-weight: 900; font-size: 44px; line-height: 1.05; letter-spacing: -0.02em; margin-top: 14px; max-width: 20ch; }
+.ledger { display: grid; grid-template-columns: 1.35fr 1fr 1fr 1fr; gap: 0; margin-top: 40px; border-top: 2px solid var(--ink); }
+.cell { padding: 18px 24px 4px 0; }
+.cell + .cell { padding-left: 24px; border-left: 1px solid var(--line); }
+.k { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.v { font-family: var(--font-mono); font-weight: 500; font-size: 30px; line-height: 1.15; margin-top: 6px; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.cell-focal .v { font-size: 64px; line-height: 1; letter-spacing: -0.04em; }
+.v.name { font-family: var(--font-sans); font-weight: 600; font-size: 22px; letter-spacing: -0.01em; }
+.ctx { font-size: 14px; color: var(--muted); margin-top: 8px; max-width: 34ch; }
+.ctx b { color: var(--ink); font-weight: 600; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.basis-note { margin-top: 22px; font-size: 13px; color: var(--muted); max-width: 80ch; }
+
+/* band */
+.band { padding: 64px 0; }
+.band.plane { background: var(--plane); }
+.band.plane-2 { background: var(--plane-2); }
+.band-top { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+h2 { font-family: var(--font-display); font-weight: 900; font-size: 28px; line-height: 1.1; letter-spacing: -0.015em; max-width: 30ch; }
+.lead { font-size: 16px; margin-top: 10px; max-width: 64ch; }
+.lead em { color: var(--muted); }
+
+/* kontrol segmen */
+.seg { display: inline-flex; border: 1px solid var(--ink); }
+.seg button { font: 500 13px var(--font-mono); background: transparent; color: var(--ink); border: 0; padding: 0 16px; min-height: 44px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--plane); }
+.seg button:disabled { cursor: progress; opacity: 0.6; }
+.seg button:hover:not([aria-pressed="true"]) { background: var(--plane-2); }
+
+/* peta */
+.map-wrap { position: relative; margin-top: 28px; }
+.map-svg { display: block; width: 100%; height: auto; }
+.map-scroll { overflow-x: auto; scrollbar-width: thin; }
+.map-hint { display: none; font-size: 13px; color: var(--muted); margin-top: 8px; }
+.land { fill: var(--plane-2); stroke: var(--line); stroke-width: 0.8; stroke-linejoin: round; }
+.dot { fill: var(--fire); fill-opacity: 0.62; stroke: var(--fire); stroke-width: 0.6; cursor: pointer; }
+.dot.on { fill-opacity: 1; stroke: var(--ink); stroke-width: 1.5; }
+.map-foot { display: flex; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; margin-top: 14px; align-items: center; }
+.readout { font-size: 14px; min-height: 22px; }
+.readout b { font-family: var(--font-mono); font-weight: 500; }
+.legend { display: flex; gap: 18px; align-items: center; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { display: inline-block; border-radius: 50%; background: var(--fire); opacity: 0.75; }
+.empty { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; text-align: center; font-size: 16px; padding: 24px; }
+.is-empty .empty { display: flex; }
+
+/* tren */
+.chart { position: relative; margin-top: 28px; }
+.chart:focus-visible { outline-offset: 6px; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.axis { position: relative; height: 20px; margin-top: 8px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.axis span { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; }
+.axis span:first-child { transform: none; }
+.chart-read { margin-top: 12px; font-size: 14px; min-height: 22px; }
+.chart-read b { font-family: var(--font-mono); font-weight: 500; }
+.hint { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+/* antar tahun */
+.years { display: grid; grid-template-columns: 1.6fr 1fr; gap: 48px; margin-top: 28px; align-items: start; }
+.yr-rows { border-top: 1px solid var(--ink); }
+.yr { display: grid; grid-template-columns: 52px 1fr 92px; gap: 12px; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.yr .y { font-family: var(--font-mono); font-size: 14px; }
+.yr .bar { height: 14px; background: var(--control); }
+.yr.cur .bar { background: var(--fire); }
+.yr.cur .y, .yr.cur .n { font-weight: 500; }
+.yr .n { text-align: right; font-family: var(--font-mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+.end-lab { position: absolute; font-family: var(--font-mono); font-size: 12px; color: var(--muted); white-space: nowrap; transform: translateY(-50%); padding-left: 6px; }
+.end-lab.cur { color: var(--ink); font-weight: 500; }
+
+/* provinsi */
+.prov-list { margin-top: 24px; border-top: 1px solid var(--ink); }
+.prow { display: grid; grid-template-columns: minmax(0, 220px) 1fr 84px 92px; gap: 14px; align-items: center; width: 100%; min-height: 44px; padding: 6px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+.prow:hover { background: var(--plane-2); }
+.prow .pn { font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.prow .pb { height: 12px; background: var(--fire); min-width: 1px; }
+.prow .pv { text-align: right; font-family: var(--font-mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+.prow .pc { text-align: right; font-family: var(--font-mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.prov-head { display: grid; grid-template-columns: minmax(0, 220px) 1fr 84px 92px; gap: 14px; padding: 8px 0; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.prov-head span:nth-child(3), .prov-head span:nth-child(4) { text-align: right; }
+.more { margin-top: 16px; font: 500 13px var(--font-mono); background: transparent; color: var(--ink); border: 1px solid var(--ink); padding: 0 16px; min-height: 44px; cursor: pointer; }
+.more:hover { background: var(--plane-2); }
+.prov-empty { padding: 20px 0; font-size: 15px; display: none; }
+.drill { display: none; margin-top: 24px; border-top: 1px solid var(--ink); padding-top: 20px; }
+.drilling .drill { display: block; }
+.drilling .prov-list, .drilling .more, .drilling .prov-head { display: none; }
+.back { font: 500 13px var(--font-mono); background: var(--ink); color: var(--plane); border: 0; padding: 0 16px; min-height: 44px; cursor: pointer; }
+.drill h3 { font-family: var(--font-display); font-weight: 900; font-size: 24px; margin-top: 20px; letter-spacing: -0.01em; }
+.drill-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; margin-top: 16px; }
+.kab { border-top: 1px solid var(--ink); }
+.kab div { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.kab b { font-family: var(--font-mono); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+/* metode */
+.method { padding: 56px 0 72px; }
+.method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 56px; margin-top: 20px; font-size: 14px; }
+.method-grid p + p { margin-top: 10px; }
+.method-grid h3 { font: 500 12px var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.foot { border-top: 1px solid var(--line); margin-top: 40px; padding-top: 16px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.foot a { color: var(--muted); }
+
+@media (max-width: 960px) {
+  .ledger { grid-template-columns: 1fr 1fr; }
+  .cell-focal { grid-column: 1 / -1; }
+  .cell + .cell { padding-left: 0; border-left: 0; }
+  .cell:nth-child(n+2) { border-top: 1px solid var(--line); }
+  .cell:nth-child(3) { padding-left: 20px; border-left: 1px solid var(--line); }
+  .years, .drill-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width: 600px) {
+  .container { padding: 0 18px; }
+  .head { padding: 36px 0 32px; }
+  h1 { font-size: 32px; }
+  h2 { font-size: 23px; }
+  .cell-focal .v { font-size: 52px; }
+  .v { font-size: 24px; }
+  .v.name { font-size: 18px; }
+  .ledger { grid-template-columns: 1fr; }
+  .cell:nth-child(3) { padding-left: 0; border-left: 0; }
+  .band { padding: 44px 0; }
+  .seg { width: 100%; }
+  .map-svg { width: 760px; max-width: none; }
+  .map-hint { display: block; }
+  .seg button { flex: 1; padding: 0 8px; }
+  .prow, .prov-head { grid-template-columns: minmax(0, 1fr) 64px 72px; }
+  .prow .pb, .prov-head span:nth-child(2) { display: none; }
+  .method-grid { grid-template-columns: 1fr; }
+  .yr { grid-template-columns: 44px 1fr 80px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body class="is-loading">
+<div class="dateline" data-dateline data-as-of="__AS_OF__" data-cadence="daily">
+  <div class="container"><span data-dateline-text>Data per __AS_OF_DATE__</span><span>Diperbarui otomatis 3x sehari dari <a href="https://sipongi.gakkum.kehutanan.go.id" rel="noopener">SiPongi+</a></span></div>
+</div>
+<script>
+/*__DATELINE_JS__*/
+</script>
+<div class="err" role="alert"><div class="container">Data interaktif gagal dimuat. Angka di halaman ini versi saat halaman dibangun; peta dan grafik tidak tampil. Coba muat ulang halaman.</div></div>
+
+<header class="head">
+  <div class="container">
+    <p class="micro"><a href="/" style="color:inherit">Dashboard</a> / Karhutla</p>
+    <h1>Titik panas Indonesia, pantauan harian</h1>
+    <div class="ledger">
+      <div class="cell cell-focal">
+        <p class="k">7 hari terakhir, <span data-fig="k7_span">__FIG_k7_span__</span></p>
+        <p class="v"><span data-fig="k7">__FIG_k7__</span></p>
+        <p class="ctx"><b data-fig="k7_chg">__FIG_k7_chg__</b> dibanding 7 hari sebelumnya (<span data-fig="k7_prev_span">__FIG_k7_prev_span__</span>: <b data-fig="k7_prev">__FIG_k7_prev__</b> titik)</p>
+      </div>
+      <div class="cell">
+        <p class="k"><span data-fig="today_label">__FIG_today_label__</span>, s.d. <span data-fig="today_time">__FIG_today_time__</span> WIB</p>
+        <p class="v"><span data-fig="today">__FIG_today__</span></p>
+        <p class="ctx">Hari belum selesai. Sehari penuh <span data-fig="yday_label">__FIG_yday_label__</span>: <b data-fig="yday">__FIG_yday__</b></p>
+      </div>
+      <div class="cell">
+        <p class="k">Provinsi terbanyak, 7 hari</p>
+        <p class="v name"><span data-fig="top_prov">__FIG_top_prov__</span></p>
+        <p class="ctx"><b data-fig="top_prov_n">__FIG_top_prov_n__</b> titik, <b data-fig="top_prov_share">__FIG_top_prov_share__</b> dari total nasional</p>
+      </div>
+      <div class="cell">
+        <p class="k">Sejak 1 Januari, satelit MODIS</p>
+        <p class="v"><span data-fig="ytdm">__FIG_ytdm__</span></p>
+        <p class="ctx">Periode sama 2025: <b data-fig="ytd_vs_2025">__FIG_ytd_vs_2025__</b>. Dibanding 2019: <b data-fig="ytd_vs_2019">__FIG_ytd_vs_2019__</b></p>
+      </div>
+    </div>
+    <p class="basis-note">Satu titik panas = satu piksel satelit yang lebih panas dari sekitarnya; belum tentu satu kebakaran. Angka di dalam tahun 2026 memakai satelit MODIS dan NOAA-20. NOAA-21 baru masuk data sejak <span data-fig="noaa21_from">__FIG_noaa21_from__</span> dan tidak dihitung, supaya pekan ini bisa dibandingkan dengan pekan-pekan sebelumnya. Perbandingan antar tahun memakai MODIS saja.</p>
+  </div>
+</header>
+
+<section class="band plane" aria-labelledby="h-map">
+  <div class="container">
+    <div class="band-top">
+      <div>
+        <h2 id="h-map">Di mana titik panasnya</h2>
+        <p class="lead" id="map-lead"><em>Tiap lingkaran = sel sekitar 28 x 28 km; makin besar, makin banyak titik panas di sel itu.</em></p>
+      </div>
+      <div class="seg" role="group" aria-label="Periode peta">
+        <button type="button" data-map="1" aria-pressed="false" disabled>Hari ini</button>
+        <button type="button" data-map="7" aria-pressed="true" disabled>7 hari</button>
+        <button type="button" data-map="30" aria-pressed="false" disabled>30 hari</button>
+      </div>
+    </div>
+    <div class="map-wrap" id="map-wrap">
+      <div class="map-scroll" id="map-scroll" tabindex="0" aria-label="Peta, bisa digeser ke samping di layar kecil">
+      <svg class="map-svg" id="map" viewBox="0 0 __MAP_W__ __MAP_H__" role="img" aria-labelledby="map-title">
+        <title id="map-title">Peta titik panas Indonesia</title>
+        <path class="land" d="__MAP_LAND__"></path>
+        <g id="dots"></g>
+      </svg>
+      </div>
+      <p class="empty">Tidak ada titik panas terdeteksi pada periode ini.</p>
+    </div>
+    <p class="map-hint">Geser peta ke kiri atau kanan untuk melihat seluruh Indonesia.</p>
+    <div class="map-foot">
+      <p class="readout" id="map-read" aria-live="polite">Ketuk lingkaran untuk melihat jumlahnya.</p>
+      <div class="legend" id="legend" aria-hidden="true"></div>
+    </div>
+    <noscript><p class="lead">Peta, grafik, dan daftar provinsi butuh JavaScript. Angka di bagian atas tetap berlaku.</p></noscript>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="h-trend">
+  <div class="container">
+    <h2 id="h-trend">Naik turun per hari sepanjang 2026</h2>
+    <p class="lead">Titik panas harian (MODIS + NOAA-20). Garis = rata-rata 7 hari. Puncak tahun ini <b class="num" data-fig="peak">__FIG_peak__</b> titik pada <span data-fig="peak_date">__FIG_peak_date__</span>.</p>
+    <div class="chart" id="trend" tabindex="0" role="img" aria-label="Grafik titik panas harian 2026. Gunakan panah kiri dan kanan untuk membaca per hari."></div>
+    <div class="axis" id="trend-axis" aria-hidden="true"></div>
+    <p class="chart-read" id="trend-read" aria-live="polite"></p>
+    <p class="hint">Sentuh atau arahkan ke grafik; dengan keyboard pakai panah kiri/kanan. Hari terakhir belum lengkap.</p>
+  </div>
+</section>
+
+<section class="band plane-2" aria-labelledby="h-years">
+  <div class="container">
+    <h2 id="h-years">Dibanding tahun-tahun sebelumnya</h2>
+    <p class="lead">Akumulasi titik panas sejak 1 Januari sampai tanggal yang sama (<span data-fig="ytd_span">__FIG_ytd_span__</span>), satelit MODIS saja karena hanya MODIS yang tercatat di semua tahun ini.</p>
+    <div class="years">
+      <div>
+        <div class="chart" id="cum" role="img" aria-label="Akumulasi titik panas MODIS per tahun sejak 1 Januari"></div>
+        <div class="axis" id="cum-axis" aria-hidden="true"></div>
+      </div>
+      <div class="yr-rows" id="yr-rows"></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="h-prov" id="prov-band">
+  <div class="container">
+    <div class="band-top">
+      <div>
+        <h2 id="h-prov">Provinsi</h2>
+        <p class="lead" id="prov-lead">Pilih provinsi untuk melihat tren dan kabupaten/kota teratasnya.</p>
+      </div>
+      <div class="seg" role="group" aria-label="Periode provinsi">
+        <button type="button" data-prov="7" aria-pressed="true" disabled>7 hari</button>
+        <button type="button" data-prov="30" aria-pressed="false" disabled>30 hari</button>
+        <button type="button" data-prov="ytd" aria-pressed="false" disabled>Sejak 1 Jan</button>
+      </div>
+    </div>
+    <div class="prov-head" aria-hidden="true"><span>Provinsi</span><span></span><span>Titik</span><span id="prov-chg-h">vs sebelumnya</span></div>
+    <div class="prov-list" id="prov-list"></div>
+    <p class="prov-empty" id="prov-empty">Tidak ada titik panas terdeteksi pada periode ini.</p>
+    <button type="button" class="more" id="prov-more" hidden>Tampilkan semua provinsi</button>
+    <div class="drill" id="drill">
+      <button type="button" class="back" id="drill-back">Kembali ke daftar provinsi</button>
+      <h3 id="drill-name" tabindex="-1"></h3>
+      <p class="lead" id="drill-lead"></p>
+      <div class="drill-grid">
+        <div>
+          <div class="chart" id="drill-chart" role="img"></div>
+          <div class="axis" id="drill-axis" aria-hidden="true"></div>
+        </div>
+        <div><p class="k" id="drill-kab-h" style="margin-bottom:8px"></p><div class="kab" id="drill-kab"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="method plane" aria-labelledby="h-method">
+  <div class="container">
+    <h2 id="h-method">Sumber dan cara hitung</h2>
+    <div class="method-grid">
+      <div>
+        <h3>Sumber</h3>
+        <p>Titik panas dari <a href="https://sipongi.gakkum.kehutanan.go.id" rel="noopener">SiPongi+</a>, Direktorat Pengendalian Kebakaran Hutan dan Lahan, Kementerian Kehutanan, yang meneruskan deteksi satelit NASA (MODIS, VIIRS NOAA-20, VIIRS NOAA-21). Data diambil dari API publik peta SiPongi+ tanpa login.</p>
+        <p>Halaman ini dibangun ulang otomatis tiga kali sehari (05.30, 11.30, 16.30 WIB). Empat hari terakhir selalu ditarik ulang, karena deteksi bisa masuk terlambat.</p>
+      </div>
+      <div>
+        <h3>Cara hitung</h3>
+        <p>Semua tingkat keyakinan (rendah, sedang, tinggi) dihitung, sama dengan tampilan bawaan SiPongi+. Tanggal memakai WIB. "7 hari" dan "30 hari" adalah hari penuh yang berakhir kemarin; hari terakhir ditampilkan terpisah karena belum lengkap.</p>
+        <p>Total semua satelit sejak 1 Januari: <b class="num" data-fig="all_ytd">__FIG_all_ytd__</b> titik, termasuk <b class="num" data-fig="noaa21_n">__FIG_noaa21_n__</b> dari NOAA-21. Karena itu angka resmi SiPongi+ sejak November bisa sekitar dua kali angka di sini. Titik panas bukan luas terbakar.</p>
+      </div>
+    </div>
+    <div class="foot">
+      <span>Data per __AS_OF_LONG__</span>
+      <span><a href="/">Semua dashboard</a></span>
+    </div>
+  </div>
+</section>
+
+<script type="application/json" id="payload">__DATA__</script>
+<script>
+(function () {
+  "use strict";
+  let DATA = null;
+  try {
+    DATA = JSON.parse(document.getElementById("payload").textContent);
+    if (!DATA || !DATA.meta || !DATA.nat || !DATA.cells || !DATA.prov) throw new Error("payload tidak lengkap");
+  } catch (err) {
+    document.body.classList.remove("is-loading");
+    document.body.classList.add("has-error");
+    if (window.console) console.warn("karhutla: " + err.message);
+    return;
+  }
+  const $ = (s) => document.querySelector(s);
+  const NS = "http://www.w3.org/2000/svg";
+  const MON = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+  const fmt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  const fmt1 = (x) => x.toFixed(1).replace(".", ",");
+  const M = DATA.meta;
+  const D0 = new Date(M.d0 + "T00:00:00Z");
+  const dayOf = (i) => new Date(D0.getTime() + i * 864e5);
+  const lab = (i) => { const d = dayOf(i); return d.getUTCDate() + " " + MON[d.getUTCMonth()]; };
+  const sum = (a, x, y) => { let s = 0; for (let i = x; i <= y; i++) s += a[i] || 0; return s; };
+  const pct = (c, p) => {
+    if (!p) return "baru";
+    const x = (c - p) / p * 100;
+    const s = Math.abs(x) >= 10 ? fmt(Math.abs(x)) : fmt1(Math.abs(x));
+    return (x > 0 ? "+" : x < 0 ? "-" : "") + s + "%";
+  };
+  const el = (tag, attrs, parent) => {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+  const W = M.windows, PW = M.prev_windows;
+  const spanLab = (w) => lab(W[w][0]) + (W[w][0] === W[w][1] ? "" : " - " + lab(W[w][1]));
+
+  /* ---------- peta ---------- */
+  const G = M.grid, mapSvg = $("#map");
+  const VB = mapSvg.viewBox.baseVal, SC = VB.width / 47.5;
+  function drawMap(w) {
+    const cells = DATA.cells[w] || [];
+    const g = $("#dots");
+    g.textContent = "";
+    const total = cells.reduce((s, c) => s + c[2], 0);
+    $("#map-wrap").classList.toggle("is-empty", cells.length === 0);
+    const px = mapSvg.getBoundingClientRect().width || VB.width;
+    const k = Math.max(1, (VB.width / px) * 0.9);
+    const rOf = (n) => Math.max(1.6 * k, Math.sqrt(n) * 0.8 * Math.min(k, 1.6));
+    const sorted = cells.slice().sort((a, b) => b[2] - a[2]);
+    for (const c of sorted) {
+      const cx = (c[0] + 0.5) * G.cell * SC, cy = (c[1] + 0.5) * G.cell * SC;
+      const d = el("circle", { cx: cx.toFixed(1), cy: cy.toFixed(1), r: rOf(c[2]).toFixed(2), class: "dot" }, g);
+      d.dataset.n = c[2];
+      d.dataset.lon = (G.lon0 + (c[0] + 0.5) * G.cell).toFixed(2);
+      d.dataset.lat = (G.lat0 - (c[1] + 0.5) * G.cell).toFixed(2);
+    }
+    const periodTxt = w === "1" ? lab(W["1"][0]) + " s.d. " + M.as_of_time.replace(":", ".") + " WIB" : spanLab(w);
+    $("#map-read").textContent = cells.length
+      ? periodTxt + ": " + fmt(total) + " titik panas di " + fmt(cells.length) + " sel. Ketuk lingkaran untuk melihat jumlahnya."
+      : periodTxt + ": tidak ada titik panas.";
+    mapSvg.querySelector("title").textContent = "Peta titik panas Indonesia, " + periodTxt + ", " + fmt(total) + " titik";
+    const lg = $("#legend");
+    lg.textContent = "";
+    for (const n of [10, 100, 500]) {
+      const s = document.createElement("span");
+      const i = document.createElement("i");
+      const dpx = 2 * rOf(n) * px / VB.width;
+      i.style.width = i.style.height = dpx.toFixed(1) + "px";
+      s.appendChild(i);
+      s.appendChild(document.createTextNode(fmt(n)));
+      lg.appendChild(s);
+    }
+  }
+  $("#dots").addEventListener("click", (e) => {
+    const d = e.target.closest(".dot");
+    if (!d) return;
+    document.querySelectorAll(".dot.on").forEach((x) => x.classList.remove("on"));
+    d.classList.add("on");
+    const lat = +d.dataset.lat, lon = +d.dataset.lon;
+    $("#map-read").innerHTML = "Sel sekitar " + fmt1(Math.abs(lat)) + "&deg;" + (lat < 0 ? "LS" : "LU") + ", " +
+      fmt1(lon) + "&deg;BT: <b>" + fmt(+d.dataset.n) + "</b> titik panas.";
+  });
+
+  /* ---------- grafik batang harian ---------- */
+  function bars(box, axis, read, series, opts) {
+    const n = series.length, w = 1000, h = opts.h || 260;
+    const max = Math.max(1, ...series);
+    box.textContent = "";
+    const svg = el("svg", { viewBox: "0 0 " + w + " " + h, preserveAspectRatio: "none", "aria-hidden": "true" }, box);
+    svg.style.height = (opts.hpx || 260) + "px";
+    for (const f of [0.25, 0.5, 0.75]) el("line", { x1: 0, x2: w, y1: h - h * f, y2: h - h * f, stroke: "#DCCFB8", "stroke-width": 1, "vector-effect": "non-scaling-stroke" }, svg);
+    const bw = w / n;
+    for (let i = 0; i < n; i++) {
+      const v = series[i] || 0, bh = v / max * (h - 6);
+      el("rect", { x: (i * bw).toFixed(2), y: (h - bh).toFixed(2), width: Math.max(bw - (n > 120 ? 0.4 : 1.5), 0.6).toFixed(2), height: bh.toFixed(2), fill: i === n - 1 && opts.partialLast ? "#C9B79C" : "#B42F14" }, svg);
+    }
+    if (opts.avg) {
+      let d = "";
+      for (let i = 6; i < n - (opts.partialLast ? 1 : 0); i++) {
+        const a = sum(series, i - 6, i) / 7;
+        d += (d ? "L" : "M") + ((i + 0.5) * bw).toFixed(1) + " " + (h - a / max * (h - 6)).toFixed(1);
+      }
+      el("path", { d: d, fill: "none", stroke: "#1A1410", "stroke-width": 2, "vector-effect": "non-scaling-stroke" }, svg);
+    }
+    el("line", { x1: 0, x2: w, y1: h, y2: h, stroke: "#1A1410", "stroke-width": 1, "vector-effect": "non-scaling-stroke" }, svg);
+    const cur = el("line", { x1: 0, x2: 0, y1: 0, y2: h, stroke: "#1A1410", "stroke-width": 1, "vector-effect": "non-scaling-stroke", visibility: "hidden" }, svg);
+    axis.textContent = "";
+    const ticks = opts.ticks(n);
+    for (const t of ticks) {
+      const s = document.createElement("span");
+      s.style.left = (t / n * 100).toFixed(2) + "%";
+      s.textContent = opts.tickLab(t);
+      axis.appendChild(s);
+    }
+    let pos = n - 1;
+    const show = (i) => {
+      pos = Math.max(0, Math.min(n - 1, i));
+      cur.setAttribute("x1", ((pos + 0.5) * bw).toFixed(1));
+      cur.setAttribute("x2", ((pos + 0.5) * bw).toFixed(1));
+      cur.setAttribute("visibility", "visible");
+      read.innerHTML = opts.readLab(pos, series[pos] || 0);
+    };
+    const fromEvent = (e) => {
+      const r = svg.getBoundingClientRect();
+      const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+      show(Math.floor(x / r.width * n));
+    };
+    svg.addEventListener("pointermove", fromEvent);
+    svg.addEventListener("pointerdown", fromEvent);
+    box.onkeydown = (e) => {
+      if (e.key === "ArrowLeft" || e.key === "ArrowRight") { e.preventDefault(); show(pos + (e.key === "ArrowLeft" ? -1 : 1) * (e.shiftKey ? 7 : 1)); }
+      if (e.key === "Home") { e.preventDefault(); show(0); }
+      if (e.key === "End") { e.preventDefault(); show(n - 1); }
+    };
+    read.innerHTML = opts.readLab(n - 1, series[n - 1] || 0);
+  }
+  const monthTicks = (off) => (n) => {
+    const t = [];
+    for (let i = 0; i < n; i++) if (dayOf(i + off).getUTCDate() === 1) t.push(i);
+    return t;
+  };
+
+  function drawTrend() {
+    const s = DATA.nat.basis, last = s.length - 1;
+    bars($("#trend"), $("#trend-axis"), $("#trend-read"), s, {
+      avg: true, partialLast: true, hpx: window.innerWidth < 600 ? 180 : 260,
+      ticks: monthTicks(0), tickLab: (i) => MON[dayOf(i).getUTCMonth()],
+      readLab: (i, v) => "<b>" + lab(i) + "</b>: " + fmt(v) + " titik panas" +
+        (i === last ? " (s.d. " + M.as_of_time.replace(":", ".") + " WIB, belum lengkap)" : "") +
+        (i >= 6 && i < last ? ". Rata-rata 7 hari: " + fmt(sum(s, i - 6, i) / 7) : ""),
+    });
+  }
+
+  /* ---------- antar tahun ---------- */
+  function drawYears() {
+    const end = W.ytd[1];
+    const series = [[String(M.year), DATA.nat.modis]].concat(M.cmp_years.map((y) => [y, DATA.cmp[y]]));
+    const cum = series.map(([y, a]) => { let s = 0; return [y, a.slice(0, end + 1).map((v) => (s += v || 0))]; });
+    const max = Math.max(...cum.map((c) => c[1][end]));
+    const box = $("#cum"), w = 1000, h = 300;
+    box.textContent = "";
+    const svg = el("svg", { viewBox: "0 0 " + w + " " + h, preserveAspectRatio: "none", "aria-hidden": "true" }, box);
+    svg.style.height = (window.innerWidth < 600 ? 200 : 280) + "px";
+    const X = (i) => i / end * (w - 4), Y = (v) => h - v / max * (h - 8);
+    el("line", { x1: 0, x2: w, y1: h, y2: h, stroke: "#1A1410", "stroke-width": 1, "vector-effect": "non-scaling-stroke" }, svg);
+    cum.slice().reverse().forEach(([y, c]) => {
+      let d = "";
+      for (let i = 0; i <= end; i += 2) d += (d ? "L" : "M") + X(i).toFixed(1) + " " + Y(c[i]).toFixed(1);
+      d += "L" + X(end).toFixed(1) + " " + Y(c[end]).toFixed(1);
+      const isCur = y === String(M.year);
+      el("path", { d: d, fill: "none", stroke: isCur ? "#B42F14" : "#8C7A62", "stroke-width": isCur ? 3 : 1.5, "vector-effect": "non-scaling-stroke" }, svg);
+    });
+    // label ujung: urut nilai, beri jarak minimum supaya tidak tumpang
+    const hpx = parseFloat(svg.style.height);
+    const labs = cum.map(([y, c]) => ({ y: y, v: c[end], top: Y(c[end]) / h * hpx })).sort((a, b) => a.top - b.top);
+    for (let i = 1; i < labs.length; i++) if (labs[i].top - labs[i - 1].top < 16) labs[i].top = labs[i - 1].top + 16;
+    box.style.paddingRight = "52px";
+    for (const L of labs) {
+      const s = document.createElement("span");
+      s.className = "end-lab" + (L.y === String(M.year) ? " cur" : "");
+      s.style.right = "0"; s.style.top = L.top.toFixed(1) + "px";
+      s.style.width = "52px";
+      s.textContent = L.y;
+      box.appendChild(s);
+    }
+    const ax = $("#cum-axis");
+    ax.textContent = "";
+    ax.style.marginRight = "52px";
+    monthTicks(0)(end + 1).forEach((t) => {
+      const s = document.createElement("span");
+      s.style.left = (t / end * 100).toFixed(2) + "%";
+      s.textContent = MON[dayOf(t).getUTCMonth()];
+      ax.appendChild(s);
+    });
+    const rows = $("#yr-rows");
+    rows.textContent = "";
+    cum.slice().sort((a, b) => +a[0] - +b[0]).forEach(([y, c]) => {
+      const r = document.createElement("div");
+      r.className = "yr" + (y === String(M.year) ? " cur" : "");
+      r.innerHTML = '<span class="y">' + y + '</span><span><span class="bar" style="display:block;width:' +
+        (c[end] / max * 100).toFixed(1) + '%"></span></span><span class="n">' + fmt(c[end]) + "</span>";
+      rows.appendChild(r);
+    });
+  }
+
+  /* ---------- provinsi ---------- */
+  const P = DATA.prov;
+  let provWin = "7", showAll = false;
+  function provRows(w) {
+    const [a, b] = W[w], pw = PW[w];
+    return P.names.map((name, i) => ({
+      i: i, name: name, n: sum(P.daily[i], a, b), p: pw ? sum(P.daily[i], pw[0], pw[1]) : null,
+    })).filter((r) => r.n > 0).sort((x, y) => y.n - x.n || x.name.localeCompare(y.name));
+  }
+  function drawProv() {
+    const rows = provRows(provWin), list = $("#prov-list");
+    const total = rows.reduce((s, r) => s + r.n, 0);
+    list.textContent = "";
+    const max = rows.length ? rows[0].n : 1;
+    const shown = showAll ? rows : rows.slice(0, 12);
+    for (const r of shown) {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "prow"; b.dataset.i = r.i;
+      b.setAttribute("aria-label", r.name + ", " + fmt(r.n) + " titik panas. Buka rincian provinsi.");
+      b.innerHTML = '<span class="pn"></span><span><span class="pb" style="display:block;width:' + (r.n / max * 100).toFixed(1) +
+        '%"></span></span><span class="pv">' + fmt(r.n) + '</span><span class="pc">' + (r.p === null ? (r.n / total * 100).toFixed(0) + "%" : pct(r.n, r.p)) + "</span>";
+      b.querySelector(".pn").textContent = r.name;
+      list.appendChild(b);
+    }
+    $("#prov-empty").style.display = rows.length ? "none" : "block";
+    $("#prov-chg-h").textContent = PW[provWin] ? "vs sebelumnya" : "porsi";
+    const more = $("#prov-more");
+    more.hidden = rows.length <= 12;
+    more.textContent = showAll ? "Tampilkan 12 teratas" : "Tampilkan semua " + rows.length + " provinsi";
+    const lead = provWin === "ytd" ? "1 Jan - " + lab(W.ytd[1]) : spanLab(provWin);
+    $("#prov-lead").textContent = lead + ": " + fmt(total) + " titik panas di " + rows.length + " provinsi (MODIS + NOAA-20)." +
+      (PW[provWin] ? " Kolom kanan membandingkan dengan " + provWin + " hari sebelumnya." : "") + " Pilih provinsi untuk rinciannya.";
+  }
+  function openDrill(i) {
+    const name = P.names[i], s = P.daily[i], last = s.length - 1;
+    const from = Math.max(0, last - 59);
+    $("#prov-band").classList.add("drilling");
+    $("#drill-name").textContent = name;
+    const [a, b] = W[provWin];
+    const lead = provWin === "ytd" ? "sejak 1 Jan" : provWin + " hari terakhir";
+    $("#drill-lead").textContent = fmt(sum(s, a, b)) + " titik panas " + lead + ". Grafik: 60 hari terakhir, MODIS + NOAA-20.";
+    bars($("#drill-chart"), $("#drill-axis"), document.createElement("p"), s.slice(from), {
+      partialLast: true, h: 200, hpx: 180, ticks: (n) => [0, Math.floor(n / 2), n - 1], tickLab: (t) => lab(from + t),
+      readLab: () => "",
+    });
+    $("#drill-chart").setAttribute("aria-label", "Titik panas harian " + name + ", " + lab(from) + " sampai " + lab(last));
+    const kab = (DATA.kab[provWin] || {})[String(i)] || [];
+    $("#drill-kab-h").textContent = "Kabupaten/kota teratas, " + lead;
+    const box = $("#drill-kab");
+    box.textContent = "";
+    if (!kab.length) box.textContent = "Tidak ada titik panas pada periode ini.";
+    for (const [k, n] of kab) {
+      const d = document.createElement("div");
+      const sp = document.createElement("span"); sp.textContent = k;
+      const bb = document.createElement("b"); bb.textContent = fmt(n);
+      d.append(sp, bb); box.appendChild(d);
+    }
+    $("#drill-name").focus();
+  }
+  $("#prov-list").addEventListener("click", (e) => { const b = e.target.closest(".prow"); if (b) openDrill(+b.dataset.i); });
+  let lastDrill = null;
+  $("#prov-list").addEventListener("click", (e) => { const b = e.target.closest(".prow"); if (b) lastDrill = +b.dataset.i; });
+  function closeDrill() {
+    $("#prov-band").classList.remove("drilling");
+    const b = lastDrill !== null && document.querySelector('.prow[data-i="' + lastDrill + '"]');
+    (b || $("#h-prov")).focus();
+  }
+  $("#drill-back").addEventListener("click", closeDrill);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && $("#prov-band").classList.contains("drilling")) closeDrill(); });
+  $("#prov-more").addEventListener("click", () => { showAll = !showAll; drawProv(); });
+
+  /* ---------- kontrol ---------- */
+  function segment(attr, onPick) {
+    const btns = document.querySelectorAll("[data-" + attr + "]");
+    btns.forEach((b) => {
+      b.disabled = false;
+      b.addEventListener("click", () => {
+        btns.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        onPick(b.dataset[attr]);
+      });
+    });
+  }
+  let mapWin = "7";
+  try {
+    drawMap(mapWin); drawTrend(); drawYears(); drawProv();
+    const ms = $("#map-scroll");
+    if (ms.scrollWidth > ms.clientWidth) ms.scrollLeft = (ms.scrollWidth - ms.clientWidth) * 0.42;
+    segment("map", (w) => { mapWin = w; drawMap(w); });
+    segment("prov", (w) => { provWin = w; showAll = false; if ($("#prov-band").classList.contains("drilling")) closeDrill(); drawProv(); });
+    let rt;
+    window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { drawMap(mapWin); drawTrend(); drawYears(); }, 150); });
+    document.body.classList.remove("is-loading");
+  } catch (err) {
+    document.body.classList.remove("is-loading");
+    document.body.classList.add("has-error");
+    if (window.console) console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

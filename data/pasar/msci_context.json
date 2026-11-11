@@ -28,6 +28,19 @@
    "announce_cet": "2026-11-11 23:00",
    "announce_wib": "2026-11-12 05:00",
    "effective_close": "2026-11-30"
+  },
+  "result": {
+   "date": "2026-11-11",
+   "source": "MSCI Global Standard Indexes, November 2026 Index Review (Geneva, November 11, 2026)",
+   "source_file": "source/msci-nov26-stpubliclist.txt",
+   "source_pdf": "source/msci-nov26-stpubliclist.pdf",
+   "source_sha256": "3c005a6a08d9eecf2ad114de32c1878cd28b86b9bb1d31b543294f28ac9e4acc",
+   "url": "https://www.msci.com/eqb/gimi/stdindex/MSCI_Nov26_STPublicList.pdf",
+   "additions": [],
+   "deletions": [
+    "BARITO PACIFIC",
+    "BUMI RESOURCES MINERALS"
+   ]
   }
  }
 }

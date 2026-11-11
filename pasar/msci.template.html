@@ -741,6 +741,12 @@ body {
 .tl-date { font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--ink); }
 .timeline li.is-past .tl-date, .timeline li.is-past .tl-text { color: var(--muted); }
 .timeline li.is-next .tl-date { color: var(--accent); }
+/* Saham yang dikeluarkan Index Review: tanda teks + batang garis putus (porsinya masih dihitung sampai efektif). */
+.row-name { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.row-name .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.row-out { flex: none; font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--ink); border: 1px solid var(--ink); padding: 0 4px; line-height: 16px; white-space: nowrap; }
+.data-table th .row-out { margin-left: 8px; vertical-align: 1px; }
+.ranked-row.is-out .bar-rect { background: transparent; border: 1.5px dashed var(--muted); box-sizing: border-box; }
 .tl-state { display: block; font-family: var(--font-sans); font-size: 12px; font-weight: 600; color: var(--accent); margin-top: 2px; }
 .why-disclaimer { font-size: 13px; color: var(--muted); margin-top: 20px; max-width: 720px; }
 .band-divider-label { display: block; margin-bottom: 14px; }
@@ -1094,7 +1100,7 @@ body {
     <div class="container">
       <h2 id="why-heading" class="band-title">KENAPA DITINGGAL: MSCI MENIMBANG MENURUNKAN INDONESIA KE STANDALONE</h2>
       <p class="why-copy">Dalam rilis 15 Oktober 2026, MSCI menulis bahwa pelaku pasar masih melihat kepemilikan saham yang tidak transparan, dugaan perdagangan terkoordinasi, dan penegakan aturan yang belum terlihat. Standalone berada di luar kelompok negara berkembang. Menurut MSCI, turun ke Frontier pun dinilai belum mencerminkan dalamnya masalah.</p>
-      <p class="why-copy">Selama konsultasi, perubahan yang menambah porsi Indonesia dibekukan: tidak ada saham baru masuk, tidak ada kenaikan porsi saham untuk asing (FIF) atau jumlah saham (NOS), dan tidak ada saham naik kelas. Saham masih bisa dikeluarkan atau turun kelas.</p>
+      <p class="why-copy">Selama konsultasi, perubahan yang menambah porsi Indonesia dibekukan: tidak ada saham baru masuk, tidak ada kenaikan porsi saham untuk asing (FIF) atau jumlah saham (NOS), dan tidak ada saham naik kelas. Saham masih bisa dikeluarkan atau turun kelas. Hasil Index Review November mengikuti pola itu: nol saham masuk, <span data-fig="review_out_count"></span> dikeluarkan.</p>
       <ol class="timeline" id="timeline" aria-label="Linimasa konsultasi dan Index Review">
         <!-- populated from DATA; fallback below for no-JS -->
       </ol>
@@ -1107,7 +1113,7 @@ body {
     <div class="container">
       <span class="micro-label band-divider-label">Isi indeksnya</span>
       <h2 id="ranked-heading" class="band-title">EMPAT BANK MEMEGANG <span data-fig="bank_weight_pct"></span> PERSEN</h2>
-      <p class="band-lead">Indeks ini cuma <span data-fig="constituents_count"></span> saham, mewakili <span data-fig="coverage_pct"></span> persen nilai pasar. Lima teratas sudah mencakup <span data-fig="top5_weight_pct"></span> indeks, dan empat di antaranya bank. Lima saham lain berbagi <span data-fig="nonbank_weight_pct"></span> persen. BBCA sendirian <span data-fig="bca_weight_pct"></span>.</p>
+      <p class="band-lead">Indeks ini cuma <span data-fig="constituents_count"></span> saham, mewakili <span data-fig="coverage_pct"></span> persen nilai pasar. Lima teratas sudah mencakup <span data-fig="top5_weight_pct"></span> indeks, dan empat di antaranya bank. Lima saham lain berbagi <span data-fig="nonbank_weight_pct"></span> persen. BBCA sendirian <span data-fig="bca_weight_pct"></span>. Index Review November mengeluarkan Barito Pacific dan Bumi Resources Minerals (gabungan <span data-fig="review_out_weight_pct"></span>). Setelah penutupan <span data-fig="review_effective"></span>, indeks tinggal <span data-fig="review_remain_count"></span> saham.</p>
 
       <div class="ranked-chart" id="ranked-bars" role="region" aria-label="Grafik peringkat porsi saham">
         <!-- populated from DATA -->
@@ -1193,7 +1199,7 @@ body {
         <p class="footer-line">Sumber: <span data-fig="source_pdf"></span></p>
         <p class="footer-line">Sumber pembanding: <span data-fig="source_prev"></span></p>
         <p class="footer-line">Sumber data Oktober: <a href="https://www.ojk.go.id/id/berita-dan-kegiatan/siaran-pers/Pages/RDKB-Oktober-2026.aspx" style="color:inherit"><span data-fig="source_ojk"></span></a></p>
-        <p class="footer-line">Sumber linimasa: rilis MSCI <a href="https://ir.msci.com/news-releases/news-release-details/msci-launches-consultation-proposal-reclassify-indonesia" style="color:inherit">15 Oktober 2026</a> dan <a href="https://ir.msci.com/news-releases/news-release-details/msci-november-index-review-announcement-scheduled-november-11" style="color:inherit">4 November 2026</a></p>
+        <p class="footer-line">Sumber linimasa: rilis MSCI <a href="https://ir.msci.com/news-releases/news-release-details/msci-launches-consultation-proposal-reclassify-indonesia" style="color:inherit">15 Oktober 2026</a> dan <a href="https://ir.msci.com/news-releases/news-release-details/msci-november-index-review-announcement-scheduled-november-11" style="color:inherit">4 November 2026</a>, serta daftar hasil <a href="https://www.msci.com/eqb/gimi/stdindex/MSCI_Nov26_STPublicList.pdf" style="color:inherit">Index Review November 2026</a> (11 November 2026)</p>
         <p class="footer-line">Metode: <span data-fig="method_note"></span></p>
         <p class="footer-hash">SHA256: <span data-fig="source_sha256"></span></p>
         <p class="footer-scope"><span data-fig="scope_note"></span></p>
@@ -1292,8 +1298,8 @@ function initDataStory() {
     let html = '';
     DATA.timeline.forEach(e => {
       let cls = 'is-past', state = '';
-      if (e.date >= today && !nextFound) { cls = 'is-next'; state = '<span class="tl-state">berikutnya</span>'; nextFound = true; }
-      else if (e.date >= today) { cls = ''; }
+      if (e.date >= today && !e.done && !nextFound) { cls = 'is-next'; state = '<span class="tl-state">berikutnya</span>'; nextFound = true; }
+      else if (e.date >= today && !e.done) { cls = ''; }
       html += `<li class="${cls}"><span class="tl-date">${esc(e.d)}${state}</span><span class="tl-text">${esc(e.text)}</span></li>`;
     });
     tl.innerHTML = html;
@@ -1308,14 +1314,15 @@ function initDataStory() {
       const pctVal = c.weight_pct;
       const barWidth = Math.min((pctVal / maxScale) * 100, 100).toFixed(2);
       const isBank = c.is_bank;
+      const outTag = c.is_out ? '<span class="row-out">keluar 30 Nov</span>' : '';
       const barClass = isBank ? 'bar-bank' : 'bar-other';
       const valClass = isBank ? 'val-bank' : 'val-other';
 
       rowsHtml += `
-        <div class="ranked-row">
+        <div class="ranked-row${c.is_out ? ' is-out' : ''}">
           <span class="row-rank">${c.rank_str}</span>
           <span class="row-ticker">${c.ticker}</span>
-          <span class="row-name" title="${c.name}">${c.name}</span>
+          <span class="row-name" title="${c.name}"><span class="nm">${c.name}</span>${outTag}</span>
           <span class="row-sector">${c.sector_short}</span>
           <div class="row-bar-zone">
             <div class="gridline-track" aria-hidden="true">
@@ -1365,7 +1372,7 @@ function initDataStory() {
     DATA.constituents.forEach(c => {
       tableRows += `
         <tr>
-          <th scope="row">${c.name} (${c.ticker})</th>
+          <th scope="row">${c.name} (${c.ticker})${c.is_out ? '<span class="row-out">keluar 30 Nov</span>' : ''}</th>
           <td class="col-sector" data-label="Sektor">${c.sector}</td>
           <td class="col-cap" data-label="Nilai pasar (USD miliar)">${c.float_cap_bn_d}</td>
           <td class="col-weight" data-label="Porsi (persen)">${c.weight_pct_d}</td>

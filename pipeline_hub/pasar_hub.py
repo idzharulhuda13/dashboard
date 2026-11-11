@@ -197,6 +197,12 @@ def load(root: str) -> dict:
         "pasar_msci_pe": {"r": msci["fundamentals"]["indonesia"]["pe"], "d": fmt_id(msci["fundamentals"]["indonesia"]["pe"], 2)},
         "pasar_msci_pe_em": {"r": msci["fundamentals"]["em"]["pe"], "d": fmt_id(msci["fundamentals"]["em"]["pe"], 2)},
     }
+    # Hasil Index Review (kalau sudah ada): jumlah saham keluar dan sisa, dari daftar resmi MSCI.
+    res = ((msci.get("context") or {}).get("msci_release") or {}).get("result")
+    if res:
+        out = len(res.get("deletions", []))
+        fig["pasar_msci_out"] = {"r": out, "d": str(out)}
+        fig["pasar_msci_left"] = {"r": len(constituents) - out, "d": str(len(constituents) - out)}
 
     ihsg_series = [row["close"] for row in ihsg["series"]]
     peak_idx = max(range(len(ihsg_series)), key=lambda i: ihsg_series[i])

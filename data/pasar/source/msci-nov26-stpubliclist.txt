@@ -1,0 +1,348 @@
+Geneva, November 11, 2026
+
+MSCI GLOBAL STANDARD INDEXES
+
+This report presents the MSCI Global Standard Indexes review results based
+on data as of the price cutoff date of October 20, 2026.
+Changes will be effective as of the close of business on November 30, 2026.
+Results may be updated to reflect the impact of corporate events, Ineligible Alert Board (IAB) treatments,
+or other relevant adjustments occurring between the price cutoff date and the effective date.
+
+SUMMARY PER COUNTRY and PER REGION:
+
+
+                               Nb of                         Nb of
+                               Securities                    Securities
+Region         Country         Added                         Deleted
+
+Asia Pacific
+               AUSTRALIA       0                             3
+               JAPAN           0                             5
+               HONG KONG       0                             1
+               INDONESIA       0                             2
+               PHILIPPINES     0                             2
+               TAIWAN          3                             4
+               INDIA           4                             1
+               CHINA           3                             38
+               SINGAPORE       0                             1
+
+                               Nb of                         Nb of
+                               Securities                    Securities
+Region         Country         Added                         Deleted
+
+Europe, Middle East and Africa
+             SWITZERLAND       0                             1
+             FRANCE            0                             2
+             UNITED KINGDOM    0                             1
+             FINLAND           0                             1
+             TURKEY            0                             2
+             KUWAIT            0                             1
+             SWEDEN            0                             2
+             SOUTH AFRICA      0                             2
+             SAUDI ARABIA      0                             2
+             EGYPT             1                             1
+             QATAR             0                             2
+
+                               Nb of                         Nb of
+                               Securities                    Securities
+Region         Country         Added                         Deleted
+
+Americas
+               USA             1                             24
+               CANADA          1                             1
+               BRAZIL          0                             1
+
+
+ASIA PACIFIC
+
+MSCI AUSTRALIA INDEX
+Additions                                  Deletions
+None                                       PLS GROUP
+                                           VICINITY CENTRES
+                                           XERO (AU)
+
+
+MSCI JAPAN INDEX
+Additions                                  Deletions
+None                                       ANA HOLDINGS
+                                           DAITO TRUST CONSTRUCTION
+                                           HANKYU HANSHIN HOLDINGS
+                                           NIPPON BUILDING FUND
+                                           NISSAN MOTOR CO
+
+
+MSCI HONG KONG INDEX
+
+Page 1                                MSCI Global Standard Indexes - November 11, 2026   © MSCI 2026, All rights reserved
+Additions                       Deletions
+None                            SANDS CHINA
+
+
+MSCI INDONESIA INDEX
+Additions                       Deletions
+None                            BARITO PACIFIC
+                                BUMI RESOURCES MINERALS
+
+
+MSCI PHILIPPINES INDEX
+Additions                       Deletions
+None                            MANILA ELECTRIC CO B
+                                PLDT
+
+
+MSCI TAIWAN INDEX
+Additions                       Deletions
+KINSUS INTERCONNECT TECH        CHAILEASE HOLDING
+NAN YA PRINTED CIRCUIT          E INK HOLDINGS
+TAIWAN UNION TECHNOLOGY         LOTES CO
+                                WAN HAI LINES
+
+
+MSCI INDIA INDEX
+Additions                       Deletions
+ADANI GREEN ENERGY              PI INDUSTRIES
+COFORGE
+LIFE INS CORP OF INDIA
+MEESHO
+
+
+MSCI CHINA INDEX
+Additions                       Deletions
+HUADIAN NEW EN A (HK-C)         ANGEL YEAST CO A (HK-C)
+YUNNAN LINCANG A (HK-C)         BEIJING NEW BLDG A(HK-C)
+ZHONGJI INNOLIGHT H             BOC INTL A (HK-C)
+                                C&D INTERNATIONAL INV
+                                CHINA FEIHE
+                                CHINA GAS HOLDINGS
+                                CHINA GREAT SEC A (HK-C)
+                                CHINA NAT'L A (HK-C)
+                                CHINA NATL BUILDING H
+                                CNGR ADVANCED A (HK-C)
+                                CSI SOLAR A (HK-C)
+                                DAZHONG MINING A (HK-C)
+                                ECOVACS ROBOTIC A (HK-C)
+                                FAR EAST HORIZON
+                                GANFENG LITHIUM GROUP H
+                                GIANT BIOGENE HOLDING
+                                GUOBO ELEC A (HK-C)
+                                GUOYUAN SEC CO A (HK-C)
+                                HAINAN AIRPORT A (HK-C)
+                                HAITIAN INTL HLDGS
+                                HENGAN INTL GROUP CO
+                                HOSHINE SILICON A (HK-C)
+                                IMEIK TECHNOLOGY A(HK-C)
+                                LEGEND BIOTECH CORP ADR
+                                LONGFOR GROUP HOLDINGS
+                                MINISO GROUP (HK)
+                                NINGBO ORIENT A (HK-C)
+                                QUANTUMCTEK A (HK-C)
+                                SHANGHAI RAAS A (HK-C)
+                                SHENZHEN GREEN A (HK-C)
+                                SICHUAN CHANGHON A(HK-C)
+                                SINOMINE RESOURCE A HK-C
+                                SUZHOU A (HK-C)
+                                TONGCHENG TRAVEL HLDGS
+                                WINTIME ENERGY A (HK-C)
+                                XTALPI HOLDINGS
+                                YADEA GROUP HOLDINGS
+                                ZHUZHOU CRRC TIMES H
+
+
+MSCI SINGAPORE INDEX
+
+Page 2                     MSCI Global Standard Indexes - November 11, 2026   © MSCI 2026, All rights reserved
+Additions                             Deletions
+None                                  CAPITALAND ASCENDAS REIT
+
+
+EUROPE, MIDDLE EAST AND AFRICA
+
+MSCI SWITZERLAND INDEX
+Additions                             Deletions
+None                                  BKW
+
+
+MSCI FRANCE INDEX
+Additions                             Deletions
+None                                  COVIVIO
+                                      GECINA
+
+
+MSCI UNITED KINGDOM INDEX
+Additions                             Deletions
+None                                  AIRTEL AFRICA
+
+
+MSCI FINLAND INDEX
+Additions                             Deletions
+None                                  ELISA A
+
+
+MSCI TURKEY INDEX
+Additions                             Deletions
+None                                  ASTOR ENERJI
+                                      SABANCI HLDG (HACI OMER)
+
+
+MSCI KUWAIT INDEX
+Additions                             Deletions
+None                                  WARBA BANK
+
+
+MSCI SWEDEN INDEX
+Additions                             Deletions
+None                                  MILLICOM INTL CELLULAR
+                                      VERISURE
+
+
+MSCI SOUTH AFRICA INDEX
+Additions                             Deletions
+None                                  CLICKS GROUP
+                                      PEPKOR HOLDINGS
+
+
+MSCI SAUDI ARABIA INDEX
+Additions                             Deletions
+None                                  ADES HOLDING
+                                      MAKKAH CONS
+
+
+MSCI EGYPT INDEX
+Additions                             Deletions
+TELECOM EGYPT                         EASTERN COMPANY
+
+
+MSCI QATAR INDEX
+Additions                             Deletions
+None                                  MESAIEED PETROCHEMICAL
+                                      NEBRAS ENERGY
+
+
+AMERICAS
+
+MSCI USA INDEX
+Additions                             Deletions
+MODERNA                               ANNALY CAPITAL MGMT
+                                      AST SPACEMOBILE A
+                                      CARLYLE GROUP
+                                      CHARTER COMM A (NEW)
+
+Page 3                           MSCI Global Standard Indexes - November 11, 2026   © MSCI 2026, All rights reserved
+                         COOPER COMPANIES (THE)
+                         CORTEVA
+                         DECKERS OUTDOOR CORP
+                         DICKS SPORTING GOODS
+                         FABRINET
+                         FLUTTER ENTMT(US)
+                         FNF GROUP
+                         GEN DIGITAL
+                         IREN
+                         LENNOX INTERNATIONAL
+                         MCCORMICK & CO NV
+                         MID-AMERICA APARTMENT
+                         NEUROCRINE BIOSCIENCES
+                         PINNACLE FINL PARTNERS
+                         REGENCY CENTERS CORP
+                         STRATEGY A
+                         SUN COMMUNITIES
+                         TEXTRON
+                         WATSCO
+                         WEYERHAEUSER CO
+
+
+MSCI CANADA INDEX
+Additions                Deletions
+ARITZIA SV               ELEMENT FLEET MANAGEMENT
+
+
+MSCI BRAZIL INDEX
+Additions                Deletions
+None                     JBS A
+
+
+
+
+Page 4              MSCI Global Standard Indexes - November 11, 2026   © MSCI 2026, All rights reserved
+Notice and Disclaimer
+
+•     This document and all of the information contained in it, including without limitation all text, data, graphs, charts (collectively, the “Information”) is the property of
+      MSCI Inc. or its subsidiaries (collectively, “MSCI”), or MSCI’s licensors, direct or indirect suppliers or any third party involved in making or compiling any Information
+      (collectively, with MSCI, the “Information Providers”) and is provided for informational purposes only. The Information may not be modified, reverse-engineered,
+      reproduced or redisseminated in whole or in part without prior written permission from MSCI.
+
+•     The Information may not be used to create derivative works or to verify or correct other data or information. For example (but without limitation), the Information may
+      not be used to create indexes, databases, risk models, analytics, software, or in connection with the issuing, offering, sponsoring, managing or marketing of any
+      securities, portfolios, financial products or other investment vehicles utilizing or based on, linked to, tracking or otherwise derived from the Information or any other
+      MSCI data, information, products or services.
+
+•     The user of the Information assumes the entire risk of any use it may make or permit to be made of the Information. NONE OF THE INFORMATION PROVIDERS
+      MAKES ANY EXPRESS OR IMPLIED WARRANTIES OR REPRESENTATIONS WITH RESPECT TO THE INFORMATION (OR THE RESULTS TO BE OBTAINED
+      BY THE USE THEREOF), AND TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, EACH INFORMATION PROVIDER EXPRESSLY DISCLAIMS
+      ALL IMPLIED WARRANTIES (INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF ORIGINALITY, ACCURACY, TIMELINESS, NON-
+      INFRINGEMENT, COMPLETENESS, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE) WITH RESPECT TO ANY OF THE INFORMATION.
+
+•     Without limiting any of the foregoing and to the maximum extent permitted by applicable law, in no event shall any Information Provider have any liability regarding
+      any of the Information for any direct, indirect, special, punitive, consequential (including lost profits) or any other damages even if notified of the possibility of such
+      damages. The foregoing shall not exclude or limit any liability that may not by applicable law be excluded or limited, including without limitation (as applicable), any
+      liability for death or personal injury to the extent that such injury results from the negligence or willful default of itself, its servants, agents or sub-contractors.
+
+•     Information containing any historical information, data or analysis should not be taken as an indication or guarantee of any future performance, analysis, forecast or
+      prediction. Past performance does not guarantee future results.
+
+•     The Information should not be relied on and is not a substitute for the skill, judgment and experience of the user, its management, employees, advisors and/or clients
+      when making investment and other business decisions. All Information is impersonal and not tailored to the needs of any person, entity or group of persons.
+
+•     None of the Information constitutes an offer to sell (or a solicitation of an offer to buy), any security, financial product or other investment vehicle or any trading
+      strategy.
+
+•     It is not possible to invest directly in an index. Exposure to an asset class or trading strategy or other category represented by an index is only available through third
+      party investable instruments (if any) based on that index. MSCI does not issue, sponsor, endorse, market, offer, review or otherwise express any opinion regarding
+      any fund, ETF, derivative or other security, investment, financial product or trading strategy that is based on, linked to or seeks to provide an investment return related
+      to the performance of any MSCI index (collectively, “Index Linked Investments”). MSCI makes no assurance that any Index Linked Investments will accurately track
+      index performance or provide positive investment returns. MSCI Inc. is not an investment adviser or fiduciary and MSCI makes no representation regarding the
+      advisability of investing in any Index Linked Investments.
+
+•     Index returns do not represent the results of actual trading of investible assets/securities. MSCI maintains and calculates indexes, but does not manage actual assets.
+      Index returns do not reflect payment of any sales charges or fees an investor may pay to purchase the securities underlying the index or Index Linked Investments.
+      The imposition of these fees and charges would cause the performance of an Index Linked Investment to be different than the MSCI index performance.
+
+•     The Information may contain back tested data. Back-tested performance is not actual performance, but is hypothetical. There are frequently material differences
+      between back tested performance results and actual results subsequently achieved by any investment strategy.
+
+•     Constituents of MSCI equity indexes are listed companies, which are included in or excluded from the indexes according to the application of the relevant index
+      methodologies. Accordingly, constituents in MSCI equity indexes may include MSCI Inc., clients of MSCI or suppliers to MSCI. Inclusion of a security within an MSCI
+      index is not a recommendation by MSCI to buy, sell, or hold such security, nor is it considered to be investment advice.
+
+•     Data and information produced by various affiliates of MSCI Inc., including MSCI ESG Research Inc. and Barra LLC, may be used in calculating certain MSCI
+      indexes. More information can be found in the relevant index methodologies on www.msci.com.
+
+•     MSCI receives compensation in connection with licensing its indexes to third parties. MSCI Inc.’s revenue includes fees based on assets in Index Linked Investments.
+      Information can be found in MSCI Inc.’s company filings on the Investor Relations section of www.msci.com.
+
+•     MSCI ESG Research Inc. is a Registered Investment Adviser under the Investment Advisers Act of 1940 and a subsidiary of MSCI Inc. Except with respect to any
+      applicable products or services from MSCI ESG Research, neither MSCI nor any of its products or services recommends, endorses, approves or otherwise expresses
+      any opinion regarding any issuer, securities, financial products or instruments or trading strategies and MSCI’s products or services are not intended to constitute
+      investment advice or a recommendation to make (or refrain from making) any kind of investment decision and may not be relied on as such. Issuers mentioned or
+      included in any MSCI ESG Research materials may include MSCI Inc., clients of MSCI or suppliers to MSCI, and may also purchase research or other products or
+      services from MSCI ESG Research. MSCI ESG Research materials, including materials utilized in any MSCI ESG Indexes or other products, have not been submitted
+      to, nor received approval from, the United States Securities and Exchange Commission or any other regulatory body.
+
+•     Any use of or access to products, services or information of MSCI requires a license from MSCI. MSCI, Barra, RiskMetrics, IPD, FEA, InvestorForce, and other
+      MSCI brands and product names are the trademarks, service marks, or registered trademarks of MSCI or its subsidiaries in the United States and other jurisdictions.
+      The Global Industry Classification Standard (GICS) was developed by and is the exclusive property of MSCI and Standard & Poor’s. “Global Industry Classification
+      Standard (GICS)” is a service mark of MSCI and Standard & Poor’s.
+
+© 2026 MSCI. All rights reserved.
+
+About MSCI
+
+For more than four decades, MSCI (NYSE: MSCI) has helped global investors build and manage better portfolios. Our research-based tools and
+services provide our clients with deeper insights into drivers of risk and performance, broad asset class coverage and innovative ways to bring
+investment strategies to market. Our offerings include indexes, data, analytical models, regulatory reporting and ESG research. MSCI’s clients include
+95 of the world’s 100 largest money managers, as ranked by P&I. For more information, visit us at www.msci.com.
+
+
+
+
+Page 5                                                 MSCI Global Standard Indexes - November 11, 2026                                © MSCI 2026, All rights reserved
+

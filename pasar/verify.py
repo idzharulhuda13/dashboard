@@ -269,6 +269,31 @@ def main():
                               ("close of November 30, 2026", r2, "effective")):
         if phrase not in txt:
             fails.append(f"MSCI release: '{phrase}' ({name}) not found")
+    # Hasil Index Review: baca ulang PDF daftar MSCI, blok MSCI INDONESIA INDEX dan ringkasan per negara.
+    res = rel.get("result")
+    if res:
+        res_pdf = os.path.join(src_dir, res["source_pdf"])
+        with open(res_pdf, "rb") as pf:
+            if hashlib.sha256(pf.read()).hexdigest() != res["source_sha256"]:
+                fails.append("Index Review PDF sha256 mismatch")
+        res_txt = _sp.run(["pdftotext", "-layout", res_pdf, "-"], check=True, capture_output=True, text=True).stdout
+        msum = _re0.search(r"^\s*INDONESIA\s+(\d+)\s+(\d+)\s*$", res_txt, _re0.M)
+        if not msum or (int(msum.group(1)), int(msum.group(2))) != (len(res["additions"]), len(res["deletions"])):
+            fails.append(f"Index Review summary INDONESIA: PDF {msum.groups() if msum else None} vs payload "
+                         f"{len(res['additions'])}/{len(res['deletions'])}")
+        blk = _re0.search(r"MSCI INDONESIA INDEX\s*\n\s*Additions\s+Deletions\s*\n(.*?)\n\s*\n", res_txt, _re0.S)
+        pdf_del = [ln.strip() for ln in (blk.group(1).splitlines() if blk else [])]
+        pdf_del = [_re0.sub(r"^None\s+", "", x).strip() for x in pdf_del]
+        if pdf_del != res["deletions"]:
+            fails.append(f"Index Review deletions: PDF {pdf_del} vs payload {res['deletions']}")
+        if blk and not blk.group(1).lstrip().startswith("None") and not res["additions"]:
+            fails.append("Index Review additions: PDF is not 'None' but payload has none")
+        names_upper = {c["name"].upper() for c in constituents}
+        for d in res["deletions"]:
+            if d not in names_upper:
+                fails.append(f"Index Review deletion {d} not among factsheet constituents")
+        if "close of business on November 30, 2026" not in res_txt:
+            fails.append("Index Review effective date phrase not found in PDF")
     if (rel["consultation"]["feedback_until"], rel["consultation"]["decision_by"], rel["review"]["effective_close"],
             rel["review"]["announce_wib"]) != ("2027-04-30", "2027-06-30", "2026-11-30", "2026-11-12 05:00"):
         fails.append(f"MSCI release dates in payload disagree with the release text: {rel}")

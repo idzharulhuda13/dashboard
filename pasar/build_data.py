@@ -116,6 +116,20 @@ def main():
     prev = raw_data["prev"]
     ojk = raw_data["context"]["ojk"]
     rel = raw_data["context"]["msci_release"]
+    # Hasil Index Review November: nama di daftar MSCI (huruf besar) dicocokkan ke nama di factsheet.
+    review_res = rel.get("result") or {}
+    out_names = {n.upper() for n in review_res.get("deletions", [])}
+    by_upper = {c["name"].upper(): c for c in constituents_raw}
+    if not out_names <= set(by_upper):
+        print(f"FATAL: deletions not in factsheet constituents: {sorted(out_names - set(by_upper))}")
+        sys.exit(1)
+    if review_res.get("additions"):
+        print("FATAL: additions present; page copy assumes none")
+        sys.exit(1)
+    out_rows = [c for c in constituents_raw if c["name"].upper() in out_names]
+    out_count = len(out_rows)
+    out_weight = round(sum(c["weight_pct"] for c in out_rows), 2)
+    remain_count = len(constituents_raw) - out_count
 
     pe_change = round((fund["indonesia"]["pe"] / prev["pe"] - 1) * 100, 2)
     # Laba trailing tersirat: harga turun 1 Mo, P/E turun pe_change, sisanya laba.
@@ -147,7 +161,8 @@ def main():
             "float_cap_bn_d": fmt_num(c["float_cap_bn"], 2),
             "weight_pct": c["weight_pct"],
             "weight_pct_d": f"{fmt_num(c['weight_pct'], 2)}%",
-            "is_bank": is_bank
+            "is_bank": is_bank,
+            "is_out": name.upper() in out_names
         })
 
     # Build sector items
@@ -185,10 +200,13 @@ def main():
     timeline = [
         {"date": rel["consultation"]["date"], "d": long_date(rel["consultation"]["date"]),
          "text": "MSCI membuka konsultasi untuk menurunkan Indonesia ke Standalone."},
-        {"date": rel["review"]["announce_wib"][:10], "d": wib(rel["review"]["announce_wib"]),
-         "text": "Hasil Index Review November diumumkan (11 November, 23.00 waktu Eropa Tengah)."},
+        {"date": rel["review"]["announce_wib"][:10], "d": wib(rel["review"]["announce_wib"]), "done": bool(review_res),
+         "text": (f"Hasil Index Review November: tidak ada saham masuk, {out_count} dikeluarkan "
+                  f"({' dan '.join(c['name'] for c in out_rows)}).") if review_res else
+                 "Hasil Index Review November diumumkan (11 November, 23.00 waktu Eropa Tengah)."},
         {"date": rel["review"]["effective_close"], "d": long_date(rel["review"]["effective_close"]),
-         "text": "Perubahan isi indeks berlaku saat penutupan bursa."},
+         "text": (f"Perubahan berlaku saat penutupan bursa; indeks tinggal {remain_count} saham."
+                  if review_res else "Perubahan isi indeks berlaku saat penutupan bursa.")},
         {"date": rel["consultation"]["feedback_until"], "d": long_date(rel["consultation"]["feedback_until"]),
          "text": "Batas akhir masukan untuk konsultasi."},
         {"date": rel["consultation"]["decision_by"], "d": long_date(rel["consultation"]["decision_by"]),
@@ -243,6 +261,10 @@ def main():
             "ojk_ritel": f(ojk["ritel_rnth_pct"], f"{fmt_num(ojk['ritel_rnth_pct'], 2)}%"),
             "ojk_ritel_sep": f(ojk["ritel_rnth_sep_pct"], f"{fmt_num(ojk['ritel_rnth_sep_pct'], 2)}%"),
             "review_wib": {"d": wib(rel["review"]["announce_wib"])},
+            "review_out_count": f(out_count, str(out_count)),
+            "review_out_weight_pct": f(out_weight, f"{fmt_num(out_weight, 2)}%"),
+            "review_remain_count": f(remain_count, str(remain_count)),
+            "review_effective": {"d": long_date(rel["review"]["effective_close"])},
             "decision_by": {"d": long_date(rel["consultation"]["decision_by"])},
             "bank_weight_pct": f(bank_weight, fmt_num(bank_weight, 2)),
             "bank_weight_pct_str": f(bank_weight, f"{fmt_num(bank_weight, 2)}%"),

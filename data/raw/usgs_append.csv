@@ -9,3 +9,8 @@ time,latitude,longitude,depth,mag,magType,nst,gap,dmin,rms,net,id,updated,place,
 2026-10-29T20:32:11.667Z,-4.4698,132.4922,10,5,mb,61,44,8.422,0.76,us,us7000tu3u,2026-10-29T20:54:46.040Z,"131 km NNW of Tual, Indonesia",earthquake,8.53,1.828,0.083,46,reviewed,us,us
 2026-11-02T00:53:10.555Z,-6.9205,129.9514,93.548,5.1,mb,88,50,5.999,0.62,us,us7000tusv,2026-11-02T01:29:38.040Z,Banda Sea,earthquake,9.54,4.621,0.066,73,reviewed,us,us
 2026-11-02T08:13:14.014Z,1.392,124.6476,196.646,5.1,mb,77,59,5.716,0.94,us,us7000tuuy,2026-11-02T08:27:49.040Z,"19 km WNW of Tomohon, Indonesia",earthquake,9.58,7.333,0.061,89,reviewed,us,us
+2026-11-09T09:48:27.794Z,-3.0627,130.3905,10,5.4,mww,79,57,9.745,0.57,us,us7000tx32,2026-11-10T09:54:49.129Z,"160 km E of Masohi, Indonesia",earthquake,9.57,1.853,0.068,21,reviewed,us,us
+2026-11-10T01:53:24.195Z,-7.8742,130.2935,10,5.4,mb,66,49,5.007,0.82,us,us7000tx8d,2026-11-11T01:58:38.576Z,"Pulau Pulau Tanimbar, Indonesia",earthquake,9.97,1.855,0.084,48,reviewed,us,us
+2026-11-10T08:34:07.131Z,-0.4928,132.859,35,5,mb,41,45,12.389,0.81,us,us7000tx9z,2026-11-10T08:53:21.040Z,"58 km NE of Fef, Indonesia",earthquake,8.76,1.919,0.098,33,reviewed,us,us
+2026-11-10T15:51:35.658Z,-0.9034,128.701,10,5.1,mww,134,33,8.51,0.71,us,us7000txbi,2026-11-11T17:26:30.040Z,"139 km ESE of Labuha, Indonesia",earthquake,8.36,1.768,0.086,13,reviewed,us,us
+2026-11-11T11:32:24.685Z,-7.9445,130.2513,14.704,5.1,mb,47,88,4.945,0.82,us,us7000txir,2026-11-11T11:55:02.040Z,"Pulau Pulau Tanimbar, Indonesia",earthquake,12.72,4.065,0.073,61,reviewed,us,us

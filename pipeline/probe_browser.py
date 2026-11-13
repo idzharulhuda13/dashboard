@@ -1471,9 +1471,12 @@ def run_reduced_motion_check(browser):
         page.goto(INDEX_URL)
         page.wait_for_load_state("load")
 
-        # Open detail via keyboard
-        page.keyboard.press("Tab")
-        page.keyboard.press("Tab")
+        # Open detail via keyboard: Tab until #field-hit has focus, like the keyboard check,
+        # because the stop count before the field changes when the page header gains links.
+        for _ in range(25):
+            page.keyboard.press("Tab")
+            if page.evaluate("() => document.activeElement && document.activeElement.id") == "field-hit":
+                break
         page.keyboard.press("ArrowRight")
         page.keyboard.press("Enter")
         page.wait_for_timeout(50)

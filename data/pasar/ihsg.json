@@ -1,13 +1,13 @@
 {
  "meta": {
   "index": "IHSG (Jakarta Composite Index)",
-  "as_of": "2026-11-12",
-  "as_of_formatted": "12 November 2026",
+  "as_of": "2026-11-13",
+  "as_of_formatted": "13 November 2026",
   "first_session": "2026-01-02",
-  "sessions": 207,
+  "sessions": 208,
   "source": "Refinitiv via Datawrapper 5srr7 (2 Jan - 19 Okt 2026); sesi setelahnya dari job harian (TradingView IDX:COMPOSITE)",
   "source_sha256": "01996d7d0532d28944a1f7fb17f54692db99e4db3916892aecf73f150caee260",
-  "appended_sessions": 18,
+  "appended_sessions": 19,
   "scope_note": "IHSG harian, harga penutupan. Bukan MSCI Indonesia Index.",
   "method_note": "return harian = close/close sebelumnya; return bulanan = close terakhir bulan lawan close terakhir bulan sebelumnya; Januari diukur dari sesi pertama 2 Jan 2026.",
   "days_peak_to_trough": 188
@@ -28,14 +28,14 @@
    "d": "12"
   },
   "last_value": {
-   "r": 5250.895,
-   "d": "5.250,90"
+   "r": 5344.406,
+   "d": "5.344,41"
   },
   "last_date": {
-   "d": "2026-11-12"
+   "d": "2026-11-13"
   },
   "last_date_long": {
-   "d": "12 November 2026"
+   "d": "13 November 2026"
   },
   "trough_value": {
    "r": 4904.287,
@@ -45,36 +45,36 @@
    "d": "3 November 2026"
   },
   "drawdown_pct": {
-   "r": -42.51705036837553,
-   "d": "-42,52%"
+   "r": -41.49336048255553,
+   "d": "-41,49%"
   },
   "drawdown_abs": {
-   "r": 42.51705036837553,
-   "d": "42,52%"
+   "r": 41.49336048255553,
+   "d": "41,49%"
   },
   "trough_drawdown_pct": {
    "r": -46.31146069383778,
    "d": "-46,31%"
   },
   "since_trough_pct": {
-   "r": 7.0674493560429985,
-   "d": "7,07%"
+   "r": 8.974168926084447,
+   "d": "8,97%"
   },
   "ytd_pct": {
-   "r": -39.97695736644119,
-   "d": "-39,98%"
+   "r": -38.90803202329366,
+   "d": "-38,91%"
   },
   "need_recover_pct": {
-   "r": 73.96462888707545,
-   "d": "73,96%"
+   "r": 70.92077211199899,
+   "d": "70,92%"
   },
   "sessions": {
-   "r": 207,
-   "d": "207"
+   "r": 208,
+   "d": "208"
   },
   "sessions_with_change": {
-   "r": 206,
-   "d": "206"
+   "r": 207,
+   "d": "207"
   },
   "source_primary_until": {
    "d": "16 Oktober 2026"
@@ -90,12 +90,12 @@
    "d": "112"
   },
   "down_days_pct": {
-   "r": 54.36893203883495,
-   "d": "54,37%"
+   "r": 54.106280193236714,
+   "d": "54,11%"
   },
   "up_days": {
-   "r": 94,
-   "d": "94"
+   "r": 95,
+   "d": "95"
   },
   "flat_days": {
    "r": 0,
@@ -116,16 +116,16 @@
    "d": "November 2026"
   },
   "cur_ret_pct": {
-   "r": 3.8331636032865157,
-   "d": "3,83%"
+   "r": 5.682285126704301,
+   "d": "5,68%"
   },
   "cur_abs_pct": {
-   "r": 3.8331636032865157,
-   "d": "3,83%"
+   "r": 5.682285126704301,
+   "d": "5,68%"
   },
   "cur_sessions": {
-   "r": 9,
-   "d": "9"
+   "r": 10,
+   "d": "10"
   },
   "worst_day_ret": {
    "r": -11.574018806981169,
@@ -146,12 +146,12 @@
    "d": "9 Juni"
   },
   "last_day_ret": {
-   "r": 2.656091307293118,
-   "d": "2,66%"
+   "r": 1.7808583108212872,
+   "d": "1,78%"
   },
   "last_day_ret_plain": {
-   "r": 2.656091307293118,
-   "d": "2,66%"
+   "r": 1.7808583108212872,
+   "d": "1,78%"
   }
  },
  "series": [
@@ -982,6 +982,10 @@
   {
    "date": "2026-11-12",
    "close": 5250.895
+  },
+  {
+   "date": "2026-11-13",
+   "close": 5344.406
   }
  ],
  "monthly": [
@@ -1099,10 +1103,10 @@
    "month": "2026-11",
    "label": "Nov",
    "label_long": "November 2026",
-   "sessions": 9,
+   "sessions": 10,
    "open_ref": 5096.83,
-   "end": 5250.895,
-   "ret": 3.8331636032865157,
+   "end": 5344.406,
+   "ret": 5.682285126704301,
    "base": 5057.05,
    "base_label": "bulan sebelumnya"
   }

@@ -1,6 +1,30 @@
 {
  "latest": [
   {
+   "waktu_wib": "03:51:57 WIB",
+   "tanggal": "16 Nov 2026",
+   "datetime_utc": "2026-11-15T20:51:57+00:00",
+   "lat": -5.97,
+   "lon": 128.82,
+   "mag": 5.4,
+   "depth_km": 323.0,
+   "wilayah": "265 km Tenggara BURUSELATAN-MALUKU",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
+   "waktu_wib": "22:41:15 WIB",
+   "tanggal": "15 Nov 2026",
+   "datetime_utc": "2026-11-15T15:41:15+00:00",
+   "lat": 1.79,
+   "lon": 122.3,
+   "mag": 5.4,
+   "depth_km": 465.0,
+   "wilayah": "127 km BaratLaut GORONTALOUTARA-GORONTALO",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
    "waktu_wib": "22:51:37 WIB",
    "tanggal": "10 Nov 2026",
    "datetime_utc": "2026-11-10T15:51:37+00:00",
@@ -153,30 +177,6 @@
    "mag": 5.2,
    "depth_km": 120.0,
    "wilayah": "6 km BaratLaut LEBONG-BENGKULU",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
-  },
-  {
-   "waktu_wib": "14:44:15 WIB",
-   "tanggal": "21 Okt 2026",
-   "datetime_utc": "2026-10-21T07:44:15+00:00",
-   "lat": -7.75,
-   "lon": 128.18,
-   "mag": 5.1,
-   "depth_km": 96.0,
-   "wilayah": "62 km TimurLaut MALUKUBRTDAYA",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
-  },
-  {
-   "waktu_wib": "23:29:35 WIB",
-   "tanggal": "20 Okt 2026",
-   "datetime_utc": "2026-10-20T16:29:35+00:00",
-   "lat": 3.79,
-   "lon": 95.72,
-   "mag": 5.4,
-   "depth_km": 74.0,
-   "wilayah": "59 km BaratDaya MEULABOH-ACEHBARAT",
    "potensi": "Tidak berpotensi tsunami",
    "dirasakan": ""
   }

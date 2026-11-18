@@ -17,3 +17,4 @@ time,latitude,longitude,depth,mag,magType,nst,gap,dmin,rms,net,id,updated,place,
 2026-11-15T15:41:14.978Z,1.7527,122.1345,487.384,5.1,mb,97,65,6.299,0.88,us,us7000tyf4,2026-11-15T15:59:12.040Z,"169 km NW of Gorontalo, Indonesia",earthquake,10.04,7.749,0.044,173,reviewed,us,us
 2026-11-15T20:51:56.298Z,-5.9449,128.7523,305.989,5,mb,90,41,7.246,0.75,us,us7000tyg6,2026-11-15T21:09:03.040Z,"256 km SSE of Ambon, Indonesia",earthquake,9.05,7.524,0.051,124,reviewed,us,us
 2026-11-16T21:11:20.515Z,-6.0804,131.4868,68,6.6,mww,129,21,6.729,0.78,us,us7000tymu,2026-11-16T23:18:03.493Z,"148 km WSW of Tual, Indonesia",earthquake,8.58,1.844,0.045,47,reviewed,us,us
+2026-11-18T04:21:35.658Z,-8.151,120.6489,10,5.2,mb,40,87,3.241,1.04,us,us7000tyxc,2026-11-18T04:35:38.040Z,"54 km NNE of Ruteng, Indonesia",earthquake,10.97,1.878,0.1,33,reviewed,us,us

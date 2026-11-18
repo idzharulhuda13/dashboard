@@ -1,6 +1,18 @@
 {
  "latest": [
   {
+   "waktu_wib": "10:24:03 WIB",
+   "tanggal": "18 Nov 2026",
+   "datetime_utc": "2026-11-18T03:24:03+00:00",
+   "lat": -2.83,
+   "lon": 136.73,
+   "mag": 5.3,
+   "depth_km": 56.0,
+   "wilayah": "75 km BaratLaut INTANJAYA-PAPUATENGAH",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
    "waktu_wib": "04:11:20 WIB",
    "tanggal": "17 Nov 2026",
    "datetime_utc": "2026-11-16T21:11:20+00:00",
@@ -167,21 +179,45 @@
    "wilayah": "221 km BaratLaut PULAUKARATUNG-SULUT",
    "potensi": "Tidak berpotensi tsunami",
    "dirasakan": ""
-  },
-  {
-   "waktu_wib": "21:43:13 WIB",
-   "tanggal": "27 Okt 2026",
-   "datetime_utc": "2026-10-27T14:43:13+00:00",
-   "lat": -9.2,
-   "lon": 110.39,
-   "mag": 5.4,
-   "depth_km": 10.0,
-   "wilayah": "136 km BaratDaya GUNUNGKIDUL-DIY",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
   }
  ],
  "felt": [
+  {
+   "waktu_wib": "11:21:37 WIB",
+   "tanggal": "18 Nov 2026",
+   "datetime_utc": "2026-11-18T04:21:37+00:00",
+   "lat": -8.16,
+   "lon": 120.58,
+   "mag": 4.9,
+   "depth_km": 10.0,
+   "wilayah": "Pusat gempa berada di laut 52 km utara Ruteng-Manggarai",
+   "potensi": "",
+   "dirasakan": "III-IV Kab. Manggarai"
+  },
+  {
+   "waktu_wib": "11:11:52 WIB",
+   "tanggal": "18 Nov 2026",
+   "datetime_utc": "2026-11-18T04:11:52+00:00",
+   "lat": -8.08,
+   "lon": 120.54,
+   "mag": 4.3,
+   "depth_km": 3.0,
+   "wilayah": "Pusat gempa berada di laut 60 km utara Ruteng, Manggarai",
+   "potensi": "",
+   "dirasakan": "II - III Kab. Manggarai"
+  },
+  {
+   "waktu_wib": "10:24:03 WIB",
+   "tanggal": "18 Nov 2026",
+   "datetime_utc": "2026-11-18T03:24:03+00:00",
+   "lat": -2.83,
+   "lon": 136.73,
+   "mag": 5.3,
+   "depth_km": 56.0,
+   "wilayah": "Pusat gempa berada di darat 75 km Barat Laut Intan Jaya",
+   "potensi": "",
+   "dirasakan": "II-III Nabire"
+  },
   {
    "waktu_wib": "07:49:17 WIB",
    "tanggal": "17 Nov 2026",
@@ -325,42 +361,6 @@
    "wilayah": "Pusat gempa berada di darat 6 km utara Kab. Gayo Lues",
    "potensi": "",
    "dirasakan": "III-IV Gayo Lues, III-IV Aceh Timur, III Aceh Tengah, III Bener Meriah, III Lhokseumawe"
-  },
-  {
-   "waktu_wib": "23:04:15 WIB",
-   "tanggal": "10 Nov 2026",
-   "datetime_utc": "2026-11-10T16:04:15+00:00",
-   "lat": -4.29,
-   "lon": 122.38,
-   "mag": 4.0,
-   "depth_km": 5.0,
-   "wilayah": "Pusat gempa berada di darat 12 km timur Konawe Selatan",
-   "potensi": "",
-   "dirasakan": "IV Konawe Selatan, III Kendari"
-  },
-  {
-   "waktu_wib": "21:31:38 WIB",
-   "tanggal": "10 Nov 2026",
-   "datetime_utc": "2026-11-10T14:31:38+00:00",
-   "lat": -7.04,
-   "lon": 106.98,
-   "mag": 4.0,
-   "depth_km": 102.0,
-   "wilayah": "Pusat gempa berada di darat 15 km selatan Kota Sukabumi",
-   "potensi": "",
-   "dirasakan": "III Cianjur, II Sukabumi, II - III Ciwidey, II - III Pangalengan, II - III Nagrak, II Kec. Kebonpedes, II Cihanjuang, II Padalarang, II Cihideung, II Ngamprah, II Cisarua, II Lembang, II Karawang Selatan"
-  },
-  {
-   "waktu_wib": "15:34:04 WIB",
-   "tanggal": "10 Nov 2026",
-   "datetime_utc": "2026-11-10T08:34:04+00:00",
-   "lat": -0.19,
-   "lon": 132.98,
-   "mag": 5.3,
-   "depth_km": 10.0,
-   "wilayah": "Pusat gempa berada di laut 69 km barat laut Kebar Manokwari",
-   "potensi": "",
-   "dirasakan": "II - III Manokwari"
   }
  ]
 }

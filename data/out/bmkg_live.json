@@ -1,6 +1,18 @@
 {
  "latest": [
   {
+   "waktu_wib": "16:42:11 WIB",
+   "tanggal": "21 Nov 2026",
+   "datetime_utc": "2026-11-21T09:42:11+00:00",
+   "lat": -7.88,
+   "lon": 127.51,
+   "mag": 7.2,
+   "depth_km": 125.0,
+   "wilayah": "43 km BaratLaut MALUKUBRTDAYA",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
    "waktu_wib": "20:09:01 WIB",
    "tanggal": "20 Nov 2026",
    "datetime_utc": "2026-11-20T13:09:01+00:00",
@@ -167,21 +179,45 @@
    "wilayah": "139 km BaratLaut TUAL-MALUKU",
    "potensi": "Tidak berpotensi tsunami",
    "dirasakan": ""
-  },
-  {
-   "waktu_wib": "10:26:49 WIB",
-   "tanggal": "29 Okt 2026",
-   "datetime_utc": "2026-10-29T03:26:49+00:00",
-   "lat": -5.45,
-   "lon": 141.9,
-   "mag": 6.0,
-   "depth_km": 120.0,
-   "wilayah": "153 km Tenggara OKSIBIL-PAPUAPGNGN",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
   }
  ],
  "felt": [
+  {
+   "waktu_wib": "06:16:01 WIB",
+   "tanggal": "22 Nov 2026",
+   "datetime_utc": "2026-11-21T23:16:01+00:00",
+   "lat": -2.29,
+   "lon": 140.3,
+   "mag": 4.8,
+   "depth_km": 6.0,
+   "wilayah": "Pusat gempa berada di laut 35 km barat laut Sentani",
+   "potensi": "",
+   "dirasakan": "II - III Kota Jayapura, II - III Kab. Jayapura"
+  },
+  {
+   "waktu_wib": "02:52:18 WIB",
+   "tanggal": "22 Nov 2026",
+   "datetime_utc": "2026-11-21T19:52:18+00:00",
+   "lat": -1.27,
+   "lon": 100.28,
+   "mag": 4.2,
+   "depth_km": 55.0,
+   "wilayah": "Pusat gempa berada di laut 34 km Barat Pesisir Selatan",
+   "potensi": "",
+   "dirasakan": "II - III Kota Padang, II - III Pesisir Selatan, I - II Solok"
+  },
+  {
+   "waktu_wib": "16:42:11 WIB",
+   "tanggal": "21 Nov 2026",
+   "datetime_utc": "2026-11-21T09:42:11+00:00",
+   "lat": -7.88,
+   "lon": 127.51,
+   "mag": 7.2,
+   "depth_km": 125.0,
+   "wilayah": "Pusat gempa berada di laut 43 km barat laut Maluku Barat Daya",
+   "potensi": "",
+   "dirasakan": "IV Tiakur, III Saumlaki, III Waingapu, II-III Kupang, III Kab. Alor, IV Romang, IV Pulau Babar, II-III Kota Kupang, II-III Kab. Kupang, II-III Kab. Timur Tengah Utara, II-III Kab. Malaka, II-III Kab. Melu, II-III Kab. Lembata"
+  },
   {
    "waktu_wib": "09:37:18 WIB",
    "tanggal": "21 Nov 2026",
@@ -325,42 +361,6 @@
    "wilayah": "Pusat gempa berada di darat 9 km barat daya Kendari",
    "potensi": "",
    "dirasakan": "II Kendari"
-  },
-  {
-   "waktu_wib": "15:01:44 WIB",
-   "tanggal": "18 Nov 2026",
-   "datetime_utc": "2026-11-18T08:01:44+00:00",
-   "lat": -8.24,
-   "lon": 120.52,
-   "mag": 4.2,
-   "depth_km": 19.0,
-   "wilayah": "Pusat gempa berada di laut 42 km utara Ruteng-Manggarai",
-   "potensi": "",
-   "dirasakan": "II - III Kab. Manggarai"
-  },
-  {
-   "waktu_wib": "13:52:16 WIB",
-   "tanggal": "18 Nov 2026",
-   "datetime_utc": "2026-11-18T06:52:16+00:00",
-   "lat": -8.1,
-   "lon": 120.51,
-   "mag": 4.0,
-   "depth_km": 2.0,
-   "wilayah": "Pusat gempa berada di laut 57 km utara Ruteng, Manggarai",
-   "potensi": "",
-   "dirasakan": "II - III Kab. Manggarai"
-  },
-  {
-   "waktu_wib": "12:49:33 WIB",
-   "tanggal": "18 Nov 2026",
-   "datetime_utc": "2026-11-18T05:49:33+00:00",
-   "lat": -8.12,
-   "lon": 120.51,
-   "mag": 4.1,
-   "depth_km": 3.0,
-   "wilayah": "Pusat gempa berada di laut 55 km utara Ruteng, Manggarai",
-   "potensi": "",
-   "dirasakan": "III Kab. Manggarai"
   }
  ]
 }

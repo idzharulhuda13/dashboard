@@ -1,6 +1,18 @@
 {
  "latest": [
   {
+   "waktu_wib": "14:54:39 WIB",
+   "tanggal": "22 Nov 2026",
+   "datetime_utc": "2026-11-22T07:54:39+00:00",
+   "lat": 3.12,
+   "lon": 126.57,
+   "mag": 5.4,
+   "depth_km": 10.0,
+   "wilayah": "98 km BaratDaya MELONGUANE-SULUT",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
    "waktu_wib": "16:42:11 WIB",
    "tanggal": "21 Nov 2026",
    "datetime_utc": "2026-11-21T09:42:11+00:00",
@@ -167,21 +179,21 @@
    "wilayah": "169 km BaratLaut TANIMBAR",
    "potensi": "Tidak berpotensi tsunami",
    "dirasakan": ""
-  },
-  {
-   "waktu_wib": "03:32:13 WIB",
-   "tanggal": "30 Okt 2026",
-   "datetime_utc": "2026-10-29T20:32:13+00:00",
-   "lat": -4.4,
-   "lon": 132.49,
-   "mag": 5.3,
-   "depth_km": 10.0,
-   "wilayah": "139 km BaratLaut TUAL-MALUKU",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
   }
  ],
  "felt": [
+  {
+   "waktu_wib": "14:54:39 WIB",
+   "tanggal": "22 Nov 2026",
+   "datetime_utc": "2026-11-22T07:54:39+00:00",
+   "lat": 3.12,
+   "lon": 126.57,
+   "mag": 5.4,
+   "depth_km": 10.0,
+   "wilayah": "Pusat gempa berada di laut 98 km BaratDaya Melonguane",
+   "potensi": "",
+   "dirasakan": "II Tahuna"
+  },
   {
    "waktu_wib": "06:16:01 WIB",
    "tanggal": "22 Nov 2026",
@@ -349,18 +361,6 @@
    "wilayah": "Pusat gempa berada di laut 57 km utara Ruteng - Manggarai",
    "potensi": "",
    "dirasakan": "II Kab. Manggarai"
-  },
-  {
-   "waktu_wib": "22:43:09 WIB",
-   "tanggal": "18 Nov 2026",
-   "datetime_utc": "2026-11-18T15:43:09+00:00",
-   "lat": -4.04,
-   "lon": 122.46,
-   "mag": 2.0,
-   "depth_km": 4.0,
-   "wilayah": "Pusat gempa berada di darat 9 km barat daya Kendari",
-   "potensi": "",
-   "dirasakan": "II Kendari"
   }
  ]
 }

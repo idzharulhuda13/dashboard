@@ -43,6 +43,7 @@ def main():
     output_path = os.path.join(ROOT, "index.html")
     sitemap_path = os.path.join(ROOT, "sitemap.xml")
     pasar_paths = [os.path.join(ROOT, "data", "pasar", f"{name}.json") for name in ("ihsg", "rupiah", "msci")]
+    karhutla_path = os.path.join(ROOT, "data", "karhutla", "karhutla.json")
 
     required_inputs = [
         (template_path, "hub.template.html"),
@@ -50,6 +51,7 @@ def main():
         (gempa_data_path, "gempa/data.json"),
         (pisa_index_path, "pisa/index.html"),
         (explorer_payload_path, "pisa-explorer/data.json"),
+        (karhutla_path, "data/karhutla/karhutla.json"),
     ] + [(p, os.path.relpath(p, ROOT)) for p in pasar_paths]
     for p, name in required_inputs:
         if not os.path.exists(p) or not os.access(p, os.R_OK):
@@ -60,7 +62,7 @@ def main():
     if len(font_paths) != 5:
         raise RuntimeError(f"Expected 5 font files in {fonts_dir}, found {len(font_paths)}")
 
-    input_paths = [annex_prof_path, gempa_data_path, template_path, explorer_payload_path] + pasar_paths + font_paths
+    input_paths = [annex_prof_path, gempa_data_path, template_path, explorer_payload_path, karhutla_path] + pasar_paths + font_paths
 
     stamp_hasher = hashlib.sha256()
     for p in input_paths:

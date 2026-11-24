@@ -209,6 +209,12 @@ body {
   gap: 0.75rem;
 }
 
+.story-wide + .story-wide {
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--line);
+}
+
 .plate-label {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -553,7 +559,7 @@ body {
         <p class="masthead-label">DATA PUBLIK</p>
         <h1 class="masthead-title">Dashboard Data Publik</h1>
         <p class="masthead-intro">Kumpulan cerita data yang dibangun dari data publik. Satu halaman, satu kumpulan data, setiap angka dihitung ulang sebelum terbit.</p>
-        <nav class="toc" aria-label="Isi"><span class="toc-k">Isi</span><a href="#desk-pasar">Pasar 3</a><a href="#desk-didik">Pendidikan 2</a><a href="#desk-bumi">Bumi 1</a></nav>
+        <nav class="toc" aria-label="Isi"><span class="toc-k">Isi</span><a href="#desk-pasar">Pasar 3</a><a href="#desk-ekonomi">Ekonomi 1</a><a href="#desk-didik">Pendidikan 2</a><a href="#desk-bumi">Bumi 2</a></nav>
       </div>
     </div>
   </header>
@@ -695,8 +701,12 @@ body {
               <a href="/karhutla/" class="entry-link-title">Titik Panas Indonesia, Pantauan Harian</a>
             </h3>
             <p class="entry-line">Di mana titik panas karhutla sekarang dan apakah lebih banyak dari biasanya: peta 7 hari, tren harian, provinsi, dan perbandingan dengan 2019 sampai 2025.</p>
-            <p class="entry-fact">Data satelit dari SiPongi+ Kementerian Kehutanan, halamannya dibangun ulang otomatis tiga kali sehari.</p>
+            <p class="entry-fact">Data satelit dari SiPongi+ Kementerian Kehutanan, halamannya dibangun ulang otomatis tiga kali sehari. <span style="white-space:nowrap">Data per <span data-fig="karhutla_asof_long">24 November 2026</span>.</span></p>
           </div>
+          <figure class="window-frame acc-gempa">
+              <figcaption class="window-head"><span class="window-title">Titik panas harian, <span data-fig="karhutla_days">327</span> hari</span><span class="window-keys"><span><span class="key key-line"></span>harian</span><span><span class="key key-ref"></span>puncak</span></span></figcaption>
+              <div class="window" role="img" aria-label="Garis titik panas harian Indonesia sepanjang 2026 dari satelit MODIS dan NOAA-20"><!--FIG:bumi_karhutla--></div>
+            </figure>
         </article>
       </section>
     </div>

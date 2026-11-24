@@ -111,7 +111,7 @@
   "PIRAMIDA CURAM: M5 MENDOMINASI, M9 CUMA SATU": "A STEEP PYRAMID: M5 DOMINATES, ONLY ONE M9",
   "Peta sebaran episentrum gempa bumi Indonesia M5+": "Map of Indonesian M5+ earthquake epicentres",
   "Peta sebaran episentrum gempa; gunakan tombol panah untuk memilih kejadian, Enter untuk membuka rincian, Escape untuk menutup.": "Map of earthquake epicentres; use the arrow keys to pick an event, Enter to open its details, Escape to close.",
-  "Provinsi": "Province",
+  "Provinsi": "Provinces",
   "Provinsi Teraktif": "Most Active Provinces",
   "SETENGAH ABAD, <span class=\"data-fig\" data-fig=\"total\"></span> GEMPA M5+": "HALF A CENTURY, <span class=\"data-fig\" data-fig=\"total\"></span> M5+ EARTHQUAKES",
   "Sebaran jumlah kejadian per kelas magnitudo dan lima peristiwa terbesar dalam katalog yang sama.": "How events spread across magnitude classes, and the five largest events in the same catalogue.",
@@ -556,9 +556,84 @@
   "Perubahan berlaku saat penutupan bursa; indeks tinggal {0} saham.": "Changes take effect at the market close; the index is left with {0} stocks.",
   "Selama konsultasi, perubahan yang menambah porsi Indonesia dibekukan: tidak ada saham baru masuk, tidak ada kenaikan porsi saham untuk asing (FIF) atau jumlah saham (NOS), dan tidak ada saham naik kelas. Saham masih bisa dikeluarkan atau turun kelas. Hasil Index Review November mengikuti pola itu: nol saham masuk, <span data-fig=\"review_out_count\"></span> dikeluarkan.": "During the consultation, changes that would increase Indonesia's share are frozen: no new stocks added, no increases to the foreign inclusion factor (FIF) or number of shares (NOS), and no stocks moving up a size segment. Stocks can still be removed or moved down. The November Index Review followed that pattern: zero stocks added, <span data-fig=\"review_out_count\"></span> removed.",
   "Sumber linimasa: rilis MSCI <a href=\"https://ir.msci.com/news-releases/news-release-details/msci-launches-consultation-proposal-reclassify-indonesia\" style=\"color:inherit\">{0}</a> dan <a href=\"https://ir.msci.com/news-releases/news-release-details/msci-november-index-review-announcement-scheduled-november-{1}\" style=\"color:inherit\">{2}</a>, serta daftar hasil <a href=\"https://www.msci.com/eqb/gimi/stdindex/MSCI_Nov26_STPublicList.pdf\" style=\"color:inherit\">Index Review {3}</a> ({4})": "Timeline source: MSCI releases <a href=\"https://ir.msci.com/news-releases/news-release-details/msci-launches-consultation-proposal-reclassify-indonesia\" style=\"color:inherit\">{0}</a> and <a href=\"https://ir.msci.com/news-releases/news-release-details/msci-november-index-review-announcement-scheduled-november-{1}\" style=\"color:inherit\">{2}</a>, plus the results list for the <a href=\"https://www.msci.com/eqb/gimi/stdindex/MSCI_Nov26_STPublicList.pdf\" style=\"color:inherit\">{3} Index Review</a> ({4})",
-  "Indeks ini cuma <span data-fig=\"constituents_count\"></span> saham, mewakili <span data-fig=\"coverage_pct\"></span> persen nilai pasar. Lima teratas sudah mencakup <span data-fig=\"top5_weight_pct\"></span> indeks, dan empat di antaranya bank. Lima saham lain berbagi <span data-fig=\"nonbank_weight_pct\"></span> persen. BBCA sendirian <span data-fig=\"bca_weight_pct\"></span>. Index Review November mengeluarkan Barito Pacific dan Bumi Resources Minerals (gabungan <span data-fig=\"review_out_weight_pct\"></span>). Setelah penutupan <span data-fig=\"review_effective\"></span>, indeks tinggal <span data-fig=\"review_remain_count\"></span> saham.": "This index is just <span data-fig=\"constituents_count\"></span> stocks, representing <span data-fig=\"coverage_pct\"></span> percent of market value. The top five already cover <span data-fig=\"top5_weight_pct\"></span> of the index, and four of them are banks. The other five stocks share <span data-fig=\"nonbank_weight_pct\"></span> percent. BBCA alone <span data-fig=\"bca_weight_pct\"></span>. The November Index Review removes Barito Pacific and Bumi Resources Minerals (combined <span data-fig=\"review_out_weight_pct\"></span>). After the close on <span data-fig=\"review_effective\"></span>, the index is left with <span data-fig=\"review_remain_count\"></span> stocks."
+  "Indeks ini cuma <span data-fig=\"constituents_count\"></span> saham, mewakili <span data-fig=\"coverage_pct\"></span> persen nilai pasar. Lima teratas sudah mencakup <span data-fig=\"top5_weight_pct\"></span> indeks, dan empat di antaranya bank. Lima saham lain berbagi <span data-fig=\"nonbank_weight_pct\"></span> persen. BBCA sendirian <span data-fig=\"bca_weight_pct\"></span>. Index Review November mengeluarkan Barito Pacific dan Bumi Resources Minerals (gabungan <span data-fig=\"review_out_weight_pct\"></span>). Setelah penutupan <span data-fig=\"review_effective\"></span>, indeks tinggal <span data-fig=\"review_remain_count\"></span> saham.": "This index is just <span data-fig=\"constituents_count\"></span> stocks, representing <span data-fig=\"coverage_pct\"></span> percent of market value. The top five already cover <span data-fig=\"top5_weight_pct\"></span> of the index, and four of them are banks. The other five stocks share <span data-fig=\"nonbank_weight_pct\"></span> percent. BBCA alone <span data-fig=\"bca_weight_pct\"></span>. The November Index Review removes Barito Pacific and Bumi Resources Minerals (combined <span data-fig=\"review_out_weight_pct\"></span>). After the close on <span data-fig=\"review_effective\"></span>, the index is left with <span data-fig=\"review_remain_count\"></span> stocks.",
+  "Data per {0}": "Data as of {0}",
+  "Data per {0}, {1} WIB": "Data as of {0}, {1} WIB",
+  "Ekonomi {0}": "Economy {0}",
+  "PISA {0}: Dua Dekade Datar": "PISA {0}: Two Flat Decades",
+  "Explorer Interaktif PISA {0}": "Interactive PISA {0} Explorer",
+  "Data satelit dari SiPongi+ Kementerian Kehutanan, halamannya dibangun ulang otomatis tiga kali sehari. <span style=\"white-space:nowrap\">Data per <span data-fig=\"karhutla_asof_long\"></span>.</span>": "Satellite data from the Ministry of Forestry's SiPongi+, rebuilt automatically three times a day. <span style=\"white-space:nowrap\">Data as of <span data-fig=\"karhutla_asof_long\"></span>.</span>",
+  "<span class=\"window-title\">Titik panas harian, <span data-fig=\"karhutla_days\"></span> hari</span><span class=\"window-keys\"><span><span class=\"key key-line\"></span>harian</span><span><span class=\"key key-ref\"></span>puncak</span></span>": "<span class=\"window-title\">Daily hotspots, <span data-fig=\"karhutla_days\"></span> days</span><span class=\"window-keys\"><span><span class=\"key key-line\"></span>daily</span><span><span class=\"key key-ref\"></span>peak</span></span>",
+  "Garis titik panas harian Indonesia sepanjang {0} dari satelit MODIS dan NOAA-{1}": "Daily Indonesian fire hotspots across {0} from MODIS and NOAA-{1} satellites",
+  "Titik Panas Indonesia: Pantauan Karhutla Harian": "Indonesia Fire Hotspots: Daily Watch",
+  "Titik panas Indonesia, pantauan harian": "Indonesia fire hotspots, daily watch",
+  "Pantauan titik panas (hotspot) kebakaran hutan dan lahan di Indonesia dari data satelit SiPongi+, diperbarui otomatis tiga kali sehari: {0} hari terakhir, peta, tren harian, provinsi, dan perbandingan antar tahun.": "Daily tracking of forest and land fire hotspots in Indonesia from SiPongi+ satellite data, updated automatically three times a day: last {0} days, map, daily trend, provinces, and year-on-year comparison.",
+  "Di mana titik panas sekarang, dan apakah lebih banyak dari biasanya. Data SiPongi+, diperbarui otomatis.": "Where fire hotspots are right now, and whether there are more than usual. SiPongi+ data, updated automatically.",
+  "Diperbarui otomatis 3x sehari dari": "Updated automatically 3x daily from",
+  "Data interaktif gagal dimuat. Angka di halaman ini versi saat halaman dibangun; peta dan grafik tidak tampil. Coba muat ulang halaman.": "Interactive data failed to load. Figures on this page are from build time; maps and charts are unavailable. Try reloading the page.",
+  "<a href=\"/\" style=\"color:inherit\">Dashboard</a> / Karhutla": "<a href=\"/\" style=\"color:inherit\">Dashboard</a> / Fire Hotspots",
+  "{0} hari terakhir, <span data-fig=\"k7_span\"></span>": "Last {0} days, <span data-fig=\"k7_span\"></span>",
+  "<b data-fig=\"k7_chg\"></b> dibanding {0} hari sebelumnya (<span data-fig=\"k7_prev_span\"></span>: <b data-fig=\"k7_prev\"></b> titik)": "<b data-fig=\"k7_chg\"></b> vs previous {0} days (<span data-fig=\"k7_prev_span\"></span>: <b data-fig=\"k7_prev\"></b> hotspots)",
+  "<span data-fig=\"today_label\"></span>, s.d. <span data-fig=\"today_time\"></span> WIB": "<span data-fig=\"today_label\"></span>, through <span data-fig=\"today_time\"></span> WIB",
+  "Hari belum selesai. Sehari penuh <span data-fig=\"yday_label\"></span>: <b data-fig=\"yday\"></b>": "Day still in progress. Full day <span data-fig=\"yday_label\"></span>: <b data-fig=\"yday\"></b>",
+  "Provinsi terbanyak, {0} hari": "Top province, {0} days",
+  "<b data-fig=\"top_prov_n\"></b> titik, <b data-fig=\"top_prov_share\"></b> dari total nasional": "<b data-fig=\"top_prov_n\"></b> hotspots, <b data-fig=\"top_prov_share\"></b> of national total",
+  "Sejak {0}, satelit MODIS": "Since {0}, MODIS satellite",
+  "Periode sama {0}: <b data-fig=\"ytd_vs_2025\"></b>. Dibanding {1}: <b data-fig=\"ytd_vs_2019\"></b>": "Same period {0}: <b data-fig=\"ytd_vs_2025\"></b>. vs {1}: <b data-fig=\"ytd_vs_2019\"></b>",
+  "Satu titik panas = satu piksel satelit yang lebih panas dari sekitarnya; belum tentu satu kebakaran. Angka di dalam tahun {0} memakai satelit MODIS dan NOAA-{1}. NOAA-{2} baru masuk data sejak <span data-fig=\"noaa21_from\"></span> dan tidak dihitung, supaya pekan ini bisa dibandingkan dengan pekan-pekan sebelumnya. Perbandingan antar tahun memakai MODIS saja.": "One hotspot = one satellite pixel hotter than its surroundings; not necessarily a single fire. Within-{0} figures use MODIS and NOAA-{1} satellites. NOAA-{2} only entered the feed on <span data-fig=\"noaa21_from\"></span> and is excluded so this week remains comparable with earlier weeks. Year-on-year comparisons use MODIS only.",
+  "Di mana titik panasnya": "Where the hotspots are",
+  "<em>Tiap lingkaran = sel sekitar {0} x {1} km; makin besar, makin banyak titik panas di sel itu.</em>": "<em>Each circle = a cell of roughly {0} x {1} km; larger circles mean more hotspots in that cell.</em>",
+  "Periode peta": "Map period",
+  "Hari ini": "Today",
+  "Peta, bisa digeser ke samping di layar kecil": "Map, scrollable horizontally on small screens",
+  "Peta titik panas Indonesia": "Indonesia fire hotspots map",
+  "Tidak ada titik panas terdeteksi pada periode ini.": "No hotspots detected in this period.",
+  "Geser peta ke kiri atau kanan untuk melihat seluruh Indonesia.": "Scroll the map left or right to see all of Indonesia.",
+  "Ketuk lingkaran untuk melihat jumlahnya.": "Tap a circle to see its count.",
+  "Peta, grafik, dan daftar provinsi butuh JavaScript. Angka di bagian atas tetap berlaku.": "The map, charts, and province list require JavaScript. The summary figures above still apply.",
+  "Naik turun per hari sepanjang {0}": "Daily ups and downs across {0}",
+  "Titik panas harian (MODIS + NOAA-{0}). Garis = rata-rata {1} hari. Puncak tahun ini <b class=\"num\" data-fig=\"peak\"></b> titik pada <span data-fig=\"peak_date\"></span>.": "Daily hotspots (MODIS + NOAA-{0}). Line = {1}-day average. Peak this year: <b class=\"num\" data-fig=\"peak\"></b> hotspots on <span data-fig=\"peak_date\"></span>.",
+  "Grafik titik panas harian {0}. Gunakan panah kiri dan kanan untuk membaca per hari.": "Daily fire hotspots chart for {0}. Use left and right arrow keys to inspect by day.",
+  "Sentuh atau arahkan ke grafik; dengan keyboard pakai panah kiri/kanan. Hari terakhir belum lengkap.": "Touch or hover over the chart; with keyboard use left/right arrows. The latest day is incomplete.",
+  "Dibanding tahun-tahun sebelumnya": "Compared with previous years",
+  "Akumulasi titik panas sejak {0} sampai tanggal yang sama (<span data-fig=\"ytd_span\"></span>), satelit MODIS saja karena hanya MODIS yang tercatat di semua tahun ini.": "Cumulative hotspots from {0} through the same date (<span data-fig=\"ytd_span\"></span>), MODIS satellite only because only MODIS is recorded across all these years.",
+  "Akumulasi titik panas MODIS per tahun sejak {0}": "Cumulative MODIS hotspots by year since {0}",
+  "Luas terbakar: data resmi baru sampai <span data-fig=\"luas_last\"></span>": "Burned area: official data only through <span data-fig=\"luas_last\"></span>",
+  "Luas indikasi kebakaran dari SiPongi+ dihitung dari citra satelit setelah api padam, jadi angkanya tertinggal beberapa bulan dari titik panas. Ini angka resmi pemerintah; perkiraan lembaga lain bisa jauh berbeda.": "Indicative burned area from SiPongi+ is mapped from satellite imagery after fires subside, so it lags hotspot counts by several months. These are official government figures; other agencies' estimates may differ substantially.",
+  "Sampai <span data-fig=\"luas_hs_upto\"></span> baru <b data-fig=\"luas_hs_share\"></b> titik panas tahun ini yang terjadi. Puncak Agustus sampai Oktober belum masuk angka ini.": "Through <span data-fig=\"luas_hs_upto\"></span> only <b data-fig=\"luas_hs_share\"></b> of this year's hotspots had occurred. The August to October peak is not yet included in this figure.",
+  "Rata-rata setahun penuh <span data-fig=\"luas_avg_span\"></span>: <b data-fig=\"luas_avg_full\"></b> ha. Terluas <span data-fig=\"luas_big_year\"></span>: <b data-fig=\"luas_big\"></b> ha.": "Full-year average <span data-fig=\"luas_avg_span\"></span>: <b data-fig=\"luas_avg_full\"></b> ha. Largest in <span data-fig=\"luas_big_year\"></span>: <b data-fig=\"luas_big\"></b> ha.",
+  "Luas per tahun (ha)": "Burned area by year (ha)",
+  "* {0}: angka SiPongi+ ({1} ha) tidak sejalan dengan ringkasan di halaman SiPongi+ sendiri; dianggap belum lengkap dan tidak masuk rata-rata.": "* {0}: SiPongi+ figure ({1} ha) does not match the summary on SiPongi+'s own page; treated as incomplete and excluded from the average.",
+  "** {0}: Januari sampai Juli saja; tahun lain setahun penuh.": "** {0}: January through July only; other years are full-year totals.",
+  "Provinsi terluas, <span data-fig=\"luas_span\"></span> (ha)": "Most affected provinces, <span data-fig=\"luas_span\"></span> (ha)",
+  "{0} dari {1} provinsi yang tercatat punya luas terbakar tahun ini.": "{0} of {1} provinces with recorded burned area this year.",
+  "Pilih provinsi untuk melihat tren dan kabupaten/kota teratasnya.": "Select a province to view its daily trend and top regencies/cities.",
+  "Periode provinsi": "Province period",
+  "Sejak {0}": "Since {0}",
+  "Titik": "Hotspots",
+  "vs sebelumnya": "vs previous",
+  "Tampilkan semua provinsi": "Show all provinces",
+  "Kembali ke daftar provinsi": "Back to province list",
+  "Sumber dan cara hitung": "Sources and methodology",
+  "Cara hitung": "Methodology",
+  "Titik panas dari <a href=\"https://sipongi.gakkum.kehutanan.go.id\" rel=\"noopener\">SiPongi+</a>, Direktorat Pengendalian Kebakaran Hutan dan Lahan, Kementerian Kehutanan, yang meneruskan deteksi satelit NASA (MODIS, VIIRS NOAA-{0}, VIIRS NOAA-{1}). Data diambil dari API publik peta SiPongi+ tanpa login.": "Hotspots from <a href=\"https://sipongi.gakkum.kehutanan.go.id\" rel=\"noopener\">SiPongi+</a>, Directorate of Forest and Land Fire Control, Ministry of Forestry, relaying NASA satellite detections (MODIS, VIIRS NOAA-{0}, VIIRS NOAA-{1}). Collected from the public SiPongi+ map API without login.",
+  "Luas indikasi kebakaran dari rekap resmi SiPongi+ per provinsi (<a href=\"https://sipongi.gakkum.kehutanan.go.id/indikasi-luas-kebakaran\" rel=\"noopener\">halaman sumber</a>), ditarik ulang di setiap pembaruan.": "Indicative burned area from official SiPongi+ provincial recaps (<a href=\"https://sipongi.gakkum.kehutanan.go.id/indikasi-luas-kebakaran\" rel=\"noopener\">source page</a>), refreshed on every update.",
+  "Halaman ini dibangun ulang otomatis tiga kali sehari ({0}, {1}, {2} WIB). Empat hari terakhir selalu ditarik ulang, karena deteksi bisa masuk terlambat.": "This page is rebuilt automatically three times a day ({0}, {1}, {2} WIB). The last four days are always re-fetched because detections can arrive late.",
+  "Semua tingkat keyakinan (rendah, sedang, tinggi) dihitung, sama dengan tampilan bawaan SiPongi+. Tanggal memakai WIB. \"{0} hari\" dan \"{1} hari\" adalah hari penuh yang berakhir kemarin; hari terakhir ditampilkan terpisah karena belum lengkap.": "All confidence levels (low, medium, high) are counted, matching SiPongi+'s default view. Dates use WIB (UTC+7). \"{0} days\" and \"{1} days\" cover complete days ending yesterday; today is shown separately as it is still in progress.",
+  "Total semua satelit sejak {0}: <b class=\"num\" data-fig=\"all_ytd\"></b> titik, termasuk <b class=\"num\" data-fig=\"noaa21_n\"></b> dari NOAA-{1}. Karena itu angka resmi SiPongi+ sejak November bisa sekitar dua kali angka di sini. Titik panas bukan luas terbakar.": "Total across all satellites since {0}: <b class=\"num\" data-fig=\"all_ytd\"></b> hotspots, including <b class=\"num\" data-fig=\"noaa21_n\"></b> from NOAA-{1}. Official SiPongi+ totals since November can therefore be roughly double the figure here. Hotspots are not burned area.",
+  "Semua dashboard": "All dashboards",
+  "SiPongi+ Direktorat Pengendalian Kebakaran Hutan dan Lahan, Kementerian Kehutanan": "SiPongi+ Directorate of Forest and Land Fire Control, Ministry of Forestry",
+  "Kota Administrasi Jakarta Pusat": "Central Jakarta",
+  "Puncak Jaya": "Puncak Jaya",
+  "Seram Bagian Barat": "West Seram",
+  "Seram Bagian Timur": "East Seram"
  },
- "patterns": [],
+ "patterns": [
+  [
+   "^\\*\\* (\\d{4}): Januari sampai ([A-Za-z]+) saja; tahun lain setahun penuh\\.$",
+   "** \\1: January through \\2 only; other years are full-year totals."
+  ]
+ ],
  "js_all": [
   [
    "var MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',\n      'Agustus', 'September', 'Oktober', 'November', 'Desember'];",
@@ -1118,6 +1193,80 @@
    [
     "'<span class=\"row-out\">keluar 30 Nov</span>'",
     "'<span class=\"row-out\">out 30 Nov</span>'"
+   ]
+  ],
+  "karhutla/index.html": [
+   [
+    "const MON = [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"Mei\", \"Jun\", \"Jul\", \"Agu\", \"Sep\", \"Okt\", \"Nov\", \"Des\"];",
+    "const MON = [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\", \"Jul\", \"Aug\", \"Sep\", \"Oct\", \"Nov\", \"Dec\"];"
+   ],
+   [
+    "const fmt = (n) => String(Math.round(n)).replace(/\\B(?=(\\d{3})+(?!\\d))/g, \".\");",
+    "const fmt = (n) => String(Math.round(n)).replace(/\\B(?=(\\d{3})+(?!\\d))/g, \",\");"
+   ],
+   [
+    "if (!p) return \"baru\";",
+    "if (!p) return \"new\";"
+   ],
+   [
+    "\" s.d. \"",
+    "\" through \""
+   ],
+   [
+    "\" titik panas di \" + fmt(cells.length) + \" sel. Ketuk lingkaran untuk melihat jumlahnya.\"",
+    "\" hotspots across \" + fmt(cells.length) + \" cells. Tap a circle to see its count.\""
+   ],
+   [
+    "\": tidak ada titik panas.\"",
+    "\": no hotspots.\""
+   ],
+   [
+    "\"Peta titik panas Indonesia, \" + periodTxt + \", \" + fmt(total) + \" titik\"",
+    "\"Indonesia fire hotspots map, \" + periodTxt + \", \" + fmt(total) + \" hotspots\""
+   ],
+   [
+    "\"Sel sekitar \" + fmt1(Math.abs(lat)) + \"&deg;\" + (lat < 0 ? \"LS\" : \"LU\") + \", \" +\n      fmt1(lon) + \"&deg;BT: <b>\" + fmt(+d.dataset.n) + \"</b> titik panas.\"",
+    "\"Cell near \" + fmt1(Math.abs(lat)) + \"&deg;\" + (lat < 0 ? \"S\" : \"N\") + \", \" +\n      fmt1(lon) + \"&deg;E: <b>\" + fmt(+d.dataset.n) + \"</b> hotspots.\""
+   ],
+   [
+    "\"</b>: \" + fmt(v) + \" titik panas\" +\n        (i === last ? \" (s.d. \" + M.as_of_time.replace(\":\", \".\") + \" WIB, belum lengkap)\" : \"\") +\n        (i >= 6 && i < last ? \". Rata-rata 7 hari: \" + fmt(sum(s, i - 6, i) / 7) : \"\")",
+    "\"</b>: \" + fmt(v) + \" hotspots\" +\n        (i === last ? \" (through \" + M.as_of_time.replace(\":\", \".\") + \" WIB, incomplete)\" : \"\") +\n        (i >= 6 && i < last ? \". 7-day average: \" + fmt(sum(s, i - 6, i) / 7) : \"\")"
+   ],
+   [
+    "r.name + \", \" + fmt(r.n) + \" titik panas. Buka rincian provinsi.\"",
+    "r.name + \", \" + fmt(r.n) + \" hotspots. Open province details.\""
+   ],
+   [
+    "PW[provWin] ? \"vs sebelumnya\" : \"porsi\"",
+    "PW[provWin] ? \"vs previous\" : \"share\""
+   ],
+   [
+    "showAll ? \"Tampilkan 12 teratas\" : \"Tampilkan semua \" + rows.length + \" provinsi\"",
+    "showAll ? \"Show top 12\" : \"Show all \" + rows.length + \" provinces\""
+   ],
+   [
+    "\": \" + fmt(total) + \" titik panas di \" + rows.length + \" provinsi (MODIS + NOAA-20).\" +\n      (PW[provWin] ? \" Kolom kanan membandingkan dengan \" + provWin + \" hari sebelumnya.\" : \"\") + \" Pilih provinsi untuk rinciannya.\"",
+    "\": \" + fmt(total) + \" hotspots across \" + rows.length + \" provinces (MODIS + NOAA-20).\" +\n      (PW[provWin] ? \" Right column compares with the previous \" + provWin + \" days.\" : \"\") + \" Select a province for details.\""
+   ],
+   [
+    "provWin === \"ytd\" ? \"sejak 1 Jan\" : provWin + \" hari terakhir\"",
+    "provWin === \"ytd\" ? \"since 1 Jan\" : \"in the last \" + provWin + \" days\""
+   ],
+   [
+    "fmt(sum(s, a, b)) + \" titik panas \" + lead + \". Grafik: 60 hari terakhir, MODIS + NOAA-20.\"",
+    "fmt(sum(s, a, b)) + \" hotspots \" + lead + \". Chart: last 60 days, MODIS + NOAA-20.\""
+   ],
+   [
+    "\"Titik panas harian \" + name + \", \" + lab(from) + \" sampai \" + lab(last)",
+    "\"Daily hotspots in \" + name + \", \" + lab(from) + \" to \" + lab(last)"
+   ],
+   [
+    "\"Kabupaten/kota teratas, \" + lead",
+    "\"Top regencies/cities, \" + lead"
+   ],
+   [
+    "\"Tidak ada titik panas pada periode ini.\"",
+    "\"No hotspots in this period.\""
    ]
   ]
  }

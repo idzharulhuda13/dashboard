@@ -34,6 +34,7 @@ SITE = "https://dashboard.idzharulhuda.com/"
 PAGES = {
     "index.html": "en/index.html",
     "gempa/index.html": "en/gempa/index.html",
+    "karhutla/index.html": "en/karhutla/index.html",
     "pisa/index.html": "en/pisa/index.html",
     "pisa-explorer/index.html": "en/pisa-explorer/index.html",
     "pasar/ihsg.html": "en/pasar/ihsg.html",
@@ -139,7 +140,7 @@ def norm(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
-FIG_SPAN = re.compile(r'(<span\b[^>]*\bdata-fig="[^"]+"[^>]*>)(.*?)(</span>)', re.S)
+FIG_SPAN = re.compile(r'(<(?:span|b)\b[^>]*\bdata-fig="[^"]+"[^>]*>)(.*?)(</(?:span|b)>)', re.S)
 DYN_SPAN = re.compile(r'(<(span|strong|b|em|time)\b[^>]*\b(?:data-fig|data-dateline-text|data-live|data-bind)[^>]*>)(.*?)(</\2>)', re.S)
 
 
@@ -487,7 +488,7 @@ def add_switch(html: str, id_path: str, to_en: bool) -> str:
     html = html.replace("</head>", alternates(id_path) + "\n</head>", 1)
     sw = (switch_html("/" + PAGES[id_path].replace("index.html", ""), "en", "English") if to_en
           else switch_html(id_url(id_path), "id", "Bahasa Indonesia"))
-    html, n = re.subn(r'(<div class="dateline-strip"[^>]*>\s*<span data-dateline-text>[^<]*</span>)',
+    html, n = re.subn(r'(<div class="dateline(?:-strip)?"[^>]*>(?:\s*<div class="container">)?(?:\s*<span>)?\s*<span data-dateline-text>[^<]*</span>)',
                       lambda m: m.group(1) + sw, html, count=1)
     if n != 1:
         raise SystemExit(f"{id_path}: dateline-strip tidak ketemu, tombol bahasa tidak bisa dipasang")

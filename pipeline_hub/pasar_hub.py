@@ -258,6 +258,33 @@ def load(root: str) -> dict:
     )
     lastmod["https://dashboard.idzharulhuda.com/ekonomi/pdb.html"] = eko_as_of
 
+    # Pelat 08 (Bumi / Karhutla): titik panas harian MODIS + NOAA-20 dari SiPongi+.
+    kh = _load(root, "data/karhutla/karhutla.json")
+    kh_as_of = (kh.get("meta") or {}).get("as_of")
+    if not kh_as_of or len(kh_as_of) != 10:
+        raise RuntimeError(f"data/karhutla/karhutla.json tanpa meta.as_of yang sah: {kh_as_of!r}")
+    kf = kh["fig"]
+    kh_basis = kh["nat"]["basis"]
+    # Gunakan hari-hari penuh sampai kemarin (selaras dengan puncak & yday), karena hari terakhir belum selesai.
+    kh_series = [float(v) for v in (kh_basis[:-1] if len(kh_basis) > 2 else kh_basis)]
+    kh_peak_idx = max(range(len(kh_series)), key=lambda i: kh_series[i])
+    kh_yday_iso = kf["ytd_span"]["r"][1]
+    fig["karhutla_asof_long"] = {"r": kh_as_of, "d": long_date(kh_as_of)}
+    fig["karhutla_days"] = {"r": len(kh_series), "d": str(len(kh_series))}
+    fig["karhutla_peak"] = {"r": kf["peak"]["r"], "d": kf["peak"]["d"]}
+    fig["karhutla_yday"] = {"r": kf["yday"]["r"], "d": kf["yday"]["d"]}
+    fig["karhutla_yday_short"] = {"r": kh_yday_iso, "d": short_date(kh_yday_iso)}
+    svg["bumi_karhutla"] = _line_svg(
+        kh_series,
+        ref_idx=kh_peak_idx,
+        ref_label=kf["peak"]["d"],
+        last_label=kf["yday"]["d"],
+        tick_left=short_date(kh["meta"]["d0"]),
+        tick_right=short_date(kh_yday_iso),
+        figs=("karhutla_peak", "karhutla_yday", "karhutla_yday_short"),
+    )
+    lastmod["https://dashboard.idzharulhuda.com/karhutla/"] = kh_as_of
+
     def inject(html: str) -> str:
         for key, markup in svg.items():
             marker = f"<!--FIG:{key}-->"
@@ -270,4 +297,4 @@ def load(root: str) -> dict:
         return html
 
     return {"fig": fig, "svg": svg, "lastmod": lastmod, "inject": inject,
-            "as_of": {name: p["meta"]["as_of"] for name, p in (("ihsg", ihsg), ("rupiah", rupiah), ("msci", msci), ("ekonomi", eko))}}
+            "as_of": {name: p["meta"]["as_of"] for name, p in (("ihsg", ihsg), ("rupiah", rupiah), ("msci", msci), ("ekonomi", eko), ("karhutla", kh))}}

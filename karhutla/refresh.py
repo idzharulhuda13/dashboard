@@ -62,7 +62,14 @@ def main() -> int:
         print(pull.stdout, pull.stderr, file=sys.stderr)
         log("FATAL: git pull --rebase gagal; tidak push")
         return 6
-    run("git", "add", "data/karhutla/karhutla.json", "karhutla/index.html", "data/karhutla/source/luas_provinsi.json")
+    step("hub", py, "pipeline_hub/build_hub.py", code=7)
+    step("og", py, "pipeline/build_og.py", code=7)
+    step("hub-verify", py, "pipeline_hub/verify.py", code=7)
+    loc = run(py, "i18n/localize.py")
+    if loc.returncode != 0:
+        log(f"PERINGATAN: i18n/localize.py exit {loc.returncode}")
+    run("git", "add", "data/karhutla/karhutla.json", "karhutla/index.html", "data/karhutla/source/luas_provinsi.json",
+        "index.html", "sitemap.xml", "assets/og", "en")
     if run("git", "diff", "--cached", "--quiet").returncode == 0:
         log("tidak ada perubahan, tidak commit")
         return 0

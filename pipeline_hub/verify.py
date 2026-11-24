@@ -75,7 +75,8 @@ def check_1_stamp(index_path: str, template_path: str, annex_prof_path: str, gem
 
     font_paths = sorted(glob.glob(os.path.join(fonts_dir, "*.woff2")))
     pasar_paths = [os.path.join(ROOT, "data", "pasar", f"{name}.json") for name in ("ihsg", "rupiah", "msci")]
-    input_paths = [annex_prof_path, gempa_data_path, template_path, explorer_payload_path] + pasar_paths + font_paths
+    karhutla_path = os.path.join(ROOT, "data", "karhutla", "karhutla.json")
+    input_paths = [annex_prof_path, gempa_data_path, template_path, explorer_payload_path, karhutla_path] + pasar_paths + font_paths
 
     stamp_hasher = hashlib.sha256()
     for p in input_paths:
@@ -277,8 +278,8 @@ def check_4_fallback_literals(index_content: str, embedded_data: dict):
     if "<!--FIG:" in index_content:
         return False, "index.html masih memuat placeholder <!--FIG:...--> yang belum terisi"
     svg_count = index_content.count('class="window-fig"')
-    if svg_count != 4:
-        return False, f"jumlah gambar statis (3 pasar + 1 ekonomi) di index.html bukan 4 (actual: {svg_count})"
+    if svg_count != 5:
+        return False, f"jumlah gambar statis (3 pasar + 1 ekonomi + 1 karhutla) di index.html bukan 5 (actual: {svg_count})"
 
     return True, (
         f"all {len(spans)} span[data-fig] fallback literals equal payload display values, "
@@ -372,7 +373,7 @@ def check_5_skeleton(index_path: str, template_path: str):
     # Gambar pasar disuntikkan saat build: satu placeholder di template diganti satu <svg>
     # inline, jadi keduanya dikuncikan ke sentinel yang sama sebelum dibandingkan baris demi baris.
     reconstructed = re.sub(r'<svg class="window-fig".*?</svg>', '<!--__FIG__-->', reconstructed, flags=re.DOTALL)
-    template_skeleton = re.sub(r'<!--FIG:(?:pasar|ekonomi)_[a-z]+-->', '<!--__FIG__-->', template_skeleton)
+    template_skeleton = re.sub(r'<!--FIG:(?:pasar|ekonomi|bumi)_[a-z]+-->', '<!--__FIG__-->', template_skeleton)
 
     # Isi span[data-fig] ditulis ulang builder dari payload, jadi teksnya dinormalkan dulu;
     # check_4 yang memastikan nilai di halaman benar-benar sama dengan payload.
@@ -827,10 +828,20 @@ def check_9_sitemap(sitemap_path: str, gempa_data_path: str, pisa_index_path: st
             return False, f"data/pasar/{name}.json meta.as_of tidak sah: {as_of!r}"
         pasar_lastmods[f"{SITE}/pasar/{name}.html"] = as_of
 
+    karhutla_path = os.path.join(ROOT, "data", "karhutla", "karhutla.json")
+    if not os.path.isfile(karhutla_path):
+        return False, "data/karhutla/karhutla.json tidak ada untuk menurunkan lastmod"
+    with open(karhutla_path, "r", encoding="utf-8") as kf:
+        karhutla_payload = json.load(kf)
+    kh_as_of = (karhutla_payload.get("meta") or {}).get("as_of", "")
+    if not re.match(r"^\d{4}-\d{2}-\d{2}$", kh_as_of):
+        return False, f"data/karhutla/karhutla.json meta.as_of tidak sah: {kh_as_of!r}"
+
     expected_lastmods = {
         f"{SITE}/": root_lastmod,
         f"{SITE}/gempa/": gempa_lastmod,
         f"{SITE}/pisa/": pisa_lastmod,
+        f"{SITE}/karhutla/": kh_as_of,
     }
     expected_lastmods.update(pasar_lastmods)
 

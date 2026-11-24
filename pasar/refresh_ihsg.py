@@ -229,7 +229,7 @@ def main() -> int:
         msg = f"IHSG harian: tambah sesi {session_date} ({q['change_pct']:+.2f}%)"
         refresh_en()
         git("add", "data/pasar/ihsg.json", "data/pasar/source/ihsg-appended.jsonl",
-            "pasar/ihsg.html", "index.html", "sitemap.xml", "en")
+            "pasar/ihsg.html", "index.html", "sitemap.xml", "assets/og", "en")
         staged = git("diff", "--cached", "--quiet")
         if staged.returncode == 0:
             log("tidak ada perubahan untuk di-commit")

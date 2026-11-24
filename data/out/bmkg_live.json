@@ -1,6 +1,30 @@
 {
  "latest": [
   {
+   "waktu_wib": "18:24:32 WIB",
+   "tanggal": "23 Nov 2026",
+   "datetime_utc": "2026-11-23T11:24:32+00:00",
+   "lat": 1.44,
+   "lon": 131.96,
+   "mag": 5.3,
+   "depth_km": 10.0,
+   "wilayah": "241 km TimurLaut RAJAAMPAT-PAPUABRTDY",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
+   "waktu_wib": "14:36:24 WIB",
+   "tanggal": "23 Nov 2026",
+   "datetime_utc": "2026-11-23T07:36:24+00:00",
+   "lat": -7.63,
+   "lon": 128.38,
+   "mag": 5.4,
+   "depth_km": 141.0,
+   "wilayah": "87 km TimurLaut MALUKUBRTDAYA",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
    "waktu_wib": "14:54:39 WIB",
    "tanggal": "22 Nov 2026",
    "datetime_utc": "2026-11-22T07:54:39+00:00",
@@ -153,30 +177,6 @@
    "mag": 5.5,
    "depth_km": 10.0,
    "wilayah": "20 km BaratLaut SERAMBAGIANTIMUR-MALUKU",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
-  },
-  {
-   "waktu_wib": "15:13:10 WIB",
-   "tanggal": "02 Nov 2026",
-   "datetime_utc": "2026-11-02T08:13:10+00:00",
-   "lat": 1.31,
-   "lon": 124.83,
-   "mag": 5.3,
-   "depth_km": 148.0,
-   "wilayah": "1 km BaratDaya TOMOHON-SULUT",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
-  },
-  {
-   "waktu_wib": "07:53:11 WIB",
-   "tanggal": "02 Nov 2026",
-   "datetime_utc": "2026-11-02T00:53:11+00:00",
-   "lat": -7.08,
-   "lon": 130.07,
-   "mag": 5.5,
-   "depth_km": 130.0,
-   "wilayah": "169 km BaratLaut TANIMBAR",
    "potensi": "Tidak berpotensi tsunami",
    "dirasakan": ""
   }

@@ -1,6 +1,18 @@
 {
  "latest": [
   {
+   "waktu_wib": "19:08:11 WIB",
+   "tanggal": "25 Nov 2026",
+   "datetime_utc": "2026-11-25T12:08:11+00:00",
+   "lat": -0.43,
+   "lon": 123.08,
+   "mag": 5.5,
+   "depth_km": 56.0,
+   "wilayah": "56 km TimurLaut PULAUPUAH-SULTENG",
+   "potensi": "Tidak berpotensi tsunami",
+   "dirasakan": ""
+  },
+  {
    "waktu_wib": "18:24:32 WIB",
    "tanggal": "23 Nov 2026",
    "datetime_utc": "2026-11-23T11:24:32+00:00",
@@ -167,21 +179,45 @@
    "wilayah": "90 km BaratDaya TANIMBAR",
    "potensi": "Tidak berpotensi tsunami",
    "dirasakan": ""
-  },
-  {
-   "waktu_wib": "16:48:29 WIB",
-   "tanggal": "09 Nov 2026",
-   "datetime_utc": "2026-11-09T09:48:29+00:00",
-   "lat": -2.93,
-   "lon": 130.44,
-   "mag": 5.5,
-   "depth_km": 10.0,
-   "wilayah": "20 km BaratLaut SERAMBAGIANTIMUR-MALUKU",
-   "potensi": "Tidak berpotensi tsunami",
-   "dirasakan": ""
   }
  ],
  "felt": [
+  {
+   "waktu_wib": "20:28:30 WIB",
+   "tanggal": "25 Nov 2026",
+   "datetime_utc": "2026-11-25T13:28:30+00:00",
+   "lat": -8.36,
+   "lon": 120.52,
+   "mag": 3.5,
+   "depth_km": 5.0,
+   "wilayah": "Pusat gempa berada di darat 29 km Utara Ruteng, Manggarai",
+   "potensi": "",
+   "dirasakan": "II - III Kab. Manggarai"
+  },
+  {
+   "waktu_wib": "19:08:11 WIB",
+   "tanggal": "25 Nov 2026",
+   "datetime_utc": "2026-11-25T12:08:11+00:00",
+   "lat": -0.43,
+   "lon": 123.08,
+   "mag": 5.5,
+   "depth_km": 56.0,
+   "wilayah": "Pusat gempa berada di laut 56 km timur laut Pulau Puah",
+   "potensi": "",
+   "dirasakan": "III Luwuk, III Kota Gorontalo, III Kab. Gorontalo, III Bone Bolango, III Gorontalo Utara, III Pohuwato, III Minahasa Tenggara, III Boalemo"
+  },
+  {
+   "waktu_wib": "12:33:27 WIB",
+   "tanggal": "25 Nov 2026",
+   "datetime_utc": "2026-11-25T05:33:27+00:00",
+   "lat": -8.14,
+   "lon": 120.49,
+   "mag": 4.0,
+   "depth_km": 5.0,
+   "wilayah": "Pusat gempa berada di laut 53 km utara Ruteng-Manggarai",
+   "potensi": "",
+   "dirasakan": "II Kab. Manggarai"
+  },
   {
    "waktu_wib": "14:54:39 WIB",
    "tanggal": "22 Nov 2026",
@@ -325,42 +361,6 @@
    "wilayah": "Pusat gempa berada di darat 19 km timur laut Sumbawa",
    "potensi": "",
    "dirasakan": "II - III Sumbawa"
-  },
-  {
-   "waktu_wib": "13:31:50 WIB",
-   "tanggal": "19 Nov 2026",
-   "datetime_utc": "2026-11-19T06:31:50+00:00",
-   "lat": -2.49,
-   "lon": 121.25,
-   "mag": 3.6,
-   "depth_km": 5.0,
-   "wilayah": "Pusat gempa berada di darat 20 km timur laut Luwu Timur",
-   "potensi": "",
-   "dirasakan": "III Malili"
-  },
-  {
-   "waktu_wib": "08:34:48 WIB",
-   "tanggal": "19 Nov 2026",
-   "datetime_utc": "2026-11-19T01:34:48+00:00",
-   "lat": 0.47,
-   "lon": 96.56,
-   "mag": 5.4,
-   "depth_km": 12.0,
-   "wilayah": "Pusat gempa berada di laut 114 km Barat Daya Nias Barat",
-   "potensi": "",
-   "dirasakan": "II Nias Selatan"
-  },
-  {
-   "waktu_wib": "23:11:00 WIB",
-   "tanggal": "18 Nov 2026",
-   "datetime_utc": "2026-11-18T16:11:00+00:00",
-   "lat": -8.1,
-   "lon": 120.49,
-   "mag": 4.0,
-   "depth_km": 3.0,
-   "wilayah": "Pusat gempa berada di laut 57 km utara Ruteng - Manggarai",
-   "potensi": "",
-   "dirasakan": "II Kab. Manggarai"
   }
  ]
 }

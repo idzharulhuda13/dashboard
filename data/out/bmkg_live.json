@@ -183,6 +183,18 @@
  ],
  "felt": [
   {
+   "waktu_wib": "02:28:05 WIB",
+   "tanggal": "28 Nov 2026",
+   "datetime_utc": "2026-11-27T19:28:05+00:00",
+   "lat": -2.06,
+   "lon": 120.62,
+   "mag": 4.3,
+   "depth_km": 4.0,
+   "wilayah": "Pusat gempa berada di darat 7 km barat Poso",
+   "potensi": "",
+   "dirasakan": "III Pendolo"
+  },
+  {
    "waktu_wib": "10:59:44 WIB",
    "tanggal": "27 Nov 2026",
    "datetime_utc": "2026-11-27T03:59:44+00:00",
@@ -349,18 +361,6 @@
    "wilayah": "Pusat gempa berada di laut 61 km utara Ruteng, Manggarai",
    "potensi": "",
    "dirasakan": "II - III Kab. Manggarai"
-  },
-  {
-   "waktu_wib": "00:50:26 WIB",
-   "tanggal": "21 Nov 2026",
-   "datetime_utc": "2026-11-20T17:50:26+00:00",
-   "lat": -7.51,
-   "lon": 106.85,
-   "mag": 4.6,
-   "depth_km": 17.0,
-   "wilayah": "Pusat gempa berada di laut 66 km selatan Kota Sukabumi",
-   "potensi": "",
-   "dirasakan": "III Lengkong, III Pabuaran, III Ciemas, III Cidolog, II - III Palabuanratu, II - III Nagrak, II Kota Cimahi, II Ciparay, II Pangalengan, II Kab. Bandung"
   }
  ]
 }
